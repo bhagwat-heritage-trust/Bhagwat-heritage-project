@@ -1,7 +1,12 @@
 import { memo, useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
-import { SEVA_BODY_TEXT_CLASS, SEVA_CARD_TITLE_CLASS, SEVA_SECTION_HEADING_CLASS, SEVA_SECTION_LABEL_CLASS } from "./sevaTypography";
+import {
+  SEVA_BODY_TEXT_CLASS,
+  SEVA_CARD_TITLE_CLASS,
+  SEVA_SECTION_HEADING_CLASS,
+  SEVA_SECTION_LABEL_CLASS,
+} from "./sevaTypography";
 
 type IconProps = { className?: string };
 type ServiceItem = {
@@ -14,42 +19,42 @@ type ServiceItem = {
 const EDUCATION_SERVICES: ServiceItem[] = [
   {
     title: "Scholarship Support",
-    description: "Financial aid for school, college, and competitive exam students from low-income families.",
+    description: "Need-based financial help for school, college, and exam-focused learners.",
     icon: <ScholarshipIcon />,
   },
   {
     title: "School Kit Distribution",
-    description: "Providing books, notebooks, uniforms, and bags to underprivileged students.",
+    description: "Books, notebooks, bags, and essentials for students who need support.",
     icon: <SchoolKitIcon />,
   },
   {
     title: "Digital Education Support",
-    description: "Access to online learning through tablets, laptops, and internet support in rural areas.",
+    description: "Practical support for online learning access and digital study needs.",
     icon: <DigitalLearningIcon />,
   },
   {
     title: "Free Coaching Classes",
-    description: "Free tuition for core subjects like Maths, Science, and English, including basic exam preparation.",
+    description: "Guidance in core subjects with steady academic support.",
     icon: <CoachingIcon />,
   },
   {
     title: "Skill Development Programs",
-    description: "Training in computer skills, spoken English, and job-oriented learning for youth.",
+    description: "Computer skills, spoken English, and practical learning for youth.",
     icon: <SkillProgramIcon />,
   },
   {
     title: "Girl Child Education Support",
-    description: "Focused scholarships and awareness programs to promote education for girls.",
+    description: "Focused help to keep girls learning with dignity and confidence.",
     icon: <GirlEducationIcon />,
   },
   {
     title: "Library & Learning Centers",
-    description: "Community libraries, study spaces, and book banks for continuous learning.",
+    description: "Study spaces, book banks, and shared learning resources.",
     icon: <LibraryIcon />,
   },
   {
     title: "Career Guidance & Mentorship",
-    description: "Career counseling, expert sessions, and mentorship programs for students.",
+    description: "Mentor guidance, career conversations, and student confidence building.",
     icon: <MentorshipIcon />,
   },
 ];
@@ -135,24 +140,24 @@ const EducationServiceCard = memo(function EducationServiceCard({
 }) {
   return (
     <article
-      className="group flex h-full flex-col rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_30px_rgba(0,0,0,0.26)]"
+      className="group flex h-full min-h-[245px] flex-col rounded-[20px] border border-[#E8D9BD] bg-[#FFF9F0] p-5 shadow-[0_14px_30px_rgba(111,78,25,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(111,78,25,0.13)]"
       style={{ transitionDelay: `${index * 60}ms` }}
     >
-      <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--campaign-accent)]/15 text-[var(--campaign-accent)] transition-all duration-300 group-hover:bg-[var(--campaign-accent)] group-hover:text-white">
+      <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F3E7C9] text-[#D89B2B] transition-all duration-300 group-hover:bg-[#D89B2B] group-hover:text-white">
         {service.icon}
       </div>
-      <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{service.title}</h3>
-      <p className={`mt-3 flex-1 ${SEVA_BODY_TEXT_CLASS}`}>{service.description}</p>
+      <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{service.title}</h3>
+      <p className={`mt-3 flex-1 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{service.description}</p>
       <div className="mt-5 flex flex-wrap gap-3">
         <Link
           to={ROUTES.donate}
-          className="inline-flex items-center rounded-xl bg-[var(--campaign-accent)] px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]"
+          className="inline-flex items-center rounded-full bg-gradient-to-r from-[#D89B2B] to-[#F4B84A] px-4 py-2 text-sm font-bold text-white shadow-[0_10px_18px_rgba(216,155,43,0.22)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_24px_rgba(216,155,43,0.30)]"
         >
           Donate
         </Link>
         <Link
           to={ROUTES.involved.sponsor}
-          className="inline-flex items-center rounded-xl bg-[var(--campaign-deep)] px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-[var(--campaign-deep-hover)]"
+          className="inline-flex items-center rounded-full border border-[#D89B2B] px-4 py-2 text-sm font-bold text-[#8A5B16] transition-all hover:-translate-y-0.5 hover:bg-[#FFF4D6]"
         >
           Sponsor
         </Link>
@@ -163,14 +168,16 @@ const EducationServiceCard = memo(function EducationServiceCard({
 
 export const EducationServicesSection = memo(function EducationServicesSection() {
   return (
-    <RevealSection className="max-w-7xl mx-auto px-4 py-10">
-      <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
+    <RevealSection className="mx-auto max-w-7xl px-4 py-14 md:py-16">
+      <div className="rounded-[28px] border border-[#E8D9BD] bg-[#FFFDF8] p-6 shadow-[0_18px_40px_rgba(111,78,25,0.08)] md:p-8">
           <div className="mx-auto max-w-3xl text-center">
-            <p className={SEVA_SECTION_LABEL_CLASS}>Education Services</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Support learning through focused educational seva</h2>
+            <p className={`${SEVA_SECTION_LABEL_CLASS} text-[#B97916]`}>Education Services</p>
+            <h2 className={`${SEVA_SECTION_HEADING_CLASS} text-[#4A3422]`}>
+              Support learning through focused educational seva
+            </h2>
           </div>
 
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
             {EDUCATION_SERVICES.map((service, index) => (
               <EducationServiceCard key={service.title} service={service} index={index} />
             ))}
