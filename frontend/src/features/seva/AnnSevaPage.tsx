@@ -902,11 +902,11 @@ function ReportsSection({
               key={`${card.title}-${card.date}`}
               className="overflow-hidden rounded-[30px] border border-[#e6d4bb] bg-white/92 shadow-[0_18px_36px_rgba(101,71,35,0.08)]"
             >
-              <div className="relative aspect-[4/3] overflow-hidden md:h-48 md:aspect-auto">
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#fff0da] md:h-48 md:aspect-auto">
                 <img
                   src={card.image}
                   alt=""
-                  className="h-full w-full bg-[#fff0da] object-cover"
+                  className="h-full w-full object-contain md:object-cover"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
@@ -967,11 +967,11 @@ function ReportsSection({
       {selectedReport ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1f1207]/45 px-4 py-8 backdrop-blur-[2px]">
           <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-[32px] border border-[#e3c7a0] bg-[#fffdf8] shadow-[0_24px_60px_rgba(101,71,35,0.24)]">
-            <div className="relative aspect-[4/3] overflow-hidden md:h-64 md:aspect-auto">
+            <div className="relative aspect-[4/3] overflow-hidden bg-[#fff0da] md:h-64 md:aspect-auto">
               <img
                 src={selectedReport.image}
                 alt=""
-                className="h-full w-full bg-[#fff0da] object-cover"
+                className="h-full w-full object-contain md:object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
               <button

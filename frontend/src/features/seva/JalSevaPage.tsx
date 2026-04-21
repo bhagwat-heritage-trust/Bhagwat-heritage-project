@@ -554,7 +554,7 @@ function CampaignReportsSection() {
         {campaigns.map((campaign) => (
           <article key={campaign.title} className="overflow-hidden rounded-[26px] border border-[#E8DECF] bg-white shadow-[0_18px_40px_rgba(31,78,121,0.1)]">
             <div className="aspect-[4/3] w-full overflow-hidden bg-[#E8DECF] md:h-48 md:aspect-auto">
-              <img src={campaign.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+              <img src={campaign.image} alt="" className="h-full w-full object-contain md:object-cover" loading="lazy" />
             </div>
             <div className="p-6">
               <h3 className="text-2xl font-bold text-[#17324D]">{campaign.title}</h3>
