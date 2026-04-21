@@ -38,11 +38,6 @@ type HighlightItem = {
   icon: AnnIconKey;
 };
 
-type ServiceLocationItem = {
-  title: string;
-  icon: AnnIconKey;
-};
-
 type DonationPlan = {
   amount: string;
   description: string;
@@ -74,11 +69,6 @@ type Testimonial = {
   author: string;
 };
 
-type FaqItem = {
-  question: string;
-  answer: string;
-};
-
 const SECTION_SHELL =
   "mx-auto max-w-6xl rounded-[34px] border border-[#e7d3b5] bg-white/88 px-6 py-8 shadow-[0_18px_38px_rgba(101,71,35,0.08)] md:px-10 md:py-12";
 
@@ -105,7 +95,7 @@ const quickImpactStats: readonly ImpactStat[] = [
   { value: "50,000+", label: "Meals Supported" },
   { value: "20+", label: "Seva Locations" },
   { value: "500+", label: "Seva Participants" },
-  { value: "Across Multiple Occasions", label: "Ongoing Food Support" },
+  { value: "10+", label: "Multiple Occasions" },
 ] as const;
 
 const annHighlights: readonly HighlightItem[] = [
@@ -169,32 +159,32 @@ const serviceCoverageItems = [
   "Relief-Oriented Meal Support",
 ] as const;
 
-const serviceLocations = [
+const serviceLocationCards = [
   {
     title: "Temples and Ashram Spaces",
-    icon: "temple",
+    icon: "temple" as const,
   },
   {
     title: "Spiritual Gatherings and Festivals",
-    icon: "festival",
+    icon: "festival" as const,
   },
   {
     title: "Pilgrim and Traveler Support Areas",
-    icon: "pilgrim",
+    icon: "pilgrim" as const,
   },
   {
     title: "Medical Assistance Zones",
-    icon: "medical",
+    icon: "medical" as const,
   },
   {
     title: "Community Service Locations",
-    icon: "community",
+    icon: "community" as const,
   },
   {
     title: "Special Relief and Support Environments",
-    icon: "relief",
+    icon: "relief" as const,
   },
-] as const satisfies readonly ServiceLocationItem[];
+] as const;
 
 const reportCards: readonly ReportCardItem[] = [
   {
@@ -297,39 +287,6 @@ const testimonials: readonly Testimonial[] = [
     quote:
       "Offering food seva on a special family occasion made the day truly meaningful for us.",
     author: "Donor",
-  },
-] as const;
-
-const faqItems: readonly FaqItem[] = [
-  {
-    question: "How is Ann Seva carried out?",
-    answer:
-      "Ann Seva is organized according to need, occasion, and service location, with food support offered through seva drives, distribution efforts, and special programs.",
-  },
-  {
-    question: "Can I offer Ann Seva on a special occasion?",
-    answer:
-      "Yes. You may dedicate Ann Seva on birthdays, memorial days, anniversaries, festivals, or family occasions.",
-  },
-  {
-    question: "Will I receive a donation acknowledgement or receipt?",
-    answer:
-      "Yes. Based on the contribution process, acknowledgement and related support details may be shared.",
-  },
-  {
-    question: "Can I collaborate to organize Ann Seva in my city?",
-    answer:
-      "Yes. Individuals, families, and groups may connect with the trust to explore local seva support opportunities.",
-  },
-  {
-    question: "How does the organization maintain transparency?",
-    answer:
-      "Service glimpses, reports, campaign highlights, and relevant updates may be shared from time to time to reflect the impact of the seva.",
-  },
-  {
-    question: "Is monthly support available?",
-    answer:
-      "Yes. Recurring support models can be enabled for those who wish to contribute regularly toward Ann Seva.",
   },
 ] as const;
 
@@ -507,33 +464,6 @@ function QuoteMarkIcon({ className = "h-6 w-6" }: { className?: string }) {
   );
 }
 
-function FaqToggleIcon({
-  expanded,
-  className = "h-5 w-5",
-}: {
-  expanded: boolean;
-  className?: string;
-}) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <path
-        d="M5 12H19"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-      />
-      {!expanded ? (
-        <path
-          d="M12 5V19"
-          stroke="currentColor"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-        />
-      ) : null}
-    </svg>
-  );
-}
-
 function AnnIcon({
   icon,
   className = "h-6 w-6",
@@ -581,10 +511,10 @@ function SectionHeading({
 
 function AnnSevaHero({ onJoin }: { onJoin: () => void }) {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-[#fff8ef] pb-8">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(228,180,94,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(196,109,26,0.09),transparent_32%)]" />
       <div
-        className="relative min-h-[640px] bg-cover bg-center"
+        className="relative min-h-[640px] overflow-hidden rounded-b-[40px] bg-cover bg-center shadow-[0_18px_40px_rgba(23,12,5,0.14)]"
         style={{
           backgroundImage:
             "url('https://res.cloudinary.com/der8zinu8/image/upload/v1776686941/1776685478090_pwj1rr.png')",
@@ -659,22 +589,24 @@ function HeroIntroSection() {
 
 function ImpactStatsStrip() {
   return (
-    <section className="px-4 py-10 md:px-8">
-      <div className="mx-auto max-w-6xl rounded-[32px] border border-[#ead6bb] bg-[linear-gradient(180deg,#fffdf9_0%,#fff6e8_100%)] px-5 py-6 shadow-[0_16px_34px_rgba(101,71,35,0.08)] md:px-8">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {quickImpactStats.map((item) => (
-            <article
-              key={`${item.value}-${item.label}`}
-              className="rounded-[24px] border border-[#e6d4bb] bg-white/90 px-5 py-6 text-center shadow-[0_12px_26px_rgba(101,71,35,0.06)]"
-            >
-              <p className="text-[24px] font-black uppercase tracking-wide text-[#c46d1a]">
-                {item.value}
-              </p>
-              <p className="mt-1 text-[14px] font-black text-[#5e5247] md:text-[20px]">
-                {item.label}
-              </p>
-            </article>
-          ))}
+    <section className="relative z-20 bg-[#fff8ef] px-4 pb-10 pt-2 md:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="-mt-16 rounded-[30px] border border-[#ead6bb] bg-[linear-gradient(180deg,rgba(255,253,249,0.97)_0%,rgba(255,246,232,0.99)_100%)] p-3 shadow-[0_18px_36px_rgba(101,71,35,0.14)] backdrop-blur md:-mt-20 md:p-4">
+          <div className="grid gap-3 md:grid-cols-4">
+            {quickImpactStats.map((item) => (
+              <article
+                key={`${item.value}-${item.label}`}
+                className="rounded-[22px] border border-[#e6d4bb] bg-white/92 px-4 py-5 text-center shadow-[0_12px_24px_rgba(101,71,35,0.06)]"
+              >
+                <p className="whitespace-nowrap text-[21px] font-black uppercase tracking-wide text-[#c46d1a] md:text-[24px]">
+                  {item.value}
+                </p>
+                <p className="mt-1 whitespace-nowrap text-[12px] font-black text-[#5e5247] md:text-[16px]">
+                  {item.label}
+                </p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -744,119 +676,122 @@ function HighlightsGrid() {
   );
 }
 
-function DonationPlansSection() {
+function GivingOptionsSection() {
+  const [selectedOccasion, setSelectedOccasion] = useState<string>(occasionChips[0]);
+
   return (
     <section className="px-4 py-10 md:px-8">
-      <div className={`${SECTION_SHELL} bg-[linear-gradient(180deg,#fff7ea_0%,#fffdf8_100%)]`}>
-        <SectionHeading
-          eyebrow="Donation Plans"
-          title="Support Ann Seva in a Way That Feels Right for You"
-          description="Whether your contribution is small or significant, it can help ensure that food reaches someone with dignity and care."
-        />
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {donationPlans.map((plan) => (
-            <article
-              key={plan.amount}
-              className={`relative flex h-full flex-col rounded-[30px] border p-6 transition-all duration-300 hover:-translate-y-1 ${
-                plan.featured
-                  ? "border-[#e4b45e] bg-[linear-gradient(180deg,#fff8ed_0%,#fffdf8_100%)] shadow-[0_22px_42px_rgba(196,109,26,0.14)]"
-                  : "border-[#e6d4bb] bg-white/92 shadow-[0_18px_34px_rgba(101,71,35,0.08)]"
-              }`}
-            >
-              {plan.featured ? (
-                <span className="absolute left-6 top-0 -translate-y-1/2 rounded-full bg-[#c46d1a] px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white">
-                  Most Chosen
-                </span>
-              ) : null}
-              <p className="mt-3 text-2xl font-black text-[#c46d1a]">{plan.amount}</p>
-              <p className={`mt-4 flex-1 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
-                {plan.description}
-              </p>
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-[42px] border border-[#e4c89f] bg-[linear-gradient(135deg,#fff1d8_0%,#fff8ef_42%,#fffdf9_100%)] shadow-[0_24px_56px_rgba(196,109,26,0.12)]">
+        <div className="px-6 py-8 md:px-10 md:py-10">
+          <SectionHeading
+            eyebrow="Ann Seva Giving"
+            title="Choose How You Would Like to Support"
+            description="Support daily meal seva, sponsor a meaningful occasion, or begin with a contribution plan that fits your intention."
+          />
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            {occasionChips.map((chip) => (
+              <button
+                type="button"
+                key={chip}
+                onClick={() => setSelectedOccasion(chip)}
+                aria-pressed={selectedOccasion === chip}
+                className={`rounded-full px-4 py-2 text-sm font-semibold shadow-[0_8px_18px_rgba(101,71,35,0.06)] transition-all duration-200 ${
+                  selectedOccasion === chip
+                    ? "border border-[#c46d1a] bg-[#c46d1a] text-white"
+                    : "border border-[#dfc3a2] bg-white/88 text-[#6a5848] hover:border-[#d6ae74] hover:bg-[#fff7ea]"
+                }`}
+              >
+                {chip}
+              </button>
+            ))}
+          </div>
+          <p className="mt-4 text-center text-sm font-medium text-[#7a6a5d]">
+            Selected occasion: <span className="font-bold text-[#b96a22]">{selectedOccasion}</span>
+          </p>
+        </div>
+
+        <div className="px-6 pb-8 md:px-10">
+          <div className="grid gap-4 lg:grid-cols-3">
+            {sponsorshipOptions.map((option) => (
+              <article
+                key={option.title}
+                className="rounded-[28px] border border-[#e4cfb2] bg-white/92 p-6 shadow-[0_16px_30px_rgba(101,71,35,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_38px_rgba(101,71,35,0.12)]"
+              >
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-[16px] bg-[#fff0da] text-[#c46d1a]">
+                  <CalendarIcon />
+                </div>
+                <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>
+                  {option.title}
+                </h3>
+                <p className="mt-3 text-2xl font-black text-[#c46d1a]">
+                  {option.amount}
+                </p>
+                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
+                  {option.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="px-6 pb-6 pt-2 text-center md:px-10">
+          <div className="rounded-[28px] border border-[#e5cfb2] bg-[linear-gradient(135deg,rgba(29,79,99,0.96)_0%,rgba(47,106,127,0.94)_100%)] p-6 text-white shadow-[0_18px_36px_rgba(29,79,99,0.18)]">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#ffd88a]">
+              Direct Support
+            </p>
+            <p className="mt-4 text-[1.45rem] font-black leading-tight text-[#fff6df]">
+              Every contribution helps carry Ann Seva forward with dignity and care.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
               <a
                 href={EXTERNAL_RAZORPAY_DONATE_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-6 inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#e4b45e] px-5 text-base font-semibold text-white shadow-[0_14px_28px_rgba(196,109,26,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#d08a32]"
+                className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-[#f1c770] px-6 text-sm font-semibold text-[#7b4b0f] transition-colors hover:bg-[#e7b555]"
               >
-                {plan.buttonLabel}
+                Donate with Confidence
               </a>
-            </article>
-          ))}
-        </div>
-        <div className="mt-8 flex flex-col gap-4 rounded-[26px] border border-[#ead6bb] bg-white/80 px-5 py-5 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#b96a22]">
-              Support Note
-            </p>
-            <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
-              Custom contribution amounts are also welcome.
-            </p>
-            <p className="mt-2 text-sm leading-6 text-[#7a6a5d]">
-              Acknowledgements, seva updates, and campaign-related communication may
-              be shared with supporters where applicable.
-            </p>
-          </div>
-          <a
-            href={EXTERNAL_RAZORPAY_DONATE_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-[#d9c2a5] px-6 text-sm font-semibold text-[#1d4f63] transition-colors hover:bg-[#fff4e5]"
-          >
-            Donate with Confidence
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ServiceCoverageSplit() {
-  return (
-    <section className="px-4 py-10 md:px-8">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[0.95fr_1.05fr]">
-        <div className="relative overflow-hidden rounded-[34px] border border-[#e7d3b5] bg-white p-3 shadow-[0_18px_38px_rgba(101,71,35,0.08)]">
-          <div className="grid grid-cols-2 gap-3">
-            <img
-              src="https://res.cloudinary.com/der8zinu8/image/upload/v1776690805/ChatGPT_Image_Apr_20_2026_06_42_18_PM_mqjbjq.png"
-              alt="Ann Seva offering and meal service"
-              className="h-48 w-full rounded-[24px] object-cover md:h-56"
-            />
-            <img
-              src="/images/annnn.png"
-              alt="Community Ann Seva distribution"
-              className="h-48 w-full rounded-[24px] object-cover md:h-56"
-            />
-              <div className="col-span-2 rounded-[24px] bg-[linear-gradient(135deg,#1d4f63_0%,#2f6a7f_100%)] p-6 text-white">
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#ffd88a]">
-                  Service Coverage
-                </p>
-                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#ffd46f]`}>
-                  Our effort is to ensure that food seva is not limited to a single
-                  event, but reaches people meaningfully across different places,
-                  moments, and needs.
-              </p>
+              <a
+                href={EXTERNAL_RAZORPAY_DONATE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-white/45 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                Sponsor a Day
+              </a>
             </div>
           </div>
         </div>
-        <div>
-          <SectionHeading
-            title="How Ann Seva Is Carried Forward"
-            align="left"
-            description="Our effort is to ensure that food seva is not limited to a single event, but reaches people meaningfully across different places, moments, and needs."
-          />
-          <div className="mt-8 grid gap-4">
-            {serviceCoverageItems.map((item) => (
-              <div
-                key={item}
-                className="flex items-start gap-4 rounded-[24px] border border-[#e6d4bb] bg-white/90 px-5 py-4 shadow-[0_12px_26px_rgba(101,71,35,0.06)]"
+
+        <div className="px-6 pb-8 md:px-10 md:pb-10">
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {donationPlans.map((plan) => (
+              <article
+                key={plan.amount}
+                className={`relative flex h-full flex-col rounded-[30px] border p-6 transition-all duration-300 hover:-translate-y-1 ${
+                  plan.featured
+                    ? "border-[#e4b45e] bg-[linear-gradient(180deg,#fff8ed_0%,#fffdf8_100%)] shadow-[0_22px_42px_rgba(196,109,26,0.14)]"
+                    : "border-[#e6d4bb] bg-white/92 shadow-[0_18px_34px_rgba(101,71,35,0.08)]"
+                }`}
               >
-                <div className="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#fff0da] text-[#c46d1a]">
-                  <ShieldIcon className="h-5 w-5" />
-                </div>
-                <p className={`${SEVA_BODY_TEXT_CLASS} font-medium text-[#5e5247]`}>
-                  {item}
+                {plan.featured ? (
+                  <span className="absolute left-6 top-0 -translate-y-1/2 rounded-full bg-[#c46d1a] px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white">
+                    Most Chosen
+                  </span>
+                ) : null}
+                <p className="mt-3 text-2xl font-black text-[#c46d1a]">{plan.amount}</p>
+                <p className={`mt-4 flex-1 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
+                  {plan.description}
                 </p>
-              </div>
+                <a
+                  href={EXTERNAL_RAZORPAY_DONATE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-6 inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#e4b45e] px-5 text-base font-semibold text-white shadow-[0_14px_28px_rgba(196,109,26,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#d08a32]"
+                >
+                  {plan.buttonLabel}
+                </a>
+              </article>
             ))}
           </div>
         </div>
@@ -865,25 +800,77 @@ function ServiceCoverageSplit() {
   );
 }
 
-function ServiceLocationsGrid() {
+function ServiceReachSection() {
   return (
     <section className="px-4 py-10 md:px-8">
-      <div className="mx-auto max-w-6xl">
-        <SectionHeading title="Where Ann Seva Reaches" />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {serviceLocations.map((item) => (
-            <article
-              key={item.title}
-              className="flex items-center gap-4 rounded-[24px] border border-[#e7d3b5] bg-white/88 px-5 py-5 shadow-[0_12px_26px_rgba(101,71,35,0.06)]"
-            >
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#eef3f7] text-[#d18612]">
-                <AnnIcon icon={item.icon} className="h-7 w-7" />
-              </div>
-              <p className={`${SEVA_BODY_TEXT_CLASS} font-medium text-[#5e5247]`}>
-                {item.title}
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-[40px] border border-[#e2c79c] bg-[linear-gradient(135deg,#fff6e8_0%,#fffdfa_45%,#f8fbfd_100%)] p-6 shadow-[0_22px_48px_rgba(101,71,35,0.1)] md:p-8">
+        <SectionHeading
+          eyebrow="Reach and Coverage"
+          title="How Ann Seva Reaches People with Care"
+          description="Ann Seva is carried forward across meaningful moments, service locations, and ongoing support spaces so nourishment reaches people with dignity."
+        />
+
+        <div className="mt-10 grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+          <div className="rounded-[32px] border border-[#ead7bc] bg-white/92 p-3 shadow-[0_18px_34px_rgba(101,71,35,0.08)]">
+            <img
+              src="https://res.cloudinary.com/der8zinu8/image/upload/v1776690805/ChatGPT_Image_Apr_20_2026_06_42_18_PM_mqjbjq.png"
+              alt="Ann Seva offering and meal service"
+              className="w-full rounded-[24px] object-cover"
+            />
+            <div className="mt-3 rounded-[24px] bg-[linear-gradient(135deg,#1d4f63_0%,#2f6a7f_100%)] px-5 py-5 text-white">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#ffd88a]">
+                Service Flow
               </p>
-            </article>
-          ))}
+              <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#ffe7b8]`}>
+                From daily meals to festival support and relief-focused outreach,
+                Ann Seva is designed to move where nourishment is most needed.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4">
+            <div className="rounded-[30px] border border-[#e5d2b7] bg-white/90 p-6 shadow-[0_16px_30px_rgba(101,71,35,0.08)]">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#b96a22]">
+                Coverage Highlights
+              </p>
+              <div className="mt-5 grid gap-3">
+                {serviceCoverageItems.map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-start gap-4 rounded-[22px] border border-[#eee1cd] bg-[#fffaf3] px-4 py-4"
+                  >
+                    <div className="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#fff0da] text-[#c46d1a]">
+                      <ShieldIcon className="h-5 w-5" />
+                    </div>
+                    <p className={`${SEVA_BODY_TEXT_CLASS} font-medium text-[#5e5247]`}>
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-[30px] border border-[#dbe6ec] bg-[linear-gradient(180deg,#f8fcff_0%,#ffffff_100%)] p-6 shadow-[0_16px_30px_rgba(29,79,99,0.08)]">
+          <p className="text-center text-sm font-semibold uppercase tracking-[0.22em] text-[#1d4f63]">
+            Service Locations
+          </p>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {serviceLocationCards.map((item) => (
+              <article
+                key={item.title}
+                className="flex items-center gap-4 rounded-[22px] border border-[#dbe8ef] bg-white/95 px-4 py-4 shadow-[0_10px_22px_rgba(29,79,99,0.05)]"
+              >
+                <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef3f7] text-[#d18612]">
+                  <AnnIcon icon={item.icon} className="h-6 w-6" />
+                </div>
+                <p className={`${SEVA_BODY_TEXT_CLASS} font-medium text-[#4f5e66]`}>
+                  {item.title}
+                </p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -915,7 +902,7 @@ function ReportsSection({
               key={`${card.title}-${card.date}`}
               className="overflow-hidden rounded-[30px] border border-[#e6d4bb] bg-white/92 shadow-[0_18px_36px_rgba(101,71,35,0.08)]"
             >
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={card.image}
                   alt={card.title}
@@ -923,40 +910,40 @@ function ReportsSection({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
                 </div>
-              <div className="p-6">
+              <div className="px-6 py-4">
                 <h3 className={`${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>
                   {card.title}
                 </h3>
-                <div className="mt-4 grid gap-3 text-sm text-[#5e5247] md:grid-cols-2">
-                  <div className="rounded-2xl bg-[#fff8ef] px-4 py-3">
-                    <span className="block text-[11px] uppercase tracking-[0.18em] text-[#b96a22]">
+                <div className="mt-3 grid gap-3 text-sm text-[#4c3d31] md:grid-cols-2">
+                  <div className="rounded-2xl bg-[#fff8ef] px-4 py-2.5">
+                    <span className="block text-[11px] uppercase tracking-[0.18em] text-[#9f5717]">
                       Date
                     </span>
-                    <span className="mt-1 block font-semibold">{card.date}</span>
+                    <span className="mt-1 block font-semibold text-[#3f3126]">{card.date}</span>
                   </div>
-                  <div className="rounded-2xl bg-[#fff8ef] px-4 py-3">
-                    <span className="block text-[11px] uppercase tracking-[0.18em] text-[#b96a22]">
+                  <div className="rounded-2xl bg-[#fff8ef] px-4 py-2.5">
+                    <span className="block text-[11px] uppercase tracking-[0.18em] text-[#9f5717]">
                       Location
                     </span>
-                    <span className="mt-1 block font-semibold">{card.location}</span>
+                    <span className="mt-1 block font-semibold text-[#3f3126]">{card.location}</span>
                   </div>
-                  <div className="rounded-2xl bg-[#fff8ef] px-4 py-3">
-                    <span className="block text-[11px] uppercase tracking-[0.18em] text-[#b96a22]">
+                  <div className="rounded-2xl bg-[#fff8ef] px-4 py-2.5">
+                    <span className="block text-[11px] uppercase tracking-[0.18em] text-[#9f5717]">
                       Meals Served
                     </span>
-                    <span className="mt-1 block font-semibold">{card.mealsServed}</span>
+                    <span className="mt-1 block font-semibold text-[#3f3126]">{card.mealsServed}</span>
                   </div>
-                  <div className="rounded-2xl bg-[#fff8ef] px-4 py-3">
-                    <span className="block text-[11px] uppercase tracking-[0.18em] text-[#b96a22]">
+                  <div className="rounded-2xl bg-[#fff8ef] px-4 py-2.5">
+                    <span className="block text-[11px] uppercase tracking-[0.18em] text-[#9f5717]">
                       Occasion
                     </span>
-                    <span className="mt-1 block font-semibold">{card.occasion}</span>
+                    <span className="mt-1 block font-semibold text-[#3f3126]">{card.occasion}</span>
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => onOpenReport(card)}
-                  className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#d9c2a5] px-5 text-sm font-semibold text-[#1d4f63] transition-colors hover:bg-[#fff5e6]"
+                  className="mt-4 inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#d9c2a5] px-5 text-sm font-semibold text-[#1d4f63] transition-colors hover:bg-[#fff5e6]"
                 >
                   View Details
                 </button>
@@ -974,45 +961,6 @@ function ReportsSection({
           </button>
         </div>
 
-        <div id="ann-seva-report-archive" className="mt-12 border-t border-[#e7d3b5] pt-10">
-          <SectionHeading
-            eyebrow="Report Archive"
-            title="Ann Seva Report Highlights"
-            description="A quick archive of recent seva updates, ready to grow into a larger CMS-managed reports section."
-          />
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {reportCards.map((report) => (
-              <article
-                key={`${report.slug}-archive`}
-                className="rounded-[26px] border border-[#e5d2b7] bg-white/90 p-6 shadow-[0_14px_30px_rgba(101,71,35,0.07)]"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b96a22]">
-                      {report.date}
-                    </p>
-                    <h3 className={`mt-3 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>
-                      {report.title}
-                    </h3>
-                  </div>
-                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#fff0da] text-[#c46d1a]">
-                    <PlateIcon className="h-5 w-5" />
-                  </div>
-                </div>
-                <p className={`mt-4 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
-                  {report.summary}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => onOpenReport(report)}
-                  className="mt-5 inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#d9c2a5] px-5 text-sm font-semibold text-[#1d4f63] transition-colors hover:bg-[#fff5e6]"
-                >
-                  Open Report
-                </button>
-              </article>
-            ))}
-          </div>
-        </div>
       </div>
 
       {selectedReport ? (
@@ -1138,133 +1086,6 @@ function ReportsSection({
   );
 }
 
-function AdoptSevaSection({ onSpeak }: { onSpeak: () => void }) {
-  return (
-    <section className="px-4 py-10 md:px-8">
-      <div className="mx-auto max-w-6xl rounded-[40px] border border-[#e4c89f] bg-[linear-gradient(135deg,#fff2dc_0%,#fffaf2_50%,#fff7e7_100%)] px-6 py-8 shadow-[0_20px_44px_rgba(196,109,26,0.12)] md:px-10 md:py-12">
-        <SectionHeading
-          eyebrow="Adopt a Seva"
-          title="Make a Special Occasion Sacred Through Ann Seva"
-          description="You may dedicate Ann Seva on a birthday, memorial day, anniversary, family milestone, festival, or any meaningful occasion. It transforms a personal moment into an offering of compassion."
-        />
-        <div className="mt-8 flex flex-wrap gap-3">
-          {occasionChips.map((chip) => (
-            <span
-              key={chip}
-              className="rounded-full border border-[#dfc3a2] bg-white/82 px-4 py-2 text-sm font-medium text-[#5e5247]"
-            >
-              {chip}
-            </span>
-          ))}
-        </div>
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {sponsorshipOptions.map((option) => (
-            <article
-              key={option.title}
-              className="rounded-[28px] border border-[#e4cfb2] bg-white/88 p-6 shadow-[0_16px_30px_rgba(101,71,35,0.08)]"
-            >
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-[16px] bg-[#fff0da] text-[#c46d1a]">
-                <CalendarIcon />
-              </div>
-              <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>
-                {option.title}
-              </h3>
-              <p className="mt-3 text-2xl font-black text-[#c46d1a]">
-                {option.amount}
-              </p>
-              <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
-                {option.description}
-              </p>
-            </article>
-          ))}
-        </div>
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1.08fr_0.92fr]">
-          <div className="rounded-[30px] border border-[#e4cfb2] bg-white/88 p-6 shadow-[0_16px_30px_rgba(101,71,35,0.08)]">
-            <h3 className={`${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>
-              Organize Ann Seva
-            </h3>
-            <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
-              Share your occasion, city, and expected scale. This form is ready for
-              future admin or CRM integration while already supporting serious
-              enquiries.
-            </p>
-            <form className="mt-6 grid gap-4 md:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="min-h-[52px] rounded-[18px] border border-[#d8c3a2] px-4 text-base"
-              />
-              <input
-                type="tel"
-                placeholder="Mobile Number"
-                className="min-h-[52px] rounded-[18px] border border-[#d8c3a2] px-4 text-base"
-              />
-              <input
-                type="text"
-                placeholder="City"
-                className="min-h-[52px] rounded-[18px] border border-[#d8c3a2] px-4 text-base"
-              />
-              <input
-                type="text"
-                placeholder="Occasion"
-                className="min-h-[52px] rounded-[18px] border border-[#d8c3a2] px-4 text-base"
-              />
-              <input
-                type="text"
-                placeholder="Expected Scale"
-                className="min-h-[52px] rounded-[18px] border border-[#d8c3a2] px-4 text-base md:col-span-2"
-              />
-              <textarea
-                placeholder="Message"
-                rows={4}
-                className="rounded-[18px] border border-[#d8c3a2] px-4 py-3 text-base md:col-span-2"
-              />
-              <button
-                type="button"
-                onClick={onSpeak}
-                className="inline-flex min-h-[54px] items-center justify-center rounded-full bg-[#e4b45e] px-6 text-base font-semibold text-white shadow-[0_14px_28px_rgba(196,109,26,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#d08a32] md:col-span-2"
-              >
-                Book Seva for an Occasion
-              </button>
-            </form>
-          </div>
-          <div className="flex flex-col justify-between rounded-[30px] border border-[#e4cfb2] bg-[linear-gradient(180deg,#1d4f63_0%,#275f75_100%)] p-6 text-white shadow-[0_18px_36px_rgba(29,79,99,0.2)]">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#ffd88a]">
-                  Sponsorship Support
-                </p>
-                <h3 className={`${SEVA_CARD_TITLE_CLASS} mt-4 text-[#fff0bf]`}>
-                  A personal occasion can become a lasting act of care.
-                </h3>
-                <p className={`mt-4 ${SEVA_BODY_TEXT_CLASS} text-[#ffe3ad]`}>
-                  Dedicate a meal seva in memory, gratitude, celebration, or family
-                  prayer. Our team can help shape the seva with sincerity and clarity.
-                </p>
-            </div>
-            <div className="mt-8 flex flex-col gap-3">
-                <a
-                  href={EXTERNAL_RAZORPAY_DONATE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#f1c770] px-6 text-base font-semibold text-[#fff7dc] transition-colors hover:bg-[#e1af4c]"
-                >
-                  Book Seva for an Occasion
-                </a>
-                <button
-                  type="button"
-                  onClick={onSpeak}
-                  className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-[#f4deb0]/70 px-6 text-base font-semibold text-[#ffe7b8] transition-colors hover:bg-[#fff6e8] hover:text-[#8c5a23]"
-                >
-                  Speak With Our Team
-                </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function TestimonialSection() {
   return (
     <section className="px-4 py-10 md:px-8">
@@ -1304,56 +1125,7 @@ function TestimonialSection() {
   );
 }
 
-function FAQAccordion() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  return (
-    <section className="px-4 py-10 md:px-8">
-      <div className="mx-auto max-w-5xl rounded-[36px] border border-[#e7d3b5] bg-white/88 px-6 py-8 shadow-[0_18px_38px_rgba(101,71,35,0.08)] md:px-10 md:py-12">
-        <SectionHeading title="Frequently Asked Questions" />
-        <div className="mt-10 grid gap-4">
-          {faqItems.map((item, index) => (
-            <article
-              key={item.question}
-              className="overflow-hidden rounded-[26px] border border-[#e6d4bb] bg-white/92 shadow-[0_14px_28px_rgba(101,71,35,0.08)]"
-            >
-              <button
-                type="button"
-                onClick={() =>
-                  setOpenIndex((current) => (current === index ? null : index))
-                }
-                aria-expanded={openIndex === index}
-                className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left md:px-6"
-              >
-                <span className={`${SEVA_BODY_TEXT_CLASS} font-black text-[#1d4f63]`}>
-                  {item.question}
-                </span>
-                  <span
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#fff0da] text-[#f39b19]"
-                  >
-                    <FaqToggleIcon expanded={openIndex === index} className="h-6 w-6" />
-                  </span>
-                </button>
-              <div
-                className={`grid transition-all duration-300 ${
-                  openIndex === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                }`}
-              >
-                <div className="overflow-hidden">
-                  <p className={`px-5 pb-5 md:px-6 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
-                    {item.answer}
-                  </p>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FinalCTABanner({ onOrganize }: { onOrganize: () => void }) {
+function FinalCTABanner() {
   return (
     <section className="px-4 pb-24 pt-10 md:px-8 md:pb-10">
       <div className="mx-auto max-w-6xl overflow-hidden rounded-[38px] border border-[#dcb884] bg-[linear-gradient(135deg,#c46d1a_0%,#e4b45e_45%,#f3d8a0_100%)] px-6 py-10 text-white shadow-[0_22px_46px_rgba(196,109,26,0.2)] md:px-10 md:py-12">
@@ -1388,13 +1160,6 @@ function FinalCTABanner({ onOrganize }: { onOrganize: () => void }) {
             >
               Sponsor a Day
             </a>
-            <button
-              type="button"
-              onClick={onOrganize}
-              className="inline-flex min-h-[54px] items-center justify-center rounded-full border border-white/40 bg-black/10 px-6 text-base font-semibold text-white transition-colors hover:bg-black/20"
-            >
-              Organize Ann Seva
-            </button>
           </div>
         </div>
       </div>
@@ -1459,23 +1224,20 @@ export default memo(function AnnSevaPage() {
       `}</style>
 
       <AnnSevaHero onJoin={() => navigate(ROUTES.involved.index)} />
-      <HeroIntroSection />
       <ImpactStatsStrip />
+      <HeroIntroSection />
       <WhyAnnSevaSection />
       <HighlightsGrid />
-      <DonationPlansSection />
-      <ServiceCoverageSplit />
-      <ServiceLocationsGrid />
+      <GivingOptionsSection />
+      <ServiceReachSection />
       <ReportsSection
         selectedReport={selectedReport}
         onOpenReport={(report) => setSelectedReportSlug(report.slug)}
         onCloseReport={() => setSelectedReportSlug(null)}
         onSeeAllReports={handleSeeAllReports}
       />
-      <AdoptSevaSection onSpeak={() => navigate(ROUTES.contact)} />
       <TestimonialSection />
-      <FAQAccordion />
-      <FinalCTABanner onOrganize={() => navigate(ROUTES.contact)} />
+      <FinalCTABanner />
       <MobileDonationBar />
     </div>
   );
