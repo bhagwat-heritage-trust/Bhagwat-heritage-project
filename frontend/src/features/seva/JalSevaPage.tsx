@@ -348,7 +348,7 @@ function IconBadge({ icon: Icon, className = "" }: { icon: ComponentType<IconPro
 
 function JalSevaHero({ onDonate, onStartSeva }: { onDonate: () => void; onStartSeva: () => void }) {
   return (
-    <section className="inner-hero relative -mx-6 -mt-12 pb-16 md:-mx-8 md:pb-20">
+    <section className="inner-hero relative -mx-6 -mt-12 pb-8 md:-mx-8">
       <style>{`
         @keyframes sevaHeroFadeUp {
           from { opacity: 0; transform: translateY(24px); }
@@ -356,7 +356,7 @@ function JalSevaHero({ onDonate, onStartSeva }: { onDonate: () => void; onStartS
         }
       `}</style>
       <div className="overflow-hidden rounded-b-[40px] bg-[#17324D] shadow-[0_24px_60px_rgba(23,50,77,0.18)]">
-        <div className="relative flex min-h-[560px] items-center justify-center bg-cover bg-center px-5 pb-28 pt-20 text-center md:min-h-[620px] md:px-10 md:pb-32" style={{ backgroundImage: `url('${heroImage}')` }}>
+        <div className="relative flex min-h-[560px] items-center justify-center bg-cover bg-center px-5 py-20 text-center md:min-h-[620px] md:px-10" style={{ backgroundImage: `url('${heroImage}')` }}>
         <div className="absolute inset-0 bg-black/25" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30" />
         <div className="relative z-10 mx-auto max-w-4xl" style={{ animation: "sevaHeroFadeUp 0.85s ease-out both" }}>
@@ -378,7 +378,7 @@ function JalSevaHero({ onDonate, onStartSeva }: { onDonate: () => void; onStartS
 
 function ImpactStatsStrip() {
   return (
-    <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[calc(100%-2rem)] max-w-6xl rounded-[26px] border border-[#E8DECF] bg-white/95 p-4 shadow-[0_22px_48px_rgba(101,71,35,0.14)] backdrop-blur md:p-5">
+    <div className="relative z-10 mx-auto mt-[5px] w-[calc(100%-2rem)] max-w-6xl rounded-[26px] border border-[#E8DECF] bg-white/95 p-4 shadow-[0_22px_48px_rgba(101,71,35,0.14)] backdrop-blur md:p-5">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
           <article key={stat.label} className="flex min-h-[112px] flex-col items-center justify-center rounded-[18px] border border-[#E8DECF] bg-white px-4 py-5 text-center">
@@ -426,7 +426,7 @@ function WhyJalSevaSection() {
         </p>
       </div>
       <div className="overflow-hidden rounded-[30px] border border-[#E8DECF] bg-white shadow-[0_20px_44px_rgba(31,78,121,0.12)]">
-        <img src={whyImage} alt="Jal Seva water support" className="h-[360px] w-full object-cover md:h-[440px]" />
+        <img src={whyImage} alt="Jal Seva water support" className="h-auto max-h-none w-full bg-[#E8DECF] object-contain md:h-[440px] md:object-cover" />
       </div>
     </section>
   );
@@ -502,7 +502,7 @@ function ReachAndCoverageSection() {
 
       <div className="mt-8 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="rounded-[26px] border border-[#E8DECF] bg-white p-2 shadow-[0_16px_34px_rgba(101,71,35,0.07)]">
-          <img src={serviceImage} alt="Community water seva support" className="h-[290px] w-full rounded-[22px] object-cover md:h-[330px]" />
+          <img src={serviceImage} alt="Community water seva support" className="h-auto max-h-none w-full rounded-[22px] bg-[#E8DECF] object-contain md:h-[330px] md:object-cover" />
           <div className="mt-3 rounded-[18px] bg-[#1F4E79] p-5">
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#F4CE5A]">Service Flow</p>
             <p className="mt-3 text-base leading-7 text-white/88">
@@ -553,7 +553,7 @@ function CampaignReportsSection() {
       <div className="mt-9 grid gap-5 lg:grid-cols-3">
         {campaigns.map((campaign) => (
           <article key={campaign.title} className="overflow-hidden rounded-[26px] border border-[#E8DECF] bg-white shadow-[0_18px_40px_rgba(31,78,121,0.1)]">
-            <img src={campaign.image} alt={campaign.title} className="h-48 w-full object-cover" />
+            <img src={campaign.image} alt={campaign.title} className="h-auto max-h-none w-full bg-[#E8DECF] object-contain md:h-48 md:object-cover" />
             <div className="p-6">
               <h3 className="text-2xl font-bold text-[#17324D]">{campaign.title}</h3>
               <dl className="mt-5 grid gap-3 text-base text-[#5A6472]">

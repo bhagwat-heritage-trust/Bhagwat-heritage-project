@@ -205,7 +205,7 @@ export default memo(function ScholarshipPage() {
         </Link>
       </SevaHeroBanner>
 
-      <section className="relative z-20 mt-[10px] pb-6">
+      <section className="relative z-20 mt-[5px] pb-6">
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
             {QUICK_HIGHLIGHTS.map((item) => (

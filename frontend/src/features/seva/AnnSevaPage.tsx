@@ -591,7 +591,7 @@ function ImpactStatsStrip() {
   return (
     <section className="relative z-20 bg-[#fff8ef] px-4 pb-10 pt-2 md:px-8">
       <div className="mx-auto max-w-6xl">
-        <div className="-mt-16 rounded-[30px] border border-[#ead6bb] bg-[linear-gradient(180deg,rgba(255,253,249,0.97)_0%,rgba(255,246,232,0.99)_100%)] p-3 shadow-[0_18px_36px_rgba(101,71,35,0.14)] backdrop-blur md:-mt-20 md:p-4">
+        <div className="mt-[5px] rounded-[30px] border border-[#ead6bb] bg-[linear-gradient(180deg,rgba(255,253,249,0.97)_0%,rgba(255,246,232,0.99)_100%)] p-3 shadow-[0_18px_36px_rgba(101,71,35,0.14)] backdrop-blur md:p-4">
           <div className="grid gap-3 md:grid-cols-4">
             {quickImpactStats.map((item) => (
               <article
@@ -639,7 +639,7 @@ function WhyAnnSevaSection() {
           <img
             src="https://res.cloudinary.com/der8zinu8/image/upload/v1776689113/ChatGPT_Image_Apr_20_2026_06_11_50_PM_ezah15.png"
             alt="Ann Seva devotional food service"
-            className="h-[360px] w-full object-cover"
+            className="h-auto max-h-none w-full bg-[#fff0da] object-contain md:h-[360px] md:object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1d4f63]/40 via-transparent to-transparent" />
         </div>
@@ -902,11 +902,11 @@ function ReportsSection({
               key={`${card.title}-${card.date}`}
               className="overflow-hidden rounded-[30px] border border-[#e6d4bb] bg-white/92 shadow-[0_18px_36px_rgba(101,71,35,0.08)]"
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative overflow-hidden md:h-48">
                 <img
                   src={card.image}
                   alt={card.title}
-                  className="h-full w-full object-cover"
+                  className="h-auto max-h-none w-full bg-[#fff0da] object-contain md:h-full md:object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
                 </div>
@@ -966,11 +966,11 @@ function ReportsSection({
       {selectedReport ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1f1207]/45 px-4 py-8 backdrop-blur-[2px]">
           <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-[32px] border border-[#e3c7a0] bg-[#fffdf8] shadow-[0_24px_60px_rgba(101,71,35,0.24)]">
-            <div className="relative h-64 overflow-hidden">
+            <div className="relative overflow-hidden md:h-64">
               <img
                 src={selectedReport.image}
                 alt={selectedReport.title}
-                className="h-full w-full object-cover"
+                className="h-auto max-h-none w-full bg-[#fff0da] object-contain md:h-full md:object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
               <button

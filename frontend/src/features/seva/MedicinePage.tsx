@@ -37,7 +37,7 @@ type FaqItem = {
   answer: string;
 };
 
-const heroImage = "https://res.cloudinary.com/der8zinu8/image/upload/v1771583760/chikitsa_q2seq1.png";
+const heroImage = "https://res.cloudinary.com/der8zinu8/image/upload/v1776775144/ChatGPT_Image_Apr_21_2026_06_07_51_PM_hwljkm.png";
 
 const heroStats = ["Patients Supported", "Medicine Assistance", "Health Camps Conducted"];
 
@@ -300,7 +300,7 @@ function SecondaryButton({ children, to, light = false }: { children: string; to
 
 function ChikitsaHero() {
   return (
-    <section className="relative -mx-6 -mt-12 pb-20 md:-mx-8 md:pb-24">
+    <section className="relative -mx-6 -mt-12 pb-8 md:-mx-8">
       <style>{`
         @keyframes sevaHeroFadeUp {
           from { opacity: 0; transform: translateY(24px); }
@@ -308,7 +308,7 @@ function ChikitsaHero() {
         }
       `}</style>
       <div className="overflow-hidden rounded-b-[40px] bg-[#4A3422] shadow-[0_26px_70px_rgba(74,52,34,0.22)]">
-        <div className="relative flex min-h-[640px] items-end justify-center bg-cover bg-center px-5 pb-44 pt-20 text-center md:min-h-[700px] md:px-10 md:pb-48" style={{ backgroundImage: `url('${heroImage}')` }}>
+        <div className="relative flex min-h-[640px] items-center justify-center bg-cover bg-center px-5 py-20 text-center md:min-h-[700px] md:px-10" style={{ backgroundImage: `url('${heroImage}')` }}>
           <div className="absolute inset-0 bg-black/45" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/45" />
           <div className="relative z-10 mx-auto max-w-4xl" style={{ animation: "sevaHeroFadeUp 0.85s ease-out both" }}>
@@ -325,7 +325,7 @@ function ChikitsaHero() {
           </div>
         </div>
       </div>
-      <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[calc(100%-2rem)] max-w-5xl rounded-[28px] border border-[#E8D9BD] bg-[#FFFDF8]/96 p-4 shadow-[0_22px_54px_rgba(111,78,25,0.14)] backdrop-blur md:p-5">
+      <div className="relative z-10 mx-auto mt-[5px] w-[calc(100%-2rem)] max-w-5xl rounded-[28px] border border-[#E8D9BD] bg-[#FFFDF8]/96 p-4 shadow-[0_22px_54px_rgba(111,78,25,0.14)] backdrop-blur md:p-5">
         <div className="grid gap-3 md:grid-cols-3">
           {heroStats.map((stat) => (
             <article key={stat} className="flex min-h-[96px] items-center justify-center rounded-[18px] border border-[#E8D9BD] bg-white px-4 py-5 text-center">

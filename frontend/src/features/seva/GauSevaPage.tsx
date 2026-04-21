@@ -535,7 +535,7 @@ function GalleryPreview() {
       <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">
         {galleryItems.map((item) => (
           <button key={item.title} type="button" onClick={() => setActiveImage(item.image)} className="group overflow-hidden rounded-[22px] border border-[#E7D8B4] bg-[#FFFDF8] text-left shadow-[0_12px_30px_rgba(111,78,25,0.06)]">
-            <img src={item.image} alt={item.title} className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" />
+            <img src={item.image} alt={item.title} className="h-auto max-h-none w-full bg-[#F3E7C9] object-contain transition duration-500 group-hover:scale-105 md:aspect-[4/3] md:object-cover" />
             <p className="px-4 py-3 text-sm font-semibold text-[#4A3422] md:text-base">{item.title}</p>
           </button>
         ))}

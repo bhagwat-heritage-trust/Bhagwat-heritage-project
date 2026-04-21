@@ -97,7 +97,7 @@ export default memo(function EducationPage() {
         backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1772699843/pathshala_eza0sp.png"
       />
 
-      <section className="relative z-20 -mt-16 px-4 pb-10 md:-mt-20">
+      <section className="relative z-20 mt-[5px] px-4 pb-10">
         <div className="mx-auto max-w-7xl rounded-[28px] border border-[#E8D9BD] bg-[#FFFDF8] p-4 shadow-[0_18px_42px_rgba(111,78,25,0.12)] md:p-5">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {QUICK_HIGHLIGHTS.map((item) => (
