@@ -523,7 +523,7 @@ export default memo(function HomePage() {
             <p className={HOME_SECTION_LABEL}>Get Involved</p>
             <h2 className={HOME_DARK_HEADING}>Be a Part of This Divine Mission</h2>
             <p className={`${HOME_DARK_BODY} mt-4`}>
-              Be a part of this divine mission and contribute towards building a better society.
+              Be a part of this divine mission and contribute towards building a better socsety.
             </p>
           </motion.div>
 
