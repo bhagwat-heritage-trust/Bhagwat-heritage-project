@@ -363,7 +363,7 @@ function IconBubble({ icon: Icon }: { icon: ComponentType<IconProps> }) {
 
 function GauSevaHero() {
   return (
-    <section className="relative -mx-6 -mt-12 pb-20 md:-mx-8 md:pb-24">
+    <section className="relative -mx-6 -mt-12 pb-8 md:-mx-8 md:pb-24">
       <style>{`
         @keyframes sevaHeroFadeUp {
           from { opacity: 0; transform: translateY(24px); }
@@ -371,7 +371,7 @@ function GauSevaHero() {
         }
       `}</style>
       <div className="inner-hero overflow-hidden rounded-b-[40px] bg-[#4A3422] shadow-[0_26px_70px_rgba(74,52,34,0.2)]">
-        <div className="relative flex min-h-[610px] items-center justify-center bg-cover bg-center px-5 pb-32 pt-20 text-center md:min-h-[700px] md:px-10" style={{ backgroundImage: `url('${heroImage}')` }}>
+        <div className="relative flex min-h-[610px] items-center justify-center bg-cover bg-center px-5 py-20 text-center md:min-h-[700px] md:px-10 md:pb-32 md:pt-20" style={{ backgroundImage: `url('${heroImage}')` }}>
           <div className="absolute inset-0 bg-black/50" />
           <div className="relative z-10 mx-auto max-w-4xl" style={{ animation: "sevaHeroFadeUp 0.85s ease-out both" }}>
             <h1 className="text-4xl font-bold leading-tight !text-white md:text-5xl">Gau Seva</h1>
@@ -397,7 +397,7 @@ function GauSevaHero() {
 
 function QuickTrustCards() {
   return (
-    <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[calc(100%-2rem)] max-w-7xl rounded-[28px] border border-[#E7D8B4] bg-[#FFFDF8]/96 p-4 shadow-[0_22px_54px_rgba(111,78,25,0.12)] backdrop-blur md:p-5">
+    <div className="relative z-10 mx-auto mt-5 w-[calc(100%-2rem)] max-w-7xl rounded-[28px] border border-[#E7D8B4] bg-[#FFFDF8]/96 p-4 shadow-[0_22px_54px_rgba(111,78,25,0.12)] backdrop-blur md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:p-5">
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {quickTrustCards.map((card) => (
           <article key={card.title} className="flex min-h-[116px] flex-col items-center justify-center rounded-[18px] border border-[#E7D8B4] bg-white px-4 py-5 text-center transition hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(111,78,25,0.1)]">
