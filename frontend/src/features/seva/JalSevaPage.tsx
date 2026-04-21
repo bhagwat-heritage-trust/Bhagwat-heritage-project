@@ -38,9 +38,13 @@ type TestimonialItem = {
 };
 
 const heroImage = "https://res.cloudinary.com/der8zinu8/image/upload/v1776750819/ChatGPT_Image_Apr_21_2026_11_22_26_AM_f9bkft.png";
-const whyImage = "/images/jal.png";
-const serviceImage = "/images/seva/1.jpg";
-const campaignImages = ["/images/jal1.png", "/images/seva/1.jpg", "/images/nihsulksevasivir.png"];
+const whyImage = "https://res.cloudinary.com/der8zinu8/image/upload/v1776754759/1776751991434_fd62xp.png";
+const serviceImage = "https://res.cloudinary.com/der8zinu8/image/upload/v1771583756/jal_ymllgv.png";
+const campaignImages = [
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776754760/ChatGPT_Image_Apr_21_2026_12_26_17_PM_d66lws.png",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776754759/ChatGPT_Image_Apr_21_2026_12_26_58_PM_kqxubw.png",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776754759/ChatGPT_Image_Apr_21_2026_12_27_07_PM_inf6zh.png",
+];
 
 const stats: StatItem[] = [
   { value: "100,000+", label: "People Supported" },
