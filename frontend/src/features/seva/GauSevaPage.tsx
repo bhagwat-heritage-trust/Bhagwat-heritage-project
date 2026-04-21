@@ -363,7 +363,7 @@ function IconBubble({ icon: Icon }: { icon: ComponentType<IconProps> }) {
 
 function GauSevaHero() {
   return (
-    <section className="relative -mx-6 -mt-12 pb-8 md:-mx-8 md:pb-24">
+    <section className="relative -mx-6 -mt-12 pb-8 md:-mx-8 md:pb-8">
       <style>{`
         @keyframes sevaHeroFadeUp {
           from { opacity: 0; transform: translateY(24px); }
@@ -371,7 +371,7 @@ function GauSevaHero() {
         }
       `}</style>
       <div className="inner-hero overflow-hidden rounded-b-[40px] bg-[#4A3422] shadow-[0_26px_70px_rgba(74,52,34,0.2)]">
-        <div className="relative flex min-h-[610px] items-center justify-center bg-cover bg-center px-5 py-20 text-center md:min-h-[700px] md:px-10 md:pb-32 md:pt-20" style={{ backgroundImage: `url('${heroImage}')` }}>
+        <div className="relative flex min-h-[610px] items-center justify-center bg-cover bg-center px-5 py-20 text-center md:min-h-[700px] md:px-10" style={{ backgroundImage: `url('${heroImage}')` }}>
           <div className="absolute inset-0 bg-black/50" />
           <div className="relative z-10 mx-auto max-w-4xl" style={{ animation: "sevaHeroFadeUp 0.85s ease-out both" }}>
             <h1 className="text-4xl font-bold leading-tight !text-white md:text-5xl">Gau Seva</h1>
@@ -397,7 +397,7 @@ function GauSevaHero() {
 
 function QuickTrustCards() {
   return (
-    <div className="relative z-10 mx-auto mt-5 w-[calc(100%-2rem)] max-w-7xl rounded-[28px] border border-[#E7D8B4] bg-[#FFFDF8]/96 p-4 shadow-[0_22px_54px_rgba(111,78,25,0.12)] backdrop-blur md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:p-5">
+    <div className="relative z-10 mx-auto mt-[5px] w-[calc(100%-2rem)] max-w-7xl rounded-[28px] border border-[#E7D8B4] bg-[#FFFDF8]/96 p-4 shadow-[0_22px_54px_rgba(111,78,25,0.12)] backdrop-blur md:p-5">
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {quickTrustCards.map((card) => (
           <article key={card.title} className="flex min-h-[116px] flex-col items-center justify-center rounded-[18px] border border-[#E7D8B4] bg-white px-4 py-5 text-center transition hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(111,78,25,0.1)]">
@@ -504,10 +504,12 @@ function SponsorCowCards() {
   return (
     <section className="mt-20">
       <SectionHeader title="Sponsor a Cow Program" subtitle="Adopt care with devotion and help support a sacred life with dignity." />
-      <div className="mt-10 grid gap-6 lg:grid-cols-3">
+      <div className="mt-10 grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
         {sponsorCows.map((cow) => (
           <article key={cow.name} className="overflow-hidden rounded-[26px] border border-[#E7D8B4] bg-[#FFFDF8] shadow-[0_18px_42px_rgba(111,78,25,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_52px_rgba(111,78,25,0.13)]">
-            <img src={cow.image} alt={cow.name} className="h-auto max-h-[360px] w-full bg-[#F3E7C9] object-contain" />
+            <div className="flex w-full items-center justify-center bg-[#F3E7C9]">
+              <img src={cow.image} alt={cow.name} className="h-auto max-h-none w-full object-contain md:max-h-[420px]" />
+            </div>
             <div className="p-6">
               <span className="rounded-full bg-[#F3E7C9] px-3 py-1 text-xs font-bold uppercase tracking-[0.13em] text-[#B97916]">{cow.status}</span>
               <h3 className="mt-5 text-2xl font-black text-[#4A3422]">{cow.name}</h3>
