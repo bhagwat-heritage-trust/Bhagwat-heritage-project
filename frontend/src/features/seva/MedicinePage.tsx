@@ -1,4 +1,4 @@
-import { memo, type ComponentType } from "react";
+import { memo, useState, type ComponentType } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
@@ -20,6 +20,10 @@ type Highlight = {
 
 type SupportCard = Highlight;
 
+type VolunteerRole = Highlight & {
+  image: string;
+};
+
 type DonationPlan = {
   title: string;
   amount: string;
@@ -27,9 +31,11 @@ type DonationPlan = {
   recommended?: boolean;
 };
 
-type Story = {
+type ImpactStory = {
   title: string;
-  quote: string;
+  subtitle: string;
+  image: string;
+  story: string;
 };
 
 type FaqItem = {
@@ -38,6 +44,7 @@ type FaqItem = {
 };
 
 const heroImage = "https://res.cloudinary.com/der8zinu8/image/upload/v1776775144/ChatGPT_Image_Apr_21_2026_06_07_51_PM_hwljkm.png";
+const aboutImage = "https://res.cloudinary.com/der8zinu8/image/upload/v1776775654/ChatGPT_Image_Apr_21_2026_06_17_08_PM_kxewvz.png";
 
 const heroStats = ["Patients Supported", "Medicine Assistance", "Health Camps Conducted"];
 
@@ -126,19 +133,24 @@ const whyPoints = [
   "Encourages service rooted in humanity and dharma",
 ];
 
-// Placeholder stories for future admin replacement with verified beneficiary accounts.
-const stories: Story[] = [
+const impactStories: ImpactStory[] = [
   {
     title: "Village Health Beneficiary",
-    quote: "Timely medicine support brought relief during a difficult period for our family.",
+    subtitle: "Beneficiary Support",
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776776370/ChatGPT_Image_Apr_21_2026_06_28_41_PM_zodavn.png",
+    story: "Timely medicine support brought relief during a difficult period for our family.",
   },
   {
     title: "Medical Camp Volunteer",
-    quote: "This seva is organized with sincerity and helps connect care with people who truly need it.",
+    subtitle: "Health Camp Activity",
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776776370/ChatGPT_Image_Apr_21_2026_06_28_55_PM_llnuj3.png",
+    story: "This seva is organized with sincerity and helps connect care with people who truly need it.",
   },
   {
     title: "Senior Citizen Support",
-    quote: "Basic medical help and guidance provided comfort and reassurance at the right time.",
+    subtitle: "Elderly Care Support",
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776776370/ChatGPT_Image_Apr_21_2026_06_29_05_PM_qmktlq.png",
+    story: "Basic medical help and guidance provided comfort and reassurance at the right time.",
   },
 ];
 
@@ -166,26 +178,30 @@ const donationPlans: DonationPlan[] = [
   },
 ];
 
-const volunteerRoles: Highlight[] = [
+const volunteerRoles: VolunteerRole[] = [
   {
     title: "Doctor Support",
     description: "Consultation guidance, case review, and health camp participation.",
     icon: StethoscopeIcon,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776778493/ChatGPT_Image_Apr_21_2026_07_03_13_PM_osc3pk.png",
   },
   {
     title: "Nursing Support",
     description: "Patient care, camp support, screening help, and follow-up coordination.",
     icon: HeartPulseIcon,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776778494/ChatGPT_Image_Apr_21_2026_07_03_22_PM_kdbydp.png",
   },
   {
     title: "Pharmacy Support",
     description: "Medicine verification, stock support, and safe distribution planning.",
     icon: MedicineIcon,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776778494/ChatGPT_Image_Apr_21_2026_07_03_36_PM_zb1npa.png",
   },
   {
     title: "Camp Coordination",
     description: "Registration, patient flow, local outreach, and seva organization.",
     icon: CampIcon,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776778494/ChatGPT_Image_Apr_21_2026_07_03_53_PM_ejgjmp.png",
   },
 ];
 
@@ -282,6 +298,14 @@ function IconBubble({ icon: Icon }: { icon: ComponentType<IconProps> }) {
   );
 }
 
+function CenterIconMark({ icon: Icon }: { icon: ComponentType<IconProps> }) {
+  return (
+    <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-[#E8D9BD] bg-[#FFF9F0] text-[#C08A2A] shadow-[0_12px_28px_rgba(111,78,25,0.08)]">
+      <Icon className="h-11 w-11" />
+    </span>
+  );
+}
+
 function PrimaryButton({ children, to }: { children: string; to: string }) {
   return (
     <Link to={to} className="inline-flex min-h-[56px] min-w-[210px] items-center justify-center rounded-full bg-[#D89B2B] px-8 text-base font-bold text-white shadow-[0_18px_34px_rgba(196,109,26,0.22)] transition hover:-translate-y-0.5 hover:bg-[#B97916]">
@@ -308,7 +332,7 @@ function ChikitsaHero() {
         }
       `}</style>
       <div className="overflow-hidden rounded-b-[40px] bg-[#4A3422] shadow-[0_26px_70px_rgba(74,52,34,0.22)]">
-        <div className="relative flex min-h-[640px] items-center justify-center bg-cover bg-center px-5 py-20 text-center md:min-h-[700px] md:px-10" style={{ backgroundImage: `url('${heroImage}')` }}>
+        <div className="relative flex min-h-[640px] items-end justify-center bg-cover bg-center px-5 pb-24 pt-20 text-center md:min-h-[700px] md:px-10 md:pb-28" style={{ backgroundImage: `url('${heroImage}')` }}>
           <div className="absolute inset-0 bg-black/45" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/45" />
           <div className="relative z-10 mx-auto max-w-4xl" style={{ animation: "sevaHeroFadeUp 0.85s ease-out both" }}>
@@ -354,36 +378,22 @@ function QuickHighlightsStrip() {
 
 function AboutSection() {
   return (
-    <section className="mt-20 grid gap-8 lg:grid-cols-[1.08fr_0.92fr]">
-      <div className="rounded-[30px] border border-[#E8D9BD] bg-[#FFFDF8] p-6 shadow-[0_18px_42px_rgba(111,78,25,0.08)] md:p-9">
-        <SectionHeader eyebrow="About Chikitsa Seva" title="Medical Support with Compassion and Responsibility" align="left" />
-        <div className={`mt-6 space-y-5 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>
-          <p>
-            Chikitsa Seva is a compassionate initiative dedicated to supporting basic medical needs of economically vulnerable individuals, elderly citizens, and families facing health-related difficulty. Through disciplined seva efforts, the initiative helps with medicine assistance, health support coordination, camp-based services, and humane care guidance wherever possible.
-          </p>
-          <p>
-            This seva is rooted in the spirit of service, dignity, and responsibility. It is not only about treatment support, but about standing beside people in times of need with sensitivity, practical help, and human concern.
-          </p>
+    <section className="mt-20 overflow-hidden rounded-[34px] border border-[#E8D9BD] bg-[#FFFDF8] shadow-[0_22px_54px_rgba(111,78,25,0.1)]">
+      <div className="grid gap-0 lg:grid-cols-[1.02fr_0.98fr]">
+        <div className="flex flex-col justify-center p-6 md:p-9 lg:p-10">
+          <SectionHeader eyebrow="About Chikitsa Seva" title="Medical Support with Compassion and Responsibility" align="left" />
+          <div className={`mt-6 space-y-5 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>
+            <p>
+              Chikitsa Seva is a compassionate initiative dedicated to supporting basic medical needs of economically vulnerable individuals, elderly citizens, and families facing health-related difficulty. Through disciplined seva efforts, the initiative helps with medicine assistance, health support coordination, camp-based services, and humane care guidance wherever possible.
+            </p>
+            <p>
+              This seva is rooted in the spirit of service, dignity, and responsibility. It is not only about treatment support, but about standing beside people in times of need with sensitivity, practical help, and human concern.
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="grid gap-5">
-        <article className="rounded-[24px] border border-[#E8D9BD] bg-[#FFF9F0] p-6 shadow-[0_14px_34px_rgba(111,78,25,0.07)]">
-          <IconBubble icon={ShieldCheckIcon} />
-          <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>Mission</h3>
-          <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>Support essential medical care with compassion, discipline, and responsible service.</p>
-        </article>
-        <article className="rounded-[24px] border border-[#E8D9BD] bg-[#FFF9F0] p-6 shadow-[0_14px_34px_rgba(111,78,25,0.07)]">
-          <IconBubble icon={HeartPulseIcon} />
-          <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>Focus Areas</h3>
-          <ul className="mt-4 grid gap-3">
-            {["Basic medicine assistance", "Health camp coordination", "Elderly and vulnerable care support", "Need-based emergency help"].map((item) => (
-              <li key={item} className="flex gap-3 text-base font-semibold leading-7 text-[#4A3422]">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#D89B2B]" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </article>
+        <div className="relative min-h-[360px] bg-[#F3E7C9] lg:min-h-[620px]">
+          <img src={aboutImage} alt="Chikitsa Seva medical support" className="h-auto w-full object-contain lg:h-full lg:object-cover" />
+        </div>
       </div>
     </section>
   );
@@ -395,8 +405,8 @@ function CoreSupportAreas() {
       <SectionHeader title="Core Medical Support Areas" />
       <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {coreSupportAreas.map((item) => (
-          <article key={item.title} className="flex h-full flex-col rounded-[24px] border border-[#E8D9BD] bg-[#FFFDF8] p-6 shadow-[0_14px_34px_rgba(111,78,25,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(111,78,25,0.11)]">
-            <IconBubble icon={item.icon} />
+          <article key={item.title} className="flex h-full flex-col items-center rounded-[24px] border border-[#E8D9BD] bg-[#FFFDF8] p-6 text-center shadow-[0_14px_34px_rgba(111,78,25,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(111,78,25,0.11)]">
+            <CenterIconMark icon={item.icon} />
             <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{item.title}</h3>
             <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{item.description}</p>
           </article>
@@ -451,12 +461,12 @@ function StoriesSection() {
     <section className="mt-20">
       <SectionHeader title="Impact of Service" />
       <div className="mt-10 grid gap-5 lg:grid-cols-3">
-        {stories.map((story) => (
+        {impactStories.map((story) => (
           <article key={story.title} className="rounded-[28px] border border-[#E8D9BD] bg-[#FFFDF8] p-6 shadow-[0_16px_38px_rgba(111,78,25,0.08)]">
             <div className="inline-flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#FFF0DA] text-[#C46D1A]">
               <span className="text-3xl font-black leading-none">“</span>
             </div>
-            <p className={`mt-5 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>"{story.quote}"</p>
+            <p className={`mt-5 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>"{story.story}"</p>
             <p className="mt-5 text-sm font-semibold uppercase tracking-[0.2em] text-[#B97916]">{story.title}</p>
           </article>
         ))}
@@ -487,16 +497,64 @@ function DonationSection() {
   );
 }
 
+function ImpactStoryImagesSection() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const activeStory = activeIndex === null ? null : impactStories[activeIndex];
+
+  return (
+    <section className="mt-20 rounded-[34px] border border-[#E8D9BD] bg-[#FFFDF8] p-5 shadow-[0_18px_42px_rgba(111,78,25,0.08)] md:p-8">
+      <SectionHeader title="Impact Stories" intro="Real moments of medicine support, health guidance, and compassionate care through Chikitsa Seva." />
+      <div className="mt-9 grid gap-5 md:grid-cols-3">
+        {impactStories.map((story, index) => {
+          const isActive = index === activeIndex;
+          return (
+            <button
+              key={story.title}
+              type="button"
+              onClick={() => setActiveIndex((current) => (current === index ? null : index))}
+              className={`group overflow-hidden rounded-[24px] border bg-white text-left shadow-[0_14px_32px_rgba(111,78,25,0.08)] transition hover:-translate-y-1 hover:shadow-[0_22px_44px_rgba(111,78,25,0.13)] ${
+                isActive ? "border-[#D89B2B] ring-2 ring-[#F3E7C9]" : "border-[#E8D9BD]"
+              }`}
+            >
+              <div className="flex aspect-[4/3] w-full items-center justify-center bg-[#F3E7C9]">
+                <img src={story.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+              </div>
+              <div className="px-4 py-4 text-center">
+                <p className="text-[16px] font-black leading-tight text-[#4A3422] md:text-[18px]">{story.title}</p>
+                <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-[#B97916]">{story.subtitle}</p>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {activeStory ? (
+        <article className="mx-auto mt-7 max-w-4xl rounded-[26px] border border-[#E8D9BD] bg-[#FFF9F0] p-6 text-center shadow-[0_16px_36px_rgba(111,78,25,0.08)] md:p-7">
+          <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#FFF0DA] text-[#C46D1A]">
+            <span className="text-3xl font-black leading-none">"</span>
+          </div>
+          <p className={`mt-5 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>"{activeStory.story}"</p>
+          <p className="mt-5 text-sm font-semibold uppercase tracking-[0.2em] text-[#B97916]">{activeStory.title}</p>
+        </article>
+      ) : null}
+    </section>
+  );
+}
+
 function VolunteerSection() {
   return (
     <section className="mt-20 rounded-[34px] border border-[#E8D9BD] bg-[#FFFDF8] p-6 shadow-[0_18px_42px_rgba(111,78,25,0.08)] md:p-10">
       <SectionHeader title="Offer Your Time, Skill, or Support" intro="Doctors, nurses, pharmacists, medical students, organizers, and compassionate volunteers can participate in this seva according to their capacity." />
       <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {volunteerRoles.map((role) => (
-          <article key={role.title} className="rounded-[24px] border border-[#E8D9BD] bg-[#FFF9F0] p-6 shadow-[0_14px_34px_rgba(111,78,25,0.07)] transition hover:-translate-y-1">
-            <IconBubble icon={role.icon} />
-            <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{role.title}</h3>
-            <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{role.description}</p>
+          <article key={role.title} className="overflow-hidden rounded-[24px] border border-[#E8D9BD] bg-[#FFF9F0] shadow-[0_14px_34px_rgba(111,78,25,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(111,78,25,0.1)]">
+            <div className="flex aspect-[4/3] w-full items-center justify-center bg-[#F3E7C9]">
+              <img src={role.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+            </div>
+            <div className="p-6">
+              <h3 className={`${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{role.title}</h3>
+              <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{role.description}</p>
+            </div>
           </article>
         ))}
       </div>
@@ -563,11 +621,11 @@ export default memo(function MedicinePage() {
         <QuickHighlightsStrip />
         <AboutSection />
         <CoreSupportAreas />
-        <ProcessSection />
         <WhyMattersSection />
-        <StoriesSection />
+        <ImpactStoryImagesSection />
         <DonationSection />
         <VolunteerSection />
+        <ProcessSection />
         <FinalCTA />
       </main>
       <StickyMobileCTA />
