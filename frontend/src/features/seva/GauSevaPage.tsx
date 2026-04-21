@@ -364,10 +364,16 @@ function IconBubble({ icon: Icon }: { icon: ComponentType<IconProps> }) {
 function GauSevaHero() {
   return (
     <section className="relative -mx-6 -mt-12 pb-20 md:-mx-8 md:pb-24">
+      <style>{`
+        @keyframes sevaHeroFadeUp {
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
       <div className="inner-hero overflow-hidden rounded-b-[40px] bg-[#4A3422] shadow-[0_26px_70px_rgba(74,52,34,0.2)]">
         <div className="relative flex min-h-[610px] items-center justify-center bg-cover bg-center px-5 pb-32 pt-20 text-center md:min-h-[700px] md:px-10" style={{ backgroundImage: `url('${heroImage}')` }}>
           <div className="absolute inset-0 bg-black/50" />
-          <div className="relative z-10 mx-auto max-w-4xl">
+          <div className="relative z-10 mx-auto max-w-4xl" style={{ animation: "sevaHeroFadeUp 0.85s ease-out both" }}>
             <h1 className="text-4xl font-bold leading-tight !text-white md:text-5xl">Gau Seva</h1>
             <p className={`mt-5 ${SEVA_HERO_SUBTITLE_CLASS}`}>Kamdhenu Ashram</p>
             <div className="hero-actions mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">

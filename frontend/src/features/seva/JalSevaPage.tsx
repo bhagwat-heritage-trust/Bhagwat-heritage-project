@@ -2,6 +2,7 @@ import { memo, type ComponentType } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
+import { SEVA_HERO_SUBTITLE_CLASS } from "./sevaTypography";
 
 type IconProps = { className?: string };
 
@@ -348,13 +349,19 @@ function IconBadge({ icon: Icon, className = "" }: { icon: ComponentType<IconPro
 function JalSevaHero({ onDonate, onStartSeva }: { onDonate: () => void; onStartSeva: () => void }) {
   return (
     <section className="inner-hero relative -mx-6 -mt-12 pb-16 md:-mx-8 md:pb-20">
+      <style>{`
+        @keyframes sevaHeroFadeUp {
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
       <div className="overflow-hidden rounded-b-[40px] bg-[#17324D] shadow-[0_24px_60px_rgba(23,50,77,0.18)]">
         <div className="relative flex min-h-[560px] items-center justify-center bg-cover bg-center px-5 pb-28 pt-20 text-center md:min-h-[620px] md:px-10 md:pb-32" style={{ backgroundImage: `url('${heroImage}')` }}>
         <div className="absolute inset-0 bg-black/25" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30" />
-        <div className="relative z-10 mx-auto max-w-4xl">
-          <h1 className="mt-4 text-5xl font-bold leading-none text-white md:text-7xl">Jal Seva</h1>
-          <p className="mt-5 text-2xl font-semibold leading-tight text-white md:text-4xl">For Every Thirst, With Care and Kindness</p>
+        <div className="relative z-10 mx-auto max-w-4xl" style={{ animation: "sevaHeroFadeUp 0.85s ease-out both" }}>
+          <h1 className="text-4xl font-bold leading-tight !text-white md:text-5xl">Jal Seva</h1>
+          <p className={`mx-auto mt-5 max-w-4xl whitespace-normal ${SEVA_HERO_SUBTITLE_CLASS}`}>For Every Thirst, With Care and Kindness</p>
           <div className="hero-actions mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <PrimaryButton onClick={onDonate}>Donate for Jal Seva</PrimaryButton>
             <SecondaryButton onClick={onStartSeva} light>
