@@ -507,7 +507,7 @@ function SponsorCowCards() {
       <div className="mt-10 grid gap-6 lg:grid-cols-3">
         {sponsorCows.map((cow) => (
           <article key={cow.name} className="overflow-hidden rounded-[26px] border border-[#E7D8B4] bg-[#FFFDF8] shadow-[0_18px_42px_rgba(111,78,25,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_52px_rgba(111,78,25,0.13)]">
-            <img src={cow.image} alt={cow.name} className="max-h-[320px] w-full bg-[#F3E7C9] object-contain md:h-64 md:object-cover" />
+            <img src={cow.image} alt={cow.name} className="h-auto max-h-[360px] w-full bg-[#F3E7C9] object-contain" />
             <div className="p-6">
               <span className="rounded-full bg-[#F3E7C9] px-3 py-1 text-xs font-bold uppercase tracking-[0.13em] text-[#B97916]">{cow.status}</span>
               <h3 className="mt-5 text-2xl font-black text-[#4A3422]">{cow.name}</h3>
