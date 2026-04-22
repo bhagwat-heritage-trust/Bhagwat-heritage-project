@@ -697,20 +697,154 @@ const DISASTER_STORIES = [
   },
 ];
 
-const DISASTER_FAQS = [
-  {
-    q: "How can I join the disaster relief volunteer team?",
-    a: "Use the Join Disaster Relief button on this page. Volunteers can support logistics, packing, field work, registration, and beneficiary assistance.",
-  },
-  {
-    q: "What does my donation support in disaster relief?",
-    a: "Donations help fund ration kits, water, medicines, blankets, emergency camp supplies, transport, and post-crisis recovery support.",
-  },
-  {
-    q: "Can I sponsor relief in a specific area?",
-    a: "Yes. The trust can coordinate targeted support for a location or active emergency based on ground verification and current need.",
-  },
-];
+function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.16 }}
+      transition={{ duration: 0.62, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function ReliefSectionHeader({
+  eyebrow,
+  title,
+  intro,
+  align = "center",
+}: {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  align?: "center" | "left";
+}) {
+  return (
+    <div className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
+      {eyebrow ? <p className={`${SEVA_SECTION_LABEL_CLASS} text-[#b96a22]`}>{eyebrow}</p> : null}
+      <h2 className={`${SEVA_SECTION_HEADING_CLASS} mt-3 text-[#1d4f63]`}>{title}</h2>
+      {intro ? <p className={`mt-4 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{intro}</p> : null}
+    </div>
+  );
+}
+
+function ReliefButton({
+  to,
+  children,
+  variant = "solid",
+}: {
+  to: string;
+  children: ReactNode;
+  variant?: "solid" | "outline" | "light";
+}) {
+  const className =
+    variant === "solid"
+      ? "bg-[#e4b45e] text-[#fff7df] shadow-[0_18px_34px_rgba(196,109,26,0.25)] hover:bg-[#d08a32]"
+      : variant === "light"
+        ? "border border-[#f7e0a0]/60 bg-black/10 text-[#f9e6a8] hover:bg-[#f9e6a8] hover:text-[#33210f]"
+        : "border border-[#D89B2B] bg-white/85 text-[#8A5B16] shadow-[0_10px_24px_rgba(111,78,25,0.08)] hover:bg-[#FFF4D6]";
+
+  return (
+    <Link
+      to={to}
+      className={`inline-flex min-h-[56px] min-w-[210px] items-center justify-center rounded-full px-8 text-base font-bold transition-all duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#F0C36A]/45 ${className}`}
+    >
+      {children}
+    </Link>
+  );
+}
+
+function ReliefIcon({ name, className = "h-6 w-6" }: { name: string; className?: string }) {
+  const iconClass = className;
+
+  return (
+    <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-[#E7D3AE] bg-[#FFF0D6] text-[#C46D1A]">
+      {name === "alert" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="M12 3 3.8 18.2a1.4 1.4 0 0 0 1.2 2.1h14a1.4 1.4 0 0 0 1.2-2.1L12 3Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+          <path d="M12 8v5M12 17h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      ) : name === "package" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="m4 7.5 8-4 8 4v9l-8 4-8-4v-9Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+          <path d="m4.5 8 7.5 4 7.5-4M12 12v8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ) : name === "volunteer" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="M8.5 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM16.5 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M3.5 19c.6-3 2.8-5 5.7-5h1.1c2.9 0 5.1 2 5.7 5M15.5 14.2c2.2.3 3.9 1.9 4.3 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ) : name === "water" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.8 6-11 6-11Z" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M9 15.2A3.4 3.4 0 0 0 12 17" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ) : name === "food" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="M6 3v8M9 3v8M6 7h3M15 3v18M18.5 4.5c1 1.3 1.5 3 1.5 5.2 0 3.1-1.7 4.8-5 5.1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M7.5 11v10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ) : name === "medicine" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="M8 4h8a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Z" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ) : name === "shelter" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="m4 19 8-14 8 14H4Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+          <path d="M12 5v14M9.5 19 12 14l2.5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ) : name === "donation" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="M7 12.5h4a1.8 1.8 0 0 1 0 3.6H9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M3.5 12H6c1 0 1.8.4 2.5 1.1M12.4 15.2l4.4-2.2c.9-.4 2 0 2.4.9.4.8.1 1.8-.7 2.3L12 20H6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M14.2 8.8s-2.5-1.7-2.5-3.6a2 2 0 0 1 3.4-1.4 2 2 0 0 1 3.4 1.4c0 1.9-2.5 3.6-2.5 3.6l-.9.6-.9-.6Z" stroke="currentColor" strokeWidth="1.5" />
+        </svg>
+      ) : name === "recovery" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="M4.5 13.2a7.5 7.5 0 0 1 12.8-5.3L19.5 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M19.5 6.2V10h-3.8M19.5 10.8a7.5 7.5 0 0 1-12.8 5.3L4.5 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M4.5 17.8V14h3.8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ) : name === "help" ? (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="M12 20a8 8 0 1 0-8-8 8 8 0 0 0 8 8Z" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M9.8 9.2a2.4 2.4 0 0 1 4.6.9c0 1.8-2.1 2-2.1 3.5M12.2 16.5h.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} aria-hidden="true">
+          <path d="M12 3 19 6v5.8c0 4.2-2.9 7.7-7 9.2-4.1-1.5-7-5-7-9.2V6l7-3Z" stroke="currentColor" strokeWidth="1.8" />
+          <path d="m9 12 2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+    </span>
+  );
+}
+
+function ReliefInfoCard({
+  title,
+  text,
+  icon,
+  centered = false,
+}: {
+  title: string;
+  text: string;
+  icon: string;
+  centered?: boolean;
+}) {
+  return (
+    <article className={`relief-card h-full rounded-[26px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 shadow-[0_14px_34px_rgba(115,78,31,0.08)] ${centered ? "text-center" : ""}`}>
+      <div className={centered ? "flex justify-center" : ""}>
+        <ReliefIcon name={icon} />
+      </div>
+      <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</h3>
+      <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{text}</p>
+    </article>
+  );
+}
 
 function parseTimeWindow(timeWindow: string) {
   const [start, end] = timeWindow.split("-");
@@ -2848,156 +2982,299 @@ export const SevaGauSevaPage = memo(function SevaGauSevaPage() {
 });
 
 export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
+  const heroBadges = ["Rapid Response", "Food & Medical Aid", "Camp Support", "Recovery Assistance"];
+  const snapshotCards = [
+    ["Rapid Deployment", "Timely response with relief planning and local coordination.", "alert", "https://res.cloudinary.com/der8zinu8/image/upload/v1776834111/ri1_hewl38.png"],
+    ["Relief Distribution", "Food, water, essentials, blankets, and emergency support.", "package", "https://res.cloudinary.com/der8zinu8/image/upload/v1776834110/ri2_zdo8gr.png"],
+    ["Volunteer Support", "Disciplined field seva, logistics help, and camp assistance.", "volunteer", "https://res.cloudinary.com/der8zinu8/image/upload/v1776834111/ri1_hewl38.png"],
+    ["Recovery Follow-up", "Support beyond immediate aid with rehabilitation guidance.", "recovery", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri5_oaxa1h.png"],
+  ];
+  const aboutCards = [
+    ["Field Assessment", "alert", "https://res.cloudinary.com/der8zinu8/image/upload/v1776834111/ri1_hewl38.png"],
+    ["Relief Materials", "package", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838097/r16_t4ot4b.png"],
+    ["Camp Support", "shelter", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri4_pdnyp2.png"],
+    ["Recovery Help", "recovery", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri5_oaxa1h.png"],
+  ];
+  const processSteps = [
+    ["Alert & Assessment", "Field teams verify local needs, affected families, and urgent essentials.", "alert", "https://res.cloudinary.com/der8zinu8/image/upload/v1776834111/ri1_hewl38.png"],
+    ["Emergency Mobilization", "Food packets, water, blankets, medicines, and supplies are prepared.", "package", "https://res.cloudinary.com/der8zinu8/image/upload/v1776834110/ri2_zdo8gr.png"],
+    ["Relief Distribution", "Essential aid is delivered through organized support points or field visits.", "food", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri4_pdnyp2.png"],
+    ["Camp Coordination", "Volunteers support camp setup, basic management, and assistance flow.", "shelter", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri5_oaxa1h.png"],
+    ["Recovery Follow-up", "Post-crisis support may include material help, medical guidance, or family assistance.", "recovery", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri5_oaxa1h.png"],
+  ];
+  const supportCards = [
+    ["Food Packets", "Nutritious ready-to-distribute food for affected families.", "food", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838098/r11_kyltbd.png"],
+    ["Clean Drinking Water", "Safe water support for camps and emergency points.", "water", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838098/r12_seykwy.png"],
+    ["Medicines & First Aid", "Urgent first aid, medicine support, and care material.", "medicine", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838098/r13_wqlkqx.png"],
+    ["Blankets & Shelter Materials", "Warmth, bedding, tarpaulin, and basic shelter items.", "shelter", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri4_pdnyp2.png"],
+    ["Family Essential Kits", "Core daily-use essentials for one affected household.", "package", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838097/r16_t4ot4b.png"],
+    ["Recovery & Rehabilitation Assistance", "Follow-up help for families restarting after crisis.", "recovery", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri5_oaxa1h.png"],
+  ];
+  const volunteerCards = [
+    ["Field Volunteer", "Assist during distribution, camp support, and relief coordination.", "volunteer", "https://res.cloudinary.com/der8zinu8/image/upload/v1776834111/ri1_hewl38.png"],
+    ["Packing & Logistics", "Help prepare and organize essential material dispatch.", "package", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838097/r16_t4ot4b.png"],
+    ["Camp Assistance", "Support emergency arrangements and beneficiary assistance.", "shelter", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri4_pdnyp2.png"],
+    ["Relief Sponsorship Support", "Contribute resources for timely relief and recovery.", "donation", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri5_oaxa1h.png"],
+  ];
+  const donationCards = [
+    ["Family Relief Kit", "Rs 1,500", "Supports basic essential items for one affected family.", "package", "Donate Now", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838097/r16_t4ot4b.png"],
+    ["Camp Essentials Support", "Rs 5,000", "Helps supply food, water, and camp-use materials.", "shelter", "Sponsor Relief", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri4_pdnyp2.png"],
+    ["Medical & Supplies Support", "Rs 12,000", "Supports medicine, first aid, and urgent emergency materials.", "medicine", "Donate Now", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838098/r13_wqlkqx.png"],
+    ["Recovery Assistance", "Rs 25,000", "Helps families with post-crisis support and rehabilitation needs.", "recovery", "Sponsor Relief", "https://res.cloudinary.com/der8zinu8/image/upload/v1776836078/ri5_oaxa1h.png"],
+  ];
+  const testimonials = [
+    ["Field Volunteer Team", "Disaster relief needs speed and discipline. When supplies reach families on time, hope returns immediately.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838096/v1_hidqfn.png"],
+    ["Beneficiary Family", "Food, bedding, and basic essentials gave us strength to restart during a difficult moment.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838097/v2_scujtu.png"],
+    ["Seva Coordinator", "The most important part of relief work is dignified compassion. Every volunteer becomes a lifeline for someone.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776838096/v3_ysaljs.png"],
+  ];
+
   usePageMeta(
     "Disaster Relief Seva",
     "Emergency response, relief kits, volunteer deployment, donation support, and recovery assistance for affected communities.",
   );
 
   return (
-    <div className="min-h-screen bg-[var(--campaign-deep)]">
-      <SevaHeroBanner
-        title="Disaster Relief"
-        subtitle="Relief with care, support with heart"
-        backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1772911110/disaster-relief_lg6qcp.webp"
-      >
-        <Link
-          to={ROUTES.donate}
-          className="inline-flex min-w-[190px] items-center justify-center rounded-full bg-[#F4CE5A] px-7 py-4 text-base font-bold text-white shadow-[0_14px_28px_rgba(243,161,31,0.28)] transition-colors hover:bg-[#E9932D]"
-        >
-          Donate for Relief
-        </Link>
-        <Link
-          to={ROUTES.involved.volunteer}
-          className="inline-flex min-w-[190px] items-center justify-center rounded-full border border-white/35 bg-white/8 px-7 py-4 text-base font-bold text-white shadow-[0_12px_26px_rgba(6,22,33,0.22)] transition-colors hover:bg-white/14"
-        >
-          Join Relief Team
-        </Link>
-      </SevaHeroBanner>
+    <div className="bg-[#F8F1E5] pb-24 text-[#5F4D3F] md:pb-12">
+      <style>{`
+        .relief-card { transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease; }
+        .relief-card:hover { transform: translateY(-5px); box-shadow: 0 24px 54px rgba(115, 78, 31, 0.13); border-color: #DFC28A; }
+        .relief-faq summary::-webkit-details-marker { display: none; }
+        .relief-gold-texture {
+          background-image:
+            radial-gradient(circle at 18% 18%, rgba(217, 150, 43, 0.15), transparent 28%),
+            radial-gradient(circle at 82% 8%, rgba(29, 61, 92, 0.08), transparent 24%),
+            linear-gradient(135deg, rgba(255,255,255,0.78), rgba(255,244,222,0.7));
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .relief-card, .relief-card:hover { transform: none; transition: none; }
+        }
+      `}</style>
 
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-          <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">About Disaster Relief</p>
-          <h2 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Emergency response with compassion and discipline</h2>
-          <p className="mt-5 text-base leading-7 text-white md:text-lg">
-            Disaster Relief Seva is the trust's emergency response mission for communities facing floods, fire incidents,
-            storms, displacement, and sudden humanitarian distress.
-          </p>
-          <p className="mt-4 text-base leading-7 text-white md:text-lg">
-            This page is built around action: join the field seva team, donate relief materials, sponsor recovery support,
-            and help families rebuild with dignity.
-          </p>
-
-          <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
-            {DISASTER_FEATURES.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_30px_rgba(0,0,0,0.26)]"
-              >
-                <h3 className="text-[24px] font-black text-white">{item.title}</h3>
-                <p className="mt-3 text-base leading-7 text-[var(--campaign-text)] md:text-lg">{item.desc}</p>
+      <section className="relative -mx-6 -mt-12 overflow-hidden bg-[#fff8ef] pb-8 md:-mx-8">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(228,180,94,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(196,109,26,0.09),transparent_32%)]" />
+        <div
+          className="relative min-h-[640px] overflow-hidden rounded-b-[40px] bg-cover bg-center shadow-[0_18px_40px_rgba(23,12,5,0.14)]"
+          style={{ backgroundImage: "url('https://res.cloudinary.com/der8zinu8/image/upload/v1776834111/hero_relief_i1mjda.png')" }}
+          role="img"
+          aria-label="Volunteers providing disaster relief support to families in India"
+        >
+          <div className="absolute inset-0 bg-black/40" />
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75 }}
+            className="relative z-10 mx-auto flex min-h-[640px] max-w-6xl items-end justify-center px-6 py-16 text-center md:px-8 md:py-20"
+          >
+            <div className="w-full max-w-4xl px-2 py-4 text-white md:px-6 md:py-6">
+              <h1 className="text-4xl font-bold leading-tight text-[#f9e6a8] md:text-5xl">Disaster Relief</h1>
+              <p className={`mt-5 ${SEVA_HERO_SUBTITLE_CLASS} text-[#f7e0a0]`}>Relief with care, response with discipline</p>
+              <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+                <ReliefButton to={ROUTES.donate}>Donate for Relief</ReliefButton>
+                <ReliefButton to={ROUTES.involved.volunteer} variant="light">Join Relief Team</ReliefButton>
               </div>
-            ))}
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-          <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Relief Process</p>
-          <h2 className="mt-2 text-[14px] font-black text-white md:text-[20px]">How Disaster Relief Works</h2>
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {DISASTER_PROCESS.map((item) => (
-              <div key={item.step} className="rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm">
-                <h3 className="text-[24px] font-black text-white">{item.step}</h3>
-                <p className="mt-3 text-base leading-7 text-[var(--campaign-text)] md:text-lg">{item.desc}</p>
+      <main className="mx-auto max-w-7xl px-4 md:px-8">
+        <Reveal className="relative z-10 mt-[5px]">
+          <div className="rounded-[30px] border border-[#E8D9BD] bg-[#FFFDF8]/96 p-4 shadow-[0_20px_48px_rgba(111,78,25,0.12)] backdrop-blur md:p-5">
+            <div className="mb-4 rounded-[24px] border border-[#E8D9BD] bg-[#FFF9F0] px-5 py-6 text-center">
+              <p className={`${SEVA_SECTION_LABEL_CLASS} text-[#b96a22]`}>Emergency Service Initiative</p>
+              <p className={`mx-auto mt-3 max-w-3xl ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
+                Rapid support for families affected by flood, fire, storm, displacement, and sudden crisis.
+              </p>
+              <div className="mt-5 flex flex-wrap justify-center gap-3">
+                {heroBadges.map((badge) => (
+                  <span key={badge} className="rounded-full border border-[#E8D9BD] bg-white px-4 py-2 text-sm font-bold text-[#8A5B16]">
+                    {badge}
+                  </span>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-            <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Relief Seva Support</p>
-            <h3 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Join and Support Relief Seva</h3>
-            <p className="mt-4 text-base leading-7 text-[var(--campaign-text)] md:text-lg">
-              You can serve by joining field response teams, supporting logistics and camp setup, donating supplies, or
-              sponsoring emergency and recovery assistance for affected families.
-            </p>
-            <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-3">
-              {DISASTER_JOIN_OPTIONS.map((item) => (
-                <div key={item.title} className="rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm">
-                  <h4 className="text-xl font-black text-white">{item.title}</h4>
-                  <p className="mt-3 text-sm leading-7 text-[var(--campaign-text)]">{item.desc}</p>
-                  <Link
-                    to={item.href}
-                    className="mt-5 inline-flex rounded-xl bg-[var(--campaign-accent)] px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]"
-                  >
-                    {item.cta}
-                  </Link>
-                </div>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+              {snapshotCards.map(([title, text, , image]) => (
+                <article key={title} className="relief-card flex h-full flex-col items-center justify-center rounded-[26px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 text-center shadow-[0_14px_34px_rgba(115,78,31,0.08)]">
+                  <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                    <img src={image} alt={`${title} relief snapshot icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
+                  </span>
+                  <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</h3>
+                  <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{text}</p>
+                </article>
               ))}
             </div>
           </div>
+        </Reveal>
 
-          <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 text-white shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-            <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Donation Options</p>
-            <h3 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Emergency Donation Support</h3>
-            <p className="mt-4 text-base leading-7 text-[var(--campaign-text)] md:text-lg">
-              Contributions help the trust mobilize emergency food, water, medicine, shelter essentials, and rehabilitation
-              support when families face sudden crisis.
-            </p>
-            <div className="my-6 grid grid-cols-1 gap-3 md:grid-cols-3">
-              {DISASTER_DONATION_TIERS.map((tier) => (
-                <div key={tier.label} className="rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm">
-                  <p className="text-xl font-black text-white">{tier.label}</p>
-                  <p className="mt-2 text-2xl font-black text-[var(--campaign-accent)]">{tier.amount}</p>
-                  <p className="mt-3 text-sm leading-7 text-[var(--campaign-text)]">{tier.note}</p>
+        <Reveal className="mt-20 grid items-stretch gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          <section className="rounded-[32px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 shadow-[0_18px_44px_rgba(115,78,31,0.08)] md:p-10">
+            <ReliefSectionHeader eyebrow="About Disaster Relief" title="Emergency response with compassion and discipline" align="left" />
+            <div className={`mt-6 space-y-5 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
+              <p>
+                Disaster Relief Seva is the trust's humanitarian response initiative for communities facing flood, fire, storm, displacement, and sudden emergency conditions. The focus is not only on quick response, but also on dignified service, coordination, and practical relief support.
+              </p>
+              <p>
+                Through relief materials, volunteer mobilization, emergency camp support, and follow-up recovery assistance, this initiative helps affected families receive timely care in moments of urgent need.
+              </p>
+            </div>
+          </section>
+          <section className="overflow-hidden rounded-[32px] border border-[#E7D3AE] bg-[#FFF7E9] shadow-[0_18px_44px_rgba(115,78,31,0.08)]">
+            <div className="relative">
+              <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1776834111/about_relief_fbx1d2.png" alt="Relief volunteers coordinating support materials" className="h-72 w-full object-cover lg:h-80" loading="lazy" />
+            </div>
+            <div className="grid grid-cols-2 gap-3 p-5">
+              {aboutCards.map(([title, , image]) => (
+                <div key={title} className="rounded-2xl border border-[#E7D3AE] bg-white/88 p-4 text-center">
+                  <span className="mx-auto inline-flex h-[64px] w-[64px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_10px_22px_rgba(111,78,25,0.10),inset_0_0_0_6px_rgba(255,255,255,0.72)]">
+                    <img src={image} alt={`${title} relief support icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
+                  </span>
+                  <p className={`mt-3 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</p>
                 </div>
               ))}
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link to={ROUTES.donate} className="inline-flex rounded-xl bg-[var(--campaign-accent)] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]">
-                Donate Now
-              </Link>
-              <Link to={ROUTES.involved.volunteer} className="inline-flex rounded-xl bg-[var(--campaign-surface)] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[var(--campaign-mid-hover)]">
-                Become Volunteer
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        </Reveal>
 
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-          <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Relief Stories</p>
-          <h2 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Compassion in action</h2>
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
-            {DISASTER_STORIES.map((item) => (
-              <div key={item.name} className="rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm">
-                <p className="text-base leading-7 text-[var(--campaign-text)] md:text-lg">&quot;{item.quote}&quot;</p>
-                <p className="mt-4 text-sm font-black uppercase tracking-[0.12em] text-[var(--campaign-accent)]">{item.name}</p>
+        <Reveal className="mt-20 rounded-[34px] border border-[#E7D3AE] bg-[#FFF9EF] p-6 shadow-[0_18px_44px_rgba(115,78,31,0.08)] md:p-10">
+          <ReliefSectionHeader eyebrow="Relief Process" title="How Disaster Relief Works" intro="A calm, verified sequence helps the team respond quickly without losing dignity, safety, or accountability in the field." />
+          <div className="mt-10 grid gap-5 lg:grid-cols-5">
+            {processSteps.map(([title, text, icon, image], index) => (
+              <article key={title} className="relief-card relative rounded-[26px] border border-[#E7D3AE] bg-white p-5 text-center">
+                {index < processSteps.length - 1 ? <span className="absolute left-[calc(100%-6px)] top-10 hidden h-px w-5 bg-[#DFC28A] lg:block" aria-hidden="true" /> : null}
+                <div className="flex items-center justify-center gap-4">
+                  {image ? (
+                    <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                      <img src={image} alt={`${title} relief process icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
+                    </span>
+                  ) : (
+                    <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                      <ReliefIcon name={icon} />
+                    </span>
+                  )}
+                </div>
+                <p className="mt-5 text-xs font-black uppercase tracking-[0.22em] text-[#B97916]">{String(index + 1).padStart(2, "0")}</p>
+                <h3 className={`mt-3 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</h3>
+                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{text}</p>
+              </article>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal className="mt-20">
+          <ReliefSectionHeader eyebrow="What We Support" title="Relief essentials delivered with care" />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {supportCards.map(([title, text, , image]) => (
+              <article key={title} className="relief-card flex h-full flex-col items-center justify-center rounded-[26px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 text-center shadow-[0_14px_34px_rgba(115,78,31,0.08)]">
+                <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                  <img src={image} alt={`${title} relief support icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
+                </span>
+                <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</h3>
+                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{text}</p>
+              </article>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal className="mt-20 rounded-[34px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 shadow-[0_18px_44px_rgba(115,78,31,0.08)] md:p-10">
+          <ReliefSectionHeader eyebrow="Join Relief Seva" title="Serve with discipline, compassion, and coordination" intro="Relief seva needs steady hands: people who can pack, coordinate, distribute, document, and care for families respectfully." />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {volunteerCards.map(([title, text, , image]) => (
+              <article key={title} className="relief-card flex h-full flex-col items-center rounded-[26px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 text-center shadow-[0_14px_34px_rgba(115,78,31,0.08)]">
+                <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                  <img src={image} alt={`${title} relief seva icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
+                </span>
+                <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</h3>
+                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-9 text-center">
+            <ReliefButton to={ROUTES.involved.volunteer}>Join Disaster Relief Seva</ReliefButton>
+          </div>
+        </Reveal>
+
+        <Reveal className="mt-20 rounded-[36px] border border-[#DEBF82] bg-[linear-gradient(135deg,#FFF0D6_0%,#FFFDF8_48%,#F8EFE0_100%)] p-6 shadow-[0_24px_58px_rgba(196,109,26,0.12)] md:p-10">
+          <ReliefSectionHeader eyebrow="Donation Options" title="Emergency donation support" />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {donationCards.map(([title, amount, text, , cta, image]) => (
+              <article key={title} className="relief-card flex h-full flex-col rounded-[28px] border border-[#E7D3AE] bg-white p-6">
+                <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                  <img src={image} alt={`${title} donation support icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
+                </span>
+                <p className="mt-6 text-2xl font-black text-[#B66B17]">{amount}</p>
+                <h3 className={`mt-3 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</h3>
+                <p className={`mt-3 flex-1 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{text}</p>
+                <Link to={ROUTES.donate} className="mt-6 inline-flex min-h-[46px] items-center justify-center rounded-full bg-[#D9962B] px-5 text-sm font-black text-white shadow-[0_14px_26px_rgba(196,109,26,0.2)] transition hover:-translate-y-0.5 hover:bg-[#B66B17] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#F0C36A]/45">
+                  {cta}
+                </Link>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <ReliefButton to={ROUTES.donate}>Donate Now</ReliefButton>
+            <ReliefButton to={ROUTES.donate} variant="outline">Sponsor Relief</ReliefButton>
+            <ReliefButton to={ROUTES.involved.volunteer} variant="outline">Become a Volunteer</ReliefButton>
+          </div>
+        </Reveal>
+
+        <Reveal className="mt-20 rounded-[34px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 shadow-[0_18px_44px_rgba(115,78,31,0.08)] md:p-10">
+          <ReliefSectionHeader eyebrow="Relief Stories" title="Dignified compassion in the field" />
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            {testimonials.map(([name, quote, image]) => (
+              <article key={name} className="relief-card rounded-[28px] border border-[#E7D3AE] bg-[radial-gradient(circle_at_top_left,#FFF2D9_0%,#FFFDF8_46%,#FFFFFF_100%)] p-6 text-center">
+                <span className="mx-auto inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                  <img src={image} alt={`${name} relief story`} className="h-full w-full rounded-full object-contain" loading="lazy" />
+                </span>
+                <span className="text-5xl font-black leading-none text-[#D9962B]">&quot;</span>
+                <p className={`mt-3 italic ${SEVA_BODY_TEXT_CLASS} text-[#4A3422]`}>&quot;{quote}&quot;</p>
+                <p className="mt-6 text-sm font-black uppercase tracking-[0.18em] text-[#B66B17]">{name}</p>
+              </article>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal className="mt-20 pb-4 md:pb-10">
+          <section className="overflow-hidden rounded-[38px] border border-[#dcb884] bg-[linear-gradient(135deg,#c46d1a_0%,#e4b45e_45%,#f3d8a0_100%)] px-6 py-10 text-white shadow-[0_22px_46px_rgba(196,109,26,0.2)] md:px-10 md:py-12">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-3xl">
+                <p className={`${SEVA_SECTION_LABEL_CLASS} text-white/80`}>Final Call to Serve</p>
+                <h2 className={`${SEVA_SECTION_HEADING_CLASS} mt-4 text-white`}>Stand with families in times of crisis</h2>
+                <p className={`mt-4 ${SEVA_BODY_TEXT_CLASS} text-white/92`}>
+                  Your contribution can support urgent relief, dignified care, and recovery assistance.
+                </p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <div className="flex w-full max-w-md flex-col gap-3">
+                <Link
+                  to={ROUTES.donate}
+                  className="inline-flex min-h-[54px] items-center justify-center rounded-full bg-white px-6 text-base font-semibold text-[#9b4b11] transition-colors hover:bg-[#fff4df]"
+                >
+                  Support Relief Work
+                </Link>
+                <Link
+                  to={ROUTES.involved.volunteer}
+                  className="inline-flex min-h-[54px] items-center justify-center rounded-full border border-white/60 px-6 text-base font-semibold text-white transition-colors hover:bg-white hover:text-[#9b4b11]"
+                >
+                  Join as Volunteer
+                </Link>
+                <Link
+                  to={ROUTES.contact}
+                  className="inline-flex min-h-[54px] items-center justify-center rounded-full border border-white/60 px-6 text-base font-semibold text-white transition-colors hover:bg-white hover:text-[#9b4b11]"
+                >
+                  Contact Relief Team
+                </Link>
+              </div>
+            </div>
+          </section>
+        </Reveal>
+      </main>
 
-      <section className="max-w-5xl mx-auto px-4 py-10">
-        <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-          <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Help Desk</p>
-          <h2 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Frequently Asked Questions</h2>
-          <div className="mt-8 space-y-3">
-            {DISASTER_FAQS.map((item) => (
-              <details key={item.q} className="rounded-[20px] border border-white/10 bg-[var(--campaign-surface)] p-5">
-                <summary className="cursor-pointer text-xl font-black text-white">{item.q}</summary>
-                <p className="mt-3 text-base leading-7 text-[var(--campaign-text)] md:text-lg">{item.a}</p>
-              </details>
-            ))}
-          </div>
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E7D3AE] bg-[#FFFDF8]/96 px-4 py-3 shadow-[0_-10px_26px_rgba(93,61,28,0.14)] backdrop-blur md:hidden">
+        <div className="mx-auto flex max-w-md gap-3">
+          <Link to={ROUTES.donate} className="inline-flex min-h-[50px] flex-1 items-center justify-center rounded-full bg-[#D9962B] text-sm font-black text-white">Donate</Link>
+          <Link to={ROUTES.involved.volunteer} className="inline-flex min-h-[50px] flex-1 items-center justify-center rounded-full border border-[#D9962B] bg-white text-sm font-black text-[#B66B17]">Volunteer</Link>
         </div>
-      </section>
+      </div>
     </div>
   );
 });
