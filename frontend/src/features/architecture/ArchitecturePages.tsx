@@ -3096,7 +3096,7 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
               {snapshotCards.map(([title, text, , image]) => (
                 <article key={title} className="relief-card flex h-full flex-col items-center justify-center rounded-[26px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 text-center shadow-[0_14px_34px_rgba(115,78,31,0.08)]">
-                  <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                  <span className="inline-flex h-[96px] w-[96px] items-center justify-center overflow-hidden rounded-full">
                     <img src={image} alt={`${title} relief snapshot icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
                   </span>
                   <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</h3>
@@ -3126,7 +3126,7 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
             <div className="grid grid-cols-2 gap-3 p-5">
               {aboutCards.map(([title, , image]) => (
                 <div key={title} className="rounded-2xl border border-[#E7D3AE] bg-white/88 p-4 text-center">
-                  <span className="mx-auto inline-flex h-[64px] w-[64px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_10px_22px_rgba(111,78,25,0.10),inset_0_0_0_6px_rgba(255,255,255,0.72)]">
+                  <span className="mx-auto inline-flex h-[84px] w-[84px] items-center justify-center overflow-hidden rounded-full">
                     <img src={image} alt={`${title} relief support icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
                   </span>
                   <p className={`mt-3 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</p>
@@ -3144,11 +3144,11 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
                 {index < processSteps.length - 1 ? <span className="absolute left-[calc(100%-6px)] top-10 hidden h-px w-5 bg-[#DFC28A] lg:block" aria-hidden="true" /> : null}
                 <div className="flex items-center justify-center gap-4">
                   {image ? (
-                    <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                    <span className="inline-flex h-[96px] w-[96px] items-center justify-center overflow-hidden rounded-full">
                       <img src={image} alt={`${title} relief process icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
                     </span>
                   ) : (
-                    <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                    <span className="inline-flex h-[96px] w-[96px] items-center justify-center overflow-hidden rounded-full">
                       <ReliefIcon name={icon} />
                     </span>
                   )}
@@ -3166,7 +3166,7 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {supportCards.map(([title, text, , image]) => (
               <article key={title} className="relief-card flex h-full flex-col items-center justify-center rounded-[26px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 text-center shadow-[0_14px_34px_rgba(115,78,31,0.08)]">
-                <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                <span className="inline-flex h-[96px] w-[96px] items-center justify-center overflow-hidden rounded-full">
                   <img src={image} alt={`${title} relief support icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
                 </span>
                 <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</h3>
@@ -3181,7 +3181,7 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {volunteerCards.map(([title, text, , image]) => (
               <article key={title} className="relief-card flex h-full flex-col items-center rounded-[26px] border border-[#E7D3AE] bg-[#FFFDF8] p-6 text-center shadow-[0_14px_34px_rgba(115,78,31,0.08)]">
-                <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                <span className="inline-flex h-[96px] w-[96px] items-center justify-center overflow-hidden rounded-full">
                   <img src={image} alt={`${title} relief seva icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
                 </span>
                 <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{title}</h3>
@@ -3199,7 +3199,7 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {donationCards.map(([title, amount, text, , cta, image]) => (
               <article key={title} className="relief-card flex h-full flex-col rounded-[28px] border border-[#E7D3AE] bg-white p-6">
-                <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                <span className="inline-flex h-[96px] w-[96px] items-center justify-center overflow-hidden rounded-full">
                   <img src={image} alt={`${title} donation support icon`} className="h-full w-full rounded-full object-contain" loading="lazy" />
                 </span>
                 <p className="mt-6 text-2xl font-black text-[#B66B17]">{amount}</p>
@@ -3223,7 +3223,7 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
             {testimonials.map(([name, quote, image]) => (
               <article key={name} className="relief-card rounded-[28px] border border-[#E7D3AE] bg-[radial-gradient(circle_at_top_left,#FFF2D9_0%,#FFFDF8_46%,#FFFFFF_100%)] p-6 text-center">
-                <span className="mx-auto inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#E7D3AE] bg-[#FFF4DE] p-2 shadow-[0_12px_28px_rgba(111,78,25,0.12),inset_0_0_0_7px_rgba(255,255,255,0.72)]">
+                <span className="mx-auto inline-flex h-[96px] w-[96px] items-center justify-center overflow-hidden rounded-full">
                   <img src={image} alt={`${name} relief story`} className="h-full w-full rounded-full object-contain" loading="lazy" />
                 </span>
                 <span className="text-5xl font-black leading-none text-[#D9962B]">&quot;</span>
