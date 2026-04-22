@@ -1128,7 +1128,7 @@ function TestimonialSection() {
 
 function FinalCTABanner() {
   return (
-    <section className="px-4 pb-24 pt-10 md:px-8 md:pb-10">
+    <section className="px-4 pb-0 pt-10 md:px-8 md:pb-0">
       <div className="mx-auto max-w-6xl overflow-hidden rounded-[38px] border border-[#dcb884] bg-[linear-gradient(135deg,#c46d1a_0%,#e4b45e_45%,#f3d8a0_100%)] px-6 py-10 text-white shadow-[0_22px_46px_rgba(196,109,26,0.2)] md:px-10 md:py-12">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-3xl">

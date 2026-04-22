@@ -671,7 +671,7 @@ export default memo(function JalSevaPage() {
   );
 
   return (
-    <div className="bg-[#FAF7F1] pb-20 text-[#5A6472] md:pb-10">
+    <div className="bg-[#FAF7F1] pb-0 text-[#5A6472] md:pb-0">
       <JalSevaHero onDonate={goDonate} onStartSeva={goStartSeva} />
       <JalSevaIntroPanel />
       <WhyJalSevaSection />

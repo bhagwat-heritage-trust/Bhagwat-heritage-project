@@ -645,7 +645,7 @@ export default memo(function GauSevaPage() {
   );
 
   return (
-    <div className="bg-[#F8F3E7] pb-24 text-[#6B5A4A] md:pb-10">
+    <div className="bg-[#F8F3E7] pb-0 text-[#6B5A4A] md:pb-0">
       <GauSevaHero />
       <WhyGauSevaSection />
       <ActivitiesGrid />

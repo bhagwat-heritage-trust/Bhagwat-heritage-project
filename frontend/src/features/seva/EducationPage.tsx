@@ -594,7 +594,7 @@ function TrustSection() {
 
 function FinalCTASection() {
   return (
-    <section className="px-4 py-16 md:px-8 md:py-20">
+    <section className="px-4 pb-0 pt-16 md:px-8 md:pb-0 md:pt-20">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-[#D8A84D] bg-[linear-gradient(135deg,#E0A126_0%,#F4CF72_100%)] p-6 shadow-[0_24px_58px_rgba(111,78,25,0.14)] md:p-10">
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
@@ -628,7 +628,7 @@ export default memo(function EducationPage() {
   );
 
   return (
-    <div className="bg-[#F8F3E8] pb-8 text-[#4A3422]">
+    <div className="bg-[#F8F3E8] pb-0 text-[#4A3422]">
       <HeroSection />
       <QuickImpactSection />
       <AboutSection />

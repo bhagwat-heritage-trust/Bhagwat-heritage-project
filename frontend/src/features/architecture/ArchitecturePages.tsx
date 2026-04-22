@@ -3034,7 +3034,7 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
   );
 
   return (
-    <div className="bg-[#F8F1E5] pb-24 text-[#5F4D3F] md:pb-12">
+    <div className="bg-[#F8F1E5] pb-0 text-[#5F4D3F] md:pb-0">
       <style>{`
         .relief-card { transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease; }
         .relief-card:hover { transform: translateY(-5px); box-shadow: 0 24px 54px rgba(115, 78, 31, 0.13); border-color: #DFC28A; }
@@ -3234,7 +3234,7 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
           </div>
         </Reveal>
 
-        <Reveal className="mt-20 pb-4 md:pb-10">
+        <Reveal className="mt-20 pb-0 md:pb-0">
           <section className="overflow-hidden rounded-[38px] border border-[#dcb884] bg-[linear-gradient(135deg,#c46d1a_0%,#e4b45e_45%,#f3d8a0_100%)] px-6 py-10 text-white shadow-[0_22px_46px_rgba(196,109,26,0.2)] md:px-10 md:py-12">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
               <div className="max-w-3xl">
