@@ -16,12 +16,14 @@ type TrustCard = {
   title: string;
   text: string;
   icon: ComponentType<IconProps>;
+  iconImage?: string;
 };
 
 type InfoCard = {
   title: string;
   text: string;
   icon: ComponentType<IconProps>;
+  iconImage?: string;
 };
 
 type DonationPlan = {
@@ -39,7 +41,8 @@ type CowCard = {
   image: string;
 };
 
-const heroImage = "/images/maharaj%20ji/gau.jpg";
+const heroImage =
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776883131/ChatGPT_Image_Apr_23_2026_12_08_06_AM_cznm7x.png";
 const cowImages = [
   "https://res.cloudinary.com/der8zinu8/image/upload/v1774593948/19_vjopcc.png",
   "https://res.cloudinary.com/der8zinu8/image/upload/v1774593948/Banner_so0elf.png",
@@ -57,21 +60,29 @@ const quickTrustCards: TrustCard[] = [
     title: "Daily Bhojan Seva",
     text: "Daily nourishment",
     icon: LeafIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776878924/ChatGPT_Image_Apr_22_2026_10_57_31_PM_x42qy5.png",
   },
   {
     title: "Medical Care",
     text: "Health support",
     icon: HeartPulseIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776878925/ChatGPT_Image_Apr_22_2026_10_57_09_PM_owi8r9.png",
   },
   {
     title: "Shelter & Protection",
     text: "Safe long-term care",
     icon: HomeShieldIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776878925/ChatGPT_Image_Apr_22_2026_10_57_17_PM_gfz5pg.png",
   },
   {
     title: "Volunteer-led Service",
     text: "Devoted seva teams",
     icon: HandHeartIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776878924/ChatGPT_Image_Apr_22_2026_10_57_24_PM_kchbve.png",
   },
 ];
 
@@ -80,16 +91,22 @@ const sacredInfoCards: InfoCard[] = [
     title: "Mission",
     text: "To protect, nourish, and serve Gau Mata through compassionate care, disciplined management, and spiritually inspired seva.",
     icon: TargetIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776879537/ChatGPT_Image_Apr_22_2026_11_01_47_PM_y33ypx.png",
   },
   {
     title: "Vision",
     text: "To build a sacred and sustainable Gau Seva ecosystem where devotion, service, and responsibility come together for long-term protection and wellbeing.",
     icon: SunIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776879537/ChatGPT_Image_Apr_22_2026_11_04_39_PM_wqpdpm.png",
   },
   {
     title: "Seva Impact",
     text: "Every offering supports food, medicine, shelter, cleanliness, and daily care for cows living under the protection of Kamdhenu Ashram.",
     icon: SparklesIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776879536/ChatGPT_Image_Apr_22_2026_11_08_31_PM_ao4owk.png",
   },
 ];
 
@@ -98,31 +115,43 @@ const activities: InfoCard[] = [
     title: "Daily Feeding",
     text: "Nutritious green fodder, dry feed, and regular nourishment are arranged daily for the wellbeing of Gau Mata.",
     icon: LeafIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776880621/ChatGPT_Image_Apr_22_2026_11_25_30_PM_i6q6qj.png",
   },
   {
     title: "Medical Care",
     text: "Health monitoring, treatment support, medicines, and special care are provided for weak, injured, or dependent cows.",
     icon: MedicalCrossIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776880620/ChatGPT_Image_Apr_22_2026_11_25_36_PM_llngff.png",
   },
   {
     title: "Shelter Maintenance",
     text: "Clean, secure, and comfortable shelter spaces are maintained to protect cows in all seasons.",
     icon: HomeIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776880622/ChatGPT_Image_Apr_22_2026_11_25_42_PM_hx4e5z.png",
   },
   {
     title: "Rescue & Protection",
     text: "Support is extended toward protection, relocation, and safe care for cows in need of shelter and attention.",
     icon: ShieldIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776880619/ChatGPT_Image_Apr_22_2026_11_26_03_PM_y8h3lw.png",
   },
   {
     title: "Clean Water & Hygiene",
     text: "Daily water supply, cleanliness, and hygienic maintenance are essential parts of respectful Gau Seva.",
     icon: DropletIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776880619/ChatGPT_Image_Apr_22_2026_11_26_09_PM_j3nrmi.png",
   },
   {
     title: "Volunteer Participation",
     text: "Devotees and volunteers actively participate in feeding, care support, maintenance, and seva coordination.",
     icon: UsersIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776878924/ChatGPT_Image_Apr_22_2026_10_57_24_PM_kchbve.png",
   },
 ];
 
@@ -188,9 +217,21 @@ const sponsorCows: CowCard[] = [
 ];
 
 const galleryItems = [
-  { title: "Daily feeding seva", image: cowImages[0] },
-  { title: "Peaceful shelter care", image: cowImages[1] },
-  { title: "Volunteer participation", image: cowImages[2] },
+  {
+    title: "Daily feeding seva",
+    image:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776882321/ChatGPT_Image_Apr_22_2026_11_54_09_PM_eylktd.png",
+  },
+  {
+    title: "Peaceful shelter care",
+    image:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776882320/ChatGPT_Image_Apr_22_2026_11_53_56_PM_kkgcg2.png",
+  },
+  {
+    title: "Volunteer participation",
+    image:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776882322/ChatGPT_Image_Apr_22_2026_11_53_49_PM_bte66s.png",
+  },
 ];
 
 const infoCards: InfoCard[] = [
@@ -198,16 +239,22 @@ const infoCards: InfoCard[] = [
     title: "Spiritual Message",
     text: '"Gau Seva is a sacred expression of compassion, gratitude, and dharmic responsibility. In serving Gau Mata, one serves gentleness, nourishment, and the spirit of selfless care."',
     icon: LotusIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776880982/ChatGPT_Image_Apr_22_2026_11_32_10_PM_qwzfon.png",
   },
   {
     title: "Donation Transparency",
     text: "All contributions are directed toward fodder, care, shelter support, hygiene, and medical assistance for Gau Mata. Donation acknowledgements and support records may be maintained as per trust process, and seva is supervised through responsible coordination and volunteer support.",
     icon: BadgeCheckIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776880987/ChatGPT_Image_Apr_22_2026_11_32_26_PM_nplimi.png",
   },
   {
     title: "Contact for Gau Seva",
     text: `Ashram / Trust Name: Bhagwat Heritage Service Foundation Trust\nLocation: ${page.location}\nPhone: ${page.phone}\nEmail: ${page.email}\nVisiting Hours: Contact before visit for suitable timing and seva coordination`,
     icon: PhoneIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776880984/ChatGPT_Image_Apr_22_2026_11_32_32_PM_yqadqy.png",
   },
 ];
 
@@ -353,10 +400,20 @@ function SectionHeader({ eyebrow, title, subtitle }: { eyebrow?: string; title: 
   );
 }
 
-function IconBubble({ icon: Icon }: { icon: ComponentType<IconProps> }) {
+function IconBubble({
+  icon: Icon,
+  image,
+}: {
+  icon: ComponentType<IconProps>;
+  image?: string;
+}) {
   return (
-    <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F3E7C9] text-[#D89B2B]">
-      <Icon />
+    <span className="mx-auto inline-flex h-[78px] w-[78px] items-center justify-center overflow-hidden rounded-full text-[#D89B2B]">
+      {image ? (
+        <img src={image} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
+      ) : (
+        <Icon className="h-7 w-7" />
+      )}
     </span>
   );
 }
@@ -401,8 +458,17 @@ function QuickTrustCards() {
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {quickTrustCards.map((card) => (
           <article key={card.title} className="flex min-h-[116px] flex-col items-center justify-center rounded-[18px] border border-[#E7D8B4] bg-white px-4 py-5 text-center transition hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(111,78,25,0.1)]">
-            <span className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#F3E7C9] text-[#D89B2B]">
-              <card.icon className="h-5 w-5" />
+            <span className="mb-3 inline-flex h-[74px] w-[74px] items-center justify-center overflow-hidden rounded-full text-[#D89B2B]">
+              {card.iconImage ? (
+                <img
+                  src={card.iconImage}
+                  alt=""
+                  className="h-full w-full rounded-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <card.icon className="h-7 w-7" />
+              )}
             </span>
             <h3 className="text-balance text-[21px] font-black leading-tight text-[#B97916] md:text-[24px]">{card.title}</h3>
             <p className="mt-2 text-[12px] font-black leading-6 text-[#5A5249] md:text-[16px]">{card.text}</p>
@@ -429,7 +495,7 @@ function WhyGauSevaSection() {
       <div className="grid gap-4">
         {sacredInfoCards.map((card) => (
           <article key={card.title} className="rounded-[24px] border border-[#E7D8B4] bg-[#FFFDF8] p-6 shadow-[0_14px_34px_rgba(111,78,25,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(111,78,25,0.1)]">
-            <IconBubble icon={card.icon} />
+            <IconBubble icon={card.icon} image={card.iconImage} />
             <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{card.title}</h3>
             <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{card.text}</p>
           </article>
@@ -446,7 +512,7 @@ function ActivitiesGrid() {
       <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {activities.map((activity) => (
           <article key={activity.title} className="flex h-full flex-col rounded-[24px] border border-[#E7D8B4] bg-[#FFFDF8] p-6 shadow-[0_14px_34px_rgba(111,78,25,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(111,78,25,0.1)]">
-            <IconBubble icon={activity.icon} />
+            <IconBubble icon={activity.icon} image={activity.iconImage} />
             <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{activity.title}</h3>
             <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{activity.text}</p>
           </article>
@@ -579,7 +645,9 @@ function InfoCards() {
     <section className="mt-20 grid gap-5 lg:grid-cols-3">
       {infoCards.map((card) => (
         <article key={card.title} className="rounded-[24px] border border-[#E7D8B4] bg-[#FFFDF8] p-6 shadow-[0_16px_38px_rgba(111,78,25,0.08)]">
-          <IconBubble icon={card.icon} />
+          <div className="flex justify-center">
+            <IconBubble icon={card.icon} image={card.iconImage} />
+          </div>
           <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{card.title}</h3>
           <p className={`mt-4 whitespace-pre-line ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{card.text}</p>
           {card.title === "Contact for Gau Seva" ? (
