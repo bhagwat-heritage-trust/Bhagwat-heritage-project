@@ -15,6 +15,7 @@ type CardItem = {
   title: string;
   description: string;
   icon: ComponentType<IconProps>;
+  iconImage?: string;
 };
 
 type DonationPlan = {
@@ -54,11 +55,31 @@ const stats: StatItem[] = [
   { value: "Volunteers & Donors", label: "Actively Engaged" },
 ];
 
-const trustBadges: Array<{ label: string; icon: ComponentType<IconProps> }> = [
-  { label: "Summer Water Camps", icon: SunIcon },
-  { label: "Water Pot Support", icon: WaterPotIcon },
-  { label: "Community Water Seva", icon: CommunityIcon },
-  { label: "Sponsor a Water Point", icon: WaterPointIcon },
+const trustBadges: Array<{ label: string; icon: ComponentType<IconProps>; iconImage: string }> = [
+  {
+    label: "Summer Water Camps",
+    icon: SunIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776888503/ChatGPT_Image_Apr_23_2026_01_37_21_AM_y2dpbk.png",
+  },
+  {
+    label: "Water Pot Support",
+    icon: WaterPotIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776888502/ChatGPT_Image_Apr_23_2026_01_37_39_AM_e8vdpg.png",
+  },
+  {
+    label: "Community Water Seva",
+    icon: CommunityIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776888501/ChatGPT_Image_Apr_23_2026_01_37_00_AM_yvrlwv.png",
+  },
+  {
+    label: "Sponsor a Water Point",
+    icon: WaterPointIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776888503/ChatGPT_Image_Apr_23_2026_01_37_30_AM_n3m9fi.png",
+  },
 ];
 
 const jalIntroText =
@@ -69,21 +90,29 @@ const keyAreas: CardItem[] = [
     title: "Summer Relief Support",
     description: "Providing access to drinking water during peak heat conditions and seasonal hardship.",
     icon: WaterDropIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776888503/ChatGPT_Image_Apr_23_2026_01_37_21_AM_y2dpbk.png",
   },
   {
     title: "Pilgrim & Traveler Support",
     description: "Supporting those on spiritual journeys, public routes, and long-distance movement.",
     icon: TravelerIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776888502/ChatGPT_Image_Apr_23_2026_01_37_39_AM_e8vdpg.png",
   },
   {
     title: "Community Water Access",
     description: "Serving public spaces, gathering points, and local community-focused distribution areas.",
     icon: CommunityIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776888501/ChatGPT_Image_Apr_23_2026_01_37_00_AM_yvrlwv.png",
   },
   {
     title: "Emergency & Relief Support",
     description: "Water support during urgent situations, special drives, or difficult conditions.",
     icon: ReliefIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776888503/ChatGPT_Image_Apr_23_2026_01_37_30_AM_n3m9fi.png",
   },
 ];
 
@@ -112,12 +141,48 @@ const serviceModes = [
 ];
 
 const reachItems: CardItem[] = [
-  { title: "Temples & Ashrams", description: "", icon: TempleIcon },
-  { title: "Festivals & Gatherings", description: "", icon: FestivalIcon },
-  { title: "Pilgrim Routes", description: "", icon: TravelerIcon },
-  { title: "Medical Support Areas", description: "", icon: MedicalIcon },
-  { title: "Public Community Spaces", description: "", icon: CommunityIcon },
-  { title: "Relief & Support Locations", description: "", icon: ReliefIcon },
+  {
+    title: "Temples & Ashrams",
+    description: "",
+    icon: TempleIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884758/mandir_isqn5j.png",
+  },
+  {
+    title: "Festivals & Gatherings",
+    description: "",
+    icon: FestivalIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884758/diya_otz5hd.png",
+  },
+  {
+    title: "Pilgrim Routes",
+    description: "",
+    icon: TravelerIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884758/people_vrssxt.png",
+  },
+  {
+    title: "Medical Support Areas",
+    description: "",
+    icon: MedicalIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884757/medical_fa6kuy.png",
+  },
+  {
+    title: "Public Community Spaces",
+    description: "",
+    icon: CommunityIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884758/community_zkztz1.png",
+  },
+  {
+    title: "Relief & Support Locations",
+    description: "",
+    icon: ReliefIcon,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884757/drop_jjvavs.png",
+  },
 ];
 
 const campaigns: CampaignItem[] = [
@@ -400,10 +465,16 @@ function JalSevaIntroPanel() {
       </p>
       <div className="mx-auto mt-8 grid max-w-5xl gap-3 md:grid-cols-2">
         {trustBadges.map((badge) => {
-          const Icon = badge.icon;
           return (
-            <div key={badge.label} className="flex min-h-14 items-center justify-center gap-4 rounded-full border border-[#E4C7A2] bg-white/70 px-5 py-4 text-base font-bold uppercase tracking-[0.16em] text-[#8A531E] md:text-lg">
-              <Icon className="h-5 w-5 shrink-0 text-[#E9932D]" />
+            <div key={badge.label} className="flex min-h-[94px] items-center justify-center gap-5 rounded-full border border-[#E4C7A2] bg-white/70 px-7 py-5 text-base font-bold uppercase tracking-[0.16em] text-[#8A531E] md:text-lg">
+              <span className="inline-flex h-[64px] w-[64px] shrink-0 items-center justify-center overflow-hidden rounded-full">
+                <img
+                  src={badge.iconImage}
+                  alt=""
+                  className="h-full w-full rounded-full object-cover"
+                  loading="lazy"
+                />
+              </span>
               <span>{badge.label}</span>
             </div>
           );
@@ -439,7 +510,18 @@ function KeyAreasGrid() {
       <div className="mt-9 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {keyAreas.map((item) => (
           <article key={item.title} className="flex h-full flex-col rounded-[24px] border border-[#E8DECF] bg-white p-6 shadow-[0_16px_34px_rgba(31,78,121,0.08)]">
-            <IconBadge icon={item.icon} />
+            {item.iconImage ? (
+              <div className="mx-auto inline-flex h-[64px] w-[64px] items-center justify-center overflow-hidden rounded-full">
+                <img
+                  src={item.iconImage}
+                  alt=""
+                  className="h-full w-full rounded-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            ) : (
+              <IconBadge icon={item.icon} />
+            )}
             <h3 className="mt-5 text-xl font-bold leading-tight text-[#17324D]">{item.title}</h3>
             <p className="mt-3 text-base leading-7 text-[#5A6472]">{item.description}</p>
           </article>
@@ -530,10 +612,21 @@ function ReachAndCoverageSection() {
         <p className="text-center text-xs font-bold uppercase tracking-[0.28em] text-[#17324D]">Service Locations</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {reachItems.map((item) => (
-          <article key={item.title} className="flex min-h-14 items-center gap-4 rounded-2xl border border-[#DDE7EA] bg-white px-4 py-3">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#E9932D]/10 text-[#E9932D]">
-              <item.icon className="h-4 w-4" />
-            </span>
+          <article key={item.title} className="flex min-h-[78px] items-center gap-5 rounded-2xl border border-[#DDE7EA] bg-white px-5 py-4">
+            {item.iconImage ? (
+              <span className="flex h-[54px] w-[54px] shrink-0 items-center justify-center overflow-hidden rounded-full">
+                <img
+                  src={item.iconImage}
+                  alt=""
+                  className="h-[50px] w-[50px] rounded-full object-cover"
+                  loading="lazy"
+                />
+              </span>
+            ) : (
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#E9932D]/10 text-[#E9932D]">
+                <item.icon className="h-4 w-4" />
+              </span>
+            )}
             <h3 className="text-base font-semibold leading-6 text-[#51463C]">{item.title}</h3>
           </article>
         ))}

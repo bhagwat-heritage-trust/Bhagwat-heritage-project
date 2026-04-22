@@ -44,9 +44,9 @@ type CowCard = {
 const heroImage =
   "https://res.cloudinary.com/der8zinu8/image/upload/v1776883131/ChatGPT_Image_Apr_23_2026_12_08_06_AM_cznm7x.png";
 const cowImages = [
-  "https://res.cloudinary.com/der8zinu8/image/upload/v1774593948/19_vjopcc.png",
-  "https://res.cloudinary.com/der8zinu8/image/upload/v1774593948/Banner_so0elf.png",
-  "https://res.cloudinary.com/der8zinu8/image/upload/v1774593946/1_uww9cw.jpg",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776885855/ChatGPT_Image_Apr_23_2026_12_53_24_AM_afwsnj.png",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776885856/ChatGPT_Image_Apr_23_2026_12_53_39_AM_cbiw8h.png",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776885855/ChatGPT_Image_Apr_23_2026_12_53_32_AM_nnkiim.png",
 ];
 
 const page = {
@@ -428,19 +428,19 @@ function GauSevaHero() {
         }
       `}</style>
       <div className="inner-hero overflow-hidden rounded-b-[40px] bg-[#4A3422] shadow-[0_26px_70px_rgba(74,52,34,0.2)]">
-        <div className="relative flex min-h-[610px] items-center justify-center bg-cover bg-center px-5 py-20 text-center md:min-h-[700px] md:px-10" style={{ backgroundImage: `url('${heroImage}')` }}>
-          <div className="absolute inset-0 bg-black/50" />
+        <div className="relative flex min-h-[610px] items-end justify-center bg-cover bg-center px-5 pb-20 pt-28 text-center md:min-h-[700px] md:px-10 md:pb-24" style={{ backgroundImage: `url('${heroImage}')` }}>
+          <div className="absolute inset-0 bg-white/10" />
           <div className="relative z-10 mx-auto max-w-4xl" style={{ animation: "sevaHeroFadeUp 0.85s ease-out both" }}>
-            <h1 className="text-4xl font-bold leading-tight !text-white md:text-5xl">Gau Seva</h1>
-            <p className={`mt-5 ${SEVA_HERO_SUBTITLE_CLASS}`}>Kamdhenu Ashram</p>
+            <h1 className="text-4xl font-bold leading-tight !text-[#1F73A0] md:text-5xl">Gau Seva</h1>
+            <p className={`mt-5 ${SEVA_HERO_SUBTITLE_CLASS} !text-[#1F73A0]`}>Kamdhenu Ashram</p>
             <div className="hero-actions mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link to={ROUTES.donate} className="inline-flex min-h-[56px] w-full min-w-[210px] items-center justify-center rounded-full bg-[#D89B2B] px-8 text-base font-bold text-white transition hover:bg-[#B97916] sm:w-auto">
                 Donate for Gau Seva
               </Link>
-              <Link to={ROUTES.donate} className="inline-flex min-h-[56px] w-full min-w-[210px] items-center justify-center rounded-full border border-white/75 bg-white/10 px-8 text-base font-bold text-white transition hover:bg-white hover:text-[#4A3422] sm:w-auto">
+              <Link to={ROUTES.donate} className="inline-flex min-h-[56px] w-full min-w-[210px] items-center justify-center rounded-full bg-[#C83232] px-8 text-base font-bold text-white transition hover:bg-[#A92525] sm:w-auto">
                 Sponsor a Cow
               </Link>
-              <Link to={ROUTES.contact} className="inline-flex min-h-[56px] w-full min-w-[210px] items-center justify-center rounded-full border border-[#F3E7C9]/75 bg-transparent px-8 text-base font-bold text-white transition hover:bg-[#F3E7C9] hover:text-[#4A3422] sm:w-auto">
+              <Link to={ROUTES.contact} className="inline-flex min-h-[56px] w-full min-w-[210px] items-center justify-center rounded-full bg-[#F28C28] px-8 text-base font-bold text-white transition hover:bg-[#D97612] sm:w-auto">
                 Visit the Ashram
               </Link>
             </div>
@@ -488,7 +488,12 @@ function WhyGauSevaSection() {
         <div className={`mt-6 space-y-5 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>
           <p>Gau Seva is one of the most revered forms of seva in Sanatan Dharma. Gau Mata is honored as a symbol of nourishment, gentleness, abundance, and sacred living. Serving and protecting cows is not merely an act of care, but an offering of gratitude toward a divine source of sustenance and compassion.</p>
           <p>At Kamdhenu Ashram, Gau Seva is carried out with devotion, discipline, and responsibility. The ashram is dedicated to providing cows with food, shelter, protection, medical support, and a peaceful environment where they may live with dignity and care.</p>
-          <p>This seva invites every devotee and well-wisher to become a part of a living tradition of compassion. Through your support, Gau Mata receives nourishment, healing, and protection, and your contribution becomes a sacred participation in dharmic service.</p>
+          <img
+            src="https://res.cloudinary.com/der8zinu8/image/upload/v1776885077/ChatGPT_Image_Apr_23_2026_12_40_49_AM_othuer.png"
+            alt="Gau Seva devotional care"
+            className="w-full rounded-[24px] border border-[#E7D8B4] object-cover shadow-[0_14px_30px_rgba(111,78,25,0.08)]"
+            loading="lazy"
+          />
         </div>
       </div>
 

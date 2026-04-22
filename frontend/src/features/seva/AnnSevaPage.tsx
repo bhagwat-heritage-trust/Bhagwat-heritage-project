@@ -36,6 +36,7 @@ type HighlightItem = {
   title: string;
   description: string;
   icon: AnnIconKey;
+  iconImage?: string;
 };
 
 type DonationPlan = {
@@ -76,18 +77,26 @@ const trustBadges = [
   {
     label: "Daily Meal Support",
     icon: "plate" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776887861/ChatGPT_Image_Apr_23_2026_01_22_46_AM_afrhrs.png",
   },
   {
     label: "Festival Food Seva",
     icon: "location" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776887861/ChatGPT_Image_Apr_23_2026_01_22_53_AM_rfxotb.png",
   },
   {
     label: "Community Distribution",
     icon: "community" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776887861/ChatGPT_Image_Apr_23_2026_01_27_19_AM_rtd1ik.png",
   },
   {
     label: "Sponsor a Full Day",
     icon: "festival" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776887861/ChatGPT_Image_Apr_23_2026_01_27_12_AM_xlvtkx.png",
   },
 ] as const;
 
@@ -104,24 +113,32 @@ const annHighlights: readonly HighlightItem[] = [
     description:
       "Regular food support for individuals in need, seva centers, and service-linked community spaces.",
     icon: "plate",
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776887861/ChatGPT_Image_Apr_23_2026_01_22_46_AM_afrhrs.png",
   },
   {
     title: "Festival Ann Seva",
     description:
       "Meal service offered during sacred festivals, devotional gatherings, and special spiritual occasions.",
     icon: "festival",
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776887861/ChatGPT_Image_Apr_23_2026_01_22_53_AM_rfxotb.png",
   },
   {
     title: "Community Feeding",
     description:
       "Food distribution in community spaces, outreach programs, and organized seva initiatives.",
     icon: "community",
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776887861/ChatGPT_Image_Apr_23_2026_01_27_19_AM_rtd1ik.png",
   },
   {
     title: "Emergency Meal Relief",
     description:
       "Prompt food support during difficult conditions, urgent needs, or relief-driven situations.",
     icon: "relief",
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776887861/ChatGPT_Image_Apr_23_2026_01_27_12_AM_xlvtkx.png",
   },
 ] as const;
 
@@ -163,26 +180,38 @@ const serviceLocationCards = [
   {
     title: "Temples and Ashram Spaces",
     icon: "temple" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884758/mandir_isqn5j.png",
   },
   {
     title: "Spiritual Gatherings and Festivals",
     icon: "festival" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884758/diya_otz5hd.png",
   },
   {
     title: "Pilgrim and Traveler Support Areas",
     icon: "pilgrim" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884758/people_vrssxt.png",
   },
   {
     title: "Medical Assistance Zones",
     icon: "medical" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884757/medical_fa6kuy.png",
   },
   {
     title: "Community Service Locations",
     icon: "community" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884758/community_zkztz1.png",
   },
   {
     title: "Special Relief and Support Environments",
     icon: "relief" as const,
+    iconImage:
+      "https://res.cloudinary.com/der8zinu8/image/upload/v1776884757/drop_jjvavs.png",
   },
 ] as const;
 
@@ -574,9 +603,16 @@ function HeroIntroSection() {
             {trustBadges.map((badge) => (
               <span
                 key={badge.label}
-                className="inline-flex min-h-[64px] items-center justify-center gap-3 rounded-full border border-[#e0c6a2] bg-white px-5 py-3 text-[22px] font-semibold uppercase tracking-[0.08em] text-[#8c5a23]"
+                className="inline-flex min-h-[94px] items-center justify-center gap-5 rounded-full border border-[#e0c6a2] bg-white px-7 py-5 text-[22px] font-semibold uppercase tracking-[0.08em] text-[#8c5a23]"
               >
-                <AnnIcon icon={badge.icon} className="h-[26px] w-[26px] shrink-0 text-[#f39b19]" />
+                <span className="inline-flex h-[64px] w-[64px] shrink-0 items-center justify-center overflow-hidden rounded-full">
+                  <img
+                    src={badge.iconImage}
+                    alt=""
+                    className="h-full w-full rounded-full object-cover"
+                    loading="lazy"
+                  />
+                </span>
                 <span>{badge.label}</span>
               </span>
             ))}
@@ -624,9 +660,9 @@ function WhyAnnSevaSection() {
             align="left"
             description="Ann Seva is more than the act of giving food. It is an offering of dignity, care, and human warmth. When someone receives a meal in a moment of need, it nourishes not only the body but also the spirit with reassurance and compassion. Our mission is to make food seva a living channel of kindness through regular efforts, service campaigns, sacred occasions, and community outreach."
           />
-          <div className="mt-6 rounded-[26px] border border-[#ead9c2] bg-[#fff8ef] p-5">
-            <div className="inline-flex h-12 w-12 items-center justify-center rounded-[16px] bg-[#fff0da] text-[#c46d1a]">
-              <SparkIcon />
+          <div className="mt-6 rounded-[26px] border border-[#ead9c2] bg-[#fff8ef] p-6">
+            <div className="mx-auto inline-flex h-[78px] w-[78px] items-center justify-center rounded-[22px] bg-[#fff0da] text-[#c46d1a]">
+              <SparkIcon className="h-[52px] w-[52px]" />
             </div>
             <p className={`mt-4 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
               In the Indian spiritual tradition, offering food is regarded as one of
@@ -657,10 +693,19 @@ function HighlightsGrid() {
           {annHighlights.map((item) => (
             <article
               key={item.title}
-              className="flex h-full flex-col rounded-[28px] border border-[#e6d4bb] bg-[#fffdfa] p-6 shadow-[0_18px_34px_rgba(101,71,35,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_40px_rgba(101,71,35,0.12)]"
+              className="flex h-full flex-col rounded-[28px] border border-[#e6d4bb] bg-[#fffdfa] p-7 shadow-[0_18px_34px_rgba(101,71,35,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_40px_rgba(101,71,35,0.12)]"
             >
-              <div className="mx-auto inline-flex h-20 w-20 items-center justify-center rounded-[22px] bg-[#fff1dd] text-[#c46d1a]">
-                <AnnIcon icon={item.icon} className="h-12 w-12" />
+              <div className="mx-auto inline-flex h-[110px] w-[110px] items-center justify-center overflow-hidden rounded-full">
+                {item.iconImage ? (
+                  <img
+                    src={item.iconImage}
+                    alt=""
+                    className="h-full w-full rounded-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <AnnIcon icon={item.icon} className="h-[78px] w-[78px]" />
+                )}
               </div>
               <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>
                 {item.title}
@@ -715,10 +760,10 @@ function GivingOptionsSection() {
             {sponsorshipOptions.map((option) => (
               <article
                 key={option.title}
-                className="rounded-[28px] border border-[#e4cfb2] bg-white/92 p-6 shadow-[0_16px_30px_rgba(101,71,35,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_38px_rgba(101,71,35,0.12)]"
+                className="rounded-[28px] border border-[#e4cfb2] bg-white/92 p-7 shadow-[0_16px_30px_rgba(101,71,35,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_38px_rgba(101,71,35,0.12)]"
               >
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-[16px] bg-[#fff0da] text-[#c46d1a]">
-                  <CalendarIcon />
+                <div className="mx-auto inline-flex h-[78px] w-[78px] items-center justify-center rounded-[22px] bg-[#fff0da] text-[#c46d1a]">
+                  <CalendarIcon className="h-[52px] w-[52px]" />
                 </div>
                 <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>
                   {option.title}
@@ -817,11 +862,11 @@ function ServiceReachSection() {
               alt="Ann Seva offering and meal service"
               className="w-full rounded-[24px] object-cover"
             />
-            <div className="mt-3 rounded-[24px] bg-[linear-gradient(135deg,#1d4f63_0%,#2f6a7f_100%)] px-5 py-5 text-white">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#ffd88a]">
+            <div className="mt-3 rounded-[24px] bg-[linear-gradient(135deg,#dff4ff_0%,#eefaff_48%,#cfefff_100%)] px-5 py-5 text-[#d8a84d]">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#d8a84d]">
                 Service Flow
               </p>
-              <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#ffe7b8]`}>
+              <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#d8a84d]`}>
                 From daily meals to festival support and relief-focused outreach,
                 Ann Seva is designed to move where nourishment is most needed.
               </p>
@@ -837,10 +882,10 @@ function ServiceReachSection() {
                 {serviceCoverageItems.map((item) => (
                   <div
                     key={item}
-                    className="flex items-start gap-4 rounded-[22px] border border-[#eee1cd] bg-[#fffaf3] px-4 py-4"
+                    className="flex items-start gap-4 rounded-[22px] border border-[#eee1cd] bg-[#fffaf3] px-5 py-5"
                   >
-                    <div className="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#fff0da] text-[#c46d1a]">
-                      <ShieldIcon className="h-5 w-5" />
+                    <div className="mt-1 inline-flex h-[70px] w-[70px] shrink-0 items-center justify-center rounded-full bg-[#fff0da] text-[#c46d1a]">
+                      <ShieldIcon className="h-[50px] w-[50px]" />
                     </div>
                     <p className={`${SEVA_BODY_TEXT_CLASS} font-medium text-[#5e5247]`}>
                       {item}
@@ -860,10 +905,15 @@ function ServiceReachSection() {
             {serviceLocationCards.map((item) => (
               <article
                 key={item.title}
-                className="flex items-center gap-4 rounded-[22px] border border-[#dbe8ef] bg-white/95 px-4 py-4 shadow-[0_10px_22px_rgba(29,79,99,0.05)]"
+                className="flex items-center gap-4 rounded-[22px] border border-[#dbe8ef] bg-white/95 px-5 py-5 shadow-[0_10px_22px_rgba(29,79,99,0.05)]"
               >
-                <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eef3f7] text-[#d18612]">
-                  <AnnIcon icon={item.icon} className="h-6 w-6" />
+                <div className="inline-flex h-[74px] w-[74px] shrink-0 items-center justify-center">
+                  <img
+                    src={item.iconImage}
+                    alt=""
+                    className="h-[50px] w-[50px] rounded-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
                 <p className={`${SEVA_BODY_TEXT_CLASS} font-medium text-[#4f5e66]`}>
                   {item.title}
@@ -1093,9 +1143,9 @@ function TestimonialSection() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading title="Voices from the Seva Journey" />
         <div className="mt-10 grid gap-5 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
-            <article className="rounded-[30px] border border-[#e4b45e] bg-[linear-gradient(180deg,#fff7ea_0%,#fffdf8_100%)] p-6 shadow-[0_20px_40px_rgba(196,109,26,0.12)]">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#fff0da] text-[#c46d1a]">
-                <QuoteMarkIcon className="h-7 w-7" />
+            <article className="rounded-[30px] border border-[#e4b45e] bg-[linear-gradient(180deg,#fff7ea_0%,#fffdf8_100%)] p-7 shadow-[0_20px_40px_rgba(196,109,26,0.12)]">
+              <div className="mx-auto inline-flex h-[78px] w-[78px] items-center justify-center rounded-[24px] bg-[#fff0da] text-[#c46d1a]">
+                <QuoteMarkIcon className="h-[58px] w-[58px]" />
               </div>
               <p className={`mt-5 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
                 "{testimonials[0].quote}"
@@ -1107,10 +1157,10 @@ function TestimonialSection() {
           {testimonials.slice(1).map((item) => (
             <article
               key={item.author}
-              className="rounded-[30px] border border-[#e6d4bb] bg-white/92 p-6 shadow-[0_18px_34px_rgba(101,71,35,0.08)]"
+              className="rounded-[30px] border border-[#e6d4bb] bg-white/92 p-7 shadow-[0_18px_34px_rgba(101,71,35,0.08)]"
               >
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#fff0da] text-[#c46d1a]">
-                  <QuoteMarkIcon className="h-7 w-7" />
+                <div className="mx-auto inline-flex h-[78px] w-[78px] items-center justify-center rounded-[24px] bg-[#fff0da] text-[#c46d1a]">
+                  <QuoteMarkIcon className="h-[58px] w-[58px]" />
                 </div>
                 <p className={`mt-5 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
                   "{item.quote}"
