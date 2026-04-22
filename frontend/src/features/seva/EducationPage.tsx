@@ -16,6 +16,7 @@ type HighlightCard = {
   title: string;
   text: string;
   icon: ComponentType<IconProps>;
+  image?: string;
 };
 
 type ServiceCard = HighlightCard & {
@@ -53,21 +54,25 @@ const quickHighlights: HighlightCard[] = [
     title: "Learning Continuity",
     text: "Helping students continue education with practical support.",
     icon: BookOpenIcon,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776788577/4_x9oa5q.png",
   },
   {
     title: "Study Material Support",
     text: "Books, kits, and essential learning resources for children.",
     icon: SchoolKitIcon,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776788578/2_cjskwf.png",
   },
   {
     title: "Mentor Guidance",
     text: "Volunteers and guides supporting student progress.",
     icon: MentorIcon,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776788577/8_dm6iop.png",
   },
   {
     title: "Rural Outreach",
     text: "Extending support to underserved communities and villages.",
     icon: CommunityIcon,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776788577/6_akwkqm.png",
   },
 ];
 
@@ -361,9 +366,9 @@ function SectionHeader({ eyebrow, title, subtitle }: { eyebrow?: string; title: 
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-[#fff8ef] pb-8">
+    <section className="relative -mx-6 -mt-12 overflow-hidden bg-[#fff8ef] pb-8 md:-mx-8">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(228,180,94,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(196,109,26,0.09),transparent_32%)]" />
-      <div className="relative min-h-[640px] overflow-hidden rounded-b-[40px] bg-cover bg-center shadow-[0_18px_40px_rgba(23,12,5,0.14)]">
+      <div className="inner-hero relative min-h-[640px] overflow-hidden rounded-b-[40px] bg-cover bg-center shadow-[0_18px_40px_rgba(23,12,5,0.14)]">
         <img
           src={heroImage}
           alt="Education support banner with books and learning environment"
@@ -404,7 +409,11 @@ function QuickImpactSection() {
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {quickHighlights.map((item) => (
             <article key={item.title} className="flex min-h-[170px] flex-col items-center justify-center rounded-[22px] border border-[#E8D9BD] bg-white px-5 py-6 text-center transition hover:-translate-y-1 hover:shadow-[0_16px_34px_rgba(111,78,25,0.1)]">
-              <IconMark icon={item.icon} />
+              {item.image ? (
+                <img src={item.image} alt="" className="h-24 w-24 rounded-full object-contain" loading="lazy" aria-hidden="true" />
+              ) : (
+                <IconMark icon={item.icon} />
+              )}
               <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{item.title}</h3>
               <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{item.text}</p>
             </article>
