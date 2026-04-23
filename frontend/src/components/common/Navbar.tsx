@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../app/providers/AuthProvider";
 import { EXTERNAL_RAZORPAY_DONATE_URL, ROUTES } from "../../app/routes/routes";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -121,15 +121,26 @@ const NAV_ITEMS: NavItemConfig[] = [
   { id: "contact", labelKey: "navbar.items.contact", href: ROUTES.contact },
 ];
 
-const DropdownItem = memo(function DropdownItem({ item, t }: { item: NavItemConfig; t: TFunction }) {
+function isPathActive(pathname: string, href?: string) {
+  return Boolean(href && (pathname === href || pathname.startsWith(`${href}/`)));
+}
+
+const DropdownItem = memo(function DropdownItem({ item, t, pathname }: { item: NavItemConfig; t: TFunction; pathname: string }) {
   const [open, setOpen] = useState(false);
+  const active = item.children
+    ? item.children.some((child) => isPathActive(pathname, child.href))
+    : isPathActive(pathname, item.href);
 
   if (!item.children) {
     return (
       <li>
         <Link
           to={item.href ?? ROUTES.home}
-          className="block whitespace-nowrap rounded-lg px-2.5 2xl:px-3 py-2 text-[13px] 2xl:text-[14px] text-[var(--color-secondary)] font-semibold hover:text-[var(--color-primary)] hover:bg-[var(--color-surface-hover)] transition-colors"
+          className={`block whitespace-nowrap rounded-lg px-2.5 2xl:px-3 py-2 text-[13px] 2xl:text-[14px] font-semibold transition-colors ${
+            active
+              ? "bg-[var(--color-surface-hover)] text-[var(--color-primary)]"
+              : "text-[var(--color-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-primary)]"
+          }`}
         >
           {t(item.labelKey)}
         </Link>
@@ -142,7 +153,13 @@ const DropdownItem = memo(function DropdownItem({ item, t }: { item: NavItemConf
 
   return (
     <li className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button className="flex items-center gap-1 whitespace-nowrap rounded-lg px-2.5 2xl:px-3 py-2 text-[13px] 2xl:text-[14px] text-[var(--color-secondary)] font-semibold hover:text-[var(--color-primary)] hover:bg-[var(--color-surface-hover)] transition-colors">
+      <button
+        className={`flex items-center gap-1 whitespace-nowrap rounded-lg px-2.5 2xl:px-3 py-2 text-[13px] 2xl:text-[14px] font-semibold transition-colors ${
+          active
+            ? "bg-[var(--color-surface-hover)] text-[var(--color-primary)]"
+            : "text-[var(--color-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-primary)]"
+        }`}
+      >
         {t(item.labelKey)}
         <i className="fas fa-chevron-down text-xs mt-0.5" />
       </button>
@@ -159,7 +176,11 @@ const DropdownItem = memo(function DropdownItem({ item, t }: { item: NavItemConf
               <li key={child.id}>
                 <Link
                   to={child.href}
-                  className="block rounded-md px-3 py-2 text-[13px] text-[var(--color-secondary)] hover:bg-[var(--color-surface-hover-soft)] hover:text-[var(--color-primary)] transition-colors leading-snug"
+                  className={`block rounded-md px-3 py-2 text-[13px] transition-colors leading-snug ${
+                    isPathActive(pathname, child.href)
+                      ? "bg-[var(--color-surface-hover-soft)] font-bold text-[var(--color-primary)]"
+                      : "text-[var(--color-secondary)] hover:bg-[var(--color-surface-hover-soft)] hover:text-[var(--color-primary)]"
+                  }`}
                 >
                   {t(child.labelKey)}
                 </Link>
@@ -176,6 +197,7 @@ export const Navbar = memo(function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { t } = useTranslation();
 
   const handleLogout = () => {
@@ -191,7 +213,7 @@ export const Navbar = memo(function Navbar() {
         : ROUTES.dashboards.volunteer;
 
   return (
-    <header className="bg-white shadow-md w-full">
+    <header className="sticky top-0 z-50 w-full bg-white/95 shadow-md backdrop-blur supports-[backdrop-filter]:bg-white/88">
       <div className="w-full max-w-[1920px] mx-auto px-4 lg:px-6 2xl:px-8 py-3 flex items-center justify-between xl:grid xl:grid-cols-[auto_1fr_auto] xl:items-center xl:gap-3">
         <Link
           to={ROUTES.home}
@@ -213,7 +235,7 @@ export const Navbar = memo(function Navbar() {
         <nav className="hidden xl:flex xl:min-w-0 xl:justify-center">
           <ul className="flex items-center justify-center gap-0.5 2xl:gap-1">
             {NAV_ITEMS.map((item) => (
-              <DropdownItem key={item.id} item={item} t={t} />
+              <DropdownItem key={item.id} item={item} t={t} pathname={pathname} />
             ))}
           </ul>
         </nav>
@@ -263,13 +285,24 @@ export const Navbar = memo(function Navbar() {
               <Link
                 key={item.id}
                 to={item.href}
-                className="block py-2 text-[var(--color-secondary)] font-semibold"
+                className={`block rounded-lg px-2 py-2 font-semibold ${
+                  isPathActive(pathname, item.href)
+                    ? "bg-[var(--color-surface-hover)] text-[var(--color-primary)]"
+                    : "text-[var(--color-secondary)]"
+                }`}
                 onClick={() => setMobileOpen(false)}
               >
                 {t(item.labelKey)}
               </Link>
             ) : (
-              <div key={item.id} className="rounded-lg border border-[var(--color-border-nav-soft)] p-2">
+              <div
+                key={item.id}
+                className={`rounded-lg border p-2 ${
+                  item.children?.some((child) => isPathActive(pathname, child.href))
+                    ? "border-[var(--color-primary)] bg-[var(--color-surface-hover)]"
+                    : "border-[var(--color-border-nav-soft)]"
+                }`}
+              >
                 <p className="px-1 py-1 text-xs uppercase tracking-wide text-[var(--color-text-soft-strong)] font-semibold">
                   {t(item.labelKey)}
                 </p>
@@ -278,7 +311,11 @@ export const Navbar = memo(function Navbar() {
                     <Link
                       key={child.id}
                       to={child.href}
-                      className="block py-1.5 px-2 text-[var(--color-secondary)] text-sm rounded hover:bg-[var(--color-surface-hover-soft)]"
+                      className={`block rounded px-2 py-1.5 text-sm ${
+                        isPathActive(pathname, child.href)
+                          ? "bg-white font-bold text-[var(--color-primary)]"
+                          : "text-[var(--color-secondary)] hover:bg-[var(--color-surface-hover-soft)]"
+                      }`}
                       onClick={() => setMobileOpen(false)}
                     >
                       {t(child.labelKey)}

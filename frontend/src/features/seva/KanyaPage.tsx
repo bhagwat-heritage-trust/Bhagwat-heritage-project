@@ -19,7 +19,7 @@ type IconName =
   | "rupee"
   | "community"
   | "diya"
-  | "home"
+  | "home" 
   | "report"
   | "heart";
 
