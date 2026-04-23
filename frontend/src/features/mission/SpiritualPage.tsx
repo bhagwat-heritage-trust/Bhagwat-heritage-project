@@ -2,6 +2,13 @@ import { memo, type ComponentType, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
+import {
+  MISSION_BODY_TEXT_CLASS,
+  MISSION_CARD_TITLE_CLASS,
+  MISSION_HERO_SUBTITLE_CLASS,
+  MISSION_SECTION_HEADING_CLASS,
+  MISSION_SECTION_LABEL_CLASS,
+} from "./missionTypography";
 
 type IconProps = { className?: string };
 
@@ -142,7 +149,7 @@ export default memo(function SpiritualPage() {
   );
 
   return (
-    <main className="spiritual-mission-page min-h-screen overflow-hidden bg-[#F7F1E7] text-[#6B5A48]">
+    <main className="spiritual-mission-page -mt-12 min-h-screen overflow-hidden bg-[#F7F1E7] text-[#6B5A48]">
       <Hero />
 
       <Section id="sacred-path" eyebrow="Four living anchors" title="Mission Pillars">
@@ -156,9 +163,9 @@ export default memo(function SpiritualPage() {
       <section className={`${sectionClass} ${sectionPad}`}>
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.95fr)]">
           <article className="sacred-card p-6 md:p-9 lg:p-10">
-            <p className="section-kicker">Mission Core</p>
-            <h2 className="section-title mt-3">Mission Behind the Trust</h2>
-            <div className="mt-6 space-y-5 text-base leading-[1.7] md:text-[17px]">
+            <p className={`${MISSION_SECTION_LABEL_CLASS} text-[#7A4F16]`}>Mission Core</p>
+            <h2 className={`${MISSION_SECTION_HEADING_CLASS} mt-4 text-[#3F3123]`}>Mission Behind the Trust</h2>
+            <div className={`mt-6 space-y-5 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>
               <p>
                 Bhagwat Heritage exists to nurture a spiritually awakened and value-rooted society through the living
                 wisdom of Shrimad Bhagwat.
@@ -195,23 +202,23 @@ export default memo(function SpiritualPage() {
         intro="The mission is carried into society through living platforms of spiritual engagement and value transmission."
       >
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4 lg:gap-6">
-          {PLATFORMS.map((platform, index) => (
-            <article
-              key={platform.title}
-              className="sacred-card group flex h-full flex-col items-center p-6 text-center transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(105,73,36,0.16)]"
-              style={{ animationDelay: `${index * 90}ms` }}
-            >
-              {platform.iconImage ? (
-                <CircleImageBadge src={platform.iconImage} alt={`${platform.title} icon`} />
-              ) : (
-                <CircleIconBadge icon={platform.icon} />
-              )}
-              <h3 className="mt-5 text-[18px] font-bold leading-tight text-[#3F3123]">{platform.title}</h3>
-              <p className="mt-3 flex-1 text-base leading-[1.7] text-[#6B5A48]">{platform.description}</p>
-              <Link
-                to={platform.href}
-                className="mt-5 inline-flex w-fit items-center rounded-full text-sm font-bold text-[#A96F1D] transition hover:text-[#3F3123] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D89B2B]"
-              >
+              {PLATFORMS.map((platform, index) => (
+                <article
+                  key={platform.title}
+                  className="sacred-card group flex h-full flex-col items-center p-6 text-center transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(105,73,36,0.16)]"
+                  style={{ animationDelay: `${index * 90}ms` }}
+                >
+                  {platform.iconImage ? (
+                    <CircleImageBadge src={platform.iconImage} alt={`${platform.title} icon`} />
+                  ) : (
+                    <CircleIconBadge icon={platform.icon} />
+                  )}
+                  <h3 className={`mt-5 ${MISSION_CARD_TITLE_CLASS} text-[#3F3123]`}>{platform.title}</h3>
+                  <p className={`mt-3 flex-1 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{platform.description}</p>
+                  <Link
+                    to={platform.href}
+                    className="mt-5 inline-flex w-fit items-center rounded-full text-sm font-bold text-[#A96F1D] transition hover:text-[#3F3123] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D89B2B]"
+                  >
                 Learn More
                 <span aria-hidden="true" className="ml-2 transition group-hover:translate-x-1">-&gt;</span>
               </Link>
@@ -223,13 +230,13 @@ export default memo(function SpiritualPage() {
       <section className={`${sectionClass} ${sectionPad}`}>
         <div className="grid gap-6 lg:grid-cols-2">
           <article className="sacred-card p-6 md:p-8">
-            <p className="section-kicker">Life Transformation</p>
-            <h2 className="section-title mt-3">Values in Practice</h2>
+            <p className={`${MISSION_SECTION_LABEL_CLASS} text-[#7A4F16]`}>Life Transformation</p>
+            <h2 className={`${MISSION_SECTION_HEADING_CLASS} mt-4 text-[#3F3123]`}>Values in Practice</h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {VALUES.map((value) => (
                 <div key={value.title} className="rounded-[18px] border border-[#E8D9C4] bg-[#FFF8EC] p-5">
-                  <h3 className="text-[18px] font-bold text-[#3F3123]">{value.title}</h3>
-                  <p className="mt-3 text-[15px] leading-[1.7] text-[#6B5A48]">{value.description}</p>
+                  <h3 className="text-[18px] font-black text-[#3F3123]">{value.title}</h3>
+                  <p className={`mt-3 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{value.description}</p>
                 </div>
               ))}
             </div>
@@ -244,8 +251,8 @@ export default memo(function SpiritualPage() {
           </article>
 
           <article className="sacred-card p-6 md:p-8">
-            <p className="section-kicker">Daily Practice</p>
-            <h2 className="section-title mt-3">Daily Spiritual Rhythm</h2>
+            <p className={`${MISSION_SECTION_LABEL_CLASS} text-[#7A4F16]`}>Daily Practice</p>
+            <h2 className={`${MISSION_SECTION_HEADING_CLASS} mt-4 text-[#3F3123]`}>Daily Spiritual Rhythm</h2>
             <div className="mt-7 space-y-5">
               {RHYTHM.map((item, index) => (
                 <div key={item.title} className="relative pl-10">
@@ -256,8 +263,8 @@ export default memo(function SpiritualPage() {
                     <span className="h-2.5 w-2.5 rounded-full bg-[#D89B2B]" />
                   </span>
                   <p className="text-sm font-bold text-[#A96F1D]">0{index + 1}</p>
-                  <h3 className="mt-1 text-[18px] font-bold text-[#3F3123]">{item.title}</h3>
-                  <p className="mt-2 text-base leading-[1.7] text-[#6B5A48]">{item.description}</p>
+                  <h3 className="mt-1 text-[18px] font-black text-[#3F3123]">{item.title}</h3>
+                  <p className={`mt-2 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{item.description}</p>
                 </div>
               ))}
             </div>
@@ -279,14 +286,14 @@ export default memo(function SpiritualPage() {
         <div className="relative overflow-hidden rounded-[32px] border border-[#E8D9C4] bg-[linear-gradient(135deg,#FFF7E8_0%,#F3D08C_48%,#D89B2B_100%)] px-6 py-12 shadow-[0_28px_70px_rgba(145,91,25,0.22)] md:px-12 md:py-16">
           <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full bg-white/25 blur-3xl" aria-hidden="true" />
           <div className="absolute bottom-0 right-8 text-[120px] font-black leading-none text-white/15 md:text-[190px]" aria-hidden="true">
-            ॐ
+            {"\u0950"}
           </div>
           <div className="relative max-w-3xl">
-            <p className="section-kicker text-[#7A4F16]">Join the mission</p>
-            <h2 className="mt-3 text-[30px] font-bold leading-tight text-[#3F3123] md:text-[42px]">
+            <p className={`${MISSION_SECTION_LABEL_CLASS} text-[#7A4F16]`}>Join the mission</p>
+            <h2 className={`${MISSION_SECTION_HEADING_CLASS} mt-5 text-[#3F3123]`}>
               Walk with a Living Spiritual Mission
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-[1.7] text-[#5E4630] md:text-[18px]">
+            <p className={`mt-5 max-w-2xl ${MISSION_BODY_TEXT_CLASS} text-[#5E4630]`}>
               Support a mission rooted in Bhagwat wisdom, value-based living, sacred culture, and compassionate service
               for society.
             </p>
@@ -313,21 +320,18 @@ function Hero() {
         <img
           src={HERO_IMAGE}
           alt="Devotional Bhagwat Katha gathering with sacred warm light"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-center brightness-[1.12] contrast-[1.06] saturate-[1.08]"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,7,4,0.36)_0%,rgba(10,7,4,0.32)_48%,rgba(10,7,4,0.16)_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_88%,rgba(233,184,93,0.22),transparent_34%)]" />
 
         <div className="relative z-10 mx-auto flex min-h-[640px] max-w-6xl items-end justify-center px-6 py-16 text-center md:px-8 md:py-20">
           <div className="spiritual-fade-up w-full max-w-4xl px-2 py-4 text-white md:px-6 md:py-6">
-            <p className="inline-flex rounded-full border border-[#f7e0a0]/50 bg-black/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#f7e0a0] backdrop-blur">
-            Bhagwat Heritage Foundation
-            </p>
             <h1 className="mt-5 text-4xl font-bold leading-tight text-[#f9e6a8] md:text-5xl">
               Spiritual Mission
             </h1>
-            <p className="mt-5 text-[18px] font-semibold leading-[1.45] text-[#f7e0a0] sm:text-[24px] md:text-[34px]">
+            <p className={`mt-5 ${MISSION_HERO_SUBTITLE_CLASS} leading-[1.45] !text-[#f7e0a0]`}>
               A path of faith, values, and spiritual awakening
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
@@ -355,9 +359,9 @@ function Section({ id, eyebrow, title, intro, children }: { id?: string; eyebrow
   return (
     <section id={id} className={`${sectionClass} ${sectionPad}`}>
       <div className="mx-auto mb-8 max-w-3xl text-center md:mb-10">
-        <p className="section-kicker">{eyebrow}</p>
-        <h2 className="section-title mt-3">{title}</h2>
-        {intro ? <p className="mt-4 text-base leading-[1.7] text-[#6B5A48] md:text-[17px]">{intro}</p> : null}
+        <p className={MISSION_SECTION_LABEL_CLASS}>{eyebrow}</p>
+        <h2 className={`${MISSION_SECTION_HEADING_CLASS} text-[#3F3123]`}>{title}</h2>
+        {intro ? <p className={`mt-4 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{intro}</p> : null}
       </div>
       {children}
     </section>
@@ -383,8 +387,8 @@ function FeatureCard({
       style={{ animationDelay: `${delay * 80}ms` }}
     >
       {iconImage ? <CircleImageBadge src={iconImage} alt={`${title} icon`} /> : <CircleIconBadge icon={icon} />}
-      <h3 className="mt-5 text-[18px] font-bold leading-tight text-[#3F3123]">{title}</h3>
-      <p className="mt-3 text-base leading-[1.7] text-[#6B5A48]">{description}</p>
+      <h3 className={`mt-5 ${MISSION_CARD_TITLE_CLASS} text-[#3F3123]`}>{title}</h3>
+      <p className={`mt-3 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{description}</p>
     </article>
   );
 }
@@ -407,10 +411,13 @@ function ListCard({
       ) : (
         <CircleIconBadge icon={icon} small />
       )}
-      <h3 className="mt-5 text-[22px] font-bold text-[#3F3123]">{title}</h3>
+      <h3 className="mt-5 text-2xl font-black text-[#3F3123]">{title}</h3>
       <ul className="mt-5 space-y-3">
         {items.map((item) => (
-          <li key={item} className="flex gap-3 rounded-[16px] border border-[#E8D9C4] bg-[#FFF8EC] px-4 py-3 text-base font-medium text-[#6B5A48]">
+          <li
+            key={item}
+            className={`flex gap-3 rounded-[16px] border border-[#E8D9C4] bg-[#FFF8EC] px-4 py-3 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}
+          >
             <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#D89B2B]" aria-hidden="true" />
             <span>{item}</span>
           </li>

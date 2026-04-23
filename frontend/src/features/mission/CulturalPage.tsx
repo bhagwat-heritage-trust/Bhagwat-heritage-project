@@ -2,17 +2,24 @@ import { memo, type ComponentType, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
+import {
+  MISSION_BODY_TEXT_CLASS,
+  MISSION_CARD_TITLE_CLASS,
+  MISSION_HERO_SUBTITLE_CLASS,
+  MISSION_SECTION_HEADING_CLASS,
+  MISSION_SECTION_LABEL_CLASS,
+} from "./missionTypography";
 
 type IconProps = { className?: string };
 
 // Requested placeholder filenames. We keep fallbacks so the page never renders broken images.
 const IMAGE = {
-  hero: "/images/cultural-renaissance-hero.jpg",
-  mission: "/images/cultural-mission.jpg",
-  gallery1: "/images/cultural-gallery-1.jpg",
-  gallery2: "/images/cultural-gallery-2.jpg",
-  gallery3: "/images/cultural-gallery-3.jpg",
-  gallery4: "/images/cultural-gallery-4.jpg",
+  hero: "https://res.cloudinary.com/der8zinu8/image/upload/v1776978343/ChatGPT_Image_Apr_24_2026_02_35_11_AM_k0guya.png",
+  mission: "https://res.cloudinary.com/der8zinu8/image/upload/v1776977682/ChatGPT_Image_Apr_24_2026_02_07_28_AM_jsvzcy.png",
+  gallery1: "https://res.cloudinary.com/der8zinu8/image/upload/v1776955119/ChatGPT_Image_Apr_23_2026_08_07_43_PM_rsv4u3.png",
+  gallery2: "https://res.cloudinary.com/der8zinu8/image/upload/v1776955120/ChatGPT_Image_Apr_23_2026_02_25_58_PM_frrdid.png",
+  gallery3: "https://res.cloudinary.com/der8zinu8/image/upload/v1776955119/ChatGPT_Image_Apr_23_2026_08_06_51_PM_uj5alq.png",
+  gallery4: "https://res.cloudinary.com/der8zinu8/image/upload/v1776955120/ChatGPT_Image_Apr_23_2026_02_25_58_PM_frrdid.png",
   cta: "/images/cultural-cta-banner.jpg",
 } as const;
 
@@ -36,42 +43,72 @@ const stats = [
   { label: "Pilgrimage Groups", value: "90+" },
 ] as const;
 
+const PROGRAM_ICON_IMAGES = [
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776950454/WhatsApp_Image_2026-04-23_at_18.48.24_2_oj5kc9.jpg",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776950454/WhatsApp_Image_2026-04-23_at_18.48.24_4_rnv8ng.jpg",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776950454/WhatsApp_Image_2026-04-23_at_18.48.22_vu26mb.jpg",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776950454/WhatsApp_Image_2026-04-23_at_18.48.24_3_edr50d.jpg",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776950454/WhatsApp_Image_2026-04-23_at_18.48.24_v7086y.jpg",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776950454/WhatsApp_Image_2026-04-23_at_18.48.24_1_t7lr6r.jpg",
+] as const;
+
+const COMMUNITY_ICON_IMAGE =
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776884758/community_zkztz1.png";
+const SPONSOR_ICON_IMAGE =
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776950454/WhatsApp_Image_2026-04-23_at_18.48.24_3_edr50d.jpg";
+const VOLUNTEER_ICON_IMAGE =
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776834111/ri1_hewl38.png";
+
+const MISSION_STEP_ICON_IMAGES = [
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/assessment_cdbpcf.png",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/planning_lvxbdo.png",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776866707/listen_mls5br.png",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/coordination_pex250.png",
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/reintagration_auqczv.png",
+] as const;
+
 const programCards = [
   {
     title: "Festival Preservation",
     description: "Organising spiritually meaningful festivals with devotion, discipline, and community participation.",
     href: ROUTES.eventsKatha.festivals,
     icon: FestivalIcon,
+    iconImage: PROGRAM_ICON_IMAGES[0],
   },
   {
     title: "Youth Sanskar Camps",
     description: "Helping children and youth grow through values, devotion, learning, and cultural exposure.",
     href: ROUTES.eventsKatha.youthPrograms,
     icon: YouthIcon,
+    iconImage: PROGRAM_ICON_IMAGES[1],
   },
   {
     title: "Art & Heritage",
     description: "Preserving bhajan, sacred arts, storytelling, and devotional cultural traditions.",
     href: ROUTES.media.highlights,
     icon: HeritageArtIcon,
+    iconImage: PROGRAM_ICON_IMAGES[2],
   },
   {
     title: "Pilgrimage & Yatra",
     description: "Connecting devotees with sacred places and spiritually meaningful travel experiences.",
     href: ROUTES.mandirTeerth.pilgrimage,
     icon: YatraIcon,
+    iconImage: PROGRAM_ICON_IMAGES[3],
   },
   {
     title: "Devotional Music",
     description: "Encouraging bhajan, kirtan, and sacred musical expression in community life.",
     href: ROUTES.eventsKatha.spiritualEvents,
     icon: MusicIcon,
+    iconImage: PROGRAM_ICON_IMAGES[4],
   },
   {
     title: "Family Value Programs",
     description: "Strengthening family-centered tradition, observances, and value-based participation.",
     href: ROUTES.about.activities,
     icon: FamilyIcon,
+    iconImage: PROGRAM_ICON_IMAGES[5],
   },
 ] as const;
 
@@ -80,59 +117,81 @@ const missionSteps = [
     title: "Cultural Identification",
     description: "Recognising local traditions, festival practices, and value-based community needs.",
     icon: IdentifyIcon,
+    iconImage: MISSION_STEP_ICON_IMAGES[0],
   },
   {
     title: "Planning & Coordination",
     description: "Designing structured cultural programs with community, volunteers, and spiritual guidance.",
     icon: PlanIcon,
+    iconImage: MISSION_STEP_ICON_IMAGES[1],
   },
   {
     title: "Training & Preparation",
     description: "Preparing children, youth, and coordinators through orientation, practice, and devotional context.",
     icon: TrainIcon,
+    iconImage: MISSION_STEP_ICON_IMAGES[2],
   },
   {
     title: "Celebration & Participation",
     description: "Executing events, gatherings, workshops, and pilgrimages with beauty, discipline, and meaning.",
     icon: ParticipateIcon,
+    iconImage: MISSION_STEP_ICON_IMAGES[3],
   },
   {
     title: "Continuity & Growth",
     description: "Ensuring follow-up, recurring observance, and long-term cultural engagement.",
     icon: GrowIcon,
+    iconImage: MISSION_STEP_ICON_IMAGES[4],
   },
 ] as const;
 
-const impactCards = [
+const impactCards: Array<{
+  title: string;
+  description: string;
+  icon: ComponentType<IconProps>;
+  iconImage?: string;
+}> = [
   {
     title: "Festival Continuity",
     description: "Ensuring annual observances remain disciplined, devotional, and community-connected.",
     icon: CalendarSunIcon,
+    iconImage: PROGRAM_ICON_IMAGES[0],
   },
   {
     title: "Youth Identity Formation",
     description: "Helping young minds discover belonging through value-rich cultural participation.",
     icon: IdentityIcon,
+    iconImage: PROGRAM_ICON_IMAGES[1],
   },
   {
     title: "Heritage Visibility",
     description: "Making Sanatan values visible through events, storytelling, art, and public celebration.",
     icon: VisibilityIcon,
+    iconImage: PROGRAM_ICON_IMAGES[2],
   },
   {
     title: "Community Participation",
     description: "Creating shared spaces where families and devotees actively live tradition together.",
     icon: CommunityHandsIcon,
+    iconImage: COMMUNITY_ICON_IMAGE,
   },
-] as const;
+];
 
-const participationCards = [
+const participationCards: Array<{
+  title: string;
+  description: string;
+  button: string;
+  href: string;
+  icon: ComponentType<IconProps>;
+  iconImage?: string;
+}> = [
   {
     title: "Sponsor a Cultural Program",
     description: "Help sustain meaningful cultural initiatives.",
     button: "Sponsor Now",
     href: ROUTES.donate,
     icon: SponsorIcon,
+    iconImage: SPONSOR_ICON_IMAGE,
   },
   {
     title: "Join as Volunteer",
@@ -140,6 +199,7 @@ const participationCards = [
     button: "Become Volunteer",
     href: ROUTES.involved.volunteer,
     icon: VolunteerIcon,
+    iconImage: VOLUNTEER_ICON_IMAGE,
   },
   {
     title: "Support Youth Sanskar Initiatives",
@@ -147,6 +207,7 @@ const participationCards = [
     button: "Support Youth",
     href: ROUTES.donate,
     icon: YouthIcon,
+    iconImage: PROGRAM_ICON_IMAGES[1],
   },
   {
     title: "Collaborate for Community Events",
@@ -154,8 +215,9 @@ const participationCards = [
     button: "Collaborate",
     href: ROUTES.contact,
     icon: PartnerIcon,
+    iconImage: COMMUNITY_ICON_IMAGE,
   },
-] as const;
+];
 
 export default memo(function CulturalPage() {
   usePageMeta(
@@ -168,7 +230,7 @@ export default memo(function CulturalPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F7F1E7] text-[#6B5A48]">
+    <main className="-mt-12 min-h-screen bg-[#F7F1E7] text-[#6B5A48]">
       <Hero onExplorePrograms={scrollToPrograms} />
 
       <section className={`${sectionClass} -mt-12 pb-8 md:-mt-14`}>
@@ -204,11 +266,11 @@ export default memo(function CulturalPage() {
           </div>
 
           <article className="sacred-card p-6 md:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#A96F1D]">Mission Narrative</p>
-            <h2 className="mt-3 text-[26px] font-black leading-tight text-[#1D4F63] md:text-[30px]">
+            <p className={`${MISSION_SECTION_LABEL_CLASS} text-[#A96F1D]`}>Mission Narrative</p>
+            <h2 className={`${MISSION_SECTION_HEADING_CLASS} mt-4 text-[#1D4F63]`}>
               Culture becomes strongest when it is practiced together
             </h2>
-            <div className="mt-5 space-y-4 text-base leading-[1.75] text-[#6B5A48]">
+            <div className={`mt-5 space-y-4 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>
               <p>
                 Cultural Renaissance is the revival of living tradition through festivals, values, devotional arts, youth
                 formation, and shared community participation.
@@ -277,17 +339,19 @@ export default memo(function CulturalPage() {
       >
         <div className="grid gap-4 md:grid-cols-2 lg:gap-6">
           {impactCards.map((item) => (
-            <article key={item.title} className="sacred-card p-7 transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(111,78,25,0.14)]">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E8D9C4] bg-[#FFF8EC] text-[#D89B2B]">
-                  <item.icon className="h-7 w-7" />
-                </div>
-                <span className="rounded-full border border-[#E8D9C4] bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#A96F1D]">
-                  Impact
-                </span>
+            <article key={item.title} className="sacred-card relative p-7 transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(111,78,25,0.14)]">
+              <span className="absolute right-7 top-7 rounded-full border border-[#E8D9C4] bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#A96F1D]">
+                Impact
+              </span>
+              <div className="mx-auto flex w-fit items-center justify-center pt-1">
+                {item.iconImage ? (
+                  <CircleImageBadge src={item.iconImage} alt={`${item.title} icon`} small />
+                ) : (
+                  <CircleIconBadge icon={item.icon} small />
+                )}
               </div>
-              <h3 className="mt-5 text-[22px] font-black leading-tight text-[#1D4F63]">{item.title}</h3>
-              <p className="mt-3 text-base leading-[1.75] text-[#6B5A48]">{item.description}</p>
+              <h3 className={`mt-5 ${MISSION_CARD_TITLE_CLASS} text-[#1D4F63]`}>{item.title}</h3>
+              <p className={`mt-3 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{item.description}</p>
             </article>
           ))}
         </div>
@@ -316,11 +380,15 @@ export default memo(function CulturalPage() {
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 lg:gap-6">
           {participationCards.map((card) => (
             <article key={card.title} className="sacred-card flex h-full flex-col p-6 transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(111,78,25,0.14)]">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E8D9C4] bg-[#FFF8EC] text-[#D89B2B]">
-                <card.icon className="h-7 w-7" />
+              <div className="mx-auto flex w-fit items-center justify-center pt-1">
+                {card.iconImage ? (
+                  <CircleImageBadge src={card.iconImage} alt={`${card.title} icon`} small />
+                ) : (
+                  <CircleIconBadge icon={card.icon} small />
+                )}
               </div>
-              <h3 className="mt-5 text-[18px] font-black leading-tight text-[#1D4F63]">{card.title}</h3>
-              <p className="mt-3 flex-1 text-base leading-[1.7] text-[#6B5A48]">{card.description}</p>
+              <h3 className={`mt-5 ${MISSION_CARD_TITLE_CLASS} text-[#1D4F63]`}>{card.title}</h3>
+              <p className={`mt-3 flex-1 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{card.description}</p>
               <Link
                 to={card.href}
                 className="mt-5 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#D89B2B] px-5 text-sm font-black text-white shadow-[0_14px_28px_rgba(177,112,24,0.2)] transition hover:-translate-y-0.5 hover:bg-[#B97916] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D89B2B]"
@@ -333,32 +401,33 @@ export default memo(function CulturalPage() {
       </Section>
 
       <section className={`${sectionClass} pb-16 md:pb-20 lg:pb-24`}>
-        <div className="relative overflow-hidden rounded-[34px] border border-[#E8D9C4] bg-[#1D4F63] shadow-[0_30px_80px_rgba(29,79,99,0.24)]">
-          <SafeImage
-            src={IMAGE.cta}
-            fallbackSrc={FALLBACK.cta}
-            alt="Cultural heritage devotional atmosphere banner"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,34,48,0.86)_0%,rgba(29,79,99,0.58)_55%,rgba(29,79,99,0.22)_100%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_32%,rgba(233,184,93,0.32),transparent_36%)]" />
+        <div className="relative overflow-hidden rounded-[34px] border border-[#E8D9C4] bg-[linear-gradient(90deg,#F8E9C9_0%,#F0C56C_55%,#D8A033_100%)] shadow-[0_30px_80px_rgba(111,78,25,0.22)]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_26%,rgba(255,255,255,0.55),transparent_56%)]" />
+          <div
+            className="pointer-events-none absolute -right-10 top-1/2 -translate-y-1/2 rotate-6 select-none text-[170px] font-black leading-none text-white/18 sm:text-[200px] md:text-[240px]"
+            aria-hidden="true"
+          >
+            {"\u0950"}
+          </div>
 
           <div className="relative p-8 md:p-12">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#FFE7B0]">Final Call</p>
-            <h2 className="mt-4 text-[30px] font-black leading-tight text-white md:text-[44px]">Help Keep Tradition Alive</h2>
-            <p className="mt-5 max-w-2xl text-base leading-[1.75] text-white/90 md:text-[18px]">
+            <p className={`${MISSION_SECTION_LABEL_CLASS} text-[#A96F1D]`}>Final Call</p>
+            <h2 className={`${MISSION_SECTION_HEADING_CLASS} mt-5 text-[#1D4F63]`}>
+              Help Keep Tradition Alive
+            </h2>
+            <p className={`mt-5 max-w-2xl ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>
               Support living culture, devotional values, and heritage continuity for the next generation.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 to={ROUTES.donate}
-                className="inline-flex min-h-[56px] min-w-[210px] items-center justify-center rounded-full bg-[#E4B45E] px-8 text-base font-black text-[#fff7df] shadow-[0_18px_34px_rgba(196,109,26,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D08A32]"
+                className="inline-flex min-h-[56px] min-w-[210px] items-center justify-center rounded-full bg-[#3F3123] px-8 text-base font-black text-white shadow-[0_18px_34px_rgba(63,49,35,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2D241A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3F3123]"
               >
                 Donate for Culture
               </Link>
               <Link
                 to={ROUTES.involved.volunteer}
-                className="inline-flex min-h-[56px] min-w-[210px] items-center justify-center rounded-full border border-white/45 bg-black/10 px-8 text-base font-black text-white transition-all duration-300 hover:bg-white hover:text-[#0f2236]"
+                className="inline-flex min-h-[56px] min-w-[210px] items-center justify-center rounded-full border border-[#D89B2B] bg-white/85 px-8 text-base font-black text-[#A96F1D] shadow-[0_14px_28px_rgba(111,78,25,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-[#3F3123] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D89B2B]"
               >
                 Join the Mission
               </Link>
@@ -379,18 +448,18 @@ function Hero({ onExplorePrograms }: { onExplorePrograms: () => void }) {
           src={IMAGE.hero}
           fallbackSrc={FALLBACK.hero}
           alt="Cultural heritage devotional atmosphere"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-center brightness-[1.08] contrast-[1.05] saturate-[1.06]"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-black/46" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.14)_0%,rgba(0,0,0,0.38)_88%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,rgba(233,184,93,0.24),transparent_40%)]" />
 
         <div className="relative z-10 mx-auto flex min-h-[680px] max-w-6xl items-end justify-center px-6 py-16 text-center md:px-8 md:py-20">
           <div className="w-full max-w-4xl px-2 py-4 text-white md:px-6 md:py-6">
-            <h1 className="mt-5 text-4xl font-black leading-tight text-[#f9e6a8] md:text-6xl">
+            <h1 className="mt-5 text-4xl font-black leading-tight text-[#f9e6a8] md:text-5xl">
               Cultural Renaissance
             </h1>
-            <p className="mt-5 text-[18px] font-semibold leading-[1.45] text-[#f7e0a0] sm:text-[22px] md:text-[28px]">
+            <p className={`mt-5 ${MISSION_HERO_SUBTITLE_CLASS} leading-[1.45] !text-[#f7e0a0]`}>
               Preserve tradition, celebrate heritage, and carry timeless values into modern life.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
@@ -431,9 +500,9 @@ function Section({
   return (
     <section id={id} className={`${sectionClass} ${sectionPad}`}>
       <div className="mx-auto mb-8 max-w-3xl text-center md:mb-10">
-        <p className="section-kicker">{eyebrow}</p>
-        <h2 className="mt-3 text-[26px] font-black leading-tight text-[#1D4F63] md:text-[32px]">{title}</h2>
-        {subtitle ? <p className="mt-4 text-base leading-[1.75] text-[#6B5A48] md:text-[17px]">{subtitle}</p> : null}
+        <p className={`${MISSION_SECTION_LABEL_CLASS} text-[#A96F1D]`}>{eyebrow}</p>
+        <h2 className={`${MISSION_SECTION_HEADING_CLASS} mt-4 text-[#1D4F63]`}>{title}</h2>
+        {subtitle ? <p className={`mt-4 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{subtitle}</p> : null}
       </div>
       {children}
     </section>
@@ -445,27 +514,34 @@ function ProgramCard({
   description,
   href,
   icon: Icon,
+  iconImage,
   delay,
 }: {
   title: string;
   description: string;
   href: string;
   icon: ComponentType<IconProps>;
+  iconImage?: string;
   delay: number;
 }) {
   return (
     <article
-      className="sacred-card group flex h-full flex-col p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(111,78,25,0.14)]"
+      className="sacred-card group relative flex h-full flex-col p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(111,78,25,0.14)]"
       style={{ animationDelay: `${delay * 80}ms` }}
     >
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E8D9C4] bg-[#FFF8EC] text-[#D89B2B]">
-          <Icon className="h-7 w-7" />
-        </div>
-        <span className="h-1.5 w-12 rounded-full bg-[linear-gradient(90deg,#D89B2B,#E9B85D)]" aria-hidden="true" />
+      <span
+        className="absolute right-6 top-6 h-1.5 w-12 rounded-full bg-[linear-gradient(90deg,#D89B2B,#E9B85D)]"
+        aria-hidden="true"
+      />
+      <div className="mx-auto flex w-fit items-center justify-center pt-1">
+        {iconImage ? (
+          <CircleImageBadge src={iconImage} alt={`${title} icon`} />
+        ) : (
+          <CircleIconBadge icon={Icon} />
+        )}
       </div>
-      <h3 className="mt-5 text-[18px] font-black leading-tight text-[#1D4F63]">{title}</h3>
-      <p className="mt-3 flex-1 text-base leading-[1.7] text-[#6B5A48]">{description}</p>
+      <h3 className={`mt-5 ${MISSION_CARD_TITLE_CLASS} text-[#1D4F63]`}>{title}</h3>
+      <p className={`mt-3 flex-1 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{description}</p>
       <Link
         to={href}
         className="mt-5 inline-flex w-fit items-center rounded-full bg-[#D89B2B] px-4 py-2 text-sm font-black text-white transition hover:bg-[#B97916] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D89B2B]"
@@ -481,25 +557,53 @@ function ProcessCard({
   title,
   description,
   icon: Icon,
+  iconImage,
 }: {
   stepNumber: number;
   title: string;
   description: string;
   icon: ComponentType<IconProps>;
+  iconImage?: string;
 }) {
   return (
     <article className="sacred-card relative flex h-full flex-col p-6">
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#E8D9C4] bg-[#FFF8EC] text-[#D89B2B]">
-          <Icon className="h-6 w-6" />
-        </div>
-        <span className="rounded-full border border-[#E8D9C4] bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#A96F1D]">
-          Step {stepNumber}
-        </span>
+      <span className="absolute right-6 top-6 rounded-full border border-[#E8D9C4] bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#A96F1D]">
+        Step {stepNumber}
+      </span>
+      <div className="mx-auto flex w-fit items-center justify-center pt-1">
+        {iconImage ? (
+          <CircleImageBadge src={iconImage} alt={`${title} icon`} small />
+        ) : (
+          <CircleIconBadge icon={Icon} small />
+        )}
       </div>
-      <h3 className="mt-5 text-[18px] font-black leading-tight text-[#1D4F63]">{title}</h3>
-      <p className="mt-3 text-[15px] leading-[1.75] text-[#6B5A48]">{description}</p>
+      <h3 className={`mt-5 ${MISSION_CARD_TITLE_CLASS} text-[#1D4F63]`}>{title}</h3>
+      <p className={`mt-3 ${MISSION_BODY_TEXT_CLASS} text-[#6B5A48]`}>{description}</p>
     </article>
+  );
+}
+
+function CircleIconBadge({ icon: Icon, small = false }: { icon: ComponentType<IconProps>; small?: boolean }) {
+  const size = small ? "h-[88px] w-[88px]" : "h-[104px] w-[104px]";
+  const iconSize = small ? "h-9 w-9" : "h-10 w-10";
+
+  return (
+    <div className={`flex ${size} items-center justify-center text-[#D89B2B]`}>
+      <Icon className={iconSize} />
+    </div>
+  );
+}
+
+function CircleImageBadge({ src, alt, small = false }: { src: string; alt: string; small?: boolean }) {
+  const size = small ? "h-[88px] w-[88px]" : "h-[104px] w-[104px]";
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`${size} rounded-full object-cover shadow-[0_14px_30px_rgba(111,78,25,0.10)]`}
+      loading="lazy"
+    />
   );
 }
 
