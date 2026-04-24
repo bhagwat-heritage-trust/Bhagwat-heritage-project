@@ -104,7 +104,7 @@ const MISSION_PILLARS: MissionPillar[] = [
       "Guide younger generations toward discipline, respect, service, and spiritually grounded leadership.",
     supportText:
       "This pillar ensures the trust's work remains future-facing while staying rooted in dharmic principles.",
-    href: ROUTES.eventsKatha.youthPrograms,
+    href: ROUTES.eventsKatha.dharmikEvents,
     accent: "from-[#9fd8ea]/30 via-[#ebf7fb]/12 to-transparent",
   },
 ];

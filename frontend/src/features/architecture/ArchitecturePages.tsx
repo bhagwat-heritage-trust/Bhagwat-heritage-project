@@ -7,6 +7,8 @@ import { HeroSection } from "../../components/ui/HeroSection";
 import { Card } from "../../components/ui/Card";
 import { usePageMeta } from "../../hooks/usePageMeta";
 import { ROUTES } from "../../app/routes/routes";
+import { BhagwatKathaMahotsavPremiumPage } from "../events/BhagwatKathaMahotsavPremiumPage";
+import FestivalsCelebrationsPremiumPage from "../events/FestivalsCelebrationsPremiumPage";
 import { SevaHeroBanner } from "../seva/SevaHeroBanner";
 import {
   ABOUT_BODY_CLASS,
@@ -1435,11 +1437,11 @@ export const EventsKathaHubPage = memo(function EventsKathaHubPage() {
         category: "Festivals" as const,
       },
       {
-        title: "Youth Programs",
-        description: "Youth-focused camps, classes, and leadership sessions.",
-        href: ROUTES.eventsKatha.youthPrograms,
+        title: "Dharmik Events",
+        description: "Dharmic programs including youth tracks, culture, and seva.",
+        href: ROUTES.eventsKatha.dharmikEvents,
         image: "https://res.cloudinary.com/der8zinu8/image/upload/v1772913533/youth_xj81l3.jpg",
-        badge: "Youth",
+        badge: "Dharmik",
         date: "Monthly",
         category: "Youth" as const,
       },
@@ -3279,7 +3281,7 @@ export const SevaDisasterReliefPage = memo(function SevaDisasterReliefPage() {
   );
 });
 
-export const EventsBhagwatKathaPage = memo(function EventsBhagwatKathaPage() {
+export const EventsBhagwatKathaPageLegacy = memo(function EventsBhagwatKathaPageLegacy() {
   const [mahotsavStart] = useState(() => {
     const start = new Date();
     start.setDate(start.getDate() + 12);
@@ -3588,6 +3590,10 @@ export const EventsBhagwatKathaPage = memo(function EventsBhagwatKathaPage() {
   );
 });
 
+export const EventsBhagwatKathaPage = memo(function EventsBhagwatKathaPage() {
+  return <BhagwatKathaMahotsavPremiumPage />;
+});
+
 export const EventsSpiritualPage = memo(function EventsSpiritualPage() {
   return (
     <EventShowcasePage
@@ -3638,7 +3644,7 @@ export const EventsSpiritualPage = memo(function EventsSpiritualPage() {
   );
 });
 
-export const EventsFestivalsPage = memo(function EventsFestivalsPage() {
+export const EventsFestivalsPageLegacy = memo(function EventsFestivalsPageLegacy() {
   const annualFestivals = [
     {
       month: "January",
@@ -4077,6 +4083,10 @@ export const EventsAnnakutPage = memo(function EventsAnnakutPage() {
   );
 });
 
+export const EventsFestivalsPage = memo(function EventsFestivalsPage() {
+  return <FestivalsCelebrationsPremiumPage />;
+});
+
 export const EventsYouthProgramsPage = memo(function EventsYouthProgramsPage() {
   const youthTracks = [
     { title: "Bal Sanskar Track", focus: "Values, chanting, and early devotional formation" },
@@ -4087,11 +4097,11 @@ export const EventsYouthProgramsPage = memo(function EventsYouthProgramsPage() {
 
   return (
     <EventShowcasePage
-      title="Youth Programs"
-      subtitle="Inspiring youth to lead with purpose"
+      title="Dharmik Events"
+      subtitle="Dharmic programs that inspire values and discipline"
       backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1772913533/youth_xj81l3.jpg"
-      metaDescription="Youth event programs, Bal Sanskar, Yuva leadership, cultural growth, and community seva development."
-      aboutTitle="About Youth Programs"
+      metaDescription="Dharmik events, youth programs, Bal Sanskar, leadership, cultural growth, and community seva development."
+      aboutTitle="About Dharmik Events"
       aboutParagraphs={[]}
       highlights={[
         { title: "Youth Participants", value: "4,000+", note: "Children and youth engaged through annual programs" },
@@ -4132,13 +4142,85 @@ export const EventsYouthProgramsPage = memo(function EventsYouthProgramsPage() {
       extraSection={
         <section className="max-w-7xl mx-auto px-4 py-10">
           <div className={EVENT_SEVA_SECTION_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Youth Growth Tracks</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Structured pathways for values, leadership, and seva</h2>
+            <p className={SEVA_SECTION_LABEL_CLASS}>Program Tracks</p>
+            <h2 className={SEVA_SECTION_HEADING_CLASS}>Structured pathways for values, leadership, culture, and seva</h2>
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
               {youthTracks.map((track) => (
                 <div key={track.title} className={EVENT_SEVA_DETAIL_CARD_CLASS}>
                   <h3 className={SEVA_CARD_TITLE_CLASS}>{track.title}</h3>
                   <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{track.focus}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      }
+    />
+  );
+});
+
+export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEventsPage() {
+  const formats = [
+    { title: "Cultural Satsang Evenings", focus: "Bhajan, kirtan, storytelling, and values-based community gathering" },
+    { title: "Art & Expression Showcases", focus: "Drama, music, presentations, and youth-led cultural performances" },
+    { title: "Community Celebrations", focus: "Festival-linked programs that bring families together with discipline and joy" },
+    { title: "Seva + Culture Initiatives", focus: "Service-aligned events that connect culture with compassion and responsibility" },
+  ];
+
+  return (
+    <EventShowcasePage
+      title="Socio-Cultural Events"
+      subtitle="Celebrating culture, community, and values"
+      backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1772913533/festival_axzy0v.jpg"
+      metaDescription="Socio-cultural events that unite families through dharmic culture, arts, and community seva."
+      aboutTitle="About Socio-Cultural Events"
+      aboutParagraphs={[]}
+      highlights={[
+        { title: "Family Participation", value: "High", note: "Programs designed for children, youth, and elders together" },
+        { title: "Cultural Formats", value: "10+", note: "Bhajan, drama, talks, exhibitions, and festival-linked events" },
+        { title: "Volunteer Support", value: "Available", note: "On-ground coordination for discipline and hospitality" },
+        { title: "Community Impact", value: "Growing", note: "Culture + seva programs that strengthen values and harmony" },
+      ]}
+      features={[
+        { title: "Cultural Continuity", desc: "Events designed to keep dharmic culture alive through music, stories, and celebration." },
+        { title: "Community Bonding", desc: "Inclusive formats that bring families together with positivity and shared purpose." },
+        { title: "Values in Practice", desc: "Seva-linked programming so culture translates into responsibility and compassion." },
+      ]}
+      supportTracks={[
+        "Stage and sound arrangement support",
+        "Volunteer discipline and crowd guidance",
+        "Hospitality, prasad, and logistics coordination",
+        "Cultural showcase planning and rehearsals",
+      ]}
+      donationTiers={[
+        { label: "Program Support", amount: "Rs 1,100", note: "Help support one socio-cultural program setup" },
+        { label: "Event Sponsor", amount: "Rs 9,900", note: "Sponsor logistics, stage, and hospitality support" },
+        { label: "Annual Cultural Partner", amount: "Rs 31,000", note: "Support recurring culture + seva initiatives across the year" },
+      ]}
+      primaryCta="Support Cultural Events"
+      secondaryCta="Volunteer for Events"
+      gauSevaStyle
+      hideHighlightValues
+      testimonials={[
+        { name: "Community Volunteer", quote: "Culture feels complete when it is organized with discipline and heartfelt seva." },
+        { name: "Family Participant", quote: "These events connect our children to values in a way they enjoy and remember." },
+        { name: "Youth Performer", quote: "Performing for a devotional community builds confidence and a sense of purpose." },
+      ]}
+      faqs={[
+        { q: "Are socio-cultural events only during festivals?", a: "No. Many programs run year-round through satsang evenings, showcases, and community formats." },
+        { q: "Can I sponsor a cultural program?", a: "Yes. Sponsorship can support logistics, stage arrangements, hospitality, and volunteer coordination." },
+        { q: "Can youth participate in performances and seva?", a: "Yes. Youth are encouraged to participate through cultural expression and service roles." },
+      ]}
+      extraSection={
+        <section className="max-w-7xl mx-auto px-4 py-10">
+          <div className={EVENT_SEVA_SECTION_CLASS}>
+            <p className={SEVA_SECTION_LABEL_CLASS}>Event Formats</p>
+            <h2 className={SEVA_SECTION_HEADING_CLASS}>Ways to experience culture with community and seva</h2>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+              {formats.map((format) => (
+                <div key={format.title} className={EVENT_SEVA_DETAIL_CARD_CLASS}>
+                  <h3 className={SEVA_CARD_TITLE_CLASS}>{format.title}</h3>
+                  <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{format.focus}</p>
                 </div>
               ))}
             </div>

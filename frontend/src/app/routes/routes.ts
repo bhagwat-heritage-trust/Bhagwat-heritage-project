@@ -47,6 +47,8 @@ export const ROUTES = {
     guruPurnima: "/events-katha/guru-purnima",
     annakut: "/events-katha/annakut-mahotsav",
     youthPrograms: "/events-katha/youth-programs",
+    dharmikEvents: "/events-katha/dharmik-events",
+    socioCulturalEvents: "/events-katha/dharmik-events/socio-cultural-events",
   },
 
   knowledge: {

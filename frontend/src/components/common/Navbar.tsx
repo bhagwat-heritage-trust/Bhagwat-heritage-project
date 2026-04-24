@@ -62,7 +62,12 @@ const NAV_ITEMS: NavItemConfig[] = [
     children: [
       { id: "events-bhagwat-katha", labelKey: "navbar.items.bhagwatKatha", href: ROUTES.eventsKatha.bhagwatKatha },
       { id: "events-festivals", labelKey: "navbar.items.festivals", href: ROUTES.eventsKatha.festivals },
-      { id: "events-youth", labelKey: "navbar.items.youthPrograms", href: ROUTES.eventsKatha.youthPrograms },
+      { id: "events-dharmik", labelKey: "navbar.items.dharmikEvents", href: ROUTES.eventsKatha.dharmikEvents },
+      {
+        id: "events-socio-cultural",
+        labelKey: "navbar.items.socioCulturalEvents",
+        href: ROUTES.eventsKatha.socioCulturalEvents,
+      },
     ],
   },
   {
@@ -74,6 +79,7 @@ const NAV_ITEMS: NavItemConfig[] = [
       { id: "knowledge-study", labelKey: "navbar.items.studyResources", href: ROUTES.knowledge.studyResources },
       { id: "knowledge-children", labelKey: "navbar.items.childrenLearning", href: ROUTES.knowledge.children },
       { id: "knowledge-quotes", labelKey: "navbar.items.dailyQuotes", href: ROUTES.knowledge.dailyQuotes },
+      { id: "knowledge-dharmik", labelKey: "navbar.items.dharmikEvents", href: ROUTES.eventsKatha.dharmikEvents },
     ],
   },
   {

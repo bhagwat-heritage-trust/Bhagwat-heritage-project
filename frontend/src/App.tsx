@@ -20,6 +20,7 @@ import {
   EventsFestivalsPage,
   EventsGuruPurnimaPage,
   EventsKathaHubPage,
+  EventsSocioCulturalEventsPage,
   EventsSpiritualPage,
   EventsYouthProgramsPage,
   GetInvolvedHubPage,
@@ -66,6 +67,7 @@ const VolunteerDashboardPage = lazy(() => import("./features/dashboard/Volunteer
 const LibraryPage = lazy(() => import("./features/events/LibraryPage"));
 const PathshalaPage = lazy(() => import("./features/events/PathshalaPage"));
 const StorePage = lazy(() => import("./features/events/StorePage"));
+const FestivalsCelebrationsDetailPage = lazy(() => import("./features/events/FestivalsCelebrationsDetailPage"));
 const MandirGalleryPage = lazy(() => import("./features/mandir/MandirGalleryPage"));
 const GhanshyamPage = lazy(() => import("./features/mandir/GhanshyamPage"));
 const MahamandirPage = lazy(() => import("./features/mandir/MahamandirPage"));
@@ -227,9 +229,16 @@ export default function App() {
                   <Route path={ROUTES.eventsKatha.spiritualEvents} element={withInnerPageLayout(<EventsSpiritualPage />)} />
                   <Route path="/events-katha/festivals-celebration" element={<Navigate to={ROUTES.eventsKatha.festivals} replace />} />
                   <Route path={ROUTES.eventsKatha.festivals} element={withInnerPageLayout(<EventsFestivalsPage />)} />
+                  <Route path="/events-katha/festivals-celebrations/:slug" element={withInnerPageLayout(<FestivalsCelebrationsDetailPage />)} />
                   <Route path={ROUTES.eventsKatha.guruPurnima} element={withInnerPageLayout(<EventsGuruPurnimaPage />)} />
                   <Route path={ROUTES.eventsKatha.annakut} element={withInnerPageLayout(<EventsAnnakutPage />)} />
-                  <Route path={ROUTES.eventsKatha.youthPrograms} element={withInnerPageLayout(<EventsYouthProgramsPage />)} />
+                  <Route path={ROUTES.eventsKatha.youthPrograms} element={<Navigate to={ROUTES.eventsKatha.dharmikEvents} replace />} />
+                  <Route path={ROUTES.eventsKatha.dharmikEvents} element={withInnerPageLayout(<EventsYouthProgramsPage />)} />
+                  <Route
+                    path="/events-katha/youth-programs/socio-cultural-events"
+                    element={<Navigate to={ROUTES.eventsKatha.socioCulturalEvents} replace />}
+                  />
+                  <Route path={ROUTES.eventsKatha.socioCulturalEvents} element={withInnerPageLayout(<EventsSocioCulturalEventsPage />)} />
 
                   <Route path={ROUTES.knowledge.index} element={withInnerPageLayout(<KnowledgeHubPage />)} />
                   <Route path={ROUTES.knowledge.pathshala} element={withInnerPageLayout(<PathshalaPage />)} />

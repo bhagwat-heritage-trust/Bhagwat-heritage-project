@@ -78,7 +78,7 @@ const programCards = [
   {
     title: "Youth Sanskar Camps",
     description: "Helping children and youth grow through values, devotion, learning, and cultural exposure.",
-    href: ROUTES.eventsKatha.youthPrograms,
+    href: ROUTES.eventsKatha.dharmikEvents,
     icon: YouthIcon,
     iconImage: PROGRAM_ICON_IMAGES[1],
   },
