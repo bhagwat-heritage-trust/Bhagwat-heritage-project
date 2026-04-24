@@ -1,437 +1,475 @@
-import { memo, useState, type FormEvent } from "react";
-import { Link } from "react-router-dom";
-import { ROUTES } from "../../app/routes/routes";
-import { HeroSection } from "../../components/ui/HeroSection";
-import { pathshalaApi } from "../../services/api/misc";
-import {
-  SEVA_BODY_TEXT_CLASS,
-  SEVA_CARD_TITLE_CLASS,
-  SEVA_SECTION_HEADING_CLASS,
-  SEVA_SECTION_LABEL_CLASS,
-} from "../seva/sevaTypography";
+import { memo, useMemo, type CSSProperties, type ReactNode } from "react";
+import { usePageMeta } from "../../hooks/usePageMeta";
+import { MISSION_BODY_TEXT_CLASS, MISSION_SECTION_HEADING_CLASS, MISSION_SECTION_LABEL_CLASS } from "../mission/missionTypography";
 
-const COURSES = [
-  "Bhagwat Katha",
-  "Vedic Studies",
-  "Sanskrit",
-  "Yoga and Meditation",
-  "Classical Music",
-  "Classical Dance",
-  "Dharmic Leadership",
-  "Digital Pathshala Foundation",
-];
+const IMAGE_BASE = "/images/e-pathshala/";
+const ICON_BASE = "https://res.cloudinary.com/der8zinu8/image/upload/";
+const HERO_IMAGE =
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1777052601/ChatGPT_Image_Apr_24_2026_11_11_58_PM_ju9usv.png";
+const DIGITAL_GURUKUL_IMAGE =
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1776971376/ChatGPT_Image_Apr_24_2026_12_37_49_AM_e2xugl.png";
+
+const HIGHLIGHTS = ["Value-Based Learning", "Guided Mentorship", "Family Participation"];
 
 const LEARNING_MODELS = [
   {
     title: "Residential Gurukul",
-    desc: "Immersive campus model with discipline, seva routine, and dedicated mentor support.",
-    tag: "Full-time",
+    text: "Immersive campus-based learning with discipline, seva routine, spiritual practice, and mentor guidance.",
+    icon: "icon-residential-gurukul.svg",
+    label: "Campus",
   },
   {
     title: "Weekend Family Pathshala",
-    desc: "Parent-child batch combining values, chanting, scriptural storytelling, and applied culture.",
-    tag: "Hybrid",
+    text: "Parent-child batch combining values, chanting, stories, culture, and family learning.",
+    icon: "icon-family-pathshala.svg",
+    label: "Family",
   },
   {
     title: "Live Online Pathshala",
-    desc: "Interactive online sessions with revision resources, evaluation, and periodic mentor calls.",
-    tag: "Online",
+    text: "Interactive online classes with revision resources, evaluation, and mentor support.",
+    icon: "icon-online-pathshala.svg",
+    label: "Online",
   },
   {
     title: "Youth Leadership Fellowship",
-    desc: "Advanced track for expression, dharmic communication, and social initiative leadership.",
-    tag: "Advanced",
+    text: "Advanced track for youth communication, scripture expression, team seva, and leadership practice.",
+    icon: "icon-youth-leadership.svg",
+    label: "Youth",
+  },
+];
+
+const PROGRAM_TRACKS = [
+  {
+    title: "Bal Sanskar Track",
+    age: "Age 7–12",
+    text: "Stories, shlokas, discipline habits, prayer practice, and basic cultural learning.",
+    icon: "icon-bal-sanskar.svg",
+  },
+  {
+    title: "Yuva Shakti Track",
+    age: "Age 13–21",
+    text: "Leadership, communication, scripture understanding, seva execution, and personality development.",
+    icon: "icon-yuva-shakti.svg",
+  },
+  {
+    title: "Sanskrit Scholar Track",
+    age: "Age 21+",
+    text: "Bhagwat study, philosophy, chanting practice, teaching preparation, and scriptural depth.",
+    icon: "icon-sanskrit-scholar.svg",
   },
 ];
 
 const CORE_FEATURES = [
-  "Structured multi-level curriculum",
-  "Sanskrit chanting and shloka training",
-  "Mentor-led weekly progress reviews",
-  "Character and value-building modules",
-  "Seva projects and social impact labs",
-  "Performance tracking and certification",
+  { title: "Structured multi-level curriculum", icon: "icon-curriculum.svg" },
+  { title: "Sanskrit chanting and shloka training", icon: "icon-sanskrit-chanting.svg" },
+  { title: "Weekly mentor-led progress review", icon: "icon-mentor-review.svg" },
+  { title: "Character and value-building modules", icon: "icon-character-building.svg" },
+  { title: "Seva projects and social impact labs", icon: "icon-seva-project.svg" },
+  { title: "Performance tracking and certification", icon: "icon-certification.svg" },
 ];
 
-const PROGRAM_TOOLS = [
-  { title: "Live Doubt Room", desc: "Weekly interactive sessions with Acharyas and faculty mentors." },
-  { title: "Digital Notes Vault", desc: "Topic-wise notes, chants, and revision sheets with quick access." },
-  { title: "Parent Dashboard", desc: "Attendance, progress snapshots, and behavioral growth feedback." },
-  { title: "Seva Practicum", desc: "Action-based assignments connected to real community service." },
+const ADVANCED_TOOLS = [
+  {
+    title: "Live Doubt Room",
+    text: "Weekly interactive sessions with Acharyas and mentors.",
+    icon: "icon-live-doubt-room.svg",
+  },
+  {
+    title: "Digital Notes Vault",
+    text: "Topic-wise notes, chants, stories, and revision sheets.",
+    icon: "icon-digital-notes.svg",
+  },
+  {
+    title: "Parent Dashboard",
+    text: "Attendance, progress snapshots, feedback, and mentor remarks.",
+    icon: "icon-parent-dashboard.svg",
+  },
+  {
+    title: "Seva Practicum",
+    text: "Action-based assignments connected with real community service.",
+    icon: "icon-seva-practicum.svg",
+  },
 ];
 
-const TRACKS = [
-  { name: "Bal Sanskar Track", age: "Age 7-12", focus: "Values, chanting, stories, and discipline habits." },
-  { name: "Yuva Shakti Track", age: "Age 13-21", focus: "Leadership, communication, seva project execution." },
-  { name: "Sanskriti Scholar Track", age: "Age 21+", focus: "Scriptural depth, philosophy, and teaching practice." },
-];
-
-const LEARNING_PATH = [
-  { phase: "Phase 01", title: "Foundation", desc: "Bhakti basics, dharmic values, pronunciation, and discipline." },
-  { phase: "Phase 02", title: "Scriptural Depth", desc: "Bhagwat themes, katha understanding, and guided interpretation." },
-  { phase: "Phase 03", title: "Expression", desc: "Public speaking, recitation, devotional music, and cultural presentation." },
-  { phase: "Phase 04", title: "Leadership", desc: "Community seva planning, team facilitation, and dharmic leadership practice." },
-];
-
-const WEEKLY_SCHEDULE = [
+const WEEKLY_RHYTHM = [
   { day: "Monday", focus: "Scripture Reading + Chanting" },
   { day: "Wednesday", focus: "Sanskrit, Language, and Recitation" },
   { day: "Friday", focus: "Yoga, Meditation, and Reflection" },
   { day: "Sunday", focus: "Seva Lab + Mentor Review" },
 ];
 
-const OUTCOME_MATRIX = [
-  { title: "Spiritual Confidence", desc: "Regular chanting and scripture study builds inner stability." },
-  { title: "Cultural Intelligence", desc: "Students understand traditions with context and practical relevance." },
-  { title: "Leadership Readiness", desc: "Learners gain communication and team responsibility skills." },
-  { title: "Service Orientation", desc: "Seva modules train compassion with execution discipline." },
+const LEARNING_PATHWAY = [
+  {
+    phase: "Phase 01",
+    title: "Foundation",
+    text: "Bhakti basics, dharmic values, pronunciation, prayer discipline, and spiritual routine.",
+  },
+  {
+    phase: "Phase 02",
+    title: "Scriptural Depth",
+    text: "Bhagwat themes, katha understanding, guided interpretation, and cultural knowledge.",
+  },
+  {
+    phase: "Phase 03",
+    title: "Expression",
+    text: "Public speaking, devotional recitation, storytelling, music, and presentation.",
+  },
+  {
+    phase: "Phase 04",
+    title: "Leadership",
+    text: "Community seva planning, team coordination, communication, and dharmic leadership.",
+  },
+];
+
+const OUTCOMES = [
+  {
+    title: "Spiritual Confidence",
+    text: "Regular chanting and scripture study build inner stability.",
+    icon: "icon-spiritual-confidence.svg",
+  },
+  {
+    title: "Cultural Intelligence",
+    text: "Students understand traditions with context and practical relevance.",
+    icon: "icon-cultural-intelligence.svg",
+  },
+  {
+    title: "Leadership Readiness",
+    text: "Learners gain communication, discipline, and team responsibility.",
+    icon: "icon-leadership-readiness.svg",
+  },
+  {
+    title: "Service Orientation",
+    text: "Seva modules train compassion with execution discipline.",
+    icon: "icon-service-orientation.svg",
+  },
 ];
 
 const TESTIMONIALS = [
   {
-    quote: "My daughter became more confident and disciplined within three months.",
-    by: "Parent, Ahmedabad",
+    quote: "Excellent platform for children’s values, discipline, and spiritual growth.",
+    label: "Parent, Ahmedabad",
   },
   {
-    quote: "The blend of scripture and practical seva made learning meaningful for me.",
-    by: "Student, Indore",
+    quote: "The blend of scripture and practical seva made learning meaningful.",
+    label: "Student, Indore",
   },
   {
-    quote: "Mentor support and clear structure are the strongest points of this Pathshala.",
-    by: "Guardian, Mumbai",
+    quote: "Mentor support and class structure are the strongest points of this Pathshala.",
+    label: "Guardian, Mumbai",
   },
 ];
 
-const FAQS = [
-  { q: "Who can apply?", a: "Children, youth, and adults can join based on the selected model and level." },
-  { q: "Are online classes recorded?", a: "Yes, recordings and notes are shared for enrolled students." },
-  { q: "Is certification provided?", a: "Yes, level completion certificates are issued after evaluation." },
-  { q: "Can parents participate?", a: "Yes, family modules and parent orientation sessions are included." },
-];
+const containerClass = "mx-auto w-full max-w-[1180px] px-4 sm:px-6";
+const sectionClass = "py-12 md:py-[72px]";
+const eyebrowClass = `${MISSION_SECTION_LABEL_CLASS} !text-[#C96F18]`;
+const titleClass = `${MISSION_SECTION_HEADING_CLASS} mt-4 !text-[#2B2118]`;
+const lightTitleClass = `${MISSION_SECTION_HEADING_CLASS} mt-4 !text-[#FFF8EC]`;
+const bodyClass = `${MISSION_BODY_TEXT_CLASS} text-[#6F6255]`;
+const cardTitleClass = "text-[15px] font-bold !text-[#2B2118]";
+const navyCardTitleClass = "text-[15px] font-bold !text-[#FFF8EC]";
+const cardTextClass = "text-sm leading-6 text-[#6F6255]";
+const lightCardTextClass = "text-sm leading-6 text-[#F8EAD2]";
+const smallLabelClass = "text-sm font-black uppercase tracking-[0.14em] text-[#C96F18] md:text-[15px]";
+const creamCardClass =
+  "rounded-[20px] border border-[#E8D9C4] bg-[#FFFDF8]/95 p-6 shadow-[0_18px_42px_rgba(101,71,35,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_56px_rgba(101,71,35,0.15)]";
+const navyCardClass =
+  "rounded-[20px] border border-[#2A5F86] bg-[#073763] p-6 shadow-[0_22px_52px_rgba(7,55,99,0.22)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_62px_rgba(7,55,99,0.28)]";
 
-const PATHSHALA_HERO_SUBTITLE_CLASS = "text-[18px] font-semibold text-white sm:text-[24px] md:text-[34px]";
-const HERO_CONTENT_CLASS = "flex h-full flex-col justify-end pb-[22px] md:pb-[30px] [&>h1]:mb-[10px] [&>p]:mb-[10px]";
-const HERO_PRIMARY_BUTTON_CLASS =
-  "inline-flex items-center rounded-lg bg-[#f3a11f] px-6 py-3 font-semibold text-white shadow-[0_14px_28px_rgba(243,161,31,0.28)] transition-colors hover:bg-[#ffaf31]";
-const HERO_SECONDARY_BUTTON_CLASS =
-  "inline-flex items-center rounded-lg bg-[#0f7994] px-6 py-3 font-semibold text-white shadow-[0_14px_28px_rgba(15,121,148,0.28)] transition-colors hover:bg-[#1492b1]";
-const sectionPanelClass = "rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8";
-const cardClass =
-  "rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_30px_rgba(0,0,0,0.26)]";
-const sectionTitleClass = SEVA_SECTION_LABEL_CLASS;
-const surfaceSectionClass = sectionPanelClass;
-const darkSectionClass = sectionPanelClass;
-const lightCardClass = cardClass;
-const surfaceMetaClass = "text-sm font-black uppercase tracking-[0.12em] text-[var(--campaign-accent)]";
-const surfaceCardTitleClass = SEVA_CARD_TITLE_CLASS;
-const surfaceCardBodyClass = `mt-3 ${SEVA_BODY_TEXT_CLASS}`;
-const darkMetaClass = "text-sm font-black uppercase tracking-[0.12em] text-[var(--campaign-accent)]";
-const darkCardTitleClass = `mt-2 ${SEVA_CARD_TITLE_CLASS}`;
-const darkCardBodyClass = `mt-3 ${SEVA_BODY_TEXT_CLASS}`;
-const formFieldClass =
-  "w-full rounded-xl border border-white/10 bg-[var(--campaign-deep)] px-4 py-3 text-base text-white placeholder:text-[var(--campaign-text)]/70 focus:outline-none focus:ring-2 focus:ring-[var(--campaign-accent)]/40";
-
-export default memo(function PathshalaPage() {
-  const [form, setForm] = useState({
-    name: "",
-    age: "",
-    parentName: "",
-    phone: "",
-    email: "",
-    course: "",
-    message: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState("");
-  const [msgType, setMsgType] = useState<"success" | "error" | "">("");
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setMsg("");
-    setMsgType("");
-
-    try {
-      await pathshalaApi.submit({ ...form, age: form.age ? Number(form.age) : undefined });
-      setMsg("Admission submitted successfully. Our team will contact you shortly.");
-      setMsgType("success");
-      setForm({
-        name: "",
-        age: "",
-        parentName: "",
-        phone: "",
-        email: "",
-        course: "",
-        message: "",
-      });
-    } catch {
-      setMsg("Unable to submit right now. Please try again in a moment.");
-      setMsgType("error");
-    } finally {
-      setLoading(false);
-    }
-  };
+function SectionHeader({
+  label,
+  title,
+  children,
+  centered = true,
+  light = false,
+}: {
+  label?: string;
+  title: string;
+  children?: ReactNode;
+  centered?: boolean;
+  light?: boolean;
+}) {
+  const headingClass = light ? lightTitleClass : titleClass;
 
   return (
-    <div className="relative overflow-hidden bg-[var(--campaign-deep)] pb-16">
-      <div className="pointer-events-none absolute -top-24 -left-20 h-72 w-72 rounded-full bg-[#2d7ed4]/20 blur-3xl" />
-      <div className="pointer-events-none absolute top-[520px] -right-24 h-80 w-80 rounded-full bg-[#18b293]/18 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-[#ffb347]/16 blur-3xl" />
+    <div className={`${centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}`}>
+      {label ? <p className={light ? `${MISSION_SECTION_LABEL_CLASS} !text-[#F4A43C]` : eyebrowClass}>{label}</p> : null}
+      <h2 className={headingClass}>{title}</h2>
+      {children ? <div className={`mt-6 ${light ? "text-[#F8EAD2]" : "text-[#6F6255]"}`}>{children}</div> : null}
+    </div>
+  );
+}
 
-      <HeroSection
-        title="E-Pathshala"
-        subtitle="Digital Pathshala Foundation for spiritual, cultural, and value-based learning"
-        backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1772914626/pathshala_yqh2vq.png"
-        boxed
-        heightClass="h-[360px] md:h-[520px]"
-        contentClassName="flex h-full flex-col justify-end !pb-8 !pt-0 md:!pb-12"
-      >
-        <div className="flex flex-wrap justify-center gap-3">
-          <a
-            href="#admission-form"
-            className="inline-flex items-center rounded-lg bg-[#F59E0B] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]"
-          >
-            Apply for Admission
-          </a>
-          <Link
-            to={ROUTES.knowledge.studyResources}
-            className="inline-flex items-center rounded-lg bg-[#12394A] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--campaign-mid-hover)]"
-          >
-            Explore Study Resources
-          </Link>
-        </div>
-      </HeroSection>
+function IconBadge({ icon, alt }: { icon: string; alt: string }) {
+  return (
+    <img
+      src={`${ICON_BASE}${icon}`}
+      alt={alt}
+      loading="lazy"
+      className="mx-auto h-24 w-24 shrink-0 rounded-full object-cover"
+    />
+  );
+}
 
-      <section id="models" className="max-w-6xl mx-auto px-4 pb-10 pt-[20px]">
-        <div className={surfaceSectionClass}>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {LEARNING_MODELS.map((model) => (
-              <article
-                key={model.title}
-                className="rounded-[24px] border border-white/10 bg-[#0f3140] p-6 shadow-sm"
-              >
-                <p className="mb-3 inline-block rounded-full bg-[#F59E0B]/15 px-2.5 py-1 text-sm font-semibold uppercase tracking-[0.18em] text-[#F59E0B]">
-                  {model.tag}
-                </p>
-                <h3 className={surfaceCardTitleClass}>{model.title}</h3>
-                <p className={surfaceCardBodyClass}>{model.desc}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+export default memo(function PathshalaPage() {
+  usePageMeta(
+    "E-Pathshala",
+    "Join Bhagwat Heritage E-Pathshala for value-based spiritual, cultural, Sanskritik, and Bhagwat learning through guided online, family, youth, and Gurukul programs.",
+    "Bhagwat E Pathshala, Online Sanskrit Pathshala, Bhagwat Heritage, Bal Sanskar, Spiritual Education, Value Based Learning, Bhagwat Katha Learning",
+  );
 
-      <section className="max-w-6xl mx-auto px-4 pb-10">
-        <div className={surfaceSectionClass}>
-          <h2 className={sectionTitleClass}>Program Tracks</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {TRACKS.map((track) => (
-              <article key={track.name} className="rounded-2xl bg-[#0f2f50] p-5 text-white shadow-lg">
-                <p className={darkMetaClass}>{track.age}</p>
-                <h3 className={darkCardTitleClass}>{track.name}</h3>
-                <p className={darkCardBodyClass}>{track.focus}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+  const patternStyle = useMemo<CSSProperties>(
+    () => ({
+      backgroundColor: "#FFF8EC",
+      backgroundImage:
+        "radial-gradient(circle at 8% 8%, rgba(244,164,60,0.16), transparent 28rem), radial-gradient(circle at 92% 18%, rgba(7,55,99,0.10), transparent 24rem), radial-gradient(circle at 22% 88%, rgba(221,238,219,0.92), transparent 26rem)",
+      backgroundAttachment: "fixed",
+    }),
+    [],
+  );
 
-      <section className="max-w-6xl mx-auto px-4 pb-10">
-        <div className={surfaceSectionClass}>
-          <h2 className={sectionTitleClass}>Core Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
-            {CORE_FEATURES.map((feature) => (
-              <div key={feature} className="flex items-start gap-3 rounded-xl border border-white/10 bg-[#0f3140] p-4">
-                <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-[#F59E0B]" />
-                <p className="text-sm font-semibold leading-7 text-[var(--campaign-text)]">{feature}</p>
+  return (
+    <div className="relative overflow-hidden" style={patternStyle}>
+      <section className="-mx-6 -mt-12 px-4 pt-0 md:px-6">
+        <div className="inner-hero relative mx-auto h-[420px] w-full max-w-[1240px] overflow-hidden rounded-2xl shadow-[0_28px_70px_rgba(7,55,99,0.22)] md:h-[620px]">
+          <img
+            src={HERO_IMAGE}
+            alt="Bhagwat Heritage E-Pathshala learning atmosphere with scripture study and children"
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,55,99,0.18),rgba(255,248,236,0.04)_42%,rgba(10,47,82,0.42))]" />
+          <div className="relative z-10 flex h-full items-end justify-center px-5 pb-10 pt-8 text-center md:pb-16">
+            <div className="max-w-4xl">
+              <h1 className="hero-title mb-3 text-4xl font-bold leading-tight !text-[#FFF8EC] md:text-5xl">E-Pathshala</h1>
+              <p className="hero-subtitle text-lg text-[#FFECCB] md:text-xl">
+                Digital Pathshala for spiritual, cultural, Sanskritik, and value-based learning.
+              </p>
+              <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+                <a
+                  href="#program-tracks"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#FFF8EC]/80 bg-[#FFF8EC]/10 px-7 py-3 text-sm font-black !text-[#FFF8EC] backdrop-blur transition hover:-translate-y-0.5 hover:bg-[#FFF8EC] hover:!text-[#073763]"
+                >
+                  Explore Study Tracks
+                </a>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 pb-10">
-        <div className={surfaceSectionClass}>
-          <h2 className={sectionTitleClass}>Advanced Learning Tools</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {PROGRAM_TOOLS.map((tool) => (
-              <article
-                key={tool.title}
-                className={lightCardClass}
-              >
-                <h3 className={surfaceCardTitleClass}>{tool.title}</h3>
-                <p className={surfaceCardBodyClass}>{tool.desc}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 pb-10">
-        <div className={darkSectionClass}>
-          <h2 className={sectionTitleClass}>Weekly Learning Rhythm</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {WEEKLY_SCHEDULE.map((item) => (
-              <div key={item.day} className="rounded-xl border border-white/20 bg-white/10 p-4">
-                <p className={darkMetaClass}>{item.day}</p>
-                <p className="mt-2 text-xl font-black text-white">{item.focus}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 pb-10">
-        <div className={surfaceSectionClass}>
-          <h2 className={sectionTitleClass}>Learning Pathway</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {LEARNING_PATH.map((step) => (
-              <article key={step.phase} className={lightCardClass}>
-                <p className={surfaceMetaClass}>{step.phase}</p>
-                <h3 className="mt-2 text-xl font-black text-white">{step.title}</h3>
-                <p className={surfaceCardBodyClass}>{step.desc}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 pb-10">
-        <div className={surfaceSectionClass}>
-          <h2 className={sectionTitleClass}>Outcome Matrix</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {OUTCOME_MATRIX.map((item) => (
-              <article key={item.title} className={lightCardClass}>
-                <h3 className={surfaceCardTitleClass}>{item.title}</h3>
-                <p className={surfaceCardBodyClass}>{item.desc}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 pb-10">
-        <div className={surfaceSectionClass}>
-          <h2 className={sectionTitleClass}>What Families Say</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {TESTIMONIALS.map((item) => (
-              <article key={item.by} className={lightCardClass}>
-                <p className="text-sm leading-7 text-[var(--campaign-text)]">"{item.quote}"</p>
-                <p className="mt-4 text-sm font-black uppercase tracking-[0.18em] text-[#F59E0B]">{item.by}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-4 pb-10">
-        <div className={surfaceSectionClass}>
-          <h2 className={sectionTitleClass}>Frequently Asked Questions</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {FAQS.map((item) => (
-              <article key={item.q} className={lightCardClass}>
-                <h3 className={surfaceCardTitleClass}>{item.q}</h3>
-                <p className={surfaceCardBodyClass}>{item.a}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="admission-form" className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-6">
-          <div className="rounded-[30px] border border-white/10 bg-[#12394A] p-7 text-white shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-            <h2 className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[#F59E0B]">Admissions Open</h2>
-            <p className="mt-3 text-base leading-7 text-white/90 md:text-lg">
-              Build strong values and confident leadership through guided spiritual and cultural learning.
-              Select your preferred course and our admissions team will help with onboarding.
-            </p>
-            <div className="mt-6 space-y-3 text-sm leading-7 text-white/90">
-              <p className="rounded-xl bg-white/10 px-4 py-3">. Flexible online and offline batches</p>
-              <p className="rounded-xl bg-white/10 px-4 py-3">. Mentor support and assessment tracking</p>
-              <p className="rounded-xl bg-white/10 px-4 py-3">. Activity-based experiential learning</p>
             </div>
           </div>
+        </div>
+      </section>
 
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-3 rounded-[30px] border border-white/10 bg-[#12394A] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-7"
-          >
-            <h3 className="mb-1 text-[14px] font-black text-white md:text-[20px]">Apply for Admission</h3>
-            <input
-              type="text"
-              placeholder="Student Name"
-              value={form.name}
-              onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              required
-              className={formFieldClass}
-            />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <input
-                type="number"
-                placeholder="Age"
-                value={form.age}
-                onChange={(e) => setForm((f) => ({ ...f, age: e.target.value }))}
-                className={formFieldClass}
-              />
-              <input
-                type="text"
-                placeholder="Parent/Guardian Name"
-                value={form.parentName}
-                onChange={(e) => setForm((f) => ({ ...f, parentName: e.target.value }))}
-                className={formFieldClass}
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <input
-                type="tel"
-                placeholder="Phone"
-                value={form.phone}
-                onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                className={formFieldClass}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                className={formFieldClass}
-              />
-            </div>
-            <select
-              value={form.course}
-              onChange={(e) => setForm((f) => ({ ...f, course: e.target.value }))}
-              className={formFieldClass}
-              required
-            >
-              <option value="">Select Course</option>
-              {COURSES.map((course) => (
-                <option key={course} value={course}>
-                  {course}
-                </option>
+      <section className={sectionClass}>
+        <div className={`${containerClass} grid items-center gap-10 lg:grid-cols-[1fr_0.92fr]`}>
+          <div>
+            <SectionHeader label="Digital Gurukul" title="A Digital Gurukul for Modern Families" centered={false}>
+              <p className={bodyClass}>
+                Bhagwat Heritage E-Pathshala brings the spirit of traditional Gurukul learning into a modern digital format.
+                Through guided classes, chanting practice, value education, storytelling, Sanskritik learning, and seva-based
+                activities, learners receive a balanced foundation of devotion, discipline, culture, and character.
+              </p>
+            </SectionHeader>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {HIGHLIGHTS.map((highlight) => (
+                <div key={highlight} className="rounded-2xl border border-[#E8D9C4] bg-[#FFF4E0] p-4 text-center shadow-[0_12px_28px_rgba(101,71,35,0.08)]">
+                  <p className={cardTitleClass}>{highlight}</p>
+                </div>
               ))}
-            </select>
-            <textarea
-              placeholder="Message"
-              value={form.message}
-              onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-              rows={4}
-              className={`${formFieldClass} resize-none`}
+            </div>
+          </div>
+          <div className="relative">
+            <div className="absolute -left-5 -top-5 h-28 w-28 rounded-full bg-[#F4A43C]/20 blur-2xl" />
+            <img
+              src={DIGITAL_GURUKUL_IMAGE}
+              alt="Children and youth studying scripture with teacher guidance"
+              loading="lazy"
+              className="relative h-[360px] w-full rounded-[28px] border border-[#E8D9C4] object-cover shadow-[0_24px_60px_rgba(101,71,35,0.16)]"
             />
-            {msg ? (
-              <p className={`text-sm ${msgType === "success" ? "text-green-600" : "text-red-600"}`}>{msg}</p>
-            ) : null}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full rounded-xl bg-[#F59E0B] py-3 font-bold text-white transition-colors hover:bg-[var(--campaign-accent-hover)] disabled:opacity-70"
-            >
-              {loading ? "Submitting..." : "Submit Application"}
-            </button>
-          </form>
+          </div>
         </div>
       </section>
+
+      <section className={sectionClass} id="learning-models">
+        <div className={containerClass}>
+          <SectionHeader label="Flexible Formats" title="Learning Models">
+            <p className={bodyClass}>Choose the model that matches your family rhythm, age group, and spiritual learning goals.</p>
+          </SectionHeader>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {LEARNING_MODELS.map((model) => (
+              <article key={model.title} className={`${creamCardClass} text-center`}>
+                <IconBadge icon={model.icon} alt={`${model.title} icon`} />
+                <h3 className={`mt-5 ${cardTitleClass}`}>{model.title}</h3>
+                <p className={`mx-auto mt-3 max-w-sm ${cardTextClass}`}>{model.text}</p>
+              </article>
+            ))}
+          </div>
+          <figure className="mt-8 overflow-hidden rounded-[28px] border border-[#E8D9C4] bg-[#073763] shadow-[0_24px_58px_rgba(7,55,99,0.18)]">
+            <img
+              src={`${IMAGE_BASE}family-pathshala-session.jpg`}
+              alt="Family Pathshala session with scripture learning and mentor support"
+              loading="lazy"
+              className="h-[260px] w-full object-cover opacity-90"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section className={sectionClass} id="program-tracks">
+        <div className={containerClass}>
+          <div className="rounded-[28px] bg-[#0A2F52] p-5 shadow-[0_28px_70px_rgba(7,55,99,0.22)] md:p-8">
+            <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
+              <div>
+                <SectionHeader label="Age-Wise Pathways" title="Program Tracks" centered={false} light>
+                  <p className={`${MISSION_BODY_TEXT_CLASS} text-[#F8EAD2]`}>Deep, age-wise tracks help learners progress from sanskar to scholarship.</p>
+                </SectionHeader>
+                <div className="mt-8 space-y-5">
+                  {PROGRAM_TRACKS.map((track) => (
+                    <article key={track.title} className="rounded-[20px] border border-[#2A5F86] bg-[#073763] p-6 text-center md:text-left">
+                      <div className="grid gap-5 md:grid-cols-[auto_1fr_auto] md:items-center">
+                        <IconBadge icon={track.icon} alt={`${track.title} icon`} />
+                        <div>
+                          <h3 className={navyCardTitleClass}>{track.title}</h3>
+                          <p className={`mt-2 ${lightCardTextClass}`}>{track.text}</p>
+                        </div>
+                        <p className="inline-flex rounded-full bg-[#F4A43C] px-4 py-2 text-sm font-black !text-[#073763]">{track.age}</p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+              <img
+                src={`${IMAGE_BASE}youth-leadership-learning.jpg`}
+                alt="Youth leadership learning visual with energetic students"
+                loading="lazy"
+                className="h-full min-h-[360px] rounded-[24px] border border-[#2A5F86] object-cover shadow-[0_20px_44px_rgba(0,0,0,0.22)]"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className={containerClass}>
+          <SectionHeader label="Learning System" title="Core Features">
+            <p className={bodyClass}>A structured platform for devotional learning, practical discipline, and measurable growth.</p>
+          </SectionHeader>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {CORE_FEATURES.map((feature) => (
+              <article key={feature.title} className={`${creamCardClass} text-center`}>
+                <IconBadge icon={feature.icon} alt={`${feature.title} icon`} />
+                <h3 className={`mx-auto mt-5 max-w-xs ${cardTitleClass}`}>{feature.title}</h3>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-8 md:py-12">
+        <div className={containerClass}>
+          <div className="relative overflow-hidden rounded-[30px] bg-[#073763] shadow-[0_28px_70px_rgba(7,55,99,0.22)]">
+            <img
+              src={`${IMAGE_BASE}digital-gurukul-class.jpg`}
+              alt="Digital Gurukul class visual with students learning in a devotional setting"
+              loading="lazy"
+              className="h-[320px] w-full object-cover opacity-[0.78]"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,55,99,0.86),rgba(7,55,99,0.24))]" />
+            <div className="absolute inset-0 flex items-center px-6 md:px-10">
+              <div className="max-w-xl">
+                <p className={`${MISSION_SECTION_LABEL_CLASS} !text-[#F4A43C]`}>Guided Learning</p>
+                <h2 className={lightTitleClass}>
+                  Culture, scripture, chanting, and seva in one learning rhythm.
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className={containerClass}>
+          <SectionHeader label="Digital Support" title="Advanced Learning Tools">
+            <p className={bodyClass}>Modern learning utilities keep students, parents, and mentors aligned through every level.</p>
+          </SectionHeader>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {ADVANCED_TOOLS.map((tool) => (
+              <article key={tool.title} className={`${creamCardClass} text-center`}>
+                <IconBadge icon={tool.icon} alt={`${tool.title} icon`} />
+                <h3 className={`mt-5 ${cardTitleClass}`}>{tool.title}</h3>
+                <p className={`mx-auto mt-3 max-w-xs ${cardTextClass}`}>{tool.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className={containerClass}>
+          <SectionHeader label="Weekly Practice" title="Weekly Learning Rhythm">
+            <p className={bodyClass}>A simple rhythm helps learning move from knowledge into practice.</p>
+          </SectionHeader>
+          <div className="relative mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="absolute left-[12%] right-[12%] top-8 hidden h-px bg-[#D99A2B]/45 lg:block" />
+            {WEEKLY_RHYTHM.map((item, index) => (
+              <article key={item.day} className="relative rounded-[20px] border border-[#E8D9C4] bg-[#FFFDF8] p-6 text-center shadow-[0_18px_42px_rgba(101,71,35,0.10)]">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border-4 border-[#FFF8EC] bg-[#F4A43C] text-lg font-black !text-[#073763] shadow-[0_14px_30px_rgba(244,164,60,0.28)]">
+                  {index + 1}
+                </div>
+                <p className={`mt-5 ${smallLabelClass}`}>{item.day}</p>
+                <h3 className={`mt-2 ${cardTitleClass}`}>{item.focus}</h3>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className={containerClass}>
+          <SectionHeader label="Progression" title="Learning Pathway">
+            <p className={bodyClass}>Each phase builds devotional depth, expression, and responsibility.</p>
+          </SectionHeader>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {LEARNING_PATHWAY.map((phase) => (
+              <article key={phase.phase} className={creamCardClass}>
+                <p className={smallLabelClass}>{phase.phase}</p>
+                <h3 className={`mt-3 ${cardTitleClass}`}>{phase.title}</h3>
+                <p className={`mt-3 ${cardTextClass}`}>{phase.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className={containerClass}>
+          <SectionHeader label="Student Growth" title="Learning Outcomes">
+            <p className={bodyClass}>The aim is not only information, but confident character rooted in dharmic living.</p>
+          </SectionHeader>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {OUTCOMES.map((outcome) => (
+              <article key={outcome.title} className={`${navyCardClass} text-center`}>
+                <IconBadge icon={outcome.icon} alt={`${outcome.title} icon`} />
+                <h3 className={`mt-5 ${navyCardTitleClass}`}>{outcome.title}</h3>
+                <p className={`mx-auto mt-3 max-w-xs ${lightCardTextClass}`}>{outcome.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className={containerClass}>
+          <SectionHeader label="Testimonials" title="What Families Say" />
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {TESTIMONIALS.map((testimonial) => (
+              <article key={testimonial.label} className={creamCardClass}>
+                <p className="text-5xl leading-none text-[#D99A2B]">“</p>
+                <p className="mt-2 text-[15px] leading-7 text-[#2B2118]">{testimonial.quote}</p>
+                <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-[#C96F18]">{testimonial.label}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 });
-

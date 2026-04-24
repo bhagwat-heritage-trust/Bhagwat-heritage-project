@@ -26,7 +26,6 @@ import {
   GetInvolvedHubPage,
   InvolvedPartnerPage,
   InvolvedSponsorPage,
-  KnowledgeChildrenPage,
   KnowledgeDailyQuotesPage,
   KnowledgeTodayQuotePage,
   KnowledgeHubPage,
@@ -66,6 +65,7 @@ const DonorDashboardPage = lazy(() => import("./features/dashboard/DonorDashboar
 const VolunteerDashboardPage = lazy(() => import("./features/dashboard/VolunteerDashboardPage"));
 const LibraryPage = lazy(() => import("./features/events/LibraryPage"));
 const PathshalaPage = lazy(() => import("./features/events/PathshalaPage"));
+const ChildrenSpiritualLearningPage = lazy(() => import("./features/knowledge/ChildrenSpiritualLearningPage"));
 const StorePage = lazy(() => import("./features/events/StorePage"));
 const FestivalsCelebrationsDetailPage = lazy(() => import("./features/events/FestivalsCelebrationsDetailPage"));
 const MandirGalleryPage = lazy(() => import("./features/mandir/MandirGalleryPage"));
@@ -244,7 +244,7 @@ export default function App() {
                   <Route path={ROUTES.knowledge.pathshala} element={withInnerPageLayout(<PathshalaPage />)} />
                   <Route path={ROUTES.knowledge.library} element={withInnerPageLayout(<LibraryPage />)} />
                   <Route path={ROUTES.knowledge.studyResources} element={withInnerPageLayout(<KnowledgeStudyResourcesPage />)} />
-                  <Route path={ROUTES.knowledge.children} element={withInnerPageLayout(<KnowledgeChildrenPage />)} />
+                  <Route path={ROUTES.knowledge.children} element={withInnerPageLayout(<ChildrenSpiritualLearningPage />)} />
                   <Route path={ROUTES.knowledge.dailyQuotes} element={withInnerPageLayout(<KnowledgeDailyQuotesPage />)} />
                   <Route path={ROUTES.knowledge.dailyQuotesToday} element={withInnerPageLayout(<KnowledgeTodayQuotePage />)} />
 

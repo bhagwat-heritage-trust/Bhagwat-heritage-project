@@ -9,6 +9,7 @@ import { usePageMeta } from "../../hooks/usePageMeta";
 import { ROUTES } from "../../app/routes/routes";
 import { BhagwatKathaMahotsavPremiumPage } from "../events/BhagwatKathaMahotsavPremiumPage";
 import FestivalsCelebrationsPremiumPage from "../events/FestivalsCelebrationsPremiumPage";
+import { MISSION_BODY_TEXT_CLASS, MISSION_SECTION_HEADING_CLASS, MISSION_SECTION_LABEL_CLASS } from "../mission/missionTypography";
 import { SevaHeroBanner } from "../seva/SevaHeroBanner";
 import {
   ABOUT_BODY_CLASS,
@@ -4232,219 +4233,544 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
 });
 
 export const KnowledgeStudyResourcesPage = memo(function KnowledgeStudyResourcesPage() {
-  const [activeTrack, setActiveTrack] = useState<"All" | "Foundational" | "Guided" | "Advanced" | "Practice">("All");
-
-  const resourceTracks = [
+  const resourceImageBase = "/images/bhagwat-study-resources/";
+  const heroImage =
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777055209/ChatGPT_Image_Apr_24_2026_11_56_04_PM_l9735k.png";
+  const categories = [
+    "All Resources",
+    "Bhagwat Introduction",
+    "Skandha-wise Study",
+    "Shloka Meaning",
+    "Tattvik Notes",
+    "Katha Topics",
+    "Audio Pravachan",
+    "Children Learning",
+    "Downloadable PDFs",
+  ];
+  const skandhaOptions = ["All Skandhas", "General", "Skandha 1", "Selected Shlokas", "Thematic Study", "Katha Index", "Daily Listening", "Children", "PDF Library"];
+  const languageOptions = ["All Languages", "Hindi", "English", "Hindi / English"];
+  const formatOptions = ["All Formats", "Article", "PDF", "Audio", "Video"];
+  const aboutCards = [
     {
-      category: "Foundational" as const,
-      title: "Bhagwat Basics",
-      desc: "",
-      format: "Beginner study sheets",
+      icon: "icon-authentic-study.svg",
+      title: "Authentic Bhagwat Learning",
+      text: "Study resources inspired by the sacred tradition of Shrimad Bhagwat Mahapuran with devotional clarity and practical understanding.",
     },
     {
-      category: "Guided" as const,
-      title: "Mentor-Led Study Notes",
-      desc: "",
-      format: "Annotated notes and references",
+      icon: "icon-skandha-path.svg",
+      title: "Skandha-wise Study Path",
+      text: "Organised learning material to understand Bhagwat chapter by chapter, topic by topic and shloka by shloka.",
     },
     {
-      category: "Advanced" as const,
-      title: "Thematic Deep Study Modules",
-      desc: "",
-      format: "Advanced resource modules",
-    },
-    {
-      category: "Practice" as const,
-      title: "Daily Revision and Reflection",
-      desc: "",
-      format: "Daily learning rhythm tools",
+      icon: "icon-family-learning.svg",
+      title: "For Families, Youth & Seekers",
+      text: "Resources designed for children, youth, families, students and sincere spiritual aspirants.",
     },
   ];
+  const categoryFocusCards = [
+    {
+      title: "Beginner Study",
+      category: "Bhagwat Introduction",
+      text: "Start with Bhagwat purpose, glory and structure before moving into deeper skandha study.",
+    },
+    {
+      title: "Skandha Learning",
+      category: "Skandha-wise Study",
+      text: "Follow a chapter-wise path with key themes, stories and spiritual insights.",
+    },
+    {
+      title: "Shloka & Tattva",
+      category: "Shloka Meaning",
+      text: "Learn selected shlokas, meanings and devotional philosophy with practical relevance.",
+    },
+    {
+      title: "Listening & PDFs",
+      category: "Audio Pravachan",
+      text: "Use pravachan audio and printable notes for daily satsang and family study.",
+    },
+  ];
+  const studyResources = [
+    {
+      title: "Introduction to Shrimad Bhagwat Mahapuran",
+      category: "Bhagwat Introduction",
+      format: "Article",
+      language: "Hindi",
+      skandha: "General",
+      image: "resource-bhagwat-introduction.jpg",
+      description: "A simple and devotional introduction to the purpose, glory and structure of Shrimad Bhagwat.",
+    },
+    {
+      title: "Skandha 1 Study Guide",
+      category: "Skandha-wise Study",
+      format: "PDF",
+      language: "Hindi",
+      skandha: "Skandha 1",
+      image: "resource-skandha-study.jpg",
+      description: "Chapter-wise guide for understanding the first skandha with key themes and spiritual insights.",
+    },
+    {
+      title: "Selected Bhagwat Shlokas with Meaning",
+      category: "Shloka Meaning",
+      format: "Article",
+      language: "Hindi / English",
+      skandha: "Selected Shlokas",
+      image: "resource-shloka-meaning.jpg",
+      description: "Important shlokas with simple meanings and practical life application.",
+    },
+    {
+      title: "Bhagwat Tattvik Notes",
+      category: "Tattvik Notes",
+      format: "PDF",
+      language: "Hindi",
+      skandha: "Thematic Study",
+      image: "resource-tattvik-notes.jpg",
+      description: "Philosophical notes explaining devotion, dharma, vairagya and divine knowledge.",
+    },
+    {
+      title: "Bhagwat Katha Topic Index",
+      category: "Katha Topics",
+      format: "Article",
+      language: "Hindi",
+      skandha: "Katha Index",
+      image: "resource-katha-topics.jpg",
+      description: "A helpful index of major Bhagwat Katha topics for speakers, students and devotees.",
+    },
+    {
+      title: "Audio Pravachan Collection",
+      category: "Audio Pravachan",
+      format: "Audio",
+      language: "Hindi",
+      skandha: "Daily Listening",
+      image: "resource-audio-pravachan.jpg",
+      description: "Selected pravachan and satsang audio resources for daily listening and reflection.",
+    },
+    {
+      title: "Bhagwat Learning for Children",
+      category: "Children Learning",
+      format: "Article",
+      language: "Hindi / English",
+      skandha: "Children",
+      image: "resource-children-learning.jpg",
+      description: "Simple stories, values and activities to introduce children to Bhagwat wisdom.",
+    },
+    {
+      title: "Downloadable Study PDFs",
+      category: "Downloadable PDFs",
+      format: "PDF",
+      language: "Hindi",
+      skandha: "PDF Library",
+      image: "resource-download-pdfs.jpg",
+      description: "Study sheets, notes and printable material for regular learning and satsang groups.",
+    },
+  ];
+  const studyPath = [
+    { icon: "icon-bhagwat-mahatmya.svg", title: "Begin with Bhagwat Mahatmya" },
+    { icon: "icon-purpose-study.svg", title: "Understand the purpose of Bhagwat" },
+    { icon: "icon-skandha-study.svg", title: "Study Skandha-wise" },
+    { icon: "icon-shloka-learning.svg", title: "Learn selected shlokas" },
+    { icon: "icon-satsang-pravachan.svg", title: "Attend satsang / pravachan" },
+    { icon: "icon-life-practice.svg", title: "Practice Bhagwat teachings in daily life" },
+  ];
+  const [resourceFilters, setResourceFilters] = useState({
+    search: "",
+    category: "All Resources",
+    skandha: "All Skandhas",
+    language: "All Languages",
+    format: "All Formats",
+  });
+  const [studyCircleForm, setStudyCircleForm] = useState({
+    fullName: "",
+    mobile: "",
+    email: "",
+    city: "",
+    mode: "",
+    interest: "",
+    message: "",
+  });
+  const [resourceRequestForm, setResourceRequestForm] = useState({
+    name: "",
+    contact: "",
+    resource: "",
+    language: "",
+    message: "",
+  });
+  const [studyCircleNotice, setStudyCircleNotice] = useState("");
+  const [resourceRequestNotice, setResourceRequestNotice] = useState("");
+  const filteredResources = useMemo(() => {
+    const query = resourceFilters.search.trim().toLowerCase();
 
-  const visibleTracks =
-    activeTrack === "All" ? resourceTracks : resourceTracks.filter((item) => item.category === activeTrack);
+    return studyResources.filter((resource) => {
+      const matchesSearch =
+        !query ||
+        [resource.title, resource.category, resource.description, resource.language].some((field) => field.toLowerCase().includes(query));
+      const matchesCategory = resourceFilters.category === "All Resources" || resource.category === resourceFilters.category;
+      const matchesSkandha = resourceFilters.skandha === "All Skandhas" || resource.skandha === resourceFilters.skandha;
+      const matchesLanguage =
+        resourceFilters.language === "All Languages" ||
+        resource.language === resourceFilters.language ||
+        resource.language.includes(resourceFilters.language);
+      const matchesFormat = resourceFilters.format === "All Formats" || resource.format === resourceFilters.format;
+
+      return matchesSearch && matchesCategory && matchesSkandha && matchesLanguage && matchesFormat;
+    });
+  }, [resourceFilters]);
+  const setResourceFilter = (key: keyof typeof resourceFilters, value: string) => {
+    setResourceFilters((currentFilters) => ({ ...currentFilters, [key]: value }));
+  };
+  const handleStudyCircleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const requiredValues = [
+      studyCircleForm.fullName,
+      studyCircleForm.mobile,
+      studyCircleForm.email,
+      studyCircleForm.city,
+      studyCircleForm.mode,
+      studyCircleForm.interest,
+    ];
+
+    if (requiredValues.some((value) => !value.trim())) {
+      setStudyCircleNotice("Please fill all required study circle fields.");
+      return;
+    }
+
+    setStudyCircleNotice("Thank you. Your interest in Bhagwat Study Circle has been received.");
+    setStudyCircleForm({ fullName: "", mobile: "", email: "", city: "", mode: "", interest: "", message: "" });
+  };
+  const handleResourceRequestSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const requiredValues = [resourceRequestForm.name, resourceRequestForm.contact, resourceRequestForm.resource, resourceRequestForm.language];
+
+    if (requiredValues.some((value) => !value.trim())) {
+      setResourceRequestNotice("Please fill all required resource request fields.");
+      return;
+    }
+
+    setResourceRequestNotice("Your resource request has been submitted.");
+    setResourceRequestForm({ name: "", contact: "", resource: "", language: "", message: "" });
+  };
+  const sectionClass = "mx-auto w-full max-w-[1180px] px-4 py-12 sm:px-6 md:py-[72px]";
+  const labelClass = `${MISSION_SECTION_LABEL_CLASS} !text-[#C96F18]`;
+  const headingClass = `${MISSION_SECTION_HEADING_CLASS} mt-4 !text-[#2B2118]`;
+  const lightHeadingClass = `${MISSION_SECTION_HEADING_CLASS} mt-4 !text-[#FFF8EC]`;
+  const bodyClass = `${MISSION_BODY_TEXT_CLASS} text-[#6F6255]`;
+  const cardTitleClass = "text-[15px] font-bold !text-[#2B2118]";
+  const lightCardTitleClass = "text-[15px] font-bold !text-[#FFF8EC]";
+  const cardTextClass = "text-sm leading-6 text-[#6F6255]";
+  const lightCardTextClass = "text-sm leading-6 text-[#F8EAD2]";
+  const smallLabelClass = "text-sm font-black uppercase tracking-[0.14em] text-[#C96F18] md:text-[15px]";
+  const cardClass =
+    "rounded-[26px] border border-[#E8D9BD] bg-white/88 p-6 shadow-[0_18px_42px_rgba(101,71,35,0.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_56px_rgba(101,71,35,0.14)]";
+  const inputClass =
+    "w-full rounded-2xl border border-[#E8D9BD] bg-[#FFFDF8] px-4 py-3 text-sm text-[#2B2118] outline-none transition placeholder:text-[#9B8976] focus:border-[#D99A2B] focus:ring-4 focus:ring-[#F4A43C]/20";
 
   usePageMeta(
-    "Bhagwat Study Resources",
-    "Structured Bhagwat learning resources, mentor-guided notes, thematic study tracks, and daily reflection tools.",
+    "Shrimad Bhagwat Study Resources",
+    "Authentic study material, shloka meanings, chapter-wise guidance and devotional learning resources for seekers, students and families.",
+    "Shrimad Bhagwat Study Resources, Bhagwat Study Material, Bhagwat Shloka Meaning, Skandha Study Guide, Bhagwat Katha Topics",
   );
 
   return (
-    <div className="min-h-screen bg-[var(--campaign-deep)]">
-      <HeroSection
-        title="Bhagwat Study Resources"
-        subtitle="Guided knowledge for a deeper spiritual journey"
-        subtitleClassName="text-[18px] font-semibold text-white sm:text-[24px] md:text-[34px]"
-        contentClassName="flex h-full flex-col justify-end pb-[22px] md:pb-[30px] [&>h1]:mb-[10px] [&>p]:mb-[10px]"
-        backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1775569184/bhagwatdhamstudy_ky9jf3.avif"
-        boxed
-        heightClass="h-[360px] md:h-[520px]"
-        overlayClass="bg-black/55"
-      >
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Link
-            to={ROUTES.knowledge.library}
-            className="inline-flex items-center rounded-lg bg-[#f3a11f] px-6 py-3 font-semibold text-white shadow-[0_14px_28px_rgba(243,161,31,0.28)] transition-colors hover:bg-[#ffaf31]"
-          >
-            Explore Library
-          </Link>
-          <Link
-            to={ROUTES.knowledge.pathshala}
-            className="inline-flex items-center rounded-lg bg-[#0f7994] px-6 py-3 font-semibold text-white shadow-[0_14px_28px_rgba(15,121,148,0.28)] transition-colors hover:bg-[#1492b1]"
-          >
-            Join Study Path
-          </Link>
-        </div>
-      </HeroSection>
-
-      <section className="relative z-20 mt-[10px] pb-6">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
-            {[
-              { title: "Study Tracks", value: "4", note: "Foundational to advanced Bhagwat learning paths" },
-              { title: "Guided Modules", value: "25+", note: "Organized themes for topic-wise scripture study" },
-              { title: "Daily Practice", value: "365", note: "Consistent reflection and revision opportunities" },
-              { title: "Mentor Support", value: "Available", note: "Study-friendly routes linked with Pathshala and satsang" },
-            ].map((item) => (
-              <div key={item.title} className={EVENT_SEVA_HIGHLIGHT_CARD_CLASS}>
-                <p className={SEVA_HIGHLIGHT_TITLE_CLASS}>{item.title}</p>
-                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{item.note}</p>
+    <div className="-mx-6 -my-12 min-h-screen overflow-hidden bg-[#FFF8EC] text-[#2B2118]">
+      <section className="mx-auto max-w-7xl px-4 py-8 md:py-10">
+        <div className="relative h-[430px] overflow-hidden rounded-[32px] shadow-[0_28px_72px_rgba(7,55,99,0.24)] md:h-[560px]">
+          <img
+            src={heroImage}
+            alt="Open Shrimad Bhagwat scripture with devotional study setting"
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,248,236,0.04),rgba(255,244,224,0.02)_42%,rgba(7,55,99,0.56))]" />
+          <div className="relative z-10 flex h-full items-end justify-center px-5 pb-10 text-center md:pb-14">
+            <div className="max-w-3xl">
+              <h1 className="hero-title mb-3 text-4xl font-bold leading-tight !text-[#FFF8EC] drop-shadow-[0_4px_18px_rgba(7,55,99,0.45)] md:text-5xl">
+                Bhagwat Study
+              </h1>
+              <p className="hero-subtitle mx-auto max-w-2xl text-lg text-[#FFECCB] drop-shadow-[0_3px_14px_rgba(7,55,99,0.48)] md:text-xl">
+                Bhagwat a journey from self to divine
+              </p>
+              <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+                <a href="#featured-resources" className="rounded-full bg-[#F4A43C] px-7 py-3 text-sm font-black text-[#073763] shadow-[0_18px_36px_rgba(244,164,60,0.32)] transition hover:-translate-y-0.5 hover:bg-[#FFD084]">
+                  Start Study
+                </a>
+                <a href="#study-path" className="rounded-full border border-[#FFF4E0]/80 bg-white/10 px-7 py-3 text-sm font-black text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white hover:text-[#073763]">
+                  Explore Skandhas
+                </a>
+                <a
+                  href="#featured-resources"
+                  onClick={() => {
+                    setResourceFilter("category", "Downloadable PDFs");
+                    setResourceFilter("format", "PDF");
+                  }}
+                  className="rounded-full bg-[#D99A2B] px-7 py-3 text-sm font-black text-white shadow-[0_18px_36px_rgba(217,154,43,0.28)] transition hover:-translate-y-0.5 hover:bg-[#F4A43C]"
+                >
+                  Download Resources
+                </a>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className={EVENT_SEVA_SECTION_CLASS}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>About Bhagwat Study Resources</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Organized scripture study for learners, satsang groups, and guided devotees</h2>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
-            {[
-              {
-                title: "Topic-Wise Resource Design",
-                desc: "Resources are grouped by theme so learners can study devotion, dharma, stories, and teachings with clarity.",
-              },
-              {
-                title: "Mentor-Ready Material",
-                desc: "Content is suitable for satsang groups, guided reading, and teacher-led explanation pathways.",
-              },
-              {
-                title: "Daily Study Discipline",
-                desc: "Practice-oriented reading and reflection helps learners build consistency rather than fragmented learning.",
-              },
-            ].map((item) => (
-              <div key={item.title} className={EVENT_SEVA_CARD_CLASS}>
-                <h3 className={SEVA_CARD_TITLE_CLASS}>{item.title}</h3>
-                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-              </div>
-            ))}
-          </div>
+      <section className={sectionClass}>
+        <div className="mx-auto max-w-3xl text-center">
+          <p className={labelClass}>About This Resource Center</p>
+          <h2 className={headingClass}>A devotional study hub for clear Bhagwat learning</h2>
+          <p className={`mt-5 ${bodyClass}`}>
+            Learn with organized resources that support family satsang, student study, guided reading, youth learning and sincere personal sadhana.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {aboutCards.map((card) => (
+            <article key={card.title} className={`${cardClass} text-center`}>
+              <img src={`${resourceImageBase}${card.icon}`} alt={`${card.title} icon`} className="mx-auto h-20 w-20" loading="lazy" />
+              <h3 className={`mt-5 ${cardTitleClass}`}>{card.title}</h3>
+              <p className={`mt-3 ${cardTextClass}`}>{card.text}</p>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className={EVENT_SEVA_SECTION_CLASS}>
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <section className={sectionClass}>
+        <div className="rounded-[30px] border border-[#E8D9BD] bg-[#FFF4E0]/82 p-5 shadow-[0_20px_52px_rgba(101,71,35,0.10)] md:p-8">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className={SEVA_SECTION_LABEL_CLASS}>Study Resource Explorer</p>
-              <h2 className={SEVA_SECTION_HEADING_CLASS}>Filter the right study track for reading, teaching, and deeper learning</h2>
+              <p className={labelClass}>Study Categories</p>
+              <h2 className={headingClass}>Choose a focused Bhagwat learning route</h2>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {(["All", "Foundational", "Guided", "Advanced", "Practice"] as const).map((track) => {
-                const active = track === activeTrack;
-                return (
-                  <button
-                    key={track}
-                    type="button"
-                    onClick={() => setActiveTrack(track)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                      active
-                        ? "bg-[var(--campaign-accent)] text-white"
-                        : "border border-white/10 bg-[var(--campaign-surface)] text-[var(--campaign-text)] hover:border-[var(--campaign-accent)]/40"
-                    }`}
-                  >
-                    {track}
-                  </button>
-                );
-              })}
-            </div>
+            <p className={`max-w-xl ${bodyClass}`}>
+              Use chips to quickly narrow resources by study intent, then refine with search, language, skandha and format filters.
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
-            {visibleTracks.map((item) => (
-              <div key={item.title} className={EVENT_SEVA_DETAIL_CARD_CLASS}>
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-[var(--campaign-accent)]/15 px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[var(--campaign-accent)]">
-                    {item.category}
-                  </span>
-                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[var(--campaign-text)]">
-                    {item.format}
-                  </span>
-                </div>
-                <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
-                {item.desc ? <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p> : null}
-              </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {categories.map((category) => {
+              const isActive = resourceFilters.category === category;
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setResourceFilter("category", category)}
+                  className={`rounded-full px-4 py-2 text-sm font-black transition ${
+                    isActive
+                      ? "bg-[#073763] text-white shadow-[0_12px_26px_rgba(7,55,99,0.22)]"
+                      : "border border-[#E8D9BD] bg-white/78 text-[#65584A] hover:border-[#F4A43C] hover:text-[#073763]"
+                  }`}
+                >
+                  {category}
+                </button>
+              );
+            })}
+          </div>
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {categoryFocusCards.map((card) => (
+              <button
+                key={card.title}
+                type="button"
+                onClick={() => setResourceFilter("category", card.category)}
+                className="rounded-[22px] border border-[#E8D9BD] bg-white/84 p-5 text-left shadow-[0_14px_34px_rgba(101,71,35,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#F4A43C] hover:shadow-[0_20px_48px_rgba(101,71,35,0.13)]"
+              >
+                <span className={smallLabelClass}>{card.category}</span>
+                <h3 className={`mt-3 ${cardTitleClass}`}>{card.title}</h3>
+                <p className={`mt-2 ${cardTextClass}`}>{card.text}</p>
+              </button>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className={`${EVENT_SEVA_SECTION_CLASS} grid grid-cols-1 lg:grid-cols-2 gap-6`}>
-          <div className={EVENT_SEVA_DETAIL_CARD_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Study Support Features</p>
-            <h3 className={SEVA_SECTION_HEADING_CLASS}>Useful tools for disciplined scripture learning</h3>
-            <ul className={`mt-5 space-y-3 ${SEVA_BODY_TEXT_CLASS}`}>
-              {[
-                "Topic-wise scripture summaries and guided notes",
-                "Reflection prompts for daily and weekly study circles",
-                "Cross-links to Pathshala and digital library learning routes",
-                "Beginner-friendly to advanced study progression",
-              ].map((line) => (
-                <li key={line} className="flex gap-3">
-                  <span className="mt-2 h-2.5 w-2.5 rounded-full bg-[#ffb06a]" />
-                  <span>{line}</span>
-                </li>
+      <section id="featured-resources" className={sectionClass}>
+        <div className="mx-auto max-w-3xl text-center">
+          <p className={labelClass}>Featured Study Resources</p>
+          <h2 className={headingClass}>Dynamic Bhagwat resources for reading, listening and satsang</h2>
+        </div>
+
+        <div className="mt-10 rounded-[28px] border border-[#E8D9BD] bg-white/82 p-5 shadow-[0_18px_42px_rgba(101,71,35,0.09)] md:p-6">
+          <div className="grid gap-4 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
+            <label className="block">
+              <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-[#C46D1A]">Search and Filter</span>
+              <input
+                type="search"
+                placeholder="Search shloka, topic, skandha, chapter or resource..."
+                value={resourceFilters.search}
+                onChange={(event) => setResourceFilter("search", event.target.value)}
+                className={inputClass}
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-[#C46D1A]">Category</span>
+              <select value={resourceFilters.category} onChange={(event) => setResourceFilter("category", event.target.value)} className={inputClass}>
+                {categories.map((category) => (
+                  <option key={category}>{category}</option>
+                ))}
+              </select>
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-[#C46D1A]">Skandha</span>
+              <select value={resourceFilters.skandha} onChange={(event) => setResourceFilter("skandha", event.target.value)} className={inputClass}>
+                {skandhaOptions.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
+              </select>
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-[#C46D1A]">Format</span>
+              <select value={resourceFilters.format} onChange={(event) => setResourceFilter("format", event.target.value)} className={inputClass}>
+                {formatOptions.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <label className="mt-4 block max-w-sm">
+            <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-[#C46D1A]">Language</span>
+            <select value={resourceFilters.language} onChange={(event) => setResourceFilter("language", event.target.value)} className={inputClass}>
+              {languageOptions.map((option) => (
+                <option key={option}>{option}</option>
               ))}
-            </ul>
+            </select>
+          </label>
+        </div>
+
+        {filteredResources.length ? (
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {filteredResources.map((resource) => (
+              <article key={resource.title} className="group overflow-hidden rounded-[26px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(101,71,35,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(101,71,35,0.16)]">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={`${resourceImageBase}${resource.image}`}
+                    alt={`${resource.title} visual`}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <span className="absolute left-4 top-4 rounded-full bg-[#F4A43C] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#073763]">
+                    {resource.category}
+                  </span>
+                </div>
+                <div className="p-5">
+                  <div className="flex flex-wrap gap-2">
+                    <span className="rounded-full bg-[#073763] px-3 py-1 text-xs font-black text-white">{resource.format}</span>
+                    <span className="rounded-full bg-[#DDEEDB] px-3 py-1 text-xs font-black text-[#073763]">{resource.language}</span>
+                  </div>
+                  <h3 className={`mt-4 leading-snug ${cardTitleClass}`}>{resource.title}</h3>
+                  <p className={`mt-3 ${cardTextClass}`}>{resource.description}</p>
+                  <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+                    <a href="#join-study-circle" className="flex-1 rounded-full border border-[#D99A2B] px-4 py-2 text-center text-sm font-black text-[#9B5B14] transition hover:bg-[#FFF4E0]">
+                      View Details
+                    </a>
+                    <a href="#join-study-circle" className="flex-1 rounded-full bg-[#F4A43C] px-4 py-2 text-center text-sm font-black text-[#073763] transition hover:bg-[#FFD084]">
+                      {resource.format === "PDF" ? "Download" : "Start Reading"}
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-8 rounded-[26px] border border-dashed border-[#D99A2B] bg-[#FFF4E0] p-8 text-center shadow-[0_18px_42px_rgba(101,71,35,0.08)]">
+            <p className={cardTitleClass}>No study resource found. Please try another search.</p>
+          </div>
+        )}
+      </section>
+
+      <section id="study-path" className={sectionClass}>
+        <div className="rounded-[32px] bg-[#073763] p-6 shadow-[0_28px_70px_rgba(7,55,99,0.22)] md:p-8">
+          <p className={`${MISSION_SECTION_LABEL_CLASS} !text-[#F4A43C]`}>Recommended Study Path</p>
+          <h2 className={lightHeadingClass}>Move from Bhagwat reverence to living practice</h2>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-6">
+            {studyPath.map((step, index) => (
+              <article key={step.title} className="rounded-[22px] border border-white/12 bg-white/8 p-5 text-center shadow-[0_14px_34px_rgba(0,0,0,0.18)]">
+                <img src={`${resourceImageBase}${step.icon}`} alt={`${step.title} icon`} className="mx-auto h-16 w-16 rounded-full" loading="lazy" />
+                <p className="mt-4 text-xs font-black uppercase tracking-[0.16em] text-[#F4A43C]">Step {index + 1}</p>
+                <h3 className={`mt-2 leading-6 ${lightCardTitleClass}`}>{step.title}</h3>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div id="join-study-circle" className={cardClass}>
+            <p className={labelClass}>Join Bhagwat Study Circle</p>
+            <h2 className={headingClass}>Receive guidance for structured Bhagwat learning</h2>
+            <form onSubmit={handleStudyCircleSubmit} className="mt-6 grid gap-4">
+              <input type="text" required placeholder="Full Name" value={studyCircleForm.fullName} onChange={(event) => setStudyCircleForm((form) => ({ ...form, fullName: event.target.value }))} className={inputClass} />
+              <div className="grid gap-4 md:grid-cols-2">
+                <input type="tel" required placeholder="Mobile Number" value={studyCircleForm.mobile} onChange={(event) => setStudyCircleForm((form) => ({ ...form, mobile: event.target.value }))} className={inputClass} />
+                <input type="email" required placeholder="Email" value={studyCircleForm.email} onChange={(event) => setStudyCircleForm((form) => ({ ...form, email: event.target.value }))} className={inputClass} />
+              </div>
+              <input type="text" required placeholder="City" value={studyCircleForm.city} onChange={(event) => setStudyCircleForm((form) => ({ ...form, city: event.target.value }))} className={inputClass} />
+              <div className="grid gap-4 md:grid-cols-2">
+                <select required value={studyCircleForm.mode} onChange={(event) => setStudyCircleForm((form) => ({ ...form, mode: event.target.value }))} className={inputClass}>
+                  <option value="">Preferred Study Mode</option>
+                  <option>Online</option>
+                  <option>Offline</option>
+                  <option>Both</option>
+                </select>
+                <select required value={studyCircleForm.interest} onChange={(event) => setStudyCircleForm((form) => ({ ...form, interest: event.target.value }))} className={inputClass}>
+                  <option value="">Interest Area</option>
+                  <option>Shloka Study</option>
+                  <option>Bhagwat Katha</option>
+                  <option>Children Learning</option>
+                  <option>Youth Learning</option>
+                  <option>Sanskrit Study</option>
+                  <option>General Devotional Study</option>
+                </select>
+              </div>
+              <textarea placeholder="Message" rows={4} value={studyCircleForm.message} onChange={(event) => setStudyCircleForm((form) => ({ ...form, message: event.target.value }))} className={`${inputClass} resize-none`} />
+              {studyCircleNotice ? <p className="rounded-2xl bg-[#DDEEDB] px-4 py-3 text-sm font-bold text-[#073763]">{studyCircleNotice}</p> : null}
+              <button type="submit" className="rounded-full bg-[#073763] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#0A2F52]">
+                Join Study Circle
+              </button>
+            </form>
           </div>
 
-          <div className={EVENT_SEVA_DETAIL_CARD_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Build a Better Study Path</p>
-            <h3 className={SEVA_SECTION_HEADING_CLASS}>Move from reading toward understanding and reflection</h3>
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-              {[
-                { label: "Self Study Start", amount: "Open Access" },
-                { label: "Guided Learning", amount: "Mentor Ready" },
-                { label: "Deep Study Route", amount: "Advanced" },
-              ].map((tier) => (
-                <div key={tier.label} className="rounded-[20px] border border-white/10 bg-[var(--campaign-deep)] p-4">
-                  <p className="text-sm font-black uppercase tracking-[0.12em] text-[var(--campaign-accent)]">{tier.label}</p>
-                  <p className="mt-2 text-2xl font-black text-white">{tier.amount}</p>
-                </div>
-              ))}
+          <div className={cardClass}>
+            <p className={labelClass}>Request a Resource</p>
+            <h2 className={headingClass}>Ask for a topic, shloka note or study sheet</h2>
+            <form onSubmit={handleResourceRequestSubmit} className="mt-6 grid gap-4">
+              <input type="text" required placeholder="Name" value={resourceRequestForm.name} onChange={(event) => setResourceRequestForm((form) => ({ ...form, name: event.target.value }))} className={inputClass} />
+              <input type="tel" required placeholder="Contact Number" value={resourceRequestForm.contact} onChange={(event) => setResourceRequestForm((form) => ({ ...form, contact: event.target.value }))} className={inputClass} />
+              <input type="text" required placeholder="Resource Requested" value={resourceRequestForm.resource} onChange={(event) => setResourceRequestForm((form) => ({ ...form, resource: event.target.value }))} className={inputClass} />
+              <input type="text" required placeholder="Preferred Language" value={resourceRequestForm.language} onChange={(event) => setResourceRequestForm((form) => ({ ...form, language: event.target.value }))} className={inputClass} />
+              <textarea placeholder="Message" rows={5} value={resourceRequestForm.message} onChange={(event) => setResourceRequestForm((form) => ({ ...form, message: event.target.value }))} className={`${inputClass} resize-none`} />
+              {resourceRequestNotice ? <p className="rounded-2xl bg-[#DDEEDB] px-4 py-3 text-sm font-bold text-[#073763]">{resourceRequestNotice}</p> : null}
+              <button type="submit" className="rounded-full bg-[#F4A43C] px-6 py-3 text-sm font-black text-[#073763] transition hover:-translate-y-0.5 hover:bg-[#FFD084]">
+                Submit Request
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className="relative overflow-hidden rounded-[34px] border border-[#F0C77E] bg-[linear-gradient(105deg,#EA8A24_0%,#F5C948_48%,#FFE6BF_100%)] p-6 shadow-[0_24px_60px_rgba(193,116,31,0.18)] md:p-10">
+          <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.75)_1px,transparent_0)] [background-size:28px_28px]" />
+          <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_0.78fr] lg:items-center">
+            <div>
+              <p className={labelClass}>Knowledge Seva</p>
+              <h2 className={headingClass}>Support the Bhagwat Knowledge Mission</h2>
+              <p className={`mt-6 max-w-3xl ${bodyClass}`}>
+                Your contribution helps us prepare, publish and distribute authentic Bhagwat study material for students, families, seekers and future generations.
+              </p>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                to={ROUTES.knowledge.library}
-                className="inline-flex rounded-xl bg-[var(--campaign-accent)] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]"
-              >
-                Open Library
+            <div className="flex flex-col gap-3">
+              <Link to={ROUTES.donate} className="rounded-full bg-white px-6 py-3 text-center text-sm font-black text-[#2B2118] shadow-[0_14px_30px_rgba(111,78,25,0.10)] transition hover:-translate-y-0.5 hover:bg-[#FFF8EC]">
+                Donate for Knowledge Seva
               </Link>
-              <Link
-                to={ROUTES.knowledge.pathshala}
-                className="inline-flex rounded-xl bg-[var(--campaign-bg)] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[var(--campaign-mid-hover)]"
-              >
-                Join Pathshala
+              <Link to={ROUTES.involved.sponsor} className="rounded-full border border-white/80 bg-white/20 px-6 py-3 text-center text-sm font-black text-[#2B2118] transition hover:-translate-y-0.5 hover:bg-white">
+                Sponsor Study Material
+              </Link>
+              <Link to={ROUTES.volunteer} className="rounded-full border border-white/80 bg-white/20 px-6 py-3 text-center text-sm font-black text-[#2B2118] transition hover:-translate-y-0.5 hover:bg-white">
+                Volunteer as Content Sevak
               </Link>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
+
 });
 
 export const KnowledgeChildrenPage = memo(function KnowledgeChildrenPage() {
