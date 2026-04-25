@@ -194,6 +194,7 @@ export default function App() {
                   <Route path="/media/videos" element={<Navigate to={ROUTES.media.videos} replace />} />
                   <Route path={ROUTES.about.founderAlias} element={<Navigate to={ROUTES.about.founder} replace />} />
                   <Route path={ROUTES.digital.guidance} element={withInnerPageLayout(<GuidancePage />)} />
+                  <Route path="/guidance/spiritual-remedies" element={<Navigate to={ROUTES.digital.guidance} replace />} />
                   <Route path="/get-involved/invite-maharaj-ji" element={<Navigate to={ROUTES.contact} replace />} />
                   <Route path="/help-request" element={<Navigate to={ROUTES.contact} replace />} />
 

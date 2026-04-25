@@ -2,235 +2,422 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
+import {
+  SEVA_BODY_TEXT_CLASS,
+  SEVA_CARD_TITLE_CLASS,
+  SEVA_HERO_SUBTITLE_CLASS,
+  SEVA_SECTION_HEADING_CLASS,
+  SEVA_SECTION_LABEL_CLASS,
+} from "../seva/sevaTypography";
 
-const mainCols = [
+type GuidanceItem = {
+  title: string;
+  href: string;
+};
+
+const guidanceCategories = [
   {
     title: "Spiritual Guidance",
-    items: ["Mantra Guidance", "Sadhana Guidance", "Daily Prayer Guidance"],
+    href: ROUTES.mission.spiritual,
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129183/ChatGPT_Image_Apr_25_2026_07_57_04_PM_hxb1sj.png",
+    items: [
+      {
+        title: "Mantra Guidance",
+        href: ROUTES.mission.spiritual,
+      },
+      {
+        title: "Sadhana Guidance",
+        href: ROUTES.mission.spiritual,
+      },
+      {
+        title: "Daily Prayer Discipline",
+        href: ROUTES.knowledge.dailyQuotes,
+      },
+      {
+        title: "Personal Spiritual Practices",
+        href: ROUTES.knowledge.studyResources,
+      },
+      {
+        title: "Family Peace Guidance",
+        href: ROUTES.involved.contactUs,
+      },
+    ],
   },
   {
     title: "Astrology Guidance",
-    items: ["Horoscope Consultation", "Gemstone Guidance", "Life Problem Guidance"],
+    href: ROUTES.digital.kundli,
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129182/ChatGPT_Image_Apr_25_2026_07_57_43_PM_aop61d.png",
+    items: [
+      {
+        title: "Horoscope Consultation",
+        href: ROUTES.digital.kundli,
+      },
+      {
+        title: "Life Situation Guidance",
+        href: ROUTES.digital.kundli,
+      },
+      {
+        title: "Gemstone Recommendations",
+        href: ROUTES.digital.store,
+      },
+      {
+        title: "Muhurat Guidance",
+        href: ROUTES.eventsKatha.spiritualEvents,
+      },
+      {
+        title: "Nakshatra / Name Insights",
+        href: ROUTES.digital.kundli,
+      },
+    ],
   },
   {
     title: "Vastu Guidance",
-    items: ["Home Vastu", "Temple Vastu", "Office / Land Guidance"],
+    href: `${ROUTES.about.founder}#guidance-services`,
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129183/ChatGPT_Image_Apr_25_2026_07_57_56_PM_d5hwxt.png",
+    items: [
+      {
+        title: "Home Vastu",
+        href: `${ROUTES.about.founder}#guidance-services`,
+      },
+      {
+        title: "Temple Vastu",
+        href: ROUTES.mandirTeerth.mahamandir,
+      },
+      {
+        title: "Office / Land Guidance",
+        href: `${ROUTES.about.founder}#guidance-services`,
+      },
+      {
+        title: "Energy Alignment",
+        href: `${ROUTES.about.founder}#guidance-services`,
+      },
+      {
+        title: "Construction Direction",
+        href: ROUTES.mandirTeerth.construction,
+      },
+    ],
   },
   {
-    title: "Mandir & Events",
-    items: ["Bhagwat Katha", "Sunday Satsang", "Spiritual Guidance", "Maharudra Guidance"],
+    title: "Spiritual Remedies",
+    href: ROUTES.digital.store,
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129182/ChatGPT_Image_Apr_25_2026_07_58_48_PM_y0pa28.png",
+    items: [
+      {
+        title: "Rudraksha Guidance",
+        href: ROUTES.digital.store,
+      },
+      {
+        title: "Yantra Guidance",
+        href: ROUTES.digital.store,
+      },
+      {
+        title: "Vedic Puja Anushthan",
+        href: ROUTES.eventsKatha.spiritualEvents,
+      },
+      {
+        title: "Ratna Guidance",
+        href: ROUTES.digital.store,
+      },
+      {
+        title: "Puja Samagri Guidance",
+        href: ROUTES.digital.store,
+      },
+    ],
   },
-  {
-    title: "Spiritual / Remedies",
-    items: ["Rudraksha Guidance", "Yantra Guidance", "Vedic Puja Anushthan", "Ratna Guidance"],
-  },
-];
+] satisfies ReadonlyArray<{ title: string; href: string; icon: string; items: GuidanceItem[] }>;
 
-const bottomCols = [
-  {
-    title: "About",
-    items: ["Sanstha Parichay", "Vision & Mission", "Founder", "Objectives"],
-  },
-  {
-    title: "Seva",
-    items: ["Gau Seva", "Ann Seva", "Education Support", "Medicine Distribution", "Kanyadaan"],
-  },
-  {
-    title: "Spiritual",
-    items: ["Bhagwat Katha", "Sunday Satsang", "Spiritual Guidance", "Vastu Guidance"],
-  },
-  {
-    title: "Mandir & Events",
-    items: ["Bhagwat Dham", "Hanuman Page", "Guru Purnima", "Annakut", "Deep Mahotsav"],
-  },
-  {
-    title: "Connect",
-    items: ["Contact Form", "Address", "Social Links"],
-  },
-];
+const processSteps = [
+  "Share Your Concern",
+  "Receive Spiritual Guidance",
+  "Get Suitable Dharmic Remedies",
+  "Perform Recommended Practices / Rituals",
+  "Continue Sadhana & Inner Growth",
+] as const;
 
-const labelLinks: Record<string, string> = {
-  About: ROUTES.about.index,
-  Seva: ROUTES.seva.index,
-  Spiritual: ROUTES.mission.spiritual,
-  "Mandir & Events": ROUTES.eventsKatha.index,
-  Connect: ROUTES.involved.contactUs,
+const trustSupports = [
+  { label: "Rudraksha", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129179/ChatGPT_Image_Apr_25_2026_08_00_31_PM_emgalc.png" },
+  { label: "Gemstones", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129180/ChatGPT_Image_Apr_25_2026_08_00_54_PM_j6hgtv.png" },
+  { label: "Yantra", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129179/ChatGPT_Image_Apr_25_2026_08_00_42_PM_skxd2k.png" },
+  { label: "Puja Samagri", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129180/ChatGPT_Image_Apr_25_2026_08_01_16_PM_avpbws.png" },
+  { label: "Vedic Anushthan Support", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129180/ChatGPT_Image_Apr_25_2026_08_00_13_PM_ogix0d.png" },
+  { label: "Temple / Home Ritual Guidance", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777129179/ChatGPT_Image_Apr_25_2026_08_01_28_PM_j7au8y.png" },
+] as const;
 
-  "Spiritual Guidance": ROUTES.digital.guidance,
-  "Astrology Guidance": ROUTES.digital.kundli,
-  "Vastu Guidance": ROUTES.digital.guidance,
-  "Spiritual / Remedies": ROUTES.digital.guidance,
-  "Mantra Guidance": ROUTES.digital.guidance,
-  "Sadhana Guidance": ROUTES.digital.guidance,
-  "Daily Prayer Guidance": ROUTES.digital.guidance,
-  "Horoscope Consultation": ROUTES.digital.kundli,
-  "Gemstone Guidance": ROUTES.digital.kundli,
-  "Life Problem Guidance": ROUTES.digital.guidance,
-  "Home Vastu": ROUTES.digital.guidance,
-  "Temple Vastu": ROUTES.mandirTeerth.index,
-  "Office / Land Guidance": ROUTES.digital.guidance,
-  "Bhagwat Katha": ROUTES.eventsKatha.bhagwatKatha,
-  "Sunday Satsang": ROUTES.eventsKatha.spiritualEvents,
-  "Maharudra Guidance": ROUTES.eventsKatha.dharmikEvents,
-  "Rudraksha Guidance": ROUTES.digital.guidance,
-  "Yantra Guidance": ROUTES.digital.guidance,
-  "Vedic Puja Anushthan": ROUTES.eventsKatha.spiritualEvents,
-  "Ratna Guidance": ROUTES.digital.kundli,
-  Rudraksha: ROUTES.digital.guidance,
-  Gemstones: ROUTES.digital.kundli,
-  Yantra: ROUTES.digital.guidance,
-  "Puja Samagri": ROUTES.digital.store,
+const heroImageUrl = "https://res.cloudinary.com/der8zinu8/image/upload/v1777129184/ChatGPT_Image_Apr_25_2026_07_56_12_PM_z7t0wf.png";
+const authorityImages = [
+  {
+    src: "https://res.cloudinary.com/der8zinu8/image/upload/v1777139324/Guidance_About_txbdtm.png",
+    alt: "Sant Shri Manish Bhaiji Maharaj giving divine spiritual guidance",
+  },
+  {
+    src: "https://res.cloudinary.com/der8zinu8/image/upload/v1777141444/guidance_about_2_bp6hpg.png",
+    alt: "Sant Shri Manish Bhaiji Maharaj offering scriptural and dharmic guidance",
+  },
+] as const;
 
-  "Sanstha Parichay": ROUTES.about.sansthaParichay,
-  "Vision & Mission": ROUTES.about.visionMission,
-  Founder: ROUTES.about.founder,
-  Objectives: ROUTES.about.objectives,
-  "Gau Seva": ROUTES.seva.gau,
-  "Ann Seva": ROUTES.seva.ann,
-  "Education Support": ROUTES.seva.education,
-  "Medicine Distribution": ROUTES.seva.medicine,
-  Kanyadaan: ROUTES.seva.kanyadaan,
-  "Bhagwat Dham": ROUTES.mandirTeerth.bhagwatDham,
-  "Hanuman Page": ROUTES.mandirTeerth.hanuman,
-  "Guru Purnima": ROUTES.eventsKatha.guruPurnima,
-  Annakut: ROUTES.eventsKatha.annakut,
-  "Deep Mahotsav": ROUTES.eventsKatha.festivals,
-  "Contact Form": ROUTES.involved.contactUs,
-  Address: ROUTES.involved.contactUs,
-  "Social Links": ROUTES.media.socialFeed,
-
-  "Seek Guidance": ROUTES.involved.contactUs,
-  "Get Remedies": ROUTES.digital.guidance,
-  "Book Rituals": ROUTES.eventsKatha.spiritualEvents,
+const pagePatternStyle = {
+  backgroundColor: "#FFF8F0",
+  backgroundImage:
+    "radial-gradient(circle at 8% 10%, rgba(227,155,53,0.16), transparent 26rem), radial-gradient(circle at 92% 18%, rgba(15,123,130,0.13), transparent 25rem), radial-gradient(circle at 24% 88%, rgba(255,214,135,0.24), transparent 28rem)",
 };
 
-function hrefFor(label: string) {
-  return labelLinks[label] ?? ROUTES.digital.guidance;
-}
-
+const sectionClass = "mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8";
+const cardClass =
+  "rounded-[26px] border border-[#ead9bd] bg-[#fffdf8]/92 p-6 shadow-[0_18px_48px_rgba(92,62,24,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(92,62,24,0.15)]";
+const eyebrowClass = `${SEVA_SECTION_LABEL_CLASS} text-[#B96A22]`;
+const headingClass = `${SEVA_SECTION_HEADING_CLASS} mt-2 leading-tight text-[#1D4F63]`;
+const bodyClass = `${SEVA_BODY_TEXT_CLASS} text-[#5E5247]`;
+const heroButtonClass =
+  "inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#D89B2B] px-7 text-base font-black text-white shadow-[0_14px_30px_rgba(177,112,24,0.22)] transition hover:-translate-y-0.5 hover:bg-[#B97916]";
+const heroSecondaryButtonClass =
+  "inline-flex min-h-[52px] items-center justify-center rounded-full border border-[#D89B2B] bg-white/85 px-7 text-base font-black text-[#8A5B16] shadow-[0_10px_24px_rgba(111,78,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#FFF4D6]";
 export default memo(function GuidancePage() {
   usePageMeta(
-    "Guidance",
-    "Guidance navigation for Shri Bhagwat Heritage Service Foundation in a devotional premium layout.",
+    "Divine Guidance & Spiritual Remedies | Bhagwat Heritage",
+    "Seek authentic spiritual guidance, astrology consultation, vastu guidance, and Vedic remedies under the divine direction of Sant Shri Manish Bhaiji Maharaj through Bhagwat Heritage Service Foundation Trust."
   );
 
   return (
-    <main className="min-h-screen bg-[#f8f5ef] py-6 text-[#1e3a5f]">
-      <section className="mx-auto max-w-[1320px] rounded-[20px] border border-[#e8dcc8] bg-[#fbf8f2] p-4 shadow-[0_18px_34px_rgba(30,58,95,0.08)] md:p-6">
-        <header className="rounded-[14px] border border-[#e9decb] bg-[#f7f3ea] px-4 pb-4 pt-3">
-          <div className="text-center">
-            <p className="font-serif text-4xl font-black tracking-wide text-[#1e3a5f] md:text-5xl">Shri Bhagwat Heritage</p>
-            <p className="font-serif text-xl text-[#8a6934] md:text-2xl">Service Foundation</p>
-          </div>
-        </header>
-
-        <div className="mt-4 rounded-[14px] border border-[#e8dcc8] bg-white/90 p-3">
-          <div className="grid gap-3 xl:grid-cols-[1fr_250px]">
-            <div className="rounded-xl border border-[#e7dcc8] bg-[#fcfaf5] p-3">
-              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
-                {mainCols.map((col) => (
-                  <article key={col.title} className="border-r border-[#eadfcd] pr-2 last:border-r-0">
-                    <h2 className="rounded-lg bg-[#1e3a5f] px-3 py-2 font-serif text-2xl font-bold text-[#f7f2e9]">
-                      <Link to={hrefFor(col.title)} className="transition hover:text-[#dcc181]">
-                        {col.title}
-                      </Link>
-                    </h2>
-                    <ul className="mt-3 space-y-2 text-sm text-[#2f445b]">
-                      {col.items.map((item) => (
-                        <li key={item} className="flex gap-2">
-                          <span className="mt-[7px] h-1.5 w-1.5 rounded-full bg-[#c89a49]" />
-                          <Link to={hrefFor(item)} className="transition hover:text-[#b87925] hover:underline">
-                            {item}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                    {col.title === "Spiritual / Remedies" ? (
-                      <div className="mt-4">
-                        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7c5a2a]">Available through Trust:</p>
-                        <ul className="mt-2 space-y-1 text-sm text-[#2f445b]">
-                          {["Rudraksha", "Gemstones", "Yantra", "Puja Samagri"].map((item) => (
-                            <li key={item}>
-                              •{" "}
-                              <Link to={hrefFor(item)} className="transition hover:text-[#b87925] hover:underline">
-                                {item}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
-                  </article>
-                ))}
+    <main className="min-h-screen overflow-hidden text-[#2a2118]" style={pagePatternStyle}>
+      <section className="relative -mt-12 overflow-hidden rounded-b-[28px] bg-[#fff8f0] shadow-[0_28px_70px_rgba(7,55,99,0.22)]">
+        <img
+          src={heroImageUrl}
+          alt="Sant Shri Manish Bhaiji Maharaj seated in a calm spiritual guidance setting"
+          className="h-[420px] w-full object-cover object-center brightness-115 contrast-105 saturate-110 md:h-[620px]"
+          fetchPriority="high"
+        />
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#102d37]/62 via-[#102d37]/22 to-transparent">
+          <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 sm:px-6 md:pb-12 lg:px-8">
+            <div className="mx-auto max-w-2xl text-center text-white">
+              <h1 className="text-4xl font-bold leading-tight text-[#f9e6a8] md:text-5xl">Spirirtual Guidance</h1>
+              <p className={`mt-4 ${SEVA_HERO_SUBTITLE_CLASS}`}>Simple guidance, Deep transformation</p>
+              <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+                <a href="#guidance-categories" className={heroButtonClass}>
+                  Explore Guidance
+                </a>
+                <a href="#guidance-process" className={heroSecondaryButtonClass}>
+                  View Process
+                </a>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <aside className="rounded-xl border border-[#e6dac5] bg-[linear-gradient(180deg,#fffdf8_0%,#f5ecdd_100%)] p-4">
-              <h3 className="font-serif text-4xl font-black text-[#6f4517]">Problem to Solution</h3>
-              <p className="mt-1 text-lg font-semibold text-[#6f4f27]">मार्गदर्शन</p>
-              <img
-                src="/images/manish2.PNG"
-                alt="Spiritual guidance under Sant Shri Manish Bhaiji Maharaj"
-                className="mt-3 h-40 w-full rounded-lg border border-[#e9dcc7] object-cover object-top"
-                loading="lazy"
-              />
-              <ul className="mt-3 space-y-2 text-sm text-[#2f445b]">
-                {["Seek Guidance", "Get Remedies", "Book Rituals"].map((item) => (
-                  <li key={item}>
-                    •{" "}
-                    <Link to={hrefFor(item)} className="transition hover:text-[#b87925] hover:underline">
-                      {item}
+      <section className={sectionClass} aria-labelledby="divine-guidance-title">
+        <div className="grid gap-8 lg:grid-cols-[1fr_0.82fr] lg:items-center">
+          <article className={cardClass}>
+            <p className={eyebrowClass}>Divine Guidance Authority</p>
+            <h2 id="divine-guidance-title" className={headingClass}>
+              Guidance Under Divine Direction
+            </h2>
+            <p className={`${bodyClass} mt-5`}>
+              All guidance and spiritual recommendations provided on this platform are offered under the divine guidance, blessings, and spiritual direction of Sant Shri Manish Bhaiji Maharaj.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {["Spiritually authentic", "Scripturally aligned", "Ethically grounded", "Focused on inner growth, peace, and dharmic living"].map((item) => (
+                <div key={item} className="rounded-2xl border border-[#efdcbc] bg-[#fff8ea] px-4 py-3 text-base font-black text-[#5f4525]">
+                  {item}
+                </div>
+              ))}
+            </div>
+            <p className={`mt-6 rounded-3xl bg-[#0f7b82]/10 p-5 font-bold text-[#24575b] ${SEVA_BODY_TEXT_CLASS}`}>
+              This is not a commercial consultation service, but a sacred guidance system rooted in Bhagwat tradition and seva.
+            </p>
+          </article>
+          <div className="grid gap-5">
+            {authorityImages.map((image) => (
+              <figure
+                key={image.src}
+                className="overflow-hidden rounded-[30px] border border-[#ead9bd] bg-white p-3 shadow-[0_18px_48px_rgba(92,62,24,0.12)]"
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="h-auto w-full rounded-[22px] object-contain object-center"
+                  loading="lazy"
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass} aria-labelledby="clarity-title">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className={eyebrowClass}>Introduction</p>
+          <h2 id="clarity-title" className={headingClass}>
+            From Life Challenges to Inner Clarity
+          </h2>
+          <p className={`${bodyClass} mt-5`}>
+            Bhagwat Heritage Service Foundation Trust provides structured spiritual guidance to help individuals navigate life challenges through dharmic wisdom, disciplined sadhana, and positive transformation.
+          </p>
+          <p className={`${bodyClass} mt-4`}>
+            The purpose is not to create dependency, fear, or blind belief, but to guide individuals towards clarity of mind, strength of faith, balance in life, and spiritual growth.
+          </p>
+        </div>
+      </section>
+
+      <section id="guidance-categories" className={sectionClass} aria-labelledby="categories-title">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className={eyebrowClass}>Guidance Categories</p>
+          <h2 id="categories-title" className={headingClass}>
+            Structured Guidance Paths
+          </h2>
+        </div>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          {guidanceCategories.map((category) => (
+            <article key={category.title} className={cardClass}>
+              <img src={category.icon} alt={`${category.title} guidance`} className="h-40 w-full rounded-2xl border border-[#ead9bd] object-cover" loading="lazy" />
+              <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS} text-[#1D4F63]`}>
+                <Link to={category.href} className="underline-offset-4 transition hover:text-[#c8751d] hover:underline">
+                  {category.title}
+                </Link>
+              </h3>
+              <ul className="mt-4 space-y-3">
+                {category.items.map((item) => (
+                  <li key={item.title}>
+                    <Link
+                      to={item.href}
+                      className="group flex gap-3 rounded-2xl border border-transparent p-2 transition hover:border-[#ead9bd] hover:bg-[#fff8ea]"
+                    >
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#e39b35]" />
+                      <span className={`block underline-offset-4 transition group-hover:text-[#c8751d] group-hover:underline ${SEVA_BODY_TEXT_CLASS} font-black text-[#4f3d2c]`}>
+                        {item.title}
+                      </span>
                     </Link>
                   </li>
                 ))}
               </ul>
-              <Link
-                to={ROUTES.involved.contactUs}
-                className="mt-4 inline-flex w-full justify-center rounded-full bg-gradient-to-r from-[#a8792f] via-[#c8a45d] to-[#dcbc86] px-4 py-2 text-sm font-bold text-white"
-              >
-                Seek Guidance
-              </Link>
-            </aside>
-          </div>
+            </article>
+          ))}
         </div>
+      </section>
 
-        <div className="mt-4 rounded-[14px] border border-[#e8dcc8] bg-[#fdfaf4] p-3">
-          <div className="grid items-start gap-3 lg:grid-cols-[1fr_170px]">
-            <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-5">
-              {bottomCols.map((col) => (
-                <article key={col.title} className="border-r border-[#eadfcd] px-2 last:border-r-0">
-                  <h4 className="font-serif text-4xl font-black text-[#1e3a5f]">
-                    <Link to={hrefFor(col.title)} className="transition hover:text-[#b87925]">
-                      {col.title}
-                    </Link>
-                  </h4>
-                  <ul className="mt-2 space-y-1 text-sm text-[#2f445b]">
-                    {col.items.map((item) => (
-                      <li key={item}>
-                        •{" "}
-                        <Link to={hrefFor(item)} className="transition hover:text-[#b87925] hover:underline">
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
+      <section id="guidance-process" className={sectionClass} aria-labelledby="process-title">
+        <div className="grid overflow-hidden rounded-[32px] border border-[#ead9bd] bg-[#fffdf8] shadow-[0_20px_58px_rgba(92,62,24,0.12)] lg:grid-cols-[1fr_0.9fr]">
+          <div className="p-6 md:p-9">
+            <p className={eyebrowClass}>Process</p>
+            <h2 id="process-title" className={headingClass}>
+              From Concern to Clarity
+            </h2>
+            <ol className="mt-8 space-y-4">
+              {processSteps.map((step, index) => (
+                <li key={step} className="flex gap-4 rounded-3xl border border-[#f0dfc4] bg-[#fff8ea] p-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0f7b82] text-sm font-black text-white">
+                    {index + 1}
+                  </span>
+                  <span className={`self-center font-black text-[#4f3d2c] ${SEVA_BODY_TEXT_CLASS}`}>{step}</span>
+                </li>
               ))}
+            </ol>
+          </div>
+          <aside className="m-4 rounded-[24px] border border-[#E2CFAE] bg-[#F6EFE2] p-5 shadow-[0_14px_32px_rgba(101,71,35,0.10)] md:m-6 md:p-6">
+            <p className="text-[25px] font-black uppercase tracking-[0.16em] text-[#B8741D]">Problem to Solution</p>
+            <p className="mt-1 text-[40px] font-bold leading-none text-[#7B4E16]">मार्गदर्शन</p>
+            <div className="mt-4 overflow-hidden rounded-2xl border border-[#E2CFAE] bg-[#FFF8EA] p-2">
+              <img
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777143538/ChatGPT_Image_Apr_26_2026_12_28_42_AM_pmzh42.png"
+                alt="Problem to solution guidance portrait"
+                className="h-auto w-full rounded-xl object-cover object-center"
+                loading="lazy"
+              />
             </div>
-            <div className="border-l border-[#eadfcd] pl-3">
-              <Link
-                to={ROUTES.donate}
-                className="inline-flex w-full justify-center rounded-full bg-gradient-to-r from-[#a8792f] via-[#c8a45d] to-[#dcbc86] px-4 py-2 text-sm font-bold text-white"
-              >
-                Donate Now
-              </Link>
-              <p className="mt-2 text-sm text-[#6f4f27]">
-                →{" "}
-                <Link to={ROUTES.donate} className="underline-offset-2 hover:underline">
-                  Donate Now
+            <ul className="mt-4 space-y-2 text-[30px] leading-none text-[#1D4F63]">
+              <li>
+                <Link to={ROUTES.digital.guidance} className={`${SEVA_BODY_TEXT_CLASS} text-[#1D4F63] hover:underline`}>
+                  Seek Guidance
                 </Link>
-              </p>
+              </li>
+              <li>
+                <Link to={ROUTES.digital.store} className={`${SEVA_BODY_TEXT_CLASS} text-[#1D4F63] hover:underline`}>
+                  Get Remedies
+                </Link>
+              </li>
+              <li>
+                <Link to={ROUTES.eventsKatha.spiritualEvents} className={`${SEVA_BODY_TEXT_CLASS} text-[#1D4F63] hover:underline`}>
+                  Book Rituals
+                </Link>
+              </li>
+            </ul>
+            <Link
+              to={ROUTES.digital.guidance}
+              className="mt-5 inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#C18A2B] px-6 text-base font-black text-[#1F3140] transition hover:bg-[#A8741F]"
+            >
+              Seek Guidance
+            </Link>
+          </aside>
+        </div>
+      </section>
+
+      <section className={sectionClass} aria-labelledby="trust-support-title">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className={eyebrowClass}>Available Through Trust</p>
+          <h2 id="trust-support-title" className={headingClass}>
+            Support Available Through the Trust
+          </h2>
+          <p className={`${bodyClass} mt-4`}>
+            These supports are offered to assist sincere spiritual practices, rituals, and disciplined dharmic living.
+          </p>
+        </div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {trustSupports.map((support) => (
+            <div key={support.label} className="rounded-3xl border border-[#ead9bd] bg-white/82 p-5 text-center shadow-[0_14px_32px_rgba(92,62,24,0.08)] transition hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(92,62,24,0.12)]">
+              <img
+                src={support.icon}
+                alt=""
+                className="mx-auto h-[88px] w-[88px] rounded-full object-cover"
+                loading="lazy"
+                aria-hidden="true"
+              />
+              <p className={`mt-4 ${SEVA_CARD_TITLE_CLASS} text-[#1D4F63]`}>{support.label}</p>
+              <p className={`mt-2 font-semibold text-[#6e5b46] ${SEVA_BODY_TEXT_CLASS}`}>Guidance support for sincere spiritual practice.</p>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section className={sectionClass} aria-labelledby="ethics-title">
+        <article className="rounded-[30px] border border-[#ead9bd] bg-[#fffdf8] p-6 shadow-[0_18px_48px_rgba(92,62,24,0.10)] md:p-8">
+          <p className={eyebrowClass}>Ethical Foundation</p>
+          <h2 id="ethics-title" className={headingClass}>
+            Dharmic &amp; Ethical Guidance
+          </h2>
+          <p className={`${bodyClass} mt-5`}>
+            This platform provides spiritual and dharmic guidance based on scriptural knowledge and disciplined practices.
+          </p>
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div className="rounded-3xl bg-[#fff8ea] p-5">
+              <h3 className={`${SEVA_CARD_TITLE_CLASS} text-[#1D4F63]`}>It does NOT promote:</h3>
+              <ul className={`mt-3 space-y-2 font-semibold text-[#665646] ${SEVA_BODY_TEXT_CLASS}`}>
+                {["Fear-based remedies", "Blind belief", "Superstition", "Guaranteed outcomes"].map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-3xl bg-[#eaf7f7] p-5">
+              <h3 className={`${SEVA_CARD_TITLE_CLASS} text-[#1D4F63]`}>It is NOT a substitute for:</h3>
+              <ul className={`mt-3 space-y-2 font-semibold text-[#665646] ${SEVA_BODY_TEXT_CLASS}`}>
+                {["Medical advice", "Legal consultation", "Financial decision-making"].map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <p className={`mt-6 font-bold text-[#4f3d2c] ${SEVA_BODY_TEXT_CLASS}`}>
+            All guidance is meant to support inner growth, faith, and positive life direction.
+          </p>
+        </article>
+      </section>
+
+      <section className="px-4 pb-14 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[34px] border border-[#E2B45C] bg-gradient-to-r from-[#E8B54A] via-[#E2AF46] to-[#DFA93F] text-[#3E2C17] shadow-[0_22px_64px_rgba(151,95,20,0.24)]">
+          <div className="relative max-w-3xl px-6 py-14 md:px-10 md:py-20">
+            <p className={`${SEVA_SECTION_LABEL_CLASS} text-[#AA5E14]`}>Need Divine Guidance?</p>
+            <h2 className={`${SEVA_SECTION_HEADING_CLASS} mt-3 text-[#4A3422]`}>Need Divine Guidance?</h2>
+            <p className={`mt-5 text-[#4E3A21] ${SEVA_BODY_TEXT_CLASS}`}>
+              Take the first step towards clarity, peace, and spiritual strength through authentic guidance.
+            </p>
           </div>
         </div>
       </section>

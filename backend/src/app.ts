@@ -33,6 +33,7 @@ import libraryRequestRoutes from "./routes/libraryRequestRoutes";
 import libraryDonationRoutes from "./routes/libraryDonationRoutes";
 import libraryStatsRoutes from "./routes/libraryStatsRoutes";
 import quoteRoutes from "./routes/quoteRoutes";
+import mandirSevaBookingRoutes from "./routes/mandirSevaBookingRoutes";
 
 const app = express();
 
@@ -106,6 +107,7 @@ app.use("/api/library-requests", libraryRequestRoutes);
 app.use("/api/library-donations", libraryDonationRoutes);
 app.use("/api/library-stats", libraryStatsRoutes);
 app.use("/api", quoteRoutes);
+app.use("/api/mandir-seva", mandirSevaBookingRoutes);
 
 app.use(errorHandler);
 
