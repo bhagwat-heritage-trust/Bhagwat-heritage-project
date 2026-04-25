@@ -9,7 +9,7 @@ import {
   SEVA_SECTION_HEADING_CLASS,
   SEVA_SECTION_LABEL_CLASS,
 } from "../seva/sevaTypography";
-
+ 
 type GuidanceType = "Spiritual Guidance" | "Astrology Guidance" | "Vastu Guidance" | "Spiritual Remedies" | "Puja Anushthan";
 type PreferredMode = "Phone Call" | "WhatsApp" | "Online Meeting" | "In-Person";
 
