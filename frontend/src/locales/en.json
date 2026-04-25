@@ -89,11 +89,13 @@
       "kundli": "Kundli",
       "getInvolved": "Get Involved",
       "involvedOverview": "Overview",
+      "contactUs": "Contact Us",
       "volunteerRegistration": "Volunteer Registration",
       "becomeDonor": "Become a Donor",
       "partner": "Partner With Us",
       "sponsorPrograms": "Sponsor Programs",
-      "contact": "Contact"
+      "contact": "Contact",
+      "guidance": "Guidance"
     }
   },
   "footer": {

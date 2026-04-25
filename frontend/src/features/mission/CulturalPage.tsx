@@ -16,6 +16,7 @@ type IconProps = { className?: string };
 const IMAGE = {
   hero: "https://res.cloudinary.com/der8zinu8/image/upload/v1776978343/ChatGPT_Image_Apr_24_2026_02_35_11_AM_k0guya.png",
   mission: "https://res.cloudinary.com/der8zinu8/image/upload/v1776977682/ChatGPT_Image_Apr_24_2026_02_07_28_AM_jsvzcy.png",
+  missionSecond: "https://res.cloudinary.com/der8zinu8/image/upload/v1777100888/ChatGPT_Image_Apr_25_2026_12_37_38_PM_mb8rsh.png",
   gallery1: "https://res.cloudinary.com/der8zinu8/image/upload/v1776955119/ChatGPT_Image_Apr_23_2026_08_07_43_PM_rsv4u3.png",
   gallery2: "https://res.cloudinary.com/der8zinu8/image/upload/v1776955120/ChatGPT_Image_Apr_23_2026_02_25_58_PM_frrdid.png",
   gallery3: "https://res.cloudinary.com/der8zinu8/image/upload/v1776955119/ChatGPT_Image_Apr_23_2026_08_06_51_PM_uj5alq.png",
@@ -26,6 +27,7 @@ const IMAGE = {
 const FALLBACK = {
   hero: "https://res.cloudinary.com/der8zinu8/image/upload/v1776933958/ChatGPT_Image_Apr_23_2026_02_14_48_PM_mol7ro.png",
   mission: "/images/bhagwatstudy.jpg",
+  missionSecond: "/images/pilgrim-information.jpg",
   gallery1: "/images/upcommigevents.jpg",
   gallery2: "/images/bhagwatstudy.jpg",
   gallery3: "/images/kathaimage.webp",
@@ -255,14 +257,24 @@ export default memo(function CulturalPage() {
         title="Reviving Culture with Living Participation"
         subtitle="Cultural renaissance is not only preservation. It is a living, visible, and meaningful way of life."
       >
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-stretch">
-          <div className="sacred-card overflow-hidden">
-            <SafeImage
-              src={IMAGE.mission}
-              fallbackSrc={FALLBACK.mission}
-              alt="Youth and families participating in cultural learning and devotional heritage"
-              className="h-[320px] w-full object-cover sm:h-[380px] lg:h-full"
-            />
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-start">
+          <div className="grid gap-5">
+            <div className="sacred-card overflow-hidden">
+              <SafeImage
+                src={IMAGE.mission}
+                fallbackSrc={FALLBACK.mission}
+                alt="Youth and families participating in cultural learning and devotional heritage"
+                className="h-[260px] w-full object-cover sm:h-[320px] lg:h-[420px]"
+              />
+            </div>
+            <div className="sacred-card overflow-hidden">
+              <SafeImage
+                src={IMAGE.missionSecond}
+                fallbackSrc={FALLBACK.missionSecond}
+                alt="Children and families preserving culture through devotional learning"
+                className="h-[260px] w-full object-cover sm:h-[320px] lg:h-[420px]"
+              />
+            </div>
           </div>
 
           <article className="sacred-card p-6 md:p-8">
