@@ -48,13 +48,13 @@ import {
 const HomePage = lazy(() => import("./features/home/HomePage"));
 const LoginPage = lazy(() => import("./features/auth/LoginPage"));
 const GetInvolvedPage = lazy(() => import("./features/contact/GetInvolvedPage"));
+const ContactPage = lazy(() => import("./features/contact/ContactPage"));
 const AboutPage = lazy(() => import("./features/about/AboutPage"));
 const AboutActivitiesOverviewPage = lazy(() => import("./features/about/AboutActivitiesOverviewPage"));
 const SansthaParichayPage = lazy(() => import("./features/about/SansthaParichayPage"));
 const VisionMissionPage = lazy(() => import("./features/about/VisionMissionPage"));
 const ManishBhaijiPage = lazy(() => import("./features/about/ManishBhaijiPage"));
 const ObjectivesPage = lazy(() => import("./features/about/ObjectivesPage"));
-const ContactPage = lazy(() => import("./features/contact/ContactPage"));
 const DonatePage = lazy(() => import("./features/contact/DonatePage"));
 const KundliPage = lazy(() => import("./features/digital/KundliPage"));
 const GuidancePage = lazy(() => import("./features/digital/GuidancePage"));
@@ -186,7 +186,7 @@ export default function App() {
                 <Routes>
                   <Route path={ROUTES.home} element={<HomePage />} />
                   <Route path={ROUTES.login} element={<LoginPage />} />
-                  <Route path={ROUTES.contact} element={withInnerPageLayout(<ContactPage />)} />
+                  <Route path="/admin/login" element={<Navigate to={ROUTES.login} replace />} />
                   <Route path={ROUTES.donate} element={withInnerPageLayout(<DonatePage />)} />
                   <Route path={ROUTES.volunteer} element={withInnerPageLayout(<VolunteerFormPage />)} />
                   <Route path="/events" element={<Navigate to={ROUTES.eventsKatha.index} replace />} />
@@ -273,6 +273,7 @@ export default function App() {
                   <Route path={ROUTES.digital.kundli} element={withInnerPageLayout(<KundliPage />)} />
 
                   <Route path={ROUTES.involved.index} element={withInnerPageLayout(<GetInvolvedPage />)} />
+                  <Route path={ROUTES.involved.contactUs} element={withInnerPageLayout(<ContactPage />)} />
                   <Route path={ROUTES.involved.volunteer} element={withInnerPageLayout(<VolunteerFormPage />)} /> 
                   <Route path={ROUTES.involved.donor} element={withInnerPageLayout(<DonatePage />)} />
                   <Route path={ROUTES.involved.partner} element={withInnerPageLayout(<InvolvedPartnerPage />)} />

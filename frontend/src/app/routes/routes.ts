@@ -1,7 +1,7 @@
 export const ROUTES = {
   home: "/",
   login: "/login",
-  contact: "/contact",
+  contact: "/guidance",
   donate: "/donate",
   volunteer: "/volunteer",
 
@@ -93,6 +93,7 @@ export const ROUTES = {
 
   involved: {
     index: "/get-involved",
+    contactUs: "/get-involved/contactUs",
     volunteer: "/get-involved/volunteer-registration",
     donor: "/get-involved/become-a-donor",
     partner: "/get-involved/partner-with-us",

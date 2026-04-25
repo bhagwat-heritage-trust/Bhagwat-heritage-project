@@ -119,7 +119,7 @@ const NAV_ITEMS: NavItemConfig[] = [
     labelKey: "navbar.items.getInvolved",
     children: [
       { id: "involved-overview", labelKey: "navbar.items.involvedOverview", href: ROUTES.involved.index },
-      { id: "involved-contact", labelKey: "navbar.items.contactUs", href: ROUTES.contact },
+      { id: "involved-contact", labelKey: "navbar.items.contactUs", href: ROUTES.involved.contactUs },
       { id: "involved-volunteer", labelKey: "navbar.items.volunteerRegistration", href: ROUTES.involved.volunteer },
       { id: "involved-donor", labelKey: "navbar.items.becomeDonor", href: ROUTES.involved.donor },
       { id: "involved-partner", labelKey: "navbar.items.partner", href: ROUTES.involved.partner },
@@ -127,12 +127,9 @@ const NAV_ITEMS: NavItemConfig[] = [
     ],
   },
   {
-    id: "contact",
-    labelKey: "navbar.items.contact",
-    children: [
-      { id: "contact-overview", labelKey: "navbar.items.contact", href: ROUTES.contact },
-      { id: "contact-guidance", labelKey: "navbar.items.guidance", href: ROUTES.digital.guidance },
-    ],
+    id: "guidance",
+    labelKey: "navbar.items.guidance",
+    href: ROUTES.digital.guidance,
   },
 ];
 

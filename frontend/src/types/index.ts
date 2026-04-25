@@ -177,6 +177,22 @@ export interface Campaign {
   createdAt: string;
 }
 
+export interface Quote {
+  _id: string;
+  title?: string;
+  quoteText: string;
+  theme: string;
+  language: string;
+  source: string;
+  author?: string;
+  publishDate: string;
+  isFeatured: boolean;
+  isPublished: boolean;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface ReportExpenseItem {
   label: string;
   amount: number;

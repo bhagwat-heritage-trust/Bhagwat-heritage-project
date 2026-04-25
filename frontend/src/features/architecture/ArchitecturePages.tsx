@@ -1,12 +1,12 @@
 import { memo, useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent, type MouseEvent, type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useAuth } from "../../app/providers/AuthProvider";
 import { PageSectionShell } from "../../components/sections/PageSectionShell";
 import { HeroSection } from "../../components/ui/HeroSection";
 import { Card } from "../../components/ui/Card";
 import { usePageMeta } from "../../hooks/usePageMeta";
 import { ROUTES } from "../../app/routes/routes";
+import { quotesApi } from "../../services/api/quotes";
 import { BhagwatKathaMahotsavPremiumPage } from "../events/BhagwatKathaMahotsavPremiumPage";
 import FestivalsCelebrationsPremiumPage from "../events/FestivalsCelebrationsPremiumPage";
 import { MISSION_BODY_TEXT_CLASS, MISSION_SECTION_HEADING_CLASS, MISSION_SECTION_LABEL_CLASS } from "../mission/missionTypography";
@@ -70,13 +70,19 @@ type TrustActivity = {
 };
 
 type DailyQuoteEntry = {
-  id: string;
-  text: string;
-  author: string;
+  _id?: string;
+  title?: string;
+  quoteText: string;
   theme: string;
+  language: string;
+  source: string;
+  author?: string;
   publishDate: string;
+  isFeatured: boolean;
+  isPublished: boolean;
   createdAt: string;
   createdBy: string;
+  updatedAt?: string;
 };
 
 type VideoGalleryCategory = "Katha" | "Seva" | "Festival" | "Youth";
@@ -94,34 +100,89 @@ type VideoGalleryItem = {
   views: string;
 };
 
-const DAILY_QUOTE_STORAGE_KEY = "bh_daily_spiritual_quotes";
-
 const DEFAULT_DAILY_QUOTES: DailyQuoteEntry[] = [
   {
-    id: "quote-1",
-    text: "Where remembrance of Bhagwan becomes steady, the mind slowly becomes peaceful and the heart becomes gentle.",
-    author: "Bhagwat Reflection Desk",
+    _id: "quote-1",
+    title: "Daily Reflection",
+    quoteText: "Where remembrance of Bhagwan becomes steady, the mind slowly becomes peaceful and the heart becomes gentle.",
     theme: "Bhakti",
+    language: "en",
+    source: "Bhagwat Reflection Desk",
+    author: "Bhagwat Reflection Desk",
     publishDate: "2026-03-08",
+    isFeatured: true,
+    isPublished: true,
     createdAt: "2026-03-08T06:00:00.000Z",
     createdBy: "admin",
   },
   {
-    id: "quote-2",
-    text: "Seva performed with humility purifies intention more deeply than action performed for recognition.",
-    author: "Bhagwat Reflection Desk",
+    _id: "quote-2",
+    title: "Daily Reflection",
+    quoteText: "Seva performed with humility purifies intention more deeply than action performed for recognition.",
     theme: "Seva",
+    language: "en",
+    source: "Bhagwat Reflection Desk",
+    author: "Bhagwat Reflection Desk",
     publishDate: "2026-03-07",
+    isFeatured: false,
+    isPublished: true,
     createdAt: "2026-03-07T06:00:00.000Z",
     createdBy: "admin",
   },
   {
-    id: "quote-3",
-    text: "Daily discipline is the bridge between inspiration and spiritual growth.",
-    author: "Bhagwat Reflection Desk",
+    _id: "quote-3",
+    title: "Daily Reflection",
+    quoteText: "Daily discipline is the bridge between inspiration and spiritual growth.",
     theme: "Discipline",
+    language: "en",
+    source: "Bhagwat Reflection Desk",
+    author: "Bhagwat Reflection Desk",
     publishDate: "2026-03-06",
+    isFeatured: false,
+    isPublished: true,
     createdAt: "2026-03-06T06:00:00.000Z",
+    createdBy: "admin",
+  },
+  {
+    _id: "quote-4",
+    title: "Daily Reflection",
+    quoteText: "Dharma begins when personal comfort bows before truth and responsibility.",
+    theme: "Dharma",
+    language: "en",
+    source: "Bhagwat Reflection Desk",
+    author: "Bhagwat Reflection Desk",
+    publishDate: "2026-03-05",
+    isFeatured: false,
+    isPublished: true,
+    createdAt: "2026-03-05T06:00:00.000Z",
+    createdBy: "admin",
+  },
+  {
+    _id: "quote-5",
+    title: "Daily Reflection",
+    quoteText: "True sanskar is reflected in speech, conduct, respect, and self-control.",
+    theme: "Sanskar",
+    language: "en",
+    source: "Bhagwat Reflection Desk",
+    author: "Bhagwat Reflection Desk",
+    publishDate: "2026-03-04",
+    isFeatured: false,
+    isPublished: true,
+    createdAt: "2026-03-04T06:00:00.000Z",
+    createdBy: "admin",
+  },
+  {
+    _id: "quote-6",
+    title: "Daily Reflection",
+    quoteText: "Guru bhakti opens the heart to wisdom that cannot be received through intellect alone.",
+    theme: "Guru Bhakti",
+    language: "en",
+    source: "Bhagwat Reflection Desk",
+    author: "Bhagwat Reflection Desk",
+    publishDate: "2026-03-03",
+    isFeatured: false,
+    isPublished: true,
+    createdAt: "2026-03-03T06:00:00.000Z",
     createdBy: "admin",
   },
 ];
@@ -5080,329 +5141,463 @@ export const KnowledgeChildrenPage = memo(function KnowledgeChildrenPage() {
 });
 
 export const KnowledgeDailyQuotesPage = memo(function KnowledgeDailyQuotesPage() {
-  const { user } = useAuth();
-  const today = new Date().toISOString().slice(0, 10);
-  const [quotes, setQuotes] = useState<DailyQuoteEntry[]>(() => sortQuotes(DEFAULT_DAILY_QUOTES));
-  const [activeTheme, setActiveTheme] = useState<string>("All");
-  const [status, setStatus] = useState("");
-  const [form, setForm] = useState({
-    text: "",
-    author: "Bhagwat Heritage Service Foundation Trust",
-    theme: "Bhakti",
-    publishDate: today,
-  });
+  const [archiveQuotes, setArchiveQuotes] = useState<DailyQuoteEntry[]>([]);
+  const [todayQuote, setTodayQuote] = useState<DailyQuoteEntry | null>(null);
+  const [activeTheme, setActiveTheme] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [copyMessage, setCopyMessage] = useState("");
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const themeFilters = [
+    "All",
+    "Bhakti",
+    "Seva",
+    "Discipline",
+    "Dharma",
+    "Sanskar",
+    "Guru Bhakti",
+    "Youth Inspiration",
+    "Family Values",
+  ];
 
   useEffect(() => {
+    let active = true;
+
+    const loadQuotes = async () => {
+      setLoading(true);
+      setErrorMessage("");
+      try {
+        const [publicResponse, todayResponse] = await Promise.all([
+          quotesApi.getPublic({ page: 1, limit: 100 }),
+          quotesApi.getToday(),
+        ]);
+
+        if (!active) return;
+
+        const publicItems = sortQuotes(publicResponse.data.items.length > 0 ? publicResponse.data.items : DEFAULT_DAILY_QUOTES);
+        setArchiveQuotes(publicItems);
+        setTodayQuote(todayResponse.data ?? publicItems[0] ?? DEFAULT_DAILY_QUOTES[0] ?? null);
+      } catch {
+        if (!active) return;
+        const fallback = sortQuotes(DEFAULT_DAILY_QUOTES);
+        setArchiveQuotes(fallback);
+        setTodayQuote(fallback[0] ?? null);
+        setErrorMessage("Quote service is temporarily unavailable. Showing devotional fallback reflections.");
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+
+    loadQuotes();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    setVisibleCount(6);
+  }, [activeTheme, searchTerm]);
+
+  useEffect(() => {
+    if (!copyMessage) return;
+    const timer = window.setTimeout(() => setCopyMessage(""), 1800);
+    return () => window.clearTimeout(timer);
+  }, [copyMessage]);
+
+  const filteredQuotes = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+    return archiveQuotes.filter((item) => {
+      const matchesTheme = activeTheme === "All" || item.theme === activeTheme;
+      if (!matchesTheme) return false;
+      if (!query) return true;
+      return [item.quoteText, item.theme, item.publishDate, item.source, item.author ?? ""].some((field) =>
+        field.toLowerCase().includes(query),
+      );
+    });
+  }, [activeTheme, archiveQuotes, searchTerm]);
+
+  const pagedQuotes = filteredQuotes.slice(0, visibleCount);
+  const hasMoreQuotes = visibleCount < filteredQuotes.length;
+
+  const copyQuote = async (quote: DailyQuoteEntry) => {
+    const text = `"${quote.quoteText}"\nTheme: ${quote.theme}\nDate: ${quote.publishDate}\nSource: ${quote.source}`;
     try {
-      const raw = localStorage.getItem(DAILY_QUOTE_STORAGE_KEY);
-      if (!raw) {
-        localStorage.setItem(DAILY_QUOTE_STORAGE_KEY, JSON.stringify(DEFAULT_DAILY_QUOTES));
-        setQuotes(sortQuotes(DEFAULT_DAILY_QUOTES));
+      await navigator.clipboard.writeText(text);
+      setCopyMessage("Quote copied");
+    } catch {
+      setCopyMessage("Copy failed");
+    }
+  };
+
+  const shareQuote = async (quote: DailyQuoteEntry) => {
+    const shareTitle = quote.title || "Daily Spiritual Quote";
+    const shareText = `"${quote.quoteText}"\nTheme: ${quote.theme}\nDate: ${quote.publishDate}\nSource: ${quote.source}`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: `${window.location.origin}${ROUTES.knowledge.dailyQuotes}`,
+        });
         return;
       }
 
-      const parsed = JSON.parse(raw) as DailyQuoteEntry[];
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        setQuotes(sortQuotes(parsed));
-      } else {
-        setQuotes(sortQuotes(DEFAULT_DAILY_QUOTES));
-      }
+      await navigator.clipboard.writeText(`${shareTitle}\n${shareText}`);
+      setCopyMessage("Share text copied");
     } catch {
-      setQuotes(sortQuotes(DEFAULT_DAILY_QUOTES));
+      setCopyMessage("Share cancelled");
     }
-  }, []);
+  };
 
-  const visibleQuotes = activeTheme === "All" ? quotes : quotes.filter((item) => item.theme === activeTheme);
-  const featuredQuote = quotes.find((item) => item.publishDate === today) ?? quotes[0];
-  const availableThemes = ["All", ...Array.from(new Set(quotes.map((item) => item.theme)))];
-  const isAdmin = user?.role === "admin";
-
-  const publishQuote = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!form.text.trim()) {
-      setStatus("Quote text is required.");
-      return;
-    }
-
-    const nextItem: DailyQuoteEntry = {
-      id: `${Date.now()}`,
-      text: form.text.trim(),
-      author: form.author.trim() || "Bhagwat Heritage Service Foundation Trust",
-      theme: form.theme.trim() || "Bhakti",
-      publishDate: form.publishDate,
-      createdAt: new Date().toISOString(),
-      createdBy: user?.name || "admin",
-    };
-
-    const nextQuotes = sortQuotes([nextItem, ...quotes]);
-    setQuotes(nextQuotes);
-    localStorage.setItem(DAILY_QUOTE_STORAGE_KEY, JSON.stringify(nextQuotes));
-    setStatus("Quote published successfully. All users can now see it on this page.");
-    setForm({
-      text: "",
-      author: form.author.trim() || "Bhagwat Heritage Service Foundation Trust",
-      theme: form.theme.trim() || "Bhakti",
-      publishDate: today,
-    });
+  const formatDisplayDate = (dateText?: string) => {
+    if (!dateText) return "";
+    const parsed = new Date(dateText);
+    if (Number.isNaN(parsed.getTime())) return dateText;
+    return parsed.toISOString().slice(0, 10);
   };
 
   usePageMeta(
     "Daily Spiritual Quotes",
-    "Daily spiritual quote publishing page with admin-managed updates, public quote archive, and theme-based devotional reflection browsing.",
+    "Read daily Bhagwat-inspired spiritual quotes on devotion, seva, dharma, discipline, sanskar, and inner peace from Bhagwat Heritage Service Foundation Trust.",
+    "Daily Spiritual Quotes, Bhagwat Quotes, Bhakti Quotes, Seva Quotes, Dharma Quotes, Sanskar Quotes, Bhagwat Heritage",
   );
 
   return (
-    <div className="min-h-screen bg-[var(--campaign-deep)]">
-      <HeroSection
-        title="Daily Spiritual Quotes"
-        subtitle="Daily reflections, admin-managed quote publishing, and a public archive for disciplined spiritual remembrance"
-        subtitleClassName="text-[18px] font-semibold leading-tight text-white sm:text-[24px] md:text-[34px]"
-        contentClassName="flex h-full flex-col justify-end pb-[22px] md:pb-[30px] [&>h1]:mb-[10px] [&>p]:mb-[10px]"
-        backgroundImage="/images/spiritual1.png"
-        boxed
-        heightClass="h-[360px] md:h-[520px]"
-        overlayClass="bg-black/55"
-      >
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Link
-            to={ROUTES.knowledge.dailyQuotesToday}
-            className="inline-flex items-center rounded-lg bg-[#f3a11f] px-6 py-3 font-semibold text-white shadow-[0_14px_28px_rgba(243,161,31,0.28)] transition-colors hover:bg-[#ffaf31]"
-          >
-            View Today&apos;s Quote
-          </Link>
-          <a
-            href="#quote-archive"
-            className="inline-flex items-center rounded-lg bg-[#0f7994] px-6 py-3 font-semibold text-white shadow-[0_14px_28px_rgba(15,121,148,0.28)] transition-colors hover:bg-[#1492b1]"
-          >
-            Open Quote Archive
-          </a>
-        </div>
-      </HeroSection>
-
-      <section className="relative z-20 mt-[10px] pb-6">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
-            {[
-              { title: "Today", value: featuredQuote ? "Published" : "Pending", note: "Latest quote becomes the daily featured reflection" },
-              { title: "Archive", value: `${quotes.length}`, note: "Published quotes remain visible for all users on this page" },
-              { title: "Themes", value: `${Math.max(availableThemes.length - 1, 1)}`, note: "Theme filters help devotees browse by reflection type" },
-              { title: "Admin Flow", value: isAdmin ? "Active" : "View Only", note: "Admins can publish directly; all visitors can read the results" },
-            ].map((item) => (
-              <div key={item.title} className="rounded-2xl border border-white/10 bg-[var(--campaign-bg)] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.20)]">
-                <p className="text-[20px] font-black uppercase tracking-wide text-[var(--campaign-accent)] md:text-[24px]">* {item.title}</p>
-                <p className="mt-3 text-base leading-7 text-[var(--campaign-text)] md:text-lg">{item.note}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-10" id="todays-quote">
-        <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-            <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Featured Daily Reflection</p>
-            <h2 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Today&apos;s Spiritual Quote</h2>
-            <p className="mt-5 text-base leading-7 text-white md:text-lg">
-              &quot;{featuredQuote?.text || "A new quote will appear here once it is published."}&quot;
+    <div className="min-h-screen bg-[#f7f1e4] text-[#4f3521]">
+      <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 md:px-6 lg:px-8">
+        <section
+          className="relative overflow-hidden rounded-[34px] border border-[#e7d3ae] bg-cover bg-center shadow-[0_22px_54px_rgba(86,58,28,0.18)]"
+          style={{ backgroundImage: "url('/images/daily-spiritual-quotes-hero.jpg')" }}
+        >
+          <div className="absolute inset-0 bg-[linear-gradient(130deg,rgba(71,40,11,0.70),rgba(180,114,28,0.58),rgba(8,83,90,0.48))]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(247,220,151,0.28),transparent_42%),radial-gradient(circle_at_80%_20%,rgba(255,240,194,0.22),transparent_40%)]" />
+          <div className="relative z-10 flex min-h-[340px] flex-col items-center justify-center px-6 py-10 text-center md:min-h-[480px]">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#f7ddb0]">Bhagwat Daily Wisdom</p>
+            <h1 className="mt-3 text-3xl font-black text-[#fff8ea] sm:text-4xl md:text-5xl">Daily Spiritual Quotes</h1>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-[#f4e9d0] md:text-lg">
+              Daily reflections from Bhagwat wisdom for inner peace, devotion, discipline, and spiritual remembrance.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3 text-sm">
-              <span className="rounded-full bg-[var(--campaign-accent)]/15 px-4 py-2 font-bold text-[var(--campaign-accent)]">
-                {featuredQuote?.theme || "Daily Reflection"}
-              </span>
-              <span className="rounded-full bg-white/10 px-4 py-2 font-semibold text-[var(--campaign-text)]">
-                {featuredQuote?.publishDate || today}
-              </span>
-              <span className="rounded-full bg-white/10 px-4 py-2 font-semibold text-[var(--campaign-text)]">
-                {featuredQuote?.author || "Bhagwat Heritage Service Foundation Trust"}
-              </span>
+            <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href="#todays-quote"
+                className="inline-flex min-w-[210px] items-center justify-center rounded-full bg-[#dc8d20] px-6 py-3 text-sm font-bold text-white shadow-[0_12px_24px_rgba(220,141,32,0.35)] transition hover:bg-[#c17a18]"
+              >
+                View Today&apos;s Quote
+              </a>
+              <a
+                href="#quote-archive"
+                className="inline-flex min-w-[210px] items-center justify-center rounded-full bg-[#0f7b80] px-6 py-3 text-sm font-bold text-white shadow-[0_12px_24px_rgba(15,123,128,0.35)] transition hover:bg-[#0d696d]"
+              >
+                Explore Quote Archive
+              </a>
             </div>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-            <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">New Feature</p>
-            <h2 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Admin Quote Publisher</h2>
-            <p className="mt-4 text-base leading-7 text-[var(--campaign-text)] md:text-lg">
-              Only admin users can publish a new quote here. For other visitors, this panel explains the publishing flow
-              and keeps the page useful without exposing editing controls.
-            </p>
+        <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {[
+            {
+              icon: "/icons/icon-todays-reflection.svg",
+              title: "Today’s Reflection",
+              desc: "Read today’s highlighted Bhagwat quote with source, date, and devotional context.",
+            },
+            {
+              icon: "/icons/icon-theme-quotes.svg",
+              title: "Theme-wise Quotes",
+              desc: "Explore quotes by themes like Bhakti, Seva, Discipline, Sanskar, and Dharma.",
+            },
+            {
+              icon: "/icons/icon-public-archive.svg",
+              title: "Public Archive",
+              desc: "Access earlier published quotes in a searchable and filter-ready devotional archive.",
+            },
+            {
+              icon: "/icons/icon-admin-publisher.svg",
+              title: "Admin Managed Publishing",
+              desc: "Authorized admins publish quotes in dashboard and updates appear automatically here.",
+            },
+          ].map((feature) => (
+            <article
+              key={feature.title}
+              className="rounded-3xl border border-[#ead8b7] bg-[#fff8ec] p-5 shadow-[0_12px_24px_rgba(72,48,21,0.10)]"
+            >
+              <img src={feature.icon} alt="" className="h-10 w-10 rounded-xl bg-[#f4ead7] p-2" />
+              <h3 className="mt-4 text-lg font-black text-[#4c311d]">{feature.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#70533a]">{feature.desc}</p>
+            </article>
+          ))}
+        </section>
 
-            {isAdmin ? (
-              <form className="mt-8 space-y-4" onSubmit={publishQuote}>
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-[#d4e1e8]" htmlFor="quote-text">
-                    Quote Text
-                  </label>
-                  <textarea
-                    id="quote-text"
-                    value={form.text}
-                    onChange={(event) => setForm((current) => ({ ...current, text: event.target.value }))}
-                    rows={5}
-                    className="w-full rounded-2xl border border-white/10 bg-[var(--campaign-surface)] px-4 py-3 text-white outline-none transition focus:border-[var(--campaign-accent)]"
-                    placeholder="Write the spiritual quote for today"
-                  />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-[#d4e1e8]" htmlFor="quote-author">
-                      Author / Source
-                    </label>
-                    <input
-                      id="quote-author"
-                      value={form.author}
-                      onChange={(event) => setForm((current) => ({ ...current, author: event.target.value }))}
-                      className="w-full rounded-2xl border border-white/10 bg-[var(--campaign-surface)] px-4 py-3 text-white outline-none transition focus:border-[var(--campaign-accent)]"
-                      placeholder="Bhagwat Heritage Service Foundation Trust"
-                    />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-[#d4e1e8]" htmlFor="quote-theme">
-                      Theme
-                    </label>
-                    <input
-                      id="quote-theme"
-                      value={form.theme}
-                      onChange={(event) => setForm((current) => ({ ...current, theme: event.target.value }))}
-                      className="w-full rounded-2xl border border-white/10 bg-[var(--campaign-surface)] px-4 py-3 text-white outline-none transition focus:border-[var(--campaign-accent)]"
-                      placeholder="Bhakti"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-[#d4e1e8]" htmlFor="quote-date">
-                    Publish Date
-                  </label>
-                  <input
-                    id="quote-date"
-                    type="date"
-                    value={form.publishDate}
-                    onChange={(event) => setForm((current) => ({ ...current, publishDate: event.target.value }))}
-                    className="w-full rounded-2xl border border-white/10 bg-[var(--campaign-surface)] px-4 py-3 text-white outline-none transition focus:border-[var(--campaign-accent)]"
-                  />
-                </div>
+        <section id="todays-quote" className="mt-10 rounded-[30px] border border-[#ecd7b2] bg-[#fff9ef] p-6 shadow-[0_16px_30px_rgba(88,56,24,0.12)] md:p-8">
+          <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#b67111]">Featured Daily Reflection</p>
+          <h2 className="mt-2 text-2xl font-black text-[#4f321f] md:text-3xl">Today’s Spiritual Quote</h2>
+          <p className="mt-5 text-lg leading-8 text-[#5e4028] md:text-xl">
+            &quot;{todayQuote?.quoteText || "Where remembrance of Bhagwan becomes steady, the mind slowly becomes peaceful and the heart becomes gentle."}&quot;
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2 text-sm">
+            <span className="rounded-full bg-[#f2d5a2] px-4 py-2 font-bold text-[#7a4a17]">Theme: {todayQuote?.theme || "Bhakti"}</span>
+            <span className="rounded-full bg-[#e7f2ef] px-4 py-2 font-semibold text-[#1d6163]">Date: {formatDisplayDate(todayQuote?.publishDate) || "2026-03-08"}</span>
+            <span className="rounded-full bg-[#efdfc7] px-4 py-2 font-semibold text-[#6c4628]">Source: {todayQuote?.source || "Bhagwat Reflection Desk"}</span>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => todayQuote && copyQuote(todayQuote)}
+              className="inline-flex items-center gap-2 rounded-full bg-[#f3e2bf] px-5 py-3 text-sm font-bold text-[#6f451e] transition hover:bg-[#edd6a7]"
+            >
+              <img src="/icons/icon-copy-quote.svg" alt="" className="h-4 w-4" />
+              Copy Quote
+            </button>
+            <button
+              type="button"
+              onClick={() => todayQuote && shareQuote(todayQuote)}
+              className="inline-flex items-center gap-2 rounded-full bg-[#d8ece7] px-5 py-3 text-sm font-bold text-[#1b6766] transition hover:bg-[#c9e4dd]"
+            >
+              <img src="/icons/icon-share-quote.svg" alt="" className="h-4 w-4" />
+              Share Quote
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTheme("Bhakti");
+                document.getElementById("quote-archive")?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              className="inline-flex items-center rounded-full bg-[#b9782a] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#9f651f]"
+            >
+              View More Bhakti Quotes
+            </button>
+          </div>
+          {copyMessage ? <p className="mt-3 text-sm font-semibold text-[#8c591f]">{copyMessage}</p> : null}
+        </section>
+
+        <section className="mt-10">
+          <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#b67111]">Browse by Themes</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {themeFilters.map((theme) => {
+              const active = theme === activeTheme;
+              return (
                 <button
-                  type="submit"
-                  className="inline-flex items-center rounded-2xl bg-[var(--campaign-accent)] px-6 py-3 font-bold text-white transition hover:bg-[var(--campaign-accent-hover)]"
+                  key={theme}
+                  type="button"
+                  onClick={() => setActiveTheme(theme)}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    active ? "bg-[#c7832f] text-white" : "bg-[#fff8ed] text-[#6b482c] border border-[#e7d4b2] hover:bg-[#f8eddb]"
+                  }`}
                 >
-                  Publish Quote
+                  {theme}
                 </button>
-                {status ? <p className="text-sm font-medium text-[#ffcf9a]">{status}</p> : null}
-              </form>
-            ) : (
-              <div className="mt-8 rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-5 text-[var(--campaign-text)]">
-                <p className="text-lg font-semibold text-white">Admin access required</p>
-                <p className="mt-2 leading-7">
-                  Log in with an admin account to publish the daily quote. All published quotes remain visible to every visitor.
-                </p>
-                <Link to={ROUTES.login} className="mt-4 inline-flex rounded-xl bg-[var(--campaign-accent)] px-5 py-3 font-semibold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]">
-                  Go to Login
-                </Link>
-              </div>
-            )}
+              );
+            })}
           </div>
+        </section>
 
-          <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
-            <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Reader Tools</p>
-            <h2 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Quote Reading Features</h2>
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                {
-                  title: "Theme Browsing",
-                  desc: "Readers can focus on the type of reflection they need on a given day, such as bhakti or seva.",
-                },
-                {
-                  title: "Daily Visibility",
-                  desc: "The latest published quote becomes the featured daily quote and stays easy to find.",
-                },
-                {
-                  title: "Archive Continuity",
-                  desc: "Past quotes remain available so users can revisit earlier reflections without losing them.",
-                },
-                {
-                  title: "Admin to Public Flow",
-                  desc: "This page is structured so trust admins manage content while all devotees simply receive it.",
-                },
-              ].map((item) => (
-                <div key={item.title} className="rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm">
-                  <h3 className="text-xl font-black text-white">{item.title}</h3>
-                  <p className="mt-2 text-base leading-7 text-[var(--campaign-text)] md:text-lg">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-10" id="quote-archive">
-        <div className="rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
+        <section id="quote-archive" className="mt-8 rounded-[30px] border border-[#ead4ad] bg-[#fffaf2] p-6 shadow-[0_16px_30px_rgba(88,56,24,0.10)] md:p-8">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Public Archive</p>
-              <h2 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Daily Quote Archive</h2>
+              <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#b67111]">Public Quote Archive</p>
+              <h2 className="mt-2 text-2xl font-black text-[#4c311d]">Search and Explore Reflections</h2>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {availableThemes.map((theme) => {
-                const active = theme === activeTheme;
-                return (
-                  <button
-                    key={theme}
-                    type="button"
-                    onClick={() => setActiveTheme(theme)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                      active
-                        ? "bg-[var(--campaign-accent)] text-white"
-                        : "border border-white/10 bg-[var(--campaign-surface)] text-[var(--campaign-text)] hover:border-[var(--campaign-accent)]/40"
-                    }`}
-                  >
-                    {theme}
-                  </button>
-                );
-              })}
-            </div>
+            <input
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Search quotes by keyword, theme, or date..."
+              className="w-full rounded-2xl border border-[#dfcba7] bg-white px-4 py-3 text-sm font-medium text-[#5b3f28] outline-none transition focus:border-[#c7832f] md:max-w-md"
+            />
           </div>
 
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5">
-            {visibleQuotes.map((item) => (
-              <div key={item.id} className="rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm">
+          {loading ? (
+            <div className="mt-8 rounded-2xl border border-[#ecdabd] bg-[#fdf3de] p-5 text-sm font-semibold text-[#7e541f]">Loading quotes...</div>
+          ) : null}
+          {!loading && errorMessage ? (
+            <div className="mt-8 rounded-2xl border border-[#f2cba8] bg-[#fff2e4] p-5 text-sm font-semibold text-[#9b4e18]">{errorMessage}</div>
+          ) : null}
+          {!loading && !errorMessage && filteredQuotes.length === 0 ? (
+            <div className="mt-8 rounded-2xl border border-[#ecdabd] bg-[#fdf3de] p-5 text-sm font-semibold text-[#7e541f]">
+              No quotes found for this filter. Try another theme or search phrase.
+            </div>
+          ) : null}
+
+          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {pagedQuotes.map((item) => (
+              <article key={item._id ?? `${item.theme}-${item.publishDate}-${item.quoteText.slice(0, 24)}`} className="rounded-3xl border border-[#e8d4b3] bg-white p-5 shadow-[0_10px_20px_rgba(88,56,24,0.08)]">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-[var(--campaign-accent)]/15 px-3 py-1 text-xs font-bold uppercase tracking-wide text-[var(--campaign-accent)]">
-                    {item.theme}
-                  </span>
-                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-[var(--campaign-text)]">
-                    {item.publishDate}
-                  </span>
-                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-[var(--campaign-text)]">
-                    {item.createdBy}
-                  </span>
+                  <span className="rounded-full bg-[#f2d5a2] px-3 py-1 text-xs font-bold text-[#7a4a17]">{item.theme}</span>
+                  <span className="rounded-full bg-[#e8f3ef] px-3 py-1 text-xs font-semibold text-[#1f6261]">{formatDisplayDate(item.publishDate)}</span>
                 </div>
-                <p className="mt-4 text-base leading-7 text-white md:text-lg">&quot;{item.text}&quot;</p>
-                <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-[var(--campaign-text)]">{item.author}</p>
+                <p className="mt-4 text-base leading-7 text-[#5b3f28]">&quot;{item.quoteText}&quot;</p>
+                <p className="mt-4 text-xs font-bold uppercase tracking-[0.14em] text-[#8a6846]">Source: {item.source || "Bhagwat Reflection Desk"}</p>
+                <div className="mt-4 flex items-center gap-2">
+                  <button type="button" onClick={() => copyQuote(item)} className="inline-flex items-center gap-1 rounded-full bg-[#f4e3c1] px-3 py-2 text-xs font-bold text-[#74491f] transition hover:bg-[#efd7aa]">
+                    <img src="/icons/icon-copy-quote.svg" alt="" className="h-3.5 w-3.5" />
+                    Copy
+                  </button>
+                  <button type="button" onClick={() => shareQuote(item)} className="inline-flex items-center gap-1 rounded-full bg-[#d9ebe8] px-3 py-2 text-xs font-bold text-[#1b6565] transition hover:bg-[#cce4df]">
+                    <img src="/icons/icon-share-quote.svg" alt="" className="h-3.5 w-3.5" />
+                    Share
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {!loading && hasMoreQuotes ? (
+            <div className="mt-8 flex justify-center">
+              <button
+                type="button"
+                onClick={() => setVisibleCount((count) => count + 6)}
+                className="inline-flex items-center rounded-full bg-[#0f7b80] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#0d696d]"
+              >
+                Load More
+              </button>
+            </div>
+          ) : null}
+        </section>
+
+        <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {[
+            {
+              title: "Quotes for Daily Bhakti",
+              image: "/images/daily-quote-reflection.jpg",
+              desc: "Start your day with devotional reflections focused on remembrance and surrender.",
+            },
+            {
+              title: "Quotes for Youth Inspiration",
+              image: "/images/quote-archive-preview.jpg",
+              desc: "Motivational spiritual guidance for discipline, purpose, and value-based growth.",
+            },
+            {
+              title: "Quotes for Family Sanskar",
+              image: "/images/spiritual-reading-family.jpg",
+              desc: "Reflections to strengthen respectful communication and family-centered sanskar.",
+            },
+          ].map((item) => (
+            <article key={item.title} className="overflow-hidden rounded-3xl border border-[#ead5b1] bg-[#fffaf2] shadow-[0_14px_24px_rgba(86,58,28,0.10)]">
+              <img src={item.image} alt={item.title} className="h-44 w-full object-cover" />
+              <div className="p-5">
+                <h3 className="text-lg font-black text-[#4c311d]">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#6b4b2f]">{item.desc}</p>
+                <button type="button" className="mt-4 inline-flex items-center rounded-full bg-[#b9782a] px-4 py-2 text-xs font-bold text-white transition hover:bg-[#a86c22]">
+                  Explore
+                </button>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <section className="mt-10 rounded-[30px] border border-[#ead2a8] bg-[linear-gradient(135deg,#fff9ef,#f2e5cf)] p-6 shadow-[0_16px_30px_rgba(88,56,24,0.11)] md:p-8">
+          <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#b67111]">Admin Quote Publishing Flow</p>
+          <h2 className="mt-2 text-2xl font-black text-[#4d311d]">CMS-ready Daily Quote Management</h2>
+          <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
+            {[
+              "Admins can publish daily quotes from admin dashboard.",
+              "Quotes can be categorized by theme for easy public filtering.",
+              "Published quotes appear automatically in today’s section and archive.",
+              "Old quotes remain safely available in public archive.",
+            ].map((line) => (
+              <div key={line} className="rounded-2xl bg-white/80 p-4 text-sm font-semibold text-[#5e3f24]">
+                {line}
               </div>
             ))}
           </div>
-        </div>
-      </section>
+          <div className="mt-6">
+            <Link to="/admin/login" className="inline-flex items-center rounded-full bg-[#0f7b80] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#0d696d]">
+              Admin Login
+            </Link>
+          </div>
+        </section>
+
+        <section className="mt-10 rounded-[30px] border border-[#e9d2aa] bg-[#fff9ef] p-6 shadow-[0_14px_28px_rgba(88,56,24,0.10)] md:p-8">
+          <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#b67111]">FAQ</p>
+          <h2 className="mt-2 text-2xl font-black text-[#4d311d]">Frequently Asked Questions</h2>
+          <div className="mt-5 space-y-3">
+            {[
+              {
+                question: "Are these quotes updated daily?",
+                answer: "Yes, the latest published quote appears as the daily spiritual reflection.",
+              },
+              {
+                question: "Can users access older quotes?",
+                answer: "Yes, all published quotes remain available in the public archive.",
+              },
+              {
+                question: "Can quotes be filtered by theme?",
+                answer: "Yes, visitors can browse quotes by themes such as Bhakti, Seva, Dharma, Sanskar, and Discipline.",
+              },
+              {
+                question: "Who publishes these quotes?",
+                answer: "Quotes are published by authorized admin users through the website admin panel.",
+              },
+            ].map((item, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <article key={item.question} className="rounded-2xl border border-[#e7d4b2] bg-white">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaqIndex((current) => (current === index ? null : index))}
+                    className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left"
+                  >
+                    <span className="text-sm font-bold text-[#4d321f]">{item.question}</span>
+                    <span className="text-xl font-bold text-[#b67111]">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  {isOpen ? <p className="px-5 pb-4 text-sm leading-6 text-[#65482e]">{item.answer}</p> : null}
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="relative mt-10 overflow-hidden rounded-[32px] border border-[#e8d2aa] bg-cover bg-center shadow-[0_20px_40px_rgba(86,58,28,0.16)]" style={{ backgroundImage: "url('/images/daily-quotes-cta-banner.jpg')" }}>
+          <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(69,39,13,0.78),rgba(11,79,84,0.56),rgba(180,114,28,0.60))]" />
+          <div className="relative z-10 px-6 py-12 text-center md:px-10 md:py-16">
+            <h2 className="text-3xl font-black text-[#fff8eb] md:text-4xl">Begin Every Day with Spiritual Remembrance</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-[#f5e8cf] md:text-lg">
+              Read, reflect, share, and preserve daily Bhagwat-inspired wisdom.
+            </p>
+            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a href="#todays-quote" className="inline-flex min-w-[210px] items-center justify-center rounded-full bg-[#dc8d20] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#c17a18]">
+                Read Today’s Quote
+              </a>
+              <button type="button" onClick={() => todayQuote && shareQuote(todayQuote)} className="inline-flex min-w-[210px] items-center justify-center rounded-full bg-[#0f7b80] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#0d696d]">
+                Share with Devotees
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 });
 
 export const KnowledgeTodayQuotePage = memo(function KnowledgeTodayQuotePage() {
-  const today = new Date().toISOString().slice(0, 10);
   const [featuredQuote, setFeaturedQuote] = useState<DailyQuoteEntry | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(DAILY_QUOTE_STORAGE_KEY);
-      const parsed = raw ? (JSON.parse(raw) as DailyQuoteEntry[]) : DEFAULT_DAILY_QUOTES;
-      const sorted = sortQuotes(Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_DAILY_QUOTES);
-      setFeaturedQuote(sorted.find((item) => item.publishDate === today) ?? sorted[0] ?? null);
-    } catch {
-      const fallback = sortQuotes(DEFAULT_DAILY_QUOTES);
-      setFeaturedQuote(fallback.find((item) => item.publishDate === today) ?? fallback[0] ?? null);
-    }
-  }, [today]);
+    let active = true;
+
+    const loadTodayQuote = async () => {
+      try {
+        const response = await quotesApi.getToday();
+        if (!active) return;
+        setFeaturedQuote(response.data ?? DEFAULT_DAILY_QUOTES[0] ?? null);
+      } catch {
+        if (!active) return;
+        setFeaturedQuote(DEFAULT_DAILY_QUOTES[0] ?? null);
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+
+    loadTodayQuote();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   usePageMeta(
     "Today Quote",
@@ -5427,7 +5622,7 @@ export const KnowledgeTodayQuotePage = memo(function KnowledgeTodayQuotePage() {
             <h1 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Daily Divine Reflection</h1>
 
             <p className="mx-auto mt-8 max-w-4xl text-3xl font-semibold leading-[1.6] text-white md:text-5xl md:leading-[1.45]">
-              &quot;{featuredQuote?.text || "A new spiritual quote will appear here soon."}&quot;
+              {loading ? "Loading today’s reflection..." : `“${featuredQuote?.quoteText || "A new spiritual quote will appear here soon."}”`}
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -5435,10 +5630,10 @@ export const KnowledgeTodayQuotePage = memo(function KnowledgeTodayQuotePage() {
                 {featuredQuote?.theme || "Daily Reflection"}
               </span>
               <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-[var(--campaign-text)]">
-                {featuredQuote?.publishDate || today}
+                {featuredQuote?.publishDate ? new Date(featuredQuote.publishDate).toISOString().slice(0, 10) : ""}
               </span>
               <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-[var(--campaign-text)]">
-                {featuredQuote?.author || "Bhagwat Heritage Service Foundation Trust"}
+                {featuredQuote?.source || "Bhagwat Reflection Desk"}
               </span>
             </div>
 

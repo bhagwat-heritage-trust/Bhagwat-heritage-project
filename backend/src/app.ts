@@ -32,6 +32,7 @@ import reportRoutes from "./routes/reportRoutes";
 import libraryRequestRoutes from "./routes/libraryRequestRoutes";
 import libraryDonationRoutes from "./routes/libraryDonationRoutes";
 import libraryStatsRoutes from "./routes/libraryStatsRoutes";
+import quoteRoutes from "./routes/quoteRoutes";
 
 const app = express();
 
@@ -104,6 +105,7 @@ app.use("/api/reports", reportRoutes);
 app.use("/api/library-requests", libraryRequestRoutes);
 app.use("/api/library-donations", libraryDonationRoutes);
 app.use("/api/library-stats", libraryStatsRoutes);
+app.use("/api", quoteRoutes);
 
 app.use(errorHandler);
 
