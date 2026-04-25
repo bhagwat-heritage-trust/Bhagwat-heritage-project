@@ -1,4 +1,4 @@
-import { memo, useState, type FormEvent } from "react";
+import { memo, useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 
 const HERO_STATS = [
@@ -228,14 +228,23 @@ const ENGLISH_AARTI_TEXT = `Swaminarayan Aarti
 This aarti honors Shri Swaminarayan Bhagwan with devotion, gratitude, and remembrance.
 
 It is offered as a prayer of surrender, service, and spiritual discipline.`;
+const pagePatternStyle: CSSProperties = {
+  backgroundColor: "#FFF8EC",
+  backgroundImage:
+    "radial-gradient(circle at 8% 8%, rgba(244,164,60,0.16), transparent 28rem), radial-gradient(circle at 92% 18%, rgba(7,55,99,0.10), transparent 24rem), radial-gradient(circle at 22% 88%, rgba(221,238,219,0.92), transparent 26rem)",
+  backgroundAttachment: "fixed",
+};
 const sectionShellClass =
-  "rounded-3xl border border-white/10 bg-[var(--campaign-bg)] p-6 md:p-8 shadow-[0_18px_40px_rgba(0,0,0,0.18)]";
+  "rounded-[28px] border border-[#E8D9C4] bg-[#FFFDF8]/95 p-6 shadow-[0_18px_42px_rgba(101,71,35,0.10)] md:p-8";
 const sectionEyebrowClass =
-  "text-[22px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)] md:text-[24px]";
-const sectionTitleClass = "mt-2 text-[16px] font-black text-white md:text-[22px]";
-const sectionBodyClass = "text-base leading-8 text-[var(--campaign-text)] md:text-lg";
+  "text-[22px] font-semibold uppercase tracking-[0.18em] text-[#C96F18] md:text-[24px]";
+const sectionTitleClass = "mt-2 text-[16px] font-black text-[#2B2118] md:text-[22px]";
+const sectionBodyClass = "text-base leading-8 text-[#6F6255] md:text-lg";
 const sectionCardClass =
-  "rounded-2xl border border-white/10 bg-[#156b86] p-5 shadow-[0_12px_24px_rgba(0,0,0,0.15)]";
+  "rounded-[20px] border border-[#E8D9C4] bg-[#FFFDF8] p-5 shadow-[0_18px_42px_rgba(101,71,35,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_56px_rgba(101,71,35,0.15)]";
+const softPanelClass = "rounded-2xl border border-[#E8D9C4] bg-[#FFF4E0] p-4";
+const softPillClass =
+  "rounded-full border border-[#E8D9C4] bg-[#FFF4E0] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#6F6255]";
 
 export default memo(function GhanshyamPage() {
   const [activeAartiLang, setActiveAartiLang] = useState<AartiLanguage | null>(null);
@@ -247,9 +256,9 @@ export default memo(function GhanshyamPage() {
       : PROJECT_FOCUS_AREAS.filter((item) => item.category === activeProjectFocus);
 
   return (
-    <div className="bg-[#082638] pb-12">
+    <div className="relative overflow-hidden pb-12" style={pagePatternStyle}>
       <section className="max-w-6xl mx-auto px-4 pt-8 md:pt-10">
-        <div className="relative h-[360px] overflow-hidden rounded-[32px] border border-[#dce8ff] bg-[#0b2741] shadow-[0_18px_45px_rgba(12,38,74,0.35)] md:h-[520px]">
+        <div className="relative h-[360px] overflow-hidden rounded-[32px] border border-[#E8D9C4] bg-[#073763] shadow-[0_28px_70px_rgba(7,55,99,0.22)] md:h-[520px]">
           <div
             className="absolute inset-0 scale-[1.02] bg-cover bg-center brightness-[1.14] contrast-[1.08] saturate-[1.08]"
             style={{ backgroundImage: "url('https://res.cloudinary.com/der8zinu8/image/upload/v1774791426/ghanshyamji_ly7wbt.jpg')" }}
@@ -258,30 +267,30 @@ export default memo(function GhanshyamPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.24)_0%,rgba(255,255,255,0.08)_34%,rgba(255,255,255,0)_62%)]" />
         </div>
 
-        <div className="mt-5 text-center text-white md:mt-6">
+        <div className="mt-5 text-center md:mt-6">
           <h1 className="mb-[10px] text-4xl font-bold leading-tight md:text-5xl">
             Bhagwat Dham Swaminarayan Temple
           </h1>
-          <p className="mx-auto mb-[10px] max-w-5xl text-[20px] font-semibold leading-tight text-white md:text-[32px]">
+          <p className="mx-auto mb-[10px] max-w-5xl text-[20px] font-semibold leading-tight text-[#6F6255] md:text-[32px]">
             A divine vision of Service, satsang, and spiritual living inspired by Shree Swaminarayan Bhagwan.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3">
             <Link
               to="/get-involved"
-              className="inline-flex items-center rounded-lg bg-[var(--campaign-accent)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]"
+              className="inline-flex items-center rounded-full bg-[#F4A43C] px-6 py-3 font-semibold text-[#073763] transition-colors hover:bg-[#E9932D]"
             >
               Join Satsang Service
             </Link>
             <Link
               to="/donate"
-              className="inline-flex items-center rounded-lg bg-[var(--campaign-bg)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--campaign-mid-hover)]"
+              className="inline-flex items-center rounded-full bg-[#073763] px-6 py-3 font-semibold text-[#FFF8EC] transition-colors hover:bg-[#0A2F52]"
             >
               Donate for Mandir Service
             </Link>
             <Link
               to="/mandir/gallery"
-              className="inline-flex items-center rounded-lg border border-white/20 bg-white/10 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/18"
+              className="inline-flex items-center rounded-full border border-[#E8D9C4] bg-[#FFFDF8]/80 px-6 py-3 font-semibold text-[#1D4F63] transition-colors hover:bg-[#FFF4E0]"
             >
               View Gallery
             </Link>
@@ -293,9 +302,9 @@ export default memo(function GhanshyamPage() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
             {HERO_STATS.map((item) => (
-              <div key={item.label} className="rounded-2xl border border-white/10 bg-[var(--campaign-bg)] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.20)]">
-                <p className="text-[24px] font-black uppercase tracking-wide text-[var(--campaign-accent)]">{item.label}</p>
-                <p className="mt-1 text-base leading-7 text-[var(--campaign-text)] md:text-lg">{item.note}</p>
+              <div key={item.label} className="rounded-[20px] border border-[#E8D9C4] bg-[#FFFDF8]/95 p-4 shadow-[0_18px_42px_rgba(101,71,35,0.10)]">
+                <p className="text-[24px] font-black uppercase tracking-wide text-[#C96F18]">{item.label}</p>
+                <p className="mt-1 text-base leading-7 text-[#6F6255] md:text-lg">{item.note}</p>
               </div>
             ))}
           </div>
@@ -365,8 +374,8 @@ export default memo(function GhanshyamPage() {
                     onClick={() => setActiveProjectFocus(focus)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                       active
-                        ? "bg-[var(--campaign-accent)] text-white"
-                        : "border border-white/15 bg-white/10 text-white hover:bg-white/15"
+                        ? "bg-[#073763] text-[#FFF8EC]"
+                        : "border border-[#E8D9C4] bg-[#FFFDF8] text-[#6F6255] hover:bg-[#FFF4E0]"
                     }`}
                   >
                     {focus}
@@ -380,18 +389,18 @@ export default memo(function GhanshyamPage() {
             {visibleProjectAreas.map((item) => (
               <div key={item.title} className={sectionCardClass}>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-[var(--campaign-accent)] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                  <span className="rounded-full bg-[#F4A43C] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#073763]">
                     {item.category}
                   </span>
-                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-[var(--campaign-text)]">
+                  <span className={softPillClass}>
                     Project Insight
                   </span>
                 </div>
-                <h3 className="mt-4 text-[24px] font-black uppercase tracking-[0.05em] text-[var(--campaign-accent)]">{item.title}</h3>
-                <p className="mt-3 text-base leading-8 text-[var(--campaign-text)] md:text-lg">{item.desc}</p>
-                <div className="mt-4 rounded-2xl border border-white/10 bg-white/10 p-4">
-                  <p className="text-sm font-semibold uppercase tracking-[0.12em] text-white/75">Feature Focus</p>
-                  <p className="mt-2 text-base leading-8 text-white md:text-lg">{item.feature}</p>
+                <h3 className="mt-4 text-[24px] font-black uppercase tracking-[0.05em] text-[#C96F18]">{item.title}</h3>
+                <p className="mt-3 text-base leading-8 text-[#6F6255] md:text-lg">{item.desc}</p>
+                <div className={`mt-4 ${softPanelClass}`}>
+                  <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#C96F18]">Feature Focus</p>
+                  <p className="mt-2 text-base leading-8 text-[#2B2118] md:text-lg">{item.feature}</p>
                 </div>
               </div>
             ))}
@@ -407,9 +416,9 @@ export default memo(function GhanshyamPage() {
             <div className="mt-6 space-y-4">
               {PROJECT_DEVELOPMENT_PHASES.map((phase, index) => (
                 <div key={phase.title} className={sectionCardClass}>
-                  <p className="text-sm font-bold uppercase tracking-[0.14em] text-white/75">Stage {index + 1}</p>
-                  <h3 className="mt-2 text-[22px] font-black text-[var(--campaign-accent)] md:text-[24px]">{phase.title}</h3>
-                  <p className="mt-3 text-base leading-8 text-[var(--campaign-text)] md:text-lg">{phase.desc}</p>
+                  <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#C96F18]">Stage {index + 1}</p>
+                  <h3 className="mt-2 text-[22px] font-black text-[#2B2118] md:text-[24px]">{phase.title}</h3>
+                  <p className="mt-3 text-base leading-8 text-[#6F6255] md:text-lg">{phase.desc}</p>
                 </div>
               ))}
             </div>
@@ -419,8 +428,8 @@ export default memo(function GhanshyamPage() {
             <h2 className={sectionTitleClass}>Where Support Can Help</h2>
             <ul className="mt-6 space-y-3">
               {PROJECT_SUPPORT_TRACKS.map((line) => (
-                <li key={line} className="flex gap-3 text-base leading-8 text-[var(--campaign-text)] md:text-lg">
-                  <span className="mt-3 h-2.5 w-2.5 rounded-full bg-[var(--campaign-accent)]" />
+                <li key={line} className="flex gap-3 text-base leading-8 text-[#6F6255] md:text-lg">
+                  <span className="mt-3 h-2.5 w-2.5 rounded-full bg-[#F4A43C]" />
                   <span>{line}</span>
                 </li>
               ))}
@@ -429,13 +438,13 @@ export default memo(function GhanshyamPage() {
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Link
                 to="/donate"
-                className="inline-flex items-center justify-center rounded-xl bg-[var(--campaign-accent)] px-5 py-3 text-sm font-bold text-white hover:bg-[var(--campaign-accent-hover)] transition"
+                className="inline-flex items-center justify-center rounded-full bg-[#F4A43C] px-5 py-3 text-sm font-bold text-[#073763] transition hover:bg-[#E9932D]"
               >
                 Support Project
               </Link>
               <Link
                 to="/get-involved/sponsor-programs"
-                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white hover:bg-white/15 transition"
+                className="inline-flex items-center justify-center rounded-xl border border-[#E8D9C4] bg-[#FFF4E0] px-5 py-3 text-sm font-semibold text-[#1D4F63] transition hover:bg-[#FFFDF8]"
               >
                 Sponsor Bhagwat Dham
               </Link>
@@ -457,8 +466,8 @@ export default memo(function GhanshyamPage() {
               onClick={() => setActiveAartiLang((prev) => (prev === "hindi" ? null : "hindi"))}
               className={`rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
                 activeAartiLang === "hindi"
-                  ? "bg-[var(--campaign-accent)] text-white"
-                  : "border border-white/15 bg-white/10 text-white hover:bg-white/15"
+                  ? "bg-[#073763] text-[#FFF8EC]"
+                  : "border border-[#E8D9C4] bg-[#FFFDF8] text-[#6F6255] hover:bg-[#FFF4E0]"
               }`}
             >
               Hindi
@@ -468,8 +477,8 @@ export default memo(function GhanshyamPage() {
               onClick={() => setActiveAartiLang((prev) => (prev === "marathi" ? null : "marathi"))}
               className={`rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
                 activeAartiLang === "marathi"
-                  ? "bg-[var(--campaign-accent)] text-white"
-                  : "border border-white/15 bg-white/10 text-white hover:bg-white/15"
+                  ? "bg-[#073763] text-[#FFF8EC]"
+                  : "border border-[#E8D9C4] bg-[#FFFDF8] text-[#6F6255] hover:bg-[#FFF4E0]"
               }`}
             >
               Marathi
@@ -479,8 +488,8 @@ export default memo(function GhanshyamPage() {
               onClick={() => setActiveAartiLang((prev) => (prev === "gujarati" ? null : "gujarati"))}
               className={`rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
                 activeAartiLang === "gujarati"
-                  ? "bg-[var(--campaign-accent)] text-white"
-                  : "border border-white/15 bg-white/10 text-white hover:bg-white/15"
+                  ? "bg-[#073763] text-[#FFF8EC]"
+                  : "border border-[#E8D9C4] bg-[#FFFDF8] text-[#6F6255] hover:bg-[#FFF4E0]"
               }`}
             >
               Gujarati
@@ -490,8 +499,8 @@ export default memo(function GhanshyamPage() {
               onClick={() => setActiveAartiLang((prev) => (prev === "english" ? null : "english"))}
               className={`rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
                 activeAartiLang === "english"
-                  ? "bg-[var(--campaign-accent)] text-white"
-                  : "border border-white/15 bg-white/10 text-white hover:bg-white/15"
+                  ? "bg-[#073763] text-[#FFF8EC]"
+                  : "border border-[#E8D9C4] bg-[#FFFDF8] text-[#6F6255] hover:bg-[#FFF4E0]"
               }`}
             >
               English
@@ -499,8 +508,8 @@ export default memo(function GhanshyamPage() {
           </div>
 
           {activeAartiLang && (
-            <div className="mt-4 rounded-2xl border border-white/10 bg-[#156b86] p-4 md:p-5">
-              <pre className="whitespace-pre-wrap font-sans text-sm leading-8 text-white md:text-base">
+            <div className={`mt-4 ${softPanelClass} md:p-5`}>
+              <pre className="whitespace-pre-wrap font-sans text-sm leading-8 text-[#2B2118] md:text-base">
                 {ENGLISH_AARTI_TEXT}
               </pre>
             </div>
@@ -694,14 +703,14 @@ export default memo(function GhanshyamPage() {
               <p className={sectionEyebrowClass}>Daily Rhythm</p>
               <h2 className={sectionTitleClass}>Swaminarayan Darshan Schedule</h2>
             </div>
-            <p className="text-sm text-[var(--campaign-text)] md:text-base">Structured daily flow for darshan, aarti, and bhakti.</p>
+            <p className="text-sm text-[#6F6255] md:text-base">Structured daily flow for darshan, aarti, and bhakti.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-3">
             {DAILY_SCHEDULE.map((item) => (
               <article key={item.title} className={sectionCardClass}>
-                <h3 className="text-[22px] font-black text-[var(--campaign-accent)]">{item.title}</h3>
-                <p className="mt-2 text-base text-white md:text-lg">{item.time}</p>
+                <h3 className="text-[22px] font-black text-[#C96F18]">{item.title}</h3>
+                <p className="mt-2 text-base text-[#2B2118] md:text-lg">{item.time}</p>
               </article>
             ))}
           </div>
@@ -715,32 +724,32 @@ export default memo(function GhanshyamPage() {
               <p className={sectionEyebrowClass}>Puja Service</p>
               <h2 className={sectionTitleClass}>Daily Puja and Special Ritual Services</h2>
             </div>
-            <div className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-white">
+            <div className="inline-flex items-center rounded-full border border-[#E8D9C4] bg-[#FFF4E0] px-4 py-1.5 text-sm font-bold text-[#1D4F63]">
               {ENGLISH_DAILY_PUJA_SERVICES.length + ENGLISH_SPECIAL_PUJA_SERVICES.length}+ services available
             </div>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
             <article className={sectionCardClass}>
-              <h3 className="mb-4 text-[24px] font-black uppercase tracking-[0.05em] text-[var(--campaign-accent)]">Daily Worship Services</h3>
+              <h3 className="mb-4 text-[24px] font-black uppercase tracking-[0.05em] text-[#C96F18]">Daily Worship Services</h3>
               <div className="space-y-3">
                 {ENGLISH_DAILY_PUJA_SERVICES.map((item) => (
-                  <div key={item.name} className="rounded-xl border border-white/10 bg-white/10 p-4 transition hover:bg-white/15">
+                  <div key={item.name} className="rounded-xl border border-[#E8D9C4] bg-[#FFF4E0] p-4 transition hover:bg-[#FFFDF8]">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="text-lg font-black text-white">{item.name}</p>
-                      <span className="rounded-full bg-[var(--campaign-accent)] px-3 py-1 text-xs font-bold text-white">{item.price}</span>
+                      <p className="text-lg font-black text-[#2B2118]">{item.name}</p>
+                      <span className="rounded-full bg-[#F4A43C] px-3 py-1 text-xs font-bold text-[#073763]">{item.price}</span>
                     </div>
-                    <p className="mt-2 text-sm text-[var(--campaign-text)]">Timing: {item.timing}</p>
+                    <p className="mt-2 text-sm text-[#6F6255]">Timing: {item.timing}</p>
                     <div className="mt-3 flex gap-2">
                       <Link
                         to="/get-involved"
-                        className="inline-flex items-center justify-center rounded-lg bg-[#0f678c] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#0c5b7d] transition"
+                        className="inline-flex items-center justify-center rounded-lg bg-[#073763] px-3 py-1.5 text-xs font-semibold text-[#FFF8EC] transition hover:bg-[#0A2F52]"
                       >
                         Book Service
                       </Link>
                       <Link
                         to="/donate"
-                        className="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/15 transition"
+                        className="inline-flex items-center justify-center rounded-lg border border-[#E8D9C4] bg-[#FFFDF8] px-3 py-1.5 text-xs font-semibold text-[#1D4F63] transition hover:bg-[#FFF4E0]"
                       >
                         Donate
                       </Link>
@@ -751,25 +760,25 @@ export default memo(function GhanshyamPage() {
             </article>
 
             <article className={sectionCardClass}>
-              <h3 className="mb-4 text-[24px] font-black uppercase tracking-[0.05em] text-[var(--campaign-accent)]">Special Worship and Ritual Services</h3>
+              <h3 className="mb-4 text-[24px] font-black uppercase tracking-[0.05em] text-[#C96F18]">Special Worship and Ritual Services</h3>
               <div className="space-y-3">
                 {ENGLISH_SPECIAL_PUJA_SERVICES.map((item) => (
-                  <div key={item.name} className="rounded-xl border border-white/10 bg-white/10 p-4 transition hover:bg-white/15">
+                  <div key={item.name} className="rounded-xl border border-[#E8D9C4] bg-[#FFF4E0] p-4 transition hover:bg-[#FFFDF8]">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="text-lg font-black text-white">{item.name}</p>
-                      <span className="rounded-full bg-[var(--campaign-accent)] px-3 py-1 text-xs font-bold text-white">{item.price}</span>
+                      <p className="text-lg font-black text-[#2B2118]">{item.name}</p>
+                      <span className="rounded-full bg-[#F4A43C] px-3 py-1 text-xs font-bold text-[#073763]">{item.price}</span>
                     </div>
-                    <p className="mt-2 text-sm text-[var(--campaign-text)]">Timing: {item.timing}</p>
+                    <p className="mt-2 text-sm text-[#6F6255]">Timing: {item.timing}</p>
                     <div className="mt-3 flex gap-2">
                       <Link
                         to="/get-involved"
-                        className="inline-flex items-center justify-center rounded-lg bg-[#0f678c] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#0c5b7d] transition"
+                        className="inline-flex items-center justify-center rounded-lg bg-[#073763] px-3 py-1.5 text-xs font-semibold text-[#FFF8EC] transition hover:bg-[#0A2F52]"
                       >
                         Book Service
                       </Link>
                       <Link
                         to="/donate"
-                        className="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/15 transition"
+                        className="inline-flex items-center justify-center rounded-lg border border-[#E8D9C4] bg-[#FFFDF8] px-3 py-1.5 text-xs font-semibold text-[#1D4F63] transition hover:bg-[#FFF4E0]"
                       >
                         Donate
                       </Link>
@@ -788,7 +797,7 @@ export default memo(function GhanshyamPage() {
             <div>
               <h2 className={sectionTitleClass}>Swaminarayan Service and Satsang Grid</h2>
             </div>
-            <div className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-white">
+            <div className="inline-flex items-center rounded-full border border-[#E8D9C4] bg-[#FFF4E0] px-4 py-1.5 text-sm font-bold text-[#1D4F63]">
               {totalFeatures}+ Active Service
             </div>
           </div>
@@ -797,12 +806,12 @@ export default memo(function GhanshyamPage() {
             {SWAMINARAYAN_FEATURE_GROUPS.map((group) => (
               <details
                 key={group.name}
-                className="group rounded-2xl border border-white/10 bg-[#156b86] p-4 shadow-sm transition hover:bg-[#1a7692]"
+                className="group rounded-[20px] border border-[#E8D9C4] bg-[#FFFDF8] p-4 shadow-[0_18px_42px_rgba(101,71,35,0.10)] transition hover:-translate-y-1 hover:bg-[#FFF4E0]"
               >
                 <summary className="list-none cursor-pointer">
                   <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-base font-black text-[var(--campaign-accent)] md:text-lg">{group.name}</h3>
-                    <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold text-white">
+                    <h3 className="text-base font-black text-[#C96F18] md:text-lg">{group.name}</h3>
+                    <span className="rounded-full border border-[#E8D9C4] bg-[#FFF4E0] px-3 py-1 text-xs font-semibold text-[#1D4F63]">
                       {group.items.length} Services
                     </span>
                   </div>
@@ -810,13 +819,13 @@ export default memo(function GhanshyamPage() {
                     {group.items.slice(0, 4).map((feature) => (
                       <span
                         key={feature}
-                        className="rounded-full border border-white/10 bg-white/10 px-2.5 py-1 text-xs text-[var(--campaign-text)]"
+                        className="rounded-full border border-[#E8D9C4] bg-[#FFF4E0] px-2.5 py-1 text-xs text-[#6F6255]"
                       >
                         {feature}
                       </span>
                     ))}
                     {group.items.length > 4 && (
-                      <span className="rounded-full border border-white/10 bg-white/10 px-2.5 py-1 text-xs text-[var(--campaign-text)]">
+                      <span className="rounded-full border border-[#E8D9C4] bg-[#FFF4E0] px-2.5 py-1 text-xs text-[#6F6255]">
                         +{group.items.length - 4} more
                       </span>
                     )}
@@ -825,7 +834,7 @@ export default memo(function GhanshyamPage() {
 
                 <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {group.items.map((feature) => (
-                    <div key={feature} className="rounded-lg border border-white/10 bg-white/10 px-3 py-2 text-sm text-white">
+                    <div key={feature} className="rounded-lg border border-[#E8D9C4] bg-[#FFF4E0] px-3 py-2 text-sm text-[#2B2118]">
                       {feature}
                     </div>
                   ))}
@@ -834,13 +843,13 @@ export default memo(function GhanshyamPage() {
                 <div className="mt-4 flex gap-2">
                   <Link
                     to="/get-involved"
-                    className="inline-flex items-center justify-center rounded-lg bg-[#0f678c] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#0c5b7d] transition"
+                    className="inline-flex items-center justify-center rounded-lg bg-[#073763] px-3 py-1.5 text-xs font-semibold text-[#FFF8EC] transition hover:bg-[#0A2F52]"
                   >
                     Join
                   </Link>
                   <Link
                     to="/donate"
-                    className="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/15 transition"
+                    className="inline-flex items-center justify-center rounded-lg border border-[#E8D9C4] bg-[#FFFDF8] px-3 py-1.5 text-xs font-semibold text-[#1D4F63] transition hover:bg-[#FFF4E0]"
                   >
                     Donate
                   </Link>

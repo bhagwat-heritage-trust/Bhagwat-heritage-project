@@ -86,9 +86,10 @@ const NAV_ITEMS: NavItemConfig[] = [
     id: "mandir",
     labelKey: "navbar.items.mandirTeerth",
     children: [
-      { id: "mandir-bhagwat-dham", labelKey: "navbar.items.bhagwatDham", href: ROUTES.mandirTeerth.bhagwatDham },
+      { id: "mandir-shree-hari", labelKey: "navbar.items.shreeHariMandir", href: ROUTES.mandirTeerth.shreeHariMandir },
       { id: "mandir-hanuman", labelKey: "navbar.items.hanuman", href: ROUTES.mandirTeerth.hanuman },
       { id: "mandir-pilgrimage", labelKey: "navbar.items.pilgrimage", href: ROUTES.mandirTeerth.pilgrimage },
+      { id: "mandir-bhagwat-dham", labelKey: "navbar.items.bhagwatDham", href: ROUTES.mandirTeerth.bhagwatDham },
     ],
   },
   {

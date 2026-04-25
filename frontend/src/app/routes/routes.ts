@@ -63,6 +63,7 @@ export const ROUTES = {
 
   mandirTeerth: {
     index: "/mandir-teerth",
+    shreeHariMandir: "/mandir-teerth/shree-hari-mandir",
     bhagwatDham: "/mandir-teerth/bhagwat-dham-project",
     mahamandir: "/mandir-teerth/mahamandir-architecture",
     avatars: "/mandir-teerth/24-avatars-installation",

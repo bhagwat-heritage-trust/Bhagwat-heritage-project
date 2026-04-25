@@ -249,6 +249,7 @@ export default function App() {
                   <Route path={ROUTES.knowledge.dailyQuotesToday} element={withInnerPageLayout(<KnowledgeTodayQuotePage />)} />
 
                   <Route path={ROUTES.mandirTeerth.index} element={withInnerPageLayout(<MandirTeerthHubPage />)} />
+                  <Route path={ROUTES.mandirTeerth.shreeHariMandir} element={withInnerPageLayout(<GhanshyamPage />)} />
                   <Route path={ROUTES.mandirTeerth.bhagwatDham} element={withInnerPageLayout(<GhanshyamPage />)} />
                   <Route path={ROUTES.mandirTeerth.mahamandir} element={withInnerPageLayout(<MahamandirPage />)} />
                   <Route path={ROUTES.mandirTeerth.avatars} element={withInnerPageLayout(<MandirAvatarsPage />)} />
