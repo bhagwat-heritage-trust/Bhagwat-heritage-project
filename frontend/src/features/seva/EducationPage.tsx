@@ -346,10 +346,14 @@ function GrowthIcon({ className = "h-7 w-7" }: IconProps) {
   );
 }
 
-function IconMark({ icon: Icon }: { icon: ComponentType<IconProps> }) {
+function IconMark({ icon: Icon, imageSrc, imageAlt }: { icon?: ComponentType<IconProps>; imageSrc?: string; imageAlt?: string }) {
   return (
-    <span className="inline-flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#FFF0DA] text-[#C46D1A]">
-      <Icon />
+    <span className="inline-flex h-[76px] w-[76px] items-center justify-center rounded-full border border-[#D5AA68] bg-[#FFF7E8] text-[#C46D1A] shadow-[0_8px_20px_rgba(111,78,25,0.12)]">
+      {imageSrc ? (
+        <img src={imageSrc} alt={imageAlt ?? ""} className="h-[66px] w-[66px] rounded-full object-contain" loading="lazy" />
+      ) : Icon ? (
+        <Icon />
+      ) : null}
     </span>
   );
 }
@@ -372,9 +376,9 @@ function HeroSection() {
         <img
           src={heroImage}
           alt="Education support banner with books and learning environment"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-center brightness-110 contrast-105 saturate-110"
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,246,220,0.24),rgba(255,229,166,0.20),rgba(255,255,255,0.10))]" />
         <div className="relative z-10 mx-auto flex min-h-[640px] max-w-6xl items-end justify-center px-6 py-16 text-center md:px-8 md:py-20">
           <div className="w-full max-w-4xl px-2 py-4 text-white md:px-6 md:py-6">
             <h1 className="text-4xl font-bold leading-tight text-[#f9e6a8] md:text-5xl">Education Seva</h1>
@@ -410,7 +414,9 @@ function QuickImpactSection() {
           {quickHighlights.map((item) => (
             <article key={item.title} className="flex min-h-[170px] flex-col items-center justify-center rounded-[22px] border border-[#E8D9BD] bg-white px-5 py-6 text-center transition hover:-translate-y-1 hover:shadow-[0_16px_34px_rgba(111,78,25,0.1)]">
               {item.image ? (
-                <img src={item.image} alt="" className="h-24 w-24 rounded-full object-contain" loading="lazy" aria-hidden="true" />
+                <span className="inline-flex h-[84px] w-[84px] items-center justify-center rounded-full border border-[#D5AA68] bg-[#FFF7E8] shadow-[0_8px_20px_rgba(111,78,25,0.12)]">
+                  <img src={item.image} alt="" className="h-[72px] w-[72px] rounded-full object-contain" loading="lazy" aria-hidden="true" />
+                </span>
               ) : (
                 <IconMark icon={item.icon} />
               )}
@@ -472,6 +478,176 @@ function ServicesSection() {
               </Link>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ScholarshipSupportProgramSection() {
+  const principleCards: Array<{ title: string; text: string; iconImage: string }> = [
+    {
+      title: "Merit with Responsibility",
+      text: "Encouraging sincere students to continue learning with discipline and commitment.",
+      iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_05_PM_kfuotm.png",
+    },
+    {
+      title: "Need-Based Continuity",
+      text: "Helping students whose education may be interrupted due to genuine financial need.",
+      iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_16_PM_y3jdht.png",
+    },
+    {
+      title: "Mentorship and Direction",
+      text: "Connecting educational support with guidance, motivation, and future direction.",
+      iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_26_PM_rnldhz.png",
+    },
+    {
+      title: "Values with Knowledge",
+      text: "Supporting education that strengthens both learning and character development.",
+      iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_35_PM_vpi1qj.png",
+    },
+  ];
+
+  const pathwayCards: Array<{ title: string; text: string; cta: string; iconImage: string }> = [
+    {
+      title: "School Level Support",
+      text: "Support for school-going students through fees, books, kits, and basic academic needs.",
+      cta: "Support School Education",
+      iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215187/ChatGPT_Image_Apr_26_2026_08_21_45_PM_-_Copy_jch5fp.png",
+    },
+    {
+      title: "Higher Education Support",
+      text: "Assistance for college or higher studies where continuity requires timely help.",
+      cta: "Support Higher Studies",
+      iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777228826/ChatGPT_Image_Apr_27_2026_12_08_01_AM_w3dmqh.png",
+    },
+    {
+      title: "Skill & Career Support",
+      text: "Guidance and support for skill learning, career direction, and growth-oriented education.",
+      cta: "Support Skill Learning",
+      iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777228826/ChatGPT_Image_Apr_27_2026_12_08_55_AM_h1qnwl.png",
+    },
+  ];
+
+  const sponsorshipCards = ["Study Material Support", "Annual Learning Support", "Full Scholarship Sponsorship"];
+  const processBadges = [
+    { label: "Identify", to: `${ROUTES.contact}?subject=identify-scholarship-needs` },
+    { label: "Assess", to: `${ROUTES.contact}?subject=scholarship-assessment` },
+    { label: "Support", to: `${ROUTES.donate}?cause=education-scholarship` },
+    { label: "Follow Up", to: `${ROUTES.contact}?subject=scholarship-follow-up` },
+  ];
+
+  return (
+    <section className="bg-[#FFFDF8] px-4 pb-16 md:px-8 md:pb-20" aria-labelledby="scholarship-support-program-heading">
+      <div className="mx-auto max-w-7xl rounded-[36px] border border-[#E7D6B8] bg-[linear-gradient(135deg,#FFF5E2_0%,#FFFDF8_55%,#F7E8C8_100%)] p-6 shadow-[0_22px_52px_rgba(111,78,25,0.10)] md:p-10">
+        <SectionHeader
+          eyebrow="SCHOLARSHIP SUPPORT"
+          title="Scholarship Support Program"
+          subtitle="Supporting students through need-based academic continuity, guidance, and responsible sponsorship."
+        />
+
+        <div className="mt-10 grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <article className="rounded-[28px] border border-[#E8D9BD] bg-white/85 p-6 shadow-[0_16px_36px_rgba(111,78,25,0.08)] md:p-8">
+            <h3 id="scholarship-support-program-heading" className={`${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>
+              Learning Should Continue with Dignity
+            </h3>
+            <p className={`mt-4 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
+              Scholarship Support is a focused initiative under Education Seva to help deserving students continue their studies when financial,
+              family, or resource limitations become obstacles. The aim is to support academic continuity while nurturing responsibility, discipline,
+              values, and confidence.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <Link to={`${ROUTES.donate}?cause=education-scholarship`} className={`${primaryButtonClass} w-full px-4 text-sm`}>
+                Sponsor a Student
+              </Link>
+              <Link to={`${ROUTES.donate}?cause=education`} className={`${secondaryButtonClass} w-full px-4 text-sm`}>
+                Contribute to Education
+              </Link>
+            </div>
+          </article>
+          <figure className="overflow-hidden rounded-[28px] border border-[#E8D9BD] bg-[#F4E7CB] shadow-[0_16px_36px_rgba(111,78,25,0.10)]">
+            <img
+              src="https://res.cloudinary.com/der8zinu8/image/upload/v1777215188/ChatGPT_Image_Apr_26_2026_08_20_44_PM_-_Copy_jmbkuj.png"
+              alt="Student studying with scholarship support in a warm learning environment"
+              className="h-[320px] w-full object-cover md:h-[380px]"
+              loading="lazy"
+            />
+          </figure>
+        </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {principleCards.map((item) => (
+            <article key={item.title} className="flex flex-col items-center rounded-[22px] border border-[#E8D9BD] bg-[#FFF9F0] p-5 text-center shadow-[0_12px_26px_rgba(111,78,25,0.08)]">
+              <IconMark imageSrc={item.iconImage} imageAlt={`${item.title} icon`} />
+              <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{item.title}</h3>
+              <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{item.text}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-12">
+          <h3 className={`${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>Scholarship Pathways</h3>
+          <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {pathwayCards.map((item) => (
+              <article key={item.title} className="flex h-full flex-col items-center rounded-[24px] border border-[#E8D9BD] bg-white p-6 text-center shadow-[0_14px_32px_rgba(111,78,25,0.08)]">
+                <IconMark imageSrc={item.iconImage} imageAlt={`${item.title} icon`} />
+                <h4 className={`mt-4 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{item.title}</h4>
+                <p className={`mt-3 flex-1 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{item.text}</p>
+                <Link to={`${ROUTES.donate}?cause=education-scholarship`} className={`${secondaryButtonClass} mt-6 w-full px-4 text-sm`}>
+                  {item.cta}
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 rounded-[28px] border border-[#DFC287] bg-[linear-gradient(135deg,#FFF0CF_0%,#FFF9ED_100%)] p-6 shadow-[0_16px_38px_rgba(111,78,25,0.10)] md:p-8">
+          <h3 className={`${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>Sponsor Education Continuity</h3>
+          <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
+            Support can be offered as one-time help, recurring learning support, or dedicated scholarship sponsorship according to the donor&apos;s
+            capacity and the student&apos;s need.
+          </p>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {sponsorshipCards.map((item) => (
+              <div key={item} className="rounded-2xl border border-[#E4CFA5] bg-white/90 px-4 py-3 text-sm font-black text-[#6B4518]">
+                {item}
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <Link to={`${ROUTES.donate}?cause=education-scholarship`} className={`${primaryButtonClass} w-full px-4 text-sm`}>
+              Sponsor a Student
+            </Link>
+            <Link to={`${ROUTES.contact}?subject=scholarship-support`} className={`${secondaryButtonClass} w-full px-4 text-sm`}>
+              Contact for Scholarship Support
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-8 rounded-[22px] border border-[#E8D9BD] bg-white/90 p-5">
+          <p className={`${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
+            Scholarship support follows the same guided seva process of identification, need assessment, responsible support delivery, and follow-up.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-center">
+            {processBadges.map((badge) => (
+              <Link
+                key={badge.label}
+                to={badge.to}
+                className="inline-flex items-center rounded-full border border-[#E0C28D] bg-[#FFF3D9] px-4 py-1.5 text-xs font-black uppercase tracking-[0.08em] text-[#8A5B16] transition hover:-translate-y-0.5 hover:bg-[#FFE8BE]"
+              >
+                {badge.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 text-center">
+          <p className={`${SEVA_BODY_TEXT_CLASS} mx-auto max-w-4xl text-[#5e5247]`}>
+            Every scholarship is not only financial help; it is a step toward confidence, continuity, and a brighter future.
+          </p>
+          <Link to={`${ROUTES.donate}?cause=education-scholarship`} className={`${primaryButtonClass} mt-6 px-8 text-sm`}>
+            Contribute to Scholarship Seva
+          </Link>
         </div>
       </div>
     </section>
@@ -633,6 +809,7 @@ export default memo(function EducationPage() {
       <QuickImpactSection />
       <AboutSection />
       <ServicesSection />
+      <ScholarshipSupportProgramSection />
       <ParticipateSection />
       <ProcessSection />
       <SponsorshipSection />

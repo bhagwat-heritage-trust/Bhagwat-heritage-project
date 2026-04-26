@@ -4653,18 +4653,18 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
       <section className={sectionClass}>
         <div className="grid grid-cols-1 gap-8 overflow-hidden rounded-[30px] border border-[#E7D6BE] bg-[#FFFCF7] shadow-[0_20px_48px_rgba(100,72,33,0.12)] lg:grid-cols-[1.05fr_0.95fr]">
           <img
-            src="https://res.cloudinary.com/der8zinu8/image/upload/v1777191430/ChatGPT_Image_Apr_26_2026_01_43_38_PM_cpi5u0.png"
+            src="https://res.cloudinary.com/der8zinu8/image/upload/v1777025579/ChatGPT_Image_Apr_24_2026_03_38_45_PM_om4yrp.png"
             alt="Volunteers serving during socio-cultural event"
             className="h-full min-h-[320px] w-full object-cover"
           />
           <div className="p-6 md:p-8">
             <p className={labelClass}>Volunteer & Participation</p>
             <span className="mt-3 inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-[#E4D2B5] bg-[#FFF1D8]">
-              <img
-                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png"
-                alt="Volunteer seva icon"
-                className="h-full w-full object-cover"
-                loading="lazy"
+                <img
+                  src="https://res.cloudinary.com/der8zinu8/image/upload/v1777191420/ChatGPT_Image_Apr_26_2026_01_44_18_PM_cu3nce.png"
+                  alt="Volunteer seva icon"
+                  className="h-full w-full object-cover"
+                  loading="lazy"
               />
             </span>
             <h2 className={`${headingClass} md:text-[36px]`}>Become a Part of Cultural Seva</h2>
