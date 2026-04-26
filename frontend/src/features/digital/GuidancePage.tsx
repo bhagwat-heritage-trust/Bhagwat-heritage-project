@@ -5,7 +5,6 @@ import { usePageMeta } from "../../hooks/usePageMeta";
 import {
   SEVA_BODY_TEXT_CLASS,
   SEVA_CARD_TITLE_CLASS,
-  SEVA_HERO_SUBTITLE_CLASS,
   SEVA_SECTION_HEADING_CLASS,
   SEVA_SECTION_LABEL_CLASS,
 } from "../seva/sevaTypography";
@@ -144,6 +143,7 @@ const trustSupports = [
 ] as const;
 
 const heroImageUrl = "https://res.cloudinary.com/der8zinu8/image/upload/v1777129184/ChatGPT_Image_Apr_25_2026_07_56_12_PM_z7t0wf.png";
+
 const authorityImages = [
   {
     src: "https://res.cloudinary.com/der8zinu8/image/upload/v1777139324/Guidance_About_txbdtm.png",
@@ -167,10 +167,12 @@ const cardClass =
 const eyebrowClass = `${SEVA_SECTION_LABEL_CLASS} text-[#B96A22]`;
 const headingClass = `${SEVA_SECTION_HEADING_CLASS} mt-2 leading-tight text-[#1D4F63]`;
 const bodyClass = `${SEVA_BODY_TEXT_CLASS} text-[#5E5247]`;
-const heroButtonClass =
-  "inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#D89B2B] px-7 text-base font-black text-white shadow-[0_14px_30px_rgba(177,112,24,0.22)] transition hover:-translate-y-0.5 hover:bg-[#B97916]";
+
+const heroPrimaryButtonClass =
+  "inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#D89B2B] px-8 text-base font-black text-white shadow-[0_14px_30px_rgba(177,112,24,0.22)] transition hover:-translate-y-0.5 hover:bg-[#B97916]";
 const heroSecondaryButtonClass =
-  "inline-flex min-h-[52px] items-center justify-center rounded-full border border-[#D89B2B] bg-white/85 px-7 text-base font-black text-[#8A5B16] shadow-[0_10px_24px_rgba(111,78,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#FFF4D6]";
+  "inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/70 bg-white/10 px-8 text-base font-black text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20";
+
 export default memo(function GuidancePage() {
   usePageMeta(
     "Divine Guidance & Spiritual Remedies | Bhagwat Heritage",
@@ -179,20 +181,21 @@ export default memo(function GuidancePage() {
 
   return (
     <main className="min-h-screen overflow-hidden text-[#2a2118]" style={pagePatternStyle}>
-      <section className="relative -mt-12 overflow-hidden rounded-b-[28px] bg-[#fff8f0] shadow-[0_28px_70px_rgba(7,55,99,0.22)]">
-        <img
-          src={heroImageUrl}
-          alt="Sant Shri Manish Bhaiji Maharaj seated in a calm spiritual guidance setting"
-          className="h-[420px] w-full object-cover object-center brightness-115 contrast-105 saturate-110 md:h-[620px]"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#102d37]/62 via-[#102d37]/22 to-transparent">
-          <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 sm:px-6 md:pb-12 lg:px-8">
-            <div className="mx-auto max-w-2xl text-center text-white">
-              <h1 className="text-4xl font-bold leading-tight text-[#f9e6a8] md:text-5xl">Spirirtual Guidance</h1>
-              <p className={`mt-4 ${SEVA_HERO_SUBTITLE_CLASS}`}>Simple guidance, Deep transformation</p>
-              <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-                <a href="#guidance-categories" className={heroButtonClass}>
+      <section className="relative -mx-6 -mt-12 overflow-hidden bg-[#fff8ef] pb-8 md:-mx-8">
+        <div className="inner-hero relative min-h-[640px] overflow-hidden rounded-b-[40px] bg-cover bg-center shadow-[0_18px_40px_rgba(23,12,5,0.14)]">
+          <img
+            src={heroImageUrl}
+            alt="Guidance hero banner"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="relative z-10 mx-auto flex min-h-[640px] max-w-6xl items-end justify-center px-6 py-16 text-center md:px-8 md:py-20">
+            <div className="w-full max-w-4xl px-2 py-4 text-white md:px-6 md:py-6">
+              <h1 className="text-4xl font-bold leading-tight text-[#f9e6a8] md:text-5xl">Spiritual Guidance</h1>
+              <p className="mt-5 text-[18px] font-semibold text-[#f7e0a0] sm:text-[24px] md:text-[34px]">Simple guidance, Deep transformation</p>
+              <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+                <a href="#guidance-categories" className={heroPrimaryButtonClass}>
                   Explore Guidance
                 </a>
                 <a href="#guidance-process" className={heroSecondaryButtonClass}>

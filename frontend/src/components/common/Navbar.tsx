@@ -137,7 +137,17 @@ function isPathActive(pathname: string, href?: string) {
   return Boolean(href && (pathname === href || pathname.startsWith(`${href}/`)));
 }
 
-const DropdownItem = memo(function DropdownItem({ item, t, pathname }: { item: NavItemConfig; t: TFunction; pathname: string }) {
+const DropdownItem = memo(function DropdownItem({
+  item,
+  t,
+  pathname,
+  overlayOnHero,
+}: {
+  item: NavItemConfig;
+  t: TFunction;
+  pathname: string;
+  overlayOnHero?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const active = item.children
     ? item.children.some((child) => isPathActive(pathname, child.href))
@@ -150,8 +160,12 @@ const DropdownItem = memo(function DropdownItem({ item, t, pathname }: { item: N
           to={item.href ?? ROUTES.home}
           className={`block whitespace-nowrap rounded-lg px-2.5 2xl:px-3 py-2 text-[13px] 2xl:text-[14px] font-semibold transition-colors ${
             active
-              ? "bg-[var(--color-surface-hover)] text-[var(--color-primary)]"
-              : "text-[var(--color-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-primary)]"
+              ? overlayOnHero
+                ? "bg-white/20 text-white"
+                : "bg-[var(--color-surface-hover)] text-[var(--color-primary)]"
+              : overlayOnHero
+                ? "text-white/90 hover:bg-white/15 hover:text-white"
+                : "text-[var(--color-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-primary)]"
           }`}
         >
           {t(item.labelKey)}
@@ -168,8 +182,12 @@ const DropdownItem = memo(function DropdownItem({ item, t, pathname }: { item: N
       <button
         className={`flex items-center gap-1 whitespace-nowrap rounded-lg px-2.5 2xl:px-3 py-2 text-[13px] 2xl:text-[14px] font-semibold transition-colors ${
           active
-            ? "bg-[var(--color-surface-hover)] text-[var(--color-primary)]"
-            : "text-[var(--color-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-primary)]"
+            ? overlayOnHero
+              ? "bg-white/20 text-white"
+              : "bg-[var(--color-surface-hover)] text-[var(--color-primary)]"
+            : overlayOnHero
+              ? "text-white/90 hover:bg-white/15 hover:text-white"
+              : "text-[var(--color-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-primary)]"
         }`}
       >
         {t(item.labelKey)}
@@ -205,7 +223,7 @@ const DropdownItem = memo(function DropdownItem({ item, t, pathname }: { item: N
   );
 });
 
-export const Navbar = memo(function Navbar() {
+export const Navbar = memo(function Navbar({ overlayOnHero = false }: { overlayOnHero?: boolean }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -225,7 +243,11 @@ export const Navbar = memo(function Navbar() {
         : ROUTES.dashboards.volunteer;
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 shadow-md backdrop-blur supports-[backdrop-filter]:bg-white/88">
+    <header
+      className={`sticky top-0 z-50 w-full ${
+        overlayOnHero ? "bg-transparent shadow-none supports-[backdrop-filter]:bg-transparent" : "bg-white/95 shadow-md backdrop-blur supports-[backdrop-filter]:bg-white/88"
+      }`}
+    >
       <div className="w-full max-w-[1920px] mx-auto px-4 lg:px-6 2xl:px-8 py-3 flex items-center justify-between xl:grid xl:grid-cols-[auto_1fr_auto] xl:items-center xl:gap-3">
         <Link
           to={ROUTES.home}
@@ -235,9 +257,9 @@ export const Navbar = memo(function Navbar() {
             <img src="/images/logo.jpg" alt={t("brand.logoAlt")} className="h-full w-full object-contain" />
           </div>
           <div className="min-w-0 leading-none">
-            <p className="text-[0.82rem] sm:text-[0.98rem] lg:text-[1.22rem] text-[var(--color-secondary)] font-extrabold leading-tight whitespace-normal">
+            <p className={`text-[0.82rem] sm:text-[0.98rem] lg:text-[1.22rem] font-extrabold leading-tight whitespace-normal ${overlayOnHero ? "text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.4)]" : "text-[var(--color-secondary)]"}`}>
               <span className="block">{t("brand.title")}</span>
-              <span className="block text-[12px] sm:text-[13px] lg:text-[14px] font-semibold text-[var(--color-text-soft)]">
+              <span className={`block text-[12px] sm:text-[13px] lg:text-[14px] font-semibold ${overlayOnHero ? "text-white/85" : "text-[var(--color-text-soft)]"}`}>
                 {t("brand.subtitle")}
               </span>
             </p>
@@ -247,7 +269,7 @@ export const Navbar = memo(function Navbar() {
         <nav className="hidden xl:flex xl:min-w-0 xl:justify-center">
           <ul className="flex items-center justify-center gap-0.5 2xl:gap-1">
             {NAV_ITEMS.map((item) => (
-              <DropdownItem key={item.id} item={item} t={t} pathname={pathname} />
+              <DropdownItem key={item.id} item={item} t={t} pathname={pathname} overlayOnHero={overlayOnHero} />
             ))}
           </ul>
         </nav>
@@ -270,18 +292,20 @@ export const Navbar = memo(function Navbar() {
               href={EXTERNAL_RAZORPAY_DONATE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary text-sm px-5 py-2.5 whitespace-nowrap"
+              className={`text-sm px-5 py-2.5 whitespace-nowrap rounded-md font-semibold transition-colors ${
+                overlayOnHero ? "bg-white/92 text-[#0D4254] hover:bg-white" : "btn-primary"
+              }`}
             >
               {t("navbar.donate")}
             </a>
           )}
-          <LanguageSwitcher compact />
+          <LanguageSwitcher compact className={overlayOnHero ? "text-white border-white/70 hover:bg-white/15" : undefined} />
         </div>
 
         <div className="xl:hidden ml-auto flex items-center gap-2">
-          <LanguageSwitcher compact className="px-2.5 py-1.3 text-xs" />
+          <LanguageSwitcher compact className={`px-2.5 py-1.3 text-xs ${overlayOnHero ? "text-white border-white/70 hover:bg-white/15" : ""}`} />
           <button
-            className="p-2 text-[var(--color-secondary)]"
+            className={`p-2 ${overlayOnHero ? "text-white" : "text-[var(--color-secondary)]"}`}
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-label={t("navbar.toggleMenu")}
           >

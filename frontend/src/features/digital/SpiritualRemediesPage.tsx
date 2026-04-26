@@ -101,29 +101,44 @@ export default memo(function SpiritualRemediesPage() {
 
   return (
     <main className="min-h-screen pb-12" style={pagePatternStyle}>
-      <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-0 md:px-6 md:pb-10 md:pt-0">
-        <section className="relative -mt-12 overflow-hidden rounded-b-[34px] border border-[#E5D2B0] shadow-[0_24px_60px_rgba(66,44,17,0.24)]">
-          <img src="/assets/images/guidance-hero.jpg" alt="Sant Shri Manish Bhaiji Maharaj in calm spiritual guidance setting" className="h-[430px] w-full object-cover md:h-[560px]" fetchPriority="high" />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(40,25,10,0.72),rgba(9,87,99,0.46),rgba(24,35,58,0.58))]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(255,213,140,0.26),transparent_40%)]" />
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center text-white">
-            <h1 className="text-4xl font-bold leading-tight text-[#f9e6a8] md:text-5xl">Divine Guidance &amp; Spiritual Remedies</h1>
-            <p className={`mt-4 max-w-3xl ${SEVA_HERO_SUBTITLE_CLASS}`}>
-              Receive authentic spiritual, astrological, and Vedic guidance under the divine blessings and direction of Sant Shri Manish Bhaiji Maharaj.
-            </p>
-            <p className="mt-4 max-w-3xl text-xs font-semibold uppercase tracking-[0.1em] text-[#F7D8A0] md:text-sm">
-              All guidance is offered through Bhagwat Heritage Service Foundation Trust following dharmic principles, spiritual discipline, and scriptural authenticity.
-            </p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a href="#consultation-form" className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#D89B2B] px-7 text-base font-black text-white shadow-[0_14px_30px_rgba(177,112,24,0.22)] transition hover:-translate-y-0.5 hover:bg-[#B97916]">
-                Seek Guidance
-              </a>
-              <a href="#consultation-form" className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-[#D89B2B] bg-white/85 px-7 text-base font-black text-[#8A5B16] shadow-[0_10px_24px_rgba(111,78,25,0.08)] transition hover:-translate-y-0.5 hover:bg-[#FFF4D6]">
-                Book Consultation
-              </a>
+      <div className="mx-auto max-w-[1180px] px-4 md:px-6">
+        <section className="relative overflow-hidden rounded-[0_0_36px_36px] border border-[#E5D2B0] shadow-[0_24px_56px_rgba(66,44,17,0.22)]">
+          <img
+            src="https://res.cloudinary.com/der8zinu8/image/upload/v1777185068/ChatGPT_Image_Apr_26_2026_12_00_27_PM_sg0ojp.png"
+            alt="Divine guidance and spiritual remedies hero background"
+            className="h-[80vh] min-h-[560px] w-full object-cover object-center md:h-[84vh] md:min-h-[700px]"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0.76)_0%,rgba(19,31,45,0.62)_38%,rgba(21,33,44,0.50)_58%,rgba(25,25,25,0.58)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_26%,rgba(255,206,108,0.20),transparent_38%)]" />
+          <div className="absolute inset-0 z-10 flex flex-col justify-between p-6 sm:p-8 lg:p-10">
+            <div className="max-w-md text-left text-[#E5BC68]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.26em] sm:text-xs">Divine Guidance</p>
+              <div className="mt-2 h-[1px] w-40 bg-[#D3A352]/80" />
+            </div>
+            <div className="mx-auto flex w-full max-w-4xl flex-col items-center text-center text-white">
+              <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">Divine Guidance</h1>
+              <p className="mt-2 text-4xl font-semibold leading-tight text-[#F7D47D] sm:text-5xl md:text-6xl">Spiritual Remedies</p>
+              <p className={`mt-4 max-w-3xl ${SEVA_HERO_SUBTITLE_CLASS}`}>
+                Receive authentic spiritual, astrological, and Vedic guidance under the divine blessings and direction of Sant Shri Manish Bhaiji Maharaj.
+              </p>
+              <p className="mt-3 max-w-3xl text-[11px] font-semibold uppercase tracking-[0.12em] text-[#FFE0A7] sm:text-xs md:text-sm">
+                All guidance is offered through Bhagwat Heritage Service Foundation Trust following dharmic principles, spiritual discipline, and scriptural authenticity.
+              </p>
+              <div className="mt-7 flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row">
+                <a href="#consultation-form" className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#D89B2B] px-8 text-base font-black text-white shadow-[0_14px_30px_rgba(177,112,24,0.22)] transition hover:-translate-y-0.5 hover:bg-[#B97916]">
+                  Seek Guidance
+                </a>
+                <a href="#consultation-form" className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/55 bg-black/20 px-8 text-base font-black text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-black/30">
+                  Book Consultation
+                </a>
+              </div>
             </div>
           </div>
         </section>
+      </div>
+
+      <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-10 md:px-6 md:pb-10 md:pt-12">
 
         <section className={`${sectionShell} mt-10`}>
           <div className="mt-1 grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">

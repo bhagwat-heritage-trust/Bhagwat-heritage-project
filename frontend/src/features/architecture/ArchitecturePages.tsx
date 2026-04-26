@@ -7,6 +7,7 @@ import { Card } from "../../components/ui/Card";
 import { usePageMeta } from "../../hooks/usePageMeta";
 import { ROUTES } from "../../app/routes/routes";
 import { quotesApi } from "../../services/api/quotes";
+import { eventInvitationsApi } from "../../services/api/eventInvitations";
 import { BhagwatKathaMahotsavPremiumPage } from "../events/BhagwatKathaMahotsavPremiumPage";
 import FestivalsCelebrationsPremiumPage from "../events/FestivalsCelebrationsPremiumPage";
 import { MISSION_BODY_TEXT_CLASS, MISSION_SECTION_HEADING_CLASS, MISSION_SECTION_LABEL_CLASS } from "../mission/missionTypography";
@@ -4222,74 +4223,633 @@ export const EventsYouthProgramsPage = memo(function EventsYouthProgramsPage() {
 });
 
 export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEventsPage() {
-  const formats = [
-    { title: "Cultural Satsang Evenings", focus: "Bhajan, kirtan, storytelling, and values-based community gathering" },
-    { title: "Art & Expression Showcases", focus: "Drama, music, presentations, and youth-led cultural performances" },
-    { title: "Community Celebrations", focus: "Festival-linked programs that bring families together with discipline and joy" },
-    { title: "Seva + Culture Initiatives", focus: "Service-aligned events that connect culture with compassion and responsibility" },
+  const sectionClass = "mx-auto w-full max-w-[1180px] px-4 py-12 sm:px-6 md:py-16";
+  const labelClass = "text-xs font-black uppercase tracking-[0.18em] text-[#C4741F] sm:text-sm";
+  const headingClass = "mt-2 text-[30px] font-black leading-tight text-[#1E4A5E] md:text-[40px]";
+  const bodyClass = "text-base leading-8 text-[#5F5142]";
+  const cardClass =
+    "rounded-[28px] border border-[#EADCC8] bg-[#FFFCF6] p-6 shadow-[0_18px_42px_rgba(90,62,26,0.10)] md:p-7";
+  const inputClass =
+    "w-full rounded-xl border border-[#E2D2B9] bg-[#FFFDF8] px-3.5 py-2.5 text-sm text-[#2B2118] outline-none transition placeholder:text-[#9A8569] focus:border-[#C4741F] focus:ring-4 focus:ring-[#F3C269]/25";
+
+  const corePurposeCards = [
+    {
+      title: "Cultural Preservation",
+      icon: "/assets/icons/socio-cultural/icon-cultural-preservation.svg",
+      text: "Protecting Indian traditions, rituals, festivals, values, scriptures, arts, and family-based cultural practices.",
+    },
+    {
+      title: "Social Harmony",
+      icon: "/assets/icons/socio-cultural/icon-social-harmony.svg",
+      text: "Bringing together different communities, castes, sects, organizations, and families under shared cultural values.",
+    },
+    {
+      title: "Youth & Family Development",
+      icon: "/assets/icons/socio-cultural/icon-youth-family-development.svg",
+      text: "Inspiring youth, strengthening families, and creating a sanskar-based foundation for the next generation.",
+    },
+    {
+      title: "Divine Society Building",
+      icon: "/assets/icons/socio-cultural/icon-divine-society.svg",
+      text: "Creating a disciplined, devotional, responsible, and spiritually awakened society through culture and seva.",
+    },
   ];
 
+  const eventStreams = [
+    {
+      title: "Matru-Pitru Pujan & Family Value Events",
+      image: "/assets/images/events/socio-cultural/matru-pitru-pujan-event.jpg",
+      icon: "/assets/icons/socio-cultural/icon-matru-pitru-pujan.svg",
+      text: "Restoring respect, gratitude, and devotion toward parents through emotional, spiritual, and family-centered programs.",
+    },
+    {
+      title: "Youth Sanskar & Leadership Programs",
+      image: "/assets/images/events/socio-cultural/youth-seminar.jpg",
+      icon: "/assets/icons/socio-cultural/icon-youth-seminar.svg",
+      text: "Guidance sessions for students and youth on discipline, values, leadership, dharma, and purposeful living.",
+    },
+    {
+      title: "Hindu Sammelan & Cultural Gatherings",
+      image: "/assets/images/events/socio-cultural/hindu-sammelan.jpg",
+      icon: "/assets/icons/socio-cultural/icon-hindu-sammelan.svg",
+      text: "Grand public platforms for cultural awakening, national devotion, unity, and Sanatan values.",
+    },
+    {
+      title: "Festivals & Traditional Celebrations",
+      image: "/assets/images/events/socio-cultural/festival-celebration.jpg",
+      icon: "/assets/icons/socio-cultural/icon-festival-celebration.svg",
+      text: "Celebrating Indian festivals with devotion, meaning, community participation, and cultural education.",
+    },
+    {
+      title: "Seminars & Workshops",
+      image: "/assets/images/events/socio-cultural/corporate-workshop.jpg",
+      icon: "/assets/icons/socio-cultural/icon-workshop.svg",
+      text: "Programs in schools, colleges, corporate sectors, and communities for betterment of life, values, ethics, and inner development.",
+    },
+    {
+      title: "Personal Family Blessing Events",
+      image: "/assets/images/events/socio-cultural/family-blessing-event.jpg",
+      icon: "/assets/icons/socio-cultural/icon-family-blessing.svg",
+      text: "Spiritual presence and blessings for family functions, community gatherings, and meaningful life occasions.",
+    },
+  ];
+
+  const invitationFormats = [
+    "Socio-Cultural Programs",
+    "Hindu Sammelans",
+    "Youth Seminars",
+    "School and College Programs",
+    "Corporate Spiritual Sessions",
+    "Family and Community Events",
+    "International Cultural Events",
+    "Joint Programs with Sansthas and Trusts",
+  ];
+
+  const eventJourney = [
+    { title: "Spiritual Opening", text: "Deep Prajwalan, Mangalacharan, prayer, and devotional beginning." },
+    { title: "Cultural Presentation", text: "Music, dance, drama, youth performance, and cultural expression." },
+    { title: "Guidance & Pravachan", text: "Inspirational guidance by Sant Shri Manish Bhaiji Maharaj or appointed speakers." },
+    { title: "Collective Sankalp", text: "Value-based resolution for family, society, culture, and nation." },
+    { title: "Seva & Participation", text: "Volunteer involvement, coordination, discipline, prasad, and hospitality." },
+    { title: "Blessings & Conclusion", text: "Aarti, blessings, prasad, and spiritual completion." },
+  ];
+
+  const impactPoints = [
+    "Strengthens family values",
+    "Inspires youth consciousness",
+    "Connects communities and institutions",
+    "Promotes cultural pride",
+    "Encourages devotion toward nation and dharma",
+    "Builds a sanskar-based future generation",
+    "Expands Bhagwat Heritage globally",
+  ];
+
+  const galleryItems = [
+    { image: "/assets/images/events/socio-cultural/cultural-family-gathering.jpg", label: "Cultural Family Gathering" },
+    { image: "/assets/images/events/socio-cultural/matru-pitru-pujan-event.jpg", label: "Matru-Pitru Pujan" },
+    { image: "/assets/images/events/socio-cultural/youth-seminar.jpg", label: "Youth Seminar" },
+    { image: "/assets/images/events/socio-cultural/hindu-sammelan.jpg", label: "Hindu Sammelan" },
+    { image: "/assets/images/events/socio-cultural/festival-celebration.jpg", label: "Festival Celebration" },
+    { image: "/assets/images/events/socio-cultural/volunteer-seva-event.jpg", label: "Volunteer Seva" },
+  ];
+
+  const faqItems = [
+    {
+      q: "Can we invite Sant Shri Manish Bhaiji Maharaj for our event?",
+      a: "Yes. Organizers, institutions, communities, and families can submit an invitation request through the official event proposal system.",
+    },
+    {
+      q: "Can Bhagwat Heritage jointly organize socio-cultural events?",
+      a: "Yes. Bhagwat Heritage welcomes meaningful collaborations for cultural, spiritual, educational, social, and family-value-based programs.",
+    },
+    {
+      q: "Are school, college, and corporate seminars possible?",
+      a: "Yes. Seminars and workshops can be organized for students, youth, professionals, and communities on values, life betterment, leadership, ethics, and spiritual clarity.",
+    },
+    {
+      q: "Are international events possible?",
+      a: "Yes. Global collaborations are part of the long-term vision to carry Indian culture and Bhagwat Heritage to the world.",
+    },
+    {
+      q: "What types of events are supported?",
+      a: "Socio-cultural events, Hindu Sammelans, family programs, youth seminars, institutional workshops, festival celebrations, and community gatherings.",
+    },
+  ];
+
+  const [activeFaq, setActiveFaq] = useState<number | null>(0);
+  const [isInviteOpen, setIsInviteOpen] = useState(false);
+  const [isSubmittingInvite, setIsSubmittingInvite] = useState(false);
+  const [inviteNotice, setInviteNotice] = useState("");
+  const [inviteAttachment, setInviteAttachment] = useState<File | null>(null);
+  const [inviteForm, setInviteForm] = useState({
+    fullName: "",
+    organizationName: "",
+    phone: "",
+    email: "",
+    country: "",
+    state: "",
+    city: "",
+    eventType: "Socio-Cultural Event",
+    proposedDate: "",
+    audienceSize: "",
+    venueAddress: "",
+    invitationPurpose: "",
+    requiredSupport: "Maharaj Ji Presence",
+    message: "",
+    consent: false,
+  });
+
+  const openInviteModal = () => {
+    setInviteNotice("");
+    setIsInviteOpen(true);
+  };
+
+  const resetInviteForm = () => {
+    setInviteForm({
+      fullName: "",
+      organizationName: "",
+      phone: "",
+      email: "",
+      country: "",
+      state: "",
+      city: "",
+      eventType: "Socio-Cultural Event",
+      proposedDate: "",
+      audienceSize: "",
+      venueAddress: "",
+      invitationPurpose: "",
+      requiredSupport: "Maharaj Ji Presence",
+      message: "",
+      consent: false,
+    });
+    setInviteAttachment(null);
+  };
+
+  const handleInviteFieldChange = (field: keyof typeof inviteForm, value: string | boolean) => {
+    setInviteForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleInviteSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!inviteForm.consent) {
+      setInviteNotice("Please accept the consent before submitting your request.");
+      return;
+    }
+
+    setIsSubmittingInvite(true);
+    setInviteNotice("");
+
+    try {
+      const payload = new FormData();
+      payload.append("fullName", inviteForm.fullName);
+      payload.append("organizationName", inviteForm.organizationName);
+      payload.append("phone", inviteForm.phone);
+      payload.append("email", inviteForm.email);
+      payload.append("country", inviteForm.country);
+      payload.append("state", inviteForm.state);
+      payload.append("city", inviteForm.city);
+      payload.append("eventType", inviteForm.eventType);
+      payload.append("proposedDate", inviteForm.proposedDate);
+      payload.append("audienceSize", inviteForm.audienceSize);
+      payload.append("venueAddress", inviteForm.venueAddress);
+      payload.append("invitationPurpose", inviteForm.invitationPurpose);
+      payload.append("requiredSupport", inviteForm.requiredSupport);
+      payload.append("message", inviteForm.message);
+      payload.append("consent", String(inviteForm.consent));
+      payload.append("status", "Pending");
+      if (inviteAttachment) {
+        payload.append("attachment", inviteAttachment);
+      }
+
+      await eventInvitationsApi.create(payload);
+      setInviteNotice("Thank you for submitting your invitation request. Our Bhagwat Heritage team will review your proposal and contact you shortly.");
+      resetInviteForm();
+    } catch {
+      setInviteNotice("Submission endpoint is not available right now. Please try again shortly.");
+    } finally {
+      setIsSubmittingInvite(false);
+    }
+  };
+
+  usePageMeta(
+    "Socio-Cultural Events | Bhagwat Heritage",
+    "Invite Bhagwat Heritage and Sant Shri Manish Bhaiji Maharaj for socio-cultural events, seminars, Hindu Sammelans, family programs, and cultural collaborations across India and the world.",
+  );
+
   return (
-    <EventShowcasePage
-      title="Socio-Cultural Events"
-      subtitle="Celebrating culture, community, and values"
-      backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1772913533/festival_axzy0v.jpg"
-      metaDescription="Socio-cultural events that unite families through dharmic culture, arts, and community seva."
-      aboutTitle="About Socio-Cultural Events"
-      aboutParagraphs={[]}
-      highlights={[
-        { title: "Family Participation", value: "High", note: "Programs designed for children, youth, and elders together" },
-        { title: "Cultural Formats", value: "10+", note: "Bhajan, drama, talks, exhibitions, and festival-linked events" },
-        { title: "Volunteer Support", value: "Available", note: "On-ground coordination for discipline and hospitality" },
-        { title: "Community Impact", value: "Growing", note: "Culture + seva programs that strengthen values and harmony" },
-      ]}
-      features={[
-        { title: "Cultural Continuity", desc: "Events designed to keep dharmic culture alive through music, stories, and celebration." },
-        { title: "Community Bonding", desc: "Inclusive formats that bring families together with positivity and shared purpose." },
-        { title: "Values in Practice", desc: "Seva-linked programming so culture translates into responsibility and compassion." },
-      ]}
-      supportTracks={[
-        "Stage and sound arrangement support",
-        "Volunteer discipline and crowd guidance",
-        "Hospitality, prasad, and logistics coordination",
-        "Cultural showcase planning and rehearsals",
-      ]}
-      donationTiers={[
-        { label: "Program Support", amount: "Rs 1,100", note: "Help support one socio-cultural program setup" },
-        { label: "Event Sponsor", amount: "Rs 9,900", note: "Sponsor logistics, stage, and hospitality support" },
-        { label: "Annual Cultural Partner", amount: "Rs 31,000", note: "Support recurring culture + seva initiatives across the year" },
-      ]}
-      primaryCta="Support Cultural Events"
-      secondaryCta="Volunteer for Events"
-      gauSevaStyle
-      hideHighlightValues
-      testimonials={[
-        { name: "Community Volunteer", quote: "Culture feels complete when it is organized with discipline and heartfelt seva." },
-        { name: "Family Participant", quote: "These events connect our children to values in a way they enjoy and remember." },
-        { name: "Youth Performer", quote: "Performing for a devotional community builds confidence and a sense of purpose." },
-      ]}
-      faqs={[
-        { q: "Are socio-cultural events only during festivals?", a: "No. Many programs run year-round through satsang evenings, showcases, and community formats." },
-        { q: "Can I sponsor a cultural program?", a: "Yes. Sponsorship can support logistics, stage arrangements, hospitality, and volunteer coordination." },
-        { q: "Can youth participate in performances and seva?", a: "Yes. Youth are encouraged to participate through cultural expression and service roles." },
-      ]}
-      extraSection={
-        <section className="max-w-7xl mx-auto px-4 py-10">
-          <div className={EVENT_SEVA_SECTION_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Event Formats</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Ways to experience culture with community and seva</h2>
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
-              {formats.map((format) => (
-                <div key={format.title} className={EVENT_SEVA_DETAIL_CARD_CLASS}>
-                  <h3 className={SEVA_CARD_TITLE_CLASS}>{format.title}</h3>
-                  <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{format.focus}</p>
+    <div className="-mx-6 -my-12 min-h-screen overflow-hidden bg-[#FFF9EE] text-[#2B2118]">
+      <section className="relative isolate h-[74vh] min-h-[560px] w-full overflow-hidden">
+        <img
+          src="/assets/images/events/socio-cultural/socio-cultural-hero.jpg"
+          alt="Socio-cultural gathering led by Bhagwat Heritage Service Foundation Trust"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(125deg,rgba(39,24,8,0.85),rgba(118,76,21,0.62),rgba(11,67,78,0.60))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(255,214,141,0.25),transparent_38%)]" />
+        <div className="absolute inset-0 z-10 mx-auto flex max-w-5xl flex-col items-center justify-center px-4 text-center text-white sm:px-6">
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#FFDCA1]">Socio-Cultural Events</p>
+          <h1 className="mt-3 text-4xl font-black leading-tight sm:text-5xl md:text-6xl">Socio-Cultural Events</h1>
+          <p className="mt-2 text-xl font-semibold text-[#FFEAC4] sm:text-2xl md:text-3xl">सामाजिक एवं सांस्कृतिक आयोजन</p>
+          <p className="mt-5 max-w-4xl text-base leading-8 text-[#FFF2DE] sm:text-lg">
+            Preserving Bhagwat Heritage, strengthening cultural roots, and building a value-driven divine society for future generations.
+          </p>
+          <p className="mt-3 max-w-4xl text-sm font-semibold uppercase tracking-[0.08em] text-[#FFE2AA] sm:text-base">
+            A living movement of culture, unity, sanskar, and spiritual awakening across India and the world.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <button type="button" onClick={openInviteModal} className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#E5A13A] px-7 text-sm font-black text-[#2A1B0B] shadow-[0_16px_34px_rgba(122,77,20,0.30)] transition hover:bg-[#CF8B26]">
+              Invite Maharaj Ji
+            </button>
+            <a href="#event-streams" className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-[#F4D29B] bg-white/15 px-7 text-sm font-black text-white backdrop-blur-sm transition hover:bg-white/25">
+              Explore Events
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className={`${cardClass} relative overflow-hidden`}>
+          <div className="pointer-events-none absolute right-0 top-0 h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(225,180,95,0.22),transparent_72%)]" />
+          <p className={labelClass}>Foundation Vision</p>
+          <h2 className={headingClass}>A Living Heritage, A Global Mission</h2>
+          <p className={`${bodyClass} mt-5`}>
+            Bhagwat Heritage Service Foundation Trust represents Indian culture in its living form. The mission is not only to preserve traditions, but to serve, strengthen, and carry forward the foundation of this heritage culture for future generations.
+          </p>
+          <p className={`${bodyClass} mt-4`}>
+            Through socio-cultural events, seminars, workshops, community gatherings, family programs, and spiritual guidance, the Sanstha works to develop a divine, disciplined, value-based, and culturally awakened society.
+          </p>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.05fr] lg:items-center">
+          <figure className="overflow-hidden rounded-[28px] border border-[#E8D8C3] shadow-[0_20px_46px_rgba(94,67,31,0.18)]">
+            <img
+              src="/assets/images/events/socio-cultural/leadership-guidance.jpg"
+              alt="Sant Shri Manish Bhaiji Maharaj guiding socio-cultural mission"
+              className="h-full w-full object-cover"
+            />
+          </figure>
+          <div className={cardClass}>
+            <p className={labelClass}>Spiritual Leadership</p>
+            <h2 className={headingClass}>Guidance of Sant Shri Manish Bhaiji Maharaj</h2>
+            <p className={`${bodyClass} mt-4`}>
+              Sant Shri Manish Bhaiji Maharaj, as Bhagwat Manishi, is the motivating force behind this great cultural mission. His guidance inspires families, communities, institutions, youth, and organizations to reconnect with Indian values, dharma, devotion, and social harmony.
+            </p>
+            <p className={`${bodyClass} mt-4`}>
+              He actively guides and attends various socio-cultural events as a spiritual margadarshak, blessing presence, keynote speaker, and cultural unifier.
+            </p>
+            <ul className="mt-5 grid grid-cols-1 gap-2 text-sm font-semibold text-[#4F4234] sm:grid-cols-2">
+              {[
+                "Bhagwat Manishi and spiritual guide",
+                "Head Margadarshak for many Sansthas and initiatives",
+                "Speaker for Hindu Sammelans and cultural platforms",
+                "Guide for schools, colleges, corporate sectors, and community seminars",
+                "Blessing presence in family and social events",
+                "Unifier of communities, castes, sects, and institutions",
+              ].map((point) => (
+                <li key={point} className="rounded-xl border border-[#E8D9C3] bg-[#FFF6E8] px-3 py-2">
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <p className={labelClass}>Core Purpose</p>
+        <h2 className={headingClass}>Divine Objectives of Socio-Cultural Events</h2>
+        <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {corePurposeCards.map((item) => (
+            <article key={item.title} className={cardClass}>
+              <img src={item.icon} alt={`${item.title} icon`} className="h-12 w-12 rounded-full border border-[#E6D5B7] bg-[#FFF1D6] p-2" loading="lazy" />
+              <h3 className="mt-4 text-xl font-black text-[#1F4F63]">{item.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-[#635442]">{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="event-streams" className={sectionClass}>
+        <p className={labelClass}>Event Categories</p>
+        <h2 className={headingClass}>Our Socio-Cultural Event Streams</h2>
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {eventStreams.map((event) => (
+            <article key={event.title} className="overflow-hidden rounded-[26px] border border-[#E8D7C0] bg-[#FFFCF7] shadow-[0_18px_42px_rgba(91,64,28,0.10)]">
+              <img src={event.image} alt={`${event.title} by Bhagwat Heritage`} className="h-52 w-full object-cover" loading="lazy" />
+              <div className="p-5">
+                <div className="flex items-center gap-3">
+                  <img src={event.icon} alt={`${event.title} icon`} className="h-9 w-9" loading="lazy" />
+                  <h3 className="text-lg font-black text-[#1F4F63]">{event.title}</h3>
+                </div>
+                <p className="mt-3 text-sm leading-7 text-[#61513F]">{event.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className="grid grid-cols-1 gap-8 overflow-hidden rounded-[30px] border border-[#E6D5B8] bg-[#FFFDF8] shadow-[0_20px_48px_rgba(102,73,33,0.12)] lg:grid-cols-[0.95fr_1.05fr]">
+          <img
+            src="/assets/images/events/socio-cultural/invitation-collaboration.jpg"
+            alt="Invitation and collaboration for socio-cultural event"
+            className="h-full min-h-[320px] w-full object-cover"
+          />
+          <div className="p-6 md:p-8">
+            <p className={labelClass}>Invitation & Collaboration System</p>
+            <img src="/assets/icons/socio-cultural/icon-invitation-collaboration.svg" alt="Invitation collaboration icon" className="mt-3 h-12 w-12 rounded-full border border-[#E4D3B5] bg-[#FFF1D7] p-2" loading="lazy" />
+            <h2 className={`${headingClass} md:text-[36px]`}>Invite for Joint Socio-Cultural Events</h2>
+            <p className="mt-2 text-lg font-bold text-[#295E72]">Organize Divine Events with Guidance, Blessings, and Cultural Direction</p>
+            <p className={`${bodyClass} mt-4`}>
+              Bhagwat Heritage Service Foundation Trust welcomes institutions, organizers, communities, schools, colleges, corporate groups, social bodies, and families to invite the Sanstha for joint socio-cultural events, seminars, workshops, and value-based programs.
+            </p>
+            <p className={`${bodyClass} mt-4`}>
+              Through this system, organizers can invite Sant Shri Manish Bhaiji Maharaj for guidance, blessings, keynote address, spiritual direction, and cultural inspiration.
+            </p>
+            <p className={`${bodyClass} mt-4`}>
+              This initiative is designed to expand meaningful events across India and internationally, so that Bhagwat Heritage can contribute to the upliftment of Indian culture, family values, youth development, national devotion, and social harmony.
+            </p>
+            <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {invitationFormats.map((format) => (
+                <div key={format} className="rounded-xl border border-[#E8DAC3] bg-[#FFF5E6] px-3 py-2 text-sm font-semibold text-[#5E4630]">
+                  {format}
                 </div>
               ))}
             </div>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <button type="button" onClick={openInviteModal} className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#E19B35] px-6 text-sm font-black text-[#2B1C0A] transition hover:bg-[#C9831E]">
+                Invite Maharaj Ji
+              </button>
+              <button type="button" onClick={openInviteModal} className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#D29A49] bg-white px-6 text-sm font-black text-[#7C4D12] transition hover:bg-[#FFF1D8]">
+                Submit Event Proposal
+              </button>
+            </div>
           </div>
-        </section>
-      }
-    />
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <p className={labelClass}>Event Experience Journey</p>
+        <h2 className={headingClass}>How a Socio-Cultural Event Becomes a Divine Experience</h2>
+        <figure className="mt-6 overflow-hidden rounded-[24px] border border-[#E7D8C3] shadow-[0_16px_36px_rgba(93,64,26,0.14)]">
+          <img
+            src="/assets/images/events/socio-cultural/event-journey.jpg"
+            alt="Spiritual and cultural event journey steps in one experience"
+            className="h-56 w-full object-cover md:h-72"
+            loading="lazy"
+          />
+        </figure>
+        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {eventJourney.map((step, index) => (
+            <article key={step.title} className={cardClass}>
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#0F6A79] text-sm font-black text-white">{index + 1}</div>
+              <h3 className="mt-3 text-xl font-black text-[#1F4F63]">{step.title}</h3>
+              <p className="mt-2 text-sm leading-7 text-[#5D4E3C]">{step.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className="rounded-[30px] border border-[#175B68]/20 bg-[linear-gradient(135deg,#0D5161_0%,#154A5C_60%,#9B6A26_100%)] p-6 text-[#FFF4DF] shadow-[0_22px_56px_rgba(23,71,82,0.28)] md:p-9">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-[#FFDFA5] sm:text-sm">Featured Impact</p>
+          <img src="/assets/icons/socio-cultural/icon-global-outreach.svg" alt="Global outreach icon" className="mt-3 h-12 w-12 rounded-full border border-white/30 bg-white/10 p-2" loading="lazy" />
+          <h2 className="mt-2 text-3xl font-black leading-tight md:text-[40px]">A Movement of Cultural Awakening</h2>
+          <p className="mt-4 text-base leading-8 text-[#F7E8CB]">
+            These events are not ordinary programs. They are living platforms for cultural revival, family bonding, spiritual discipline, and social unity.
+          </p>
+          <div className="mt-6 grid grid-cols-1 gap-2 text-sm font-semibold sm:grid-cols-2 lg:grid-cols-3">
+            {impactPoints.map((point) => (
+              <div key={point} className="rounded-xl border border-white/20 bg-white/10 px-3 py-2">
+                {point}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <p className={labelClass}>Gallery Preview</p>
+        <h2 className={headingClass}>Moments of Living Culture</h2>
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {galleryItems.map((item) => (
+            <figure key={item.label} className="group relative overflow-hidden rounded-[22px] border border-[#E7D8C0]">
+              <img src={item.image} alt={`${item.label} socio-cultural event`} className="h-56 w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.72),transparent)] px-4 py-4 text-sm font-bold text-[#FFF3DD]">
+                {item.label}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <div className="grid grid-cols-1 gap-8 overflow-hidden rounded-[30px] border border-[#E7D6BE] bg-[#FFFCF7] shadow-[0_20px_48px_rgba(100,72,33,0.12)] lg:grid-cols-[1.05fr_0.95fr]">
+          <img
+            src="/assets/images/events/socio-cultural/volunteer-seva-event.jpg"
+            alt="Volunteers serving during socio-cultural event"
+            className="h-full min-h-[320px] w-full object-cover"
+          />
+          <div className="p-6 md:p-8">
+            <p className={labelClass}>Volunteer & Participation</p>
+            <img src="/assets/icons/socio-cultural/icon-volunteer-seva.svg" alt="Volunteer seva icon" className="mt-3 h-12 w-12 rounded-full border border-[#E4D2B5] bg-[#FFF1D8] p-2" loading="lazy" />
+            <h2 className={`${headingClass} md:text-[36px]`}>Become a Part of Cultural Seva</h2>
+            <p className={`${bodyClass} mt-4`}>
+              Every divine event is made successful through dedicated seva. Volunteers can support planning, coordination, discipline, decoration, registration, media, hospitality, prasad distribution, family assistance, and youth engagement.
+            </p>
+            <Link to={ROUTES.involved.volunteer} className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#0F6F7A] px-6 text-sm font-black text-white transition hover:bg-[#0B5B64]">
+              Register as Volunteer
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className={sectionClass}>
+        <p className={labelClass}>Frequently Asked Questions</p>
+        <h2 className={headingClass}>Clarifications for Organizers and Institutions</h2>
+        <div className="mt-7 space-y-3">
+          {faqItems.map((faq, index) => {
+            const isOpen = activeFaq === index;
+            return (
+              <article key={faq.q} className="overflow-hidden rounded-2xl border border-[#E7D7C2] bg-[#FFFCF7] shadow-[0_10px_24px_rgba(99,71,34,0.08)]">
+                <button
+                  type="button"
+                  onClick={() => setActiveFaq((current) => (current === index ? null : index))}
+                  className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left"
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-base font-black text-[#204F63]">{faq.q}</span>
+                  <span className="text-lg font-black text-[#B06C20]">{isOpen ? "−" : "+"}</span>
+                </button>
+                {isOpen ? <div className="border-t border-[#EDE0CB] px-5 py-4 text-sm leading-7 text-[#5B4B3A]">{faq.a}</div> : null}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className={`${sectionClass} pt-2`}>
+        <div className="relative overflow-hidden rounded-[30px] border border-[#DBB982] shadow-[0_26px_58px_rgba(101,68,25,0.25)]">
+          <img
+            src="/assets/images/events/socio-cultural/socio-cultural-cta-banner.jpg"
+            alt="Invitation to expand culture and inspire generations"
+            className="h-[360px] w-full object-cover md:h-[420px]"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(31,20,8,0.80),rgba(11,70,81,0.65),rgba(62,40,10,0.72))]" />
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-5 text-center text-white">
+            <h2 className="text-3xl font-black leading-tight md:text-5xl">Expand Culture. Unite Society. Inspire Generations.</h2>
+            <p className="mt-4 max-w-4xl text-sm leading-8 text-[#FBE9CA] md:text-lg">
+              Invite Bhagwat Heritage for meaningful socio-cultural events and become part of a global movement to preserve Indian culture, strengthen families, guide youth, and build a divine society.
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <button type="button" onClick={openInviteModal} className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-[#E6A339] px-7 text-sm font-black text-[#311F0C] transition hover:bg-[#CF8D24]">
+                Invite for Event
+              </button>
+              <button type="button" onClick={openInviteModal} className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-[#F3D6A8] bg-white/10 px-7 text-sm font-black text-white transition hover:bg-white/20">
+                Collaborate With Us
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {isInviteOpen ? (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 p-3 sm:p-6">
+          <div className="max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-[24px] border border-[#E5D6C0] bg-[#FFFBF4] p-5 shadow-[0_28px_80px_rgba(0,0,0,0.35)] sm:p-7">
+            <div className="mb-5 flex items-start justify-between gap-3">
+              <div>
+                <p className={labelClass}>Invite Maharaj Ji Form</p>
+                <h3 className="mt-2 text-2xl font-black text-[#1F4F63]">Submit Event Invitation Proposal</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsInviteOpen(false)}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#D9C5A7] bg-white text-lg font-bold text-[#8B5A21] transition hover:bg-[#FFF2DC]"
+                aria-label="Close invitation form"
+              >
+                ×
+              </button>
+            </div>
+            <form className="space-y-4" onSubmit={handleInviteSubmit}>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <label className="text-sm font-semibold text-[#5E4D3C]">Full Name
+                  <input required value={inviteForm.fullName} onChange={(e) => handleInviteFieldChange("fullName", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C]">Organization / Sanstha / Institution Name
+                  <input required value={inviteForm.organizationName} onChange={(e) => handleInviteFieldChange("organizationName", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C]">Contact Number
+                  <input required value={inviteForm.phone} onChange={(e) => handleInviteFieldChange("phone", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C]">Email Address
+                  <input type="email" required value={inviteForm.email} onChange={(e) => handleInviteFieldChange("email", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C]">Country
+                  <input required value={inviteForm.country} onChange={(e) => handleInviteFieldChange("country", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C]">State
+                  <input required value={inviteForm.state} onChange={(e) => handleInviteFieldChange("state", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C]">City
+                  <input required value={inviteForm.city} onChange={(e) => handleInviteFieldChange("city", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C]">Event Type
+                  <select value={inviteForm.eventType} onChange={(e) => handleInviteFieldChange("eventType", e.target.value)} className={inputClass}>
+                    {[
+                      "Socio-Cultural Event",
+                      "Hindu Sammelan",
+                      "School Seminar",
+                      "College Seminar",
+                      "Corporate Workshop",
+                      "Family Program",
+                      "Festival Celebration",
+                      "International Event",
+                      "Other",
+                    ].map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C]">Proposed Event Date
+                  <input type="date" required value={inviteForm.proposedDate} onChange={(e) => handleInviteFieldChange("proposedDate", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C]">Expected Audience Size
+                  <input required value={inviteForm.audienceSize} onChange={(e) => handleInviteFieldChange("audienceSize", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C] md:col-span-2">Venue Address
+                  <input required value={inviteForm.venueAddress} onChange={(e) => handleInviteFieldChange("venueAddress", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C] md:col-span-2">Invitation Purpose
+                  <input required value={inviteForm.invitationPurpose} onChange={(e) => handleInviteFieldChange("invitationPurpose", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C] md:col-span-2">Required Support
+                  <select value={inviteForm.requiredSupport} onChange={(e) => handleInviteFieldChange("requiredSupport", e.target.value)} className={inputClass}>
+                    {[
+                      "Maharaj Ji Presence",
+                      "Keynote Guidance",
+                      "Blessings Only",
+                      "Joint Organization",
+                      "Seminar / Workshop",
+                      "Cultural Program Guidance",
+                    ].map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C] md:col-span-2">Message / Additional Details
+                  <textarea rows={4} value={inviteForm.message} onChange={(e) => handleInviteFieldChange("message", e.target.value)} className={inputClass} />
+                </label>
+                <label className="text-sm font-semibold text-[#5E4D3C] md:col-span-2">Upload Invitation PDF/Image (optional)
+                  <input
+                    type="file"
+                    accept=".pdf,image/*"
+                    onChange={(e) => setInviteAttachment(e.target.files?.[0] ?? null)}
+                    className={`${inputClass} file:mr-4 file:rounded-full file:border-0 file:bg-[#F4D49D] file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-[#6A4215]`}
+                  />
+                </label>
+              </div>
+              <label className="flex items-start gap-2 rounded-xl border border-[#E8D9C3] bg-[#FFF4E1] p-3 text-sm text-[#5D4C3B]">
+                <input type="checkbox" checked={inviteForm.consent} onChange={(e) => handleInviteFieldChange("consent", e.target.checked)} className="mt-1 h-4 w-4 accent-[#C97B1E]" />
+                <span>
+                  I understand that submission of this invitation request does not guarantee confirmation. The organizing team will review and contact me.
+                </span>
+              </label>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <button type="submit" disabled={isSubmittingInvite} className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#0F6F7A] px-7 text-sm font-black text-white transition hover:bg-[#0A5D66] disabled:cursor-not-allowed disabled:opacity-70">
+                  {isSubmittingInvite ? "Submitting..." : "Submit Event Proposal"}
+                </button>
+                <button type="button" onClick={resetInviteForm} className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#D2A560] bg-white px-7 text-sm font-black text-[#7A4A16] transition hover:bg-[#FFF1D9]">
+                  Reset Form
+                </button>
+              </div>
+              {inviteNotice ? <p className="rounded-xl border border-[#CFE3D6] bg-[#EAF8EF] px-4 py-2 text-sm font-semibold text-[#1E6A4D]">{inviteNotice}</p> : null}
+            </form>
+          </div>
+        </div>
+      ) : null}
+    </div>
   );
 });
 

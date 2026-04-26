@@ -94,7 +94,13 @@ function PageLoader() {
   );
 }
 
-function SiteHeader({ headerRef }: { headerRef: RefObject<HTMLDivElement | null> }) {
+function SiteHeader({
+  headerRef,
+  overlayNavbar,
+}: {
+  headerRef: RefObject<HTMLDivElement | null>;
+  overlayNavbar?: boolean;
+}) {
   const [hidden, setHidden] = useState(false);
   const lastScroll = useRef(0);
   useEffect(() => {
@@ -112,7 +118,7 @@ function SiteHeader({ headerRef }: { headerRef: RefObject<HTMLDivElement | null>
       className={`fixed top-0 w-full z-50 transition-transform duration-300 ${hidden ? "-translate-y-full" : "translate-y-0"}`}
     >
       <MarqueeBar />
-      <Navbar />
+      <Navbar overlayOnHero={overlayNavbar} />
     </div>
   );
 }
@@ -151,9 +157,11 @@ function ScrollToTopController() {
   return null;
 }
 
-export default function App() {
+function AppShell() {
+  const location = useLocation();
   const headerRef = useRef<HTMLDivElement | null>(null);
   const [headerHeight, setHeaderHeight] = useState(128);
+  const guidanceRoute = location.pathname === ROUTES.digital.guidance;
 
   useLayoutEffect(() => {
     const recalc = () => {
@@ -174,14 +182,14 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <>
       <ThemeClassController />
       <ScrollToTopController />
       <ErrorBoundary>
         <AuthProvider>
           <CartProvider>
-            <SiteHeader headerRef={headerRef} />
-            <main style={{ paddingTop: headerHeight }}>
+            <SiteHeader headerRef={headerRef} overlayNavbar={false} />
+            <main style={{ paddingTop: guidanceRoute ? headerHeight + 2 : headerHeight }}>
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   <Route path={ROUTES.home} element={<HomePage />} />
@@ -237,6 +245,10 @@ export default function App() {
                   <Route path={ROUTES.eventsKatha.dharmikEvents} element={withInnerPageLayout(<EventsYouthProgramsPage />)} />
                   <Route
                     path="/events-katha/youth-programs/socio-cultural-events"
+                    element={<Navigate to={ROUTES.eventsKatha.socioCulturalEvents} replace />}
+                  />
+                  <Route
+                    path="/events-katha/socio-cultural-events"
                     element={<Navigate to={ROUTES.eventsKatha.socioCulturalEvents} replace />}
                   />
                   <Route path={ROUTES.eventsKatha.socioCulturalEvents} element={withInnerPageLayout(<EventsSocioCulturalEventsPage />)} />
@@ -343,6 +355,14 @@ export default function App() {
           </CartProvider>
         </AuthProvider>
       </ErrorBoundary>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
     </BrowserRouter>
   );
 }
