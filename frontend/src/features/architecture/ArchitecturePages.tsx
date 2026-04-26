@@ -4224,9 +4224,13 @@ export const EventsYouthProgramsPage = memo(function EventsYouthProgramsPage() {
 
 export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEventsPage() {
   const sectionClass = "mx-auto w-full max-w-[1180px] px-4 py-12 sm:px-6 md:py-16";
-  const labelClass = "text-xs font-black uppercase tracking-[0.18em] text-[#C4741F] sm:text-sm";
-  const headingClass = "mt-2 text-[30px] font-black leading-tight text-[#1E4A5E] md:text-[40px]";
-  const bodyClass = "text-base leading-8 text-[#5F5142]";
+  const labelClass = `${SEVA_SECTION_LABEL_CLASS} !text-[#C4741F]`;
+  const headingClass = `${SEVA_SECTION_HEADING_CLASS} !text-[#1E4A5E]`;
+  const bodyClass = `${SEVA_BODY_TEXT_CLASS} !text-[#5F5142]`;
+  const cardTitleClass = `${SEVA_CARD_TITLE_CLASS} !text-[#1F4F63]`;
+  const cardTextClass = `${SEVA_BODY_TEXT_CLASS} !text-[#61513F]`;
+  const heroTitleClass = "text-4xl font-bold leading-tight text-[#FFF4DF] sm:text-5xl md:text-6xl";
+  const heroBodyClass = `${SEVA_BODY_TEXT_CLASS} !text-[#FFE2AA]`;
   const cardClass =
     "rounded-[28px] border border-[#EADCC8] bg-[#FFFCF6] p-6 shadow-[0_18px_42px_rgba(90,62,26,0.10)] md:p-7";
   const inputClass =
@@ -4235,22 +4239,22 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
   const corePurposeCards = [
     {
       title: "Cultural Preservation",
-      icon: "/assets/icons/socio-cultural/icon-cultural-preservation.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193611/ChatGPT_Image_Apr_26_2026_01_44_24_PM_ybqb4j.png",
       text: "Protecting Indian traditions, rituals, festivals, values, scriptures, arts, and family-based cultural practices.",
     },
     {
       title: "Social Harmony",
-      icon: "/assets/icons/socio-cultural/icon-social-harmony.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777191420/ChatGPT_Image_Apr_26_2026_01_44_18_PM_cu3nce.png",
       text: "Bringing together different communities, castes, sects, organizations, and families under shared cultural values.",
     },
     {
       title: "Youth & Family Development",
-      icon: "/assets/icons/socio-cultural/icon-youth-family-development.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777191419/ChatGPT_Image_Apr_26_2026_01_44_31_PM_tmftmk.png",
       text: "Inspiring youth, strengthening families, and creating a sanskar-based foundation for the next generation.",
     },
     {
       title: "Divine Society Building",
-      icon: "/assets/icons/socio-cultural/icon-divine-society.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png",
       text: "Creating a disciplined, devotional, responsible, and spiritually awakened society through culture and seva.",
     },
   ];
@@ -4258,37 +4262,37 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
   const eventStreams = [
     {
       title: "Matru-Pitru Pujan & Family Value Events",
-      image: "/assets/images/events/socio-cultural/matru-pitru-pujan-event.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193614/ChatGPT_Image_Apr_26_2026_01_43_25_PM_uhqvw7.png",
       icon: "/assets/icons/socio-cultural/icon-matru-pitru-pujan.svg",
       text: "Restoring respect, gratitude, and devotion toward parents through emotional, spiritual, and family-centered programs.",
     },
     {
       title: "Youth Sanskar & Leadership Programs",
-      image: "/assets/images/events/socio-cultural/youth-seminar.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193609/ChatGPT_Image_Apr_26_2026_01_42_25_PM_olmo6v.png",
       icon: "/assets/icons/socio-cultural/icon-youth-seminar.svg",
       text: "Guidance sessions for students and youth on discipline, values, leadership, dharma, and purposeful living.",
     },
     {
       title: "Hindu Sammelan & Cultural Gatherings",
-      image: "/assets/images/events/socio-cultural/hindu-sammelan.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777206436/ChatGPT_Image_Apr_26_2026_05_56_15_PM_ouukoq.png",
       icon: "/assets/icons/socio-cultural/icon-hindu-sammelan.svg",
       text: "Grand public platforms for cultural awakening, national devotion, unity, and Sanatan values.",
     },
     {
       title: "Festivals & Traditional Celebrations",
-      image: "/assets/images/events/socio-cultural/festival-celebration.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777206439/ChatGPT_Image_Apr_26_2026_05_55_58_PM_lcrpun.png",
       icon: "/assets/icons/socio-cultural/icon-festival-celebration.svg",
       text: "Celebrating Indian festivals with devotion, meaning, community participation, and cultural education.",
     },
     {
       title: "Seminars & Workshops",
-      image: "/assets/images/events/socio-cultural/corporate-workshop.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777025579/ChatGPT_Image_Apr_24_2026_03_38_45_PM_om4yrp.png",
       icon: "/assets/icons/socio-cultural/icon-workshop.svg",
       text: "Programs in schools, colleges, corporate sectors, and communities for betterment of life, values, ethics, and inner development.",
     },
     {
       title: "Personal Family Blessing Events",
-      image: "/assets/images/events/socio-cultural/family-blessing-event.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032984/ChatGPT_Image_Apr_24_2026_05_42_03_PM_qnuuqc.png",
       icon: "/assets/icons/socio-cultural/icon-family-blessing.svg",
       text: "Spiritual presence and blessings for family functions, community gatherings, and meaningful life occasions.",
     },
@@ -4299,9 +4303,7 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
     "Hindu Sammelans",
     "Youth Seminars",
     "School and College Programs",
-    "Corporate Spiritual Sessions",
     "Family and Community Events",
-    "International Cultural Events",
     "Joint Programs with Sansthas and Trusts",
   ];
 
@@ -4325,38 +4327,14 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
   ];
 
   const galleryItems = [
-    { image: "/assets/images/events/socio-cultural/cultural-family-gathering.jpg", label: "Cultural Family Gathering" },
-    { image: "/assets/images/events/socio-cultural/matru-pitru-pujan-event.jpg", label: "Matru-Pitru Pujan" },
-    { image: "/assets/images/events/socio-cultural/youth-seminar.jpg", label: "Youth Seminar" },
-    { image: "/assets/images/events/socio-cultural/hindu-sammelan.jpg", label: "Hindu Sammelan" },
-    { image: "/assets/images/events/socio-cultural/festival-celebration.jpg", label: "Festival Celebration" },
-    { image: "/assets/images/events/socio-cultural/volunteer-seva-event.jpg", label: "Volunteer Seva" },
+    { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032984/ChatGPT_Image_Apr_24_2026_05_42_03_PM_qnuuqc.png", label: "Cultural Family Gathering" },
+    { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193614/ChatGPT_Image_Apr_26_2026_01_43_25_PM_uhqvw7.png", label: "Matru-Pitru Pujan" },
+    { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193609/ChatGPT_Image_Apr_26_2026_01_42_25_PM_olmo6v.png", label: "Youth Seminar" },
+    { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777206436/ChatGPT_Image_Apr_26_2026_05_56_15_PM_ouukoq.png", label: "Hindu Sammelan" },
+    { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777206439/ChatGPT_Image_Apr_26_2026_05_55_58_PM_lcrpun.png", label: "Festival Celebration" },
+    { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777191430/ChatGPT_Image_Apr_26_2026_01_43_38_PM_cpi5u0.png", label: "Volunteer Seva" },
   ];
 
-  const faqItems = [
-    {
-      q: "Can we invite Sant Shri Manish Bhaiji Maharaj for our event?",
-      a: "Yes. Organizers, institutions, communities, and families can submit an invitation request through the official event proposal system.",
-    },
-    {
-      q: "Can Bhagwat Heritage jointly organize socio-cultural events?",
-      a: "Yes. Bhagwat Heritage welcomes meaningful collaborations for cultural, spiritual, educational, social, and family-value-based programs.",
-    },
-    {
-      q: "Are school, college, and corporate seminars possible?",
-      a: "Yes. Seminars and workshops can be organized for students, youth, professionals, and communities on values, life betterment, leadership, ethics, and spiritual clarity.",
-    },
-    {
-      q: "Are international events possible?",
-      a: "Yes. Global collaborations are part of the long-term vision to carry Indian culture and Bhagwat Heritage to the world.",
-    },
-    {
-      q: "What types of events are supported?",
-      a: "Socio-cultural events, Hindu Sammelans, family programs, youth seminars, institutional workshops, festival celebrations, and community gatherings.",
-    },
-  ];
-
-  const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [isSubmittingInvite, setIsSubmittingInvite] = useState(false);
   const [inviteNotice, setInviteNotice] = useState("");
@@ -4459,24 +4437,20 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
   return (
     <div className="-mx-6 -my-12 min-h-screen overflow-hidden bg-[#FFF9EE] text-[#2B2118]">
       <section className="relative isolate h-[74vh] min-h-[560px] w-full overflow-hidden">
-        <img
-          src="/assets/images/events/socio-cultural/socio-cultural-hero.jpg"
-          alt="Socio-cultural gathering led by Bhagwat Heritage Service Foundation Trust"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(125deg,rgba(39,24,8,0.85),rgba(118,76,21,0.62),rgba(11,67,78,0.60))]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(255,214,141,0.25),transparent_38%)]" />
-        <div className="absolute inset-0 z-10 mx-auto flex max-w-5xl flex-col items-center justify-center px-4 text-center text-white sm:px-6">
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#FFDCA1]">Socio-Cultural Events</p>
-          <h1 className="mt-3 text-4xl font-black leading-tight sm:text-5xl md:text-6xl">Socio-Cultural Events</h1>
-          <p className="mt-2 text-xl font-semibold text-[#FFEAC4] sm:text-2xl md:text-3xl">सामाजिक एवं सांस्कृतिक आयोजन</p>
-          <p className="mt-5 max-w-4xl text-base leading-8 text-[#FFF2DE] sm:text-lg">
-            Preserving Bhagwat Heritage, strengthening cultural roots, and building a value-driven divine society for future generations.
-          </p>
-          <p className="mt-3 max-w-4xl text-sm font-semibold uppercase tracking-[0.08em] text-[#FFE2AA] sm:text-base">
+          <img
+            src="https://res.cloudinary.com/der8zinu8/image/upload/v1777206448/ChatGPT_Image_Apr_26_2026_05_55_00_PM_opkas9.png"
+            alt="Socio-cultural gathering led by Bhagwat Heritage Service Foundation Trust"
+            className="absolute inset-0 h-full w-full object-cover brightness-110 contrast-105 saturate-110"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(125deg,rgba(255,240,205,0.30),rgba(255,224,163,0.22),rgba(255,255,255,0.10))]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(255,247,224,0.34),transparent_44%)]" />
+          <div className="absolute inset-0 z-10 mx-auto flex max-w-5xl flex-col items-center justify-end px-4 pb-10 text-center text-white sm:px-6 sm:pb-14 md:pb-16">
+            <h1 className={heroTitleClass}>Socio-Cultural Events</h1>
+          <p className={`mt-2 ${SEVA_HERO_SUBTITLE_CLASS} !text-[#FFEAC4]`}>सामाजिक एवं सांस्कृतिक आयोजन</p>
+          <p className={`mt-3 max-w-4xl uppercase tracking-[0.08em] ${heroBodyClass}`}>
             A living movement of culture, unity, sanskar, and spiritual awakening across India and the world.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <button type="button" onClick={openInviteModal} className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#E5A13A] px-7 text-sm font-black text-[#2A1B0B] shadow-[0_16px_34px_rgba(122,77,20,0.30)] transition hover:bg-[#CF8B26]">
               Invite Maharaj Ji
             </button>
@@ -4503,13 +4477,22 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
 
       <section className={sectionClass}>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.05fr] lg:items-center">
-          <figure className="overflow-hidden rounded-[28px] border border-[#E8D8C3] shadow-[0_20px_46px_rgba(94,67,31,0.18)]">
-            <img
-              src="/assets/images/events/socio-cultural/leadership-guidance.jpg"
-              alt="Sant Shri Manish Bhaiji Maharaj guiding socio-cultural mission"
-              className="h-full w-full object-cover"
-            />
-          </figure>
+          <div className="grid grid-cols-1 gap-4">
+            <figure className="overflow-hidden rounded-[28px] border border-[#E8D8C3] shadow-[0_16px_38px_rgba(94,67,31,0.14)]">
+              <img
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777206447/ChatGPT_Image_Apr_26_2026_05_55_12_PM_gmfp5w.png"
+                alt="Sant Shri Manish Bhaiji Maharaj spiritual leadership moment"
+                className="h-[240px] w-full object-cover md:h-[300px]"
+              />
+            </figure>
+            <figure className="overflow-hidden rounded-[28px] border border-[#E8D8C3] shadow-[0_16px_38px_rgba(94,67,31,0.14)]">
+              <img
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777206437/ChatGPT_Image_Apr_26_2026_05_55_42_PM_vgj8v7.png"
+                alt="Sant Shri Manish Bhaiji Maharaj cultural guidance gathering"
+                className="h-[240px] w-full object-cover md:h-[300px]"
+              />
+            </figure>
+          </div>
           <div className={cardClass}>
             <p className={labelClass}>Spiritual Leadership</p>
             <h2 className={headingClass}>Guidance of Sant Shri Manish Bhaiji Maharaj</h2>
@@ -4519,7 +4502,7 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
             <p className={`${bodyClass} mt-4`}>
               He actively guides and attends various socio-cultural events as a spiritual margadarshak, blessing presence, keynote speaker, and cultural unifier.
             </p>
-            <ul className="mt-5 grid grid-cols-1 gap-2 text-sm font-semibold text-[#4F4234] sm:grid-cols-2">
+            <ul className={`mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 ${bodyClass}`}>
               {[
                 "Bhagwat Manishi and spiritual guide",
                 "Head Margadarshak for many Sansthas and initiatives",
@@ -4543,9 +4526,11 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
           {corePurposeCards.map((item) => (
             <article key={item.title} className={cardClass}>
-              <img src={item.icon} alt={`${item.title} icon`} className="h-12 w-12 rounded-full border border-[#E6D5B7] bg-[#FFF1D6] p-2" loading="lazy" />
-              <h3 className="mt-4 text-xl font-black text-[#1F4F63]">{item.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-[#635442]">{item.text}</p>
+              <span className="inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#E6D5B7] bg-[#FFF1D6]">
+                <img src={item.icon} alt={`${item.title} icon`} className="h-full w-full object-cover" loading="lazy" />
+              </span>
+              <h3 className={`mt-4 ${cardTitleClass}`}>{item.title}</h3>
+              <p className={`mt-3 ${cardTextClass}`}>{item.text}</p>
             </article>
           ))}
         </div>
@@ -4559,11 +4544,8 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
             <article key={event.title} className="overflow-hidden rounded-[26px] border border-[#E8D7C0] bg-[#FFFCF7] shadow-[0_18px_42px_rgba(91,64,28,0.10)]">
               <img src={event.image} alt={`${event.title} by Bhagwat Heritage`} className="h-52 w-full object-cover" loading="lazy" />
               <div className="p-5">
-                <div className="flex items-center gap-3">
-                  <img src={event.icon} alt={`${event.title} icon`} className="h-9 w-9" loading="lazy" />
-                  <h3 className="text-lg font-black text-[#1F4F63]">{event.title}</h3>
-                </div>
-                <p className="mt-3 text-sm leading-7 text-[#61513F]">{event.text}</p>
+                <h3 className={cardTitleClass}>{event.title}</h3>
+                <p className={`mt-3 ${cardTextClass}`}>{event.text}</p>
               </div>
             </article>
           ))}
@@ -4573,27 +4555,23 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
       <section className={sectionClass}>
         <div className="grid grid-cols-1 gap-8 overflow-hidden rounded-[30px] border border-[#E6D5B8] bg-[#FFFDF8] shadow-[0_20px_48px_rgba(102,73,33,0.12)] lg:grid-cols-[0.95fr_1.05fr]">
           <img
-            src="/assets/images/events/socio-cultural/invitation-collaboration.jpg"
+            src="https://res.cloudinary.com/der8zinu8/image/upload/v1777032984/ChatGPT_Image_Apr_24_2026_05_42_03_PM_qnuuqc.png"
             alt="Invitation and collaboration for socio-cultural event"
-            className="h-full min-h-[320px] w-full object-cover"
+            className="h-[320px] w-full object-cover sm:h-[460px] lg:h-full lg:min-h-0"
           />
           <div className="p-6 md:p-8">
             <p className={labelClass}>Invitation & Collaboration System</p>
-            <img src="/assets/icons/socio-cultural/icon-invitation-collaboration.svg" alt="Invitation collaboration icon" className="mt-3 h-12 w-12 rounded-full border border-[#E4D3B5] bg-[#FFF1D7] p-2" loading="lazy" />
             <h2 className={`${headingClass} md:text-[36px]`}>Invite for Joint Socio-Cultural Events</h2>
-            <p className="mt-2 text-lg font-bold text-[#295E72]">Organize Divine Events with Guidance, Blessings, and Cultural Direction</p>
+            <p className={`mt-2 ${cardTitleClass} !text-[#295E72]`}>Organize Divine Events with Guidance, Blessings, and Cultural Direction</p>
             <p className={`${bodyClass} mt-4`}>
-              Bhagwat Heritage Service Foundation Trust welcomes institutions, organizers, communities, schools, colleges, corporate groups, social bodies, and families to invite the Sanstha for joint socio-cultural events, seminars, workshops, and value-based programs.
+              Bhagwat Heritage welcomes institutions, communities, and families to organize meaningful socio-cultural events with spiritual direction.
             </p>
             <p className={`${bodyClass} mt-4`}>
-              Through this system, organizers can invite Sant Shri Manish Bhaiji Maharaj for guidance, blessings, keynote address, spiritual direction, and cultural inspiration.
-            </p>
-            <p className={`${bodyClass} mt-4`}>
-              This initiative is designed to expand meaningful events across India and internationally, so that Bhagwat Heritage can contribute to the upliftment of Indian culture, family values, youth development, national devotion, and social harmony.
+              Organizers can invite Sant Shri Manish Bhaiji Maharaj for blessings, keynote guidance, and cultural inspiration.
             </p>
             <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
               {invitationFormats.map((format) => (
-                <div key={format} className="rounded-xl border border-[#E8DAC3] bg-[#FFF5E6] px-3 py-2 text-sm font-semibold text-[#5E4630]">
+                <div key={format} className={`rounded-xl border border-[#E8DAC3] bg-[#FFF5E6] px-3 py-2 ${bodyClass} !text-[#5E4630]`}>
                   {format}
                 </div>
               ))}
@@ -4613,20 +4591,20 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
       <section className={sectionClass}>
         <p className={labelClass}>Event Experience Journey</p>
         <h2 className={headingClass}>How a Socio-Cultural Event Becomes a Divine Experience</h2>
-        <figure className="mt-6 overflow-hidden rounded-[24px] border border-[#E7D8C3] shadow-[0_16px_36px_rgba(93,64,26,0.14)]">
-          <img
-            src="/assets/images/events/socio-cultural/event-journey.jpg"
-            alt="Spiritual and cultural event journey steps in one experience"
-            className="h-56 w-full object-cover md:h-72"
-            loading="lazy"
-          />
-        </figure>
+          <figure className="mt-6 overflow-hidden rounded-[24px] border border-[#E7D8C3] shadow-[0_16px_36px_rgba(93,64,26,0.14)]">
+            <img
+              src="https://res.cloudinary.com/der8zinu8/image/upload/v1777212556/ChatGPT_Image_Apr_26_2026_07_38_06_PM_zkr7mf.png"
+              alt="Spiritual and cultural event journey steps in one experience"
+              className="w-full bg-[#FFF8EC] object-contain"
+              loading="lazy"
+            />
+          </figure>
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {eventJourney.map((step, index) => (
             <article key={step.title} className={cardClass}>
               <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#0F6A79] text-sm font-black text-white">{index + 1}</div>
-              <h3 className="mt-3 text-xl font-black text-[#1F4F63]">{step.title}</h3>
-              <p className="mt-2 text-sm leading-7 text-[#5D4E3C]">{step.text}</p>
+              <h3 className={`mt-3 ${cardTitleClass}`}>{step.title}</h3>
+              <p className={`mt-2 ${cardTextClass} !text-[#5D4E3C]`}>{step.text}</p>
             </article>
           ))}
         </div>
@@ -4634,10 +4612,17 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
 
       <section className={sectionClass}>
         <div className="rounded-[30px] border border-[#175B68]/20 bg-[linear-gradient(135deg,#0D5161_0%,#154A5C_60%,#9B6A26_100%)] p-6 text-[#FFF4DF] shadow-[0_22px_56px_rgba(23,71,82,0.28)] md:p-9">
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-[#FFDFA5] sm:text-sm">Featured Impact</p>
-          <img src="/assets/icons/socio-cultural/icon-global-outreach.svg" alt="Global outreach icon" className="mt-3 h-12 w-12 rounded-full border border-white/30 bg-white/10 p-2" loading="lazy" />
-          <h2 className="mt-2 text-3xl font-black leading-tight md:text-[40px]">A Movement of Cultural Awakening</h2>
-          <p className="mt-4 text-base leading-8 text-[#F7E8CB]">
+          <p className={`${SEVA_SECTION_LABEL_CLASS} !text-[#FFDFA5]`}>Featured Impact</p>
+          <span className="mt-3 inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-white/30 bg-white/10">
+            <img
+              src="https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png"
+              alt="Featured impact icon"
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </span>
+          <h2 className={`${SEVA_SECTION_HEADING_CLASS} mt-2 !text-[#FFF4DF]`}>A Movement of Cultural Awakening</h2>
+          <p className={`mt-4 ${SEVA_BODY_TEXT_CLASS} !text-[#F7E8CB]`}>
             These events are not ordinary programs. They are living platforms for cultural revival, family bonding, spiritual discipline, and social unity.
           </p>
           <div className="mt-6 grid grid-cols-1 gap-2 text-sm font-semibold sm:grid-cols-2 lg:grid-cols-3">
@@ -4668,13 +4653,20 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
       <section className={sectionClass}>
         <div className="grid grid-cols-1 gap-8 overflow-hidden rounded-[30px] border border-[#E7D6BE] bg-[#FFFCF7] shadow-[0_20px_48px_rgba(100,72,33,0.12)] lg:grid-cols-[1.05fr_0.95fr]">
           <img
-            src="/assets/images/events/socio-cultural/volunteer-seva-event.jpg"
+            src="https://res.cloudinary.com/der8zinu8/image/upload/v1777191430/ChatGPT_Image_Apr_26_2026_01_43_38_PM_cpi5u0.png"
             alt="Volunteers serving during socio-cultural event"
             className="h-full min-h-[320px] w-full object-cover"
           />
           <div className="p-6 md:p-8">
             <p className={labelClass}>Volunteer & Participation</p>
-            <img src="/assets/icons/socio-cultural/icon-volunteer-seva.svg" alt="Volunteer seva icon" className="mt-3 h-12 w-12 rounded-full border border-[#E4D2B5] bg-[#FFF1D8] p-2" loading="lazy" />
+            <span className="mt-3 inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-[#E4D2B5] bg-[#FFF1D8]">
+              <img
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png"
+                alt="Volunteer seva icon"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </span>
             <h2 className={`${headingClass} md:text-[36px]`}>Become a Part of Cultural Seva</h2>
             <p className={`${bodyClass} mt-4`}>
               Every divine event is made successful through dedicated seva. Volunteers can support planning, coordination, discipline, decoration, registration, media, hospitality, prasad distribution, family assistance, and youth engagement.
@@ -4685,42 +4677,11 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
           </div>
         </div>
       </section>
-
-      <section className={sectionClass}>
-        <p className={labelClass}>Frequently Asked Questions</p>
-        <h2 className={headingClass}>Clarifications for Organizers and Institutions</h2>
-        <div className="mt-7 space-y-3">
-          {faqItems.map((faq, index) => {
-            const isOpen = activeFaq === index;
-            return (
-              <article key={faq.q} className="overflow-hidden rounded-2xl border border-[#E7D7C2] bg-[#FFFCF7] shadow-[0_10px_24px_rgba(99,71,34,0.08)]">
-                <button
-                  type="button"
-                  onClick={() => setActiveFaq((current) => (current === index ? null : index))}
-                  className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left"
-                  aria-expanded={isOpen}
-                >
-                  <span className="text-base font-black text-[#204F63]">{faq.q}</span>
-                  <span className="text-lg font-black text-[#B06C20]">{isOpen ? "−" : "+"}</span>
-                </button>
-                {isOpen ? <div className="border-t border-[#EDE0CB] px-5 py-4 text-sm leading-7 text-[#5B4B3A]">{faq.a}</div> : null}
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
       <section className={`${sectionClass} pt-2`}>
-        <div className="relative overflow-hidden rounded-[30px] border border-[#DBB982] shadow-[0_26px_58px_rgba(101,68,25,0.25)]">
-          <img
-            src="/assets/images/events/socio-cultural/socio-cultural-cta-banner.jpg"
-            alt="Invitation to expand culture and inspire generations"
-            className="h-[360px] w-full object-cover md:h-[420px]"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(31,20,8,0.80),rgba(11,70,81,0.65),rgba(62,40,10,0.72))]" />
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-5 text-center text-white">
-            <h2 className="text-3xl font-black leading-tight md:text-5xl">Expand Culture. Unite Society. Inspire Generations.</h2>
-            <p className="mt-4 max-w-4xl text-sm leading-8 text-[#FBE9CA] md:text-lg">
+        <div className="relative overflow-hidden rounded-[30px] border border-[#DBB982] bg-[linear-gradient(120deg,#FFE7A0_0%,#FFD06B_48%,#F6B43A_100%)] shadow-[0_26px_58px_rgba(101,68,25,0.25)]">
+          <div className="z-10 flex min-h-[360px] flex-col items-center justify-center px-5 text-center text-white md:min-h-[420px]">
+            <h2 className={`${cardTitleClass} text-3xl leading-tight !text-[#FFF4DF] md:text-5xl`}>Expand Culture. Unite Society. Inspire Generations.</h2>
+            <p className={`mt-4 max-w-4xl ${SEVA_BODY_TEXT_CLASS} !text-[#FBE9CA]`}>
               Invite Bhagwat Heritage for meaningful socio-cultural events and become part of a global movement to preserve Indian culture, strengthen families, guide youth, and build a divine society.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -4741,7 +4702,7 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
             <div className="mb-5 flex items-start justify-between gap-3">
               <div>
                 <p className={labelClass}>Invite Maharaj Ji Form</p>
-                <h3 className="mt-2 text-2xl font-black text-[#1F4F63]">Submit Event Invitation Proposal</h3>
+                <h3 className={`mt-2 ${cardTitleClass}`}>Submit Event Invitation Proposal</h3>
               </div>
               <button
                 type="button"
@@ -9523,4 +9484,7 @@ export const NotFoundPage = memo(function NotFoundPage() {
     </div>
   );
 });
+
+
+
 
