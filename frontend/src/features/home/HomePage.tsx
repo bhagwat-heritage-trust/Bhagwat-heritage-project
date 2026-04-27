@@ -277,6 +277,7 @@ export default memo(function HomePage() {
     ],
     [], 
   );
+  
   return (
     <div
       className="min-h-screen"

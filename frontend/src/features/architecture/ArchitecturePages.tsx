@@ -10312,419 +10312,721 @@ export const DigitalMembershipPage = memo(function DigitalMembershipPage() {
 });
 
 export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
-  const partnershipCategories = [
+  type PartnerFormState = {
+    organizationName: string;
+    contactPersonName: string;
+    emailAddress: string;
+    phoneNumber: string;
+    organizationType: string;
+    partnershipType: string;
+    preferredCollaborationArea: string;
+    cityStateCountry: string;
+    websiteOrSocialMedia: string;
+    organizationProfile: File | null;
+    messageProposal: string;
+    consent: boolean;
+  };
+
+  const initialFormState: PartnerFormState = {
+    organizationName: "",
+    contactPersonName: "",
+    emailAddress: "",
+    phoneNumber: "",
+    organizationType: "Corporate",
+    partnershipType: "CSR Partnership",
+    preferredCollaborationArea: "Spiritual Education",
+    cityStateCountry: "",
+    websiteOrSocialMedia: "",
+    organizationProfile: null,
+    messageProposal: "",
+    consent: false,
+  };
+
+  const [partnerForm, setPartnerForm] = useState<PartnerFormState>(initialFormState);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [requestSubmitted, setRequestSubmitted] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  usePageMeta(
+    "Partner With Us | Bhagwat Heritage Service Foundation Trust",
+    "Partner with Bhagwat Heritage Service Foundation Trust for spiritual education, seva initiatives, cultural programs, CSR collaboration, NGO partnerships, and community upliftment.",
+  );
+
+  const pageContainerClass = "mx-auto max-w-[1180px] px-4 md:px-6";
+  const sectionClass = "rounded-[28px] border border-[#E9D3A8] bg-[#FFFDF8] p-6 shadow-[0_16px_36px_rgba(140,87,27,0.10)] md:p-8";
+  const inputBaseClass =
+    "w-full rounded-xl border bg-white px-4 py-3 text-sm text-[#3E2A16] outline-none transition placeholder:text-[#9E7E55] focus:border-[#B97822] focus:ring-2 focus:ring-[#EBC98B]/60";
+  const labelClass = "mb-2 block text-sm font-semibold text-[#6A4520]";
+  const errorClass = "mt-1 text-xs font-semibold text-[#B42318]";
+
+  const heroHighlights = [
     {
-      icon: "CP",
-      title: "Corporate Partnerships",
-      desc: "Companies supporting social impact, spiritual initiatives, employee volunteering, and CSR-led seva alignment.",
-      detail: "Best for CSR projects, brand-backed seva, and long-term trust collaboration.",
+      title: "Collaboration Tracks",
+      text: "CSR, NGO, events, education, and community partnerships.",
     },
     {
-      icon: "NG",
+      title: "Partnership Style",
+      text: "Project-based, long-term, institutional, and seva-led models.",
+    },
+    {
+      title: "Mission Areas",
+      text: "Spiritual education, gau seva, charity, and youth development.",
+    },
+    {
+      title: "Response Flow",
+      text: "Review, discussion, approval, and implementation.",
+    },
+  ];
+
+  const introductionCards = [
+    {
+      title: "Spiritual Education",
+      description: "Value-based study programs, satsang circles, and sanskar learning.",
+      icon: "/assets/icons/partner-with-us/icon-spiritual-education.svg",
+    },
+    {
+      title: "Charity and Seva",
+      description: "Service-led outreach through ann seva, aid support, and relief actions.",
+      icon: "/assets/icons/partner-with-us/icon-charity-seva.svg",
+    },
+    {
+      title: "Community Service",
+      description: "Volunteer coordination, welfare action, and disciplined local support.",
+      icon: "/assets/icons/partner-with-us/icon-seva-network.svg",
+    },
+    {
+      title: "Cultural Renaissance",
+      description: "Programs that preserve dharma, festivals, and living heritage values.",
+      icon: "/assets/icons/partner-with-us/icon-cultural-program.svg",
+    },
+  ];
+
+  const partnershipTypes = [
+    {
+      title: "Corporate CSR Partnerships",
+      description:
+        "For companies supporting social impact, spiritual initiatives, employee volunteering, and CSR-led seva alignment.",
+      image: "/assets/images/partner-with-us/csr-partnership.jpg",
+      icon: "/assets/icons/partner-with-us/icon-csr-partnership.svg",
+    },
+    {
       title: "NGO Collaborations",
-      desc: "Work jointly with non-profit organizations for social welfare, relief, education, and structured community support.",
-      detail: "Best for aligned charity missions, field programs, and collaborative outreach delivery.",
+      description:
+        "For NGOs working in education, welfare, health, de-addiction, disaster relief, social awareness, and community upliftment.",
+      image: "/assets/images/partner-with-us/ngo-collaboration.jpg",
+      icon: "/assets/icons/partner-with-us/icon-ngo-collaboration.svg",
     },
     {
-      icon: "EV",
       title: "Event Partnerships",
-      desc: "Partner for Bhagwat Katha, festivals, spiritual gatherings, youth programs, and large devotional events.",
-      detail: "Best for co-hosting, logistics support, outreach, and event execution partnerships.",
+      description: "For Bhagwat Katha, festivals, spiritual gatherings, youth programs, and large devotional events.",
+      image: "/assets/images/partner-with-us/event-partnership.jpg",
+      icon: "/assets/icons/partner-with-us/icon-event-partnership.svg",
     },
     {
-      icon: "ED",
       title: "Educational Partnerships",
-      desc: "Collaborate with schools, universities, and research institutions for values education and cultural learning.",
-      detail: "Best for Pathshala, youth workshops, study circles, and knowledge initiatives.",
+      description:
+        "For schools, colleges, gurukuls, and institutions focused on values, sanskar, leadership, and cultural learning.",
+      image: "/assets/images/partner-with-us/educational-partnership.jpg",
+      icon: "/assets/icons/partner-with-us/icon-education-partnership.svg",
     },
     {
-      icon: "CM",
       title: "Community Partnerships",
-      desc: "Local groups, resident associations, and service communities helping scale spiritual and social development work.",
-      detail: "Best for local mobilization, volunteer networks, and neighborhood seva participation.",
+      description:
+        "For local groups, residential associations, mandir committees, social groups, and community networks.",
+      image: "/assets/images/partner-with-us/community-partnership.jpg",
+      icon: "/assets/icons/partner-with-us/icon-community-partnership.svg",
+    },
+    {
+      title: "Digital & Media Partnerships",
+      description:
+        "For content creators, media teams, publishers, platforms, and digital outreach collaborators.",
+      image: "/assets/images/partner-with-us/digital-media-partnership.jpg",
+      icon: "/assets/icons/partner-with-us/icon-digital-media.svg",
     },
   ];
 
-  const impactStats = [
-    { label: "Total Events Organized", value: "250+", note: "Spiritual, educational, and community gatherings supported annually." },
-    { label: "Volunteers Involved", value: "1,500+", note: "Active sevaks and field contributors linked through trust initiatives." },
-    { label: "Communities Supported", value: "80+", note: "Cities, local groups, and outreach communities touched through programs." },
-    { label: "Social Initiatives Completed", value: "120+", note: "Seva, education, health, and support campaigns delivered with partners." },
+  const partnershipBenefits = [
+    "Expand seva impact through a trusted spiritual platform",
+    "Participate in structured social and cultural programs",
+    "Reach families, youth, communities, and devotees",
+    "Collaborate with a mission-driven organisation",
+    "Support value-based education and cultural preservation",
+    "Build long-term devotional and social goodwill",
   ];
 
-  const partnerShowcase = [
-    "Heritage CSR Circle",
-    "Seva Community Forum",
+  const collaborationAreas = [
+    "Bhagwat Katha & Spiritual Events",
+    "Gau Seva and Ann Seva",
+    "Education Support and Scholarship",
+    "Health and Medicine Distribution",
+    "Youth Sanskar and Leadership",
+    "Cultural Festivals and Community Programs",
+    "Digital Learning and Publications",
+    "Disaster Relief and Humanitarian Seva",
+  ];
+
+  const showcasePartners = [
+    "Volunteer Seva Circle",
+    "Sanskar Community Forum",
     "Youth Dharma Network",
-    "Satsang Support Alliance",
-    "Bhagwat Education Collective",
-    "Community Relief Partners",
+    "Educational Support Alliance",
+    "Bhagwat Seva Initiative",
+    "Community Welfare Partners",
+  ];
+
+  const processPreview = [
+    "Proposal intake and acknowledgement",
+    "Mission fit review by trust desk",
+    "Collaborative roadmap and scheduling",
+  ];
+
+  const processTimeline = [
+    {
+      title: "Submit Partnership Request",
+      description: "Share organisation profile, purpose, and collaboration intent through the partnership form.",
+      icon: "/assets/icons/partner-with-us/icon-document-review.svg",
+    },
+    {
+      title: "Review by Trust Team",
+      description: "Trust representatives evaluate mission alignment, scope, and practical feasibility.",
+      icon: "/assets/icons/partner-with-us/icon-ethical-collaboration.svg",
+    },
+    {
+      title: "Discussion and Planning",
+      description: "A focused dialogue defines responsibilities, expected outcomes, and execution pathway.",
+      icon: "/assets/icons/partner-with-us/icon-handshake.svg",
+    },
+    {
+      title: "Formal Partnership Understanding",
+      description: "Agreed terms, governance expectations, and implementation milestones are finalized.",
+      icon: "/assets/icons/partner-with-us/icon-document-review.svg",
+    },
+    {
+      title: "Collaboration Implementation",
+      description: "Programs are executed with periodic reviews for transparent, mission-aligned impact.",
+      icon: "/assets/icons/partner-with-us/icon-seva-network.svg",
+    },
   ];
 
   const testimonials = [
-    {
-      name: "CSR Partnership Desk",
-      org: "Heritage Impact Group",
-      quote:
-        "The trust offered a clear structure, measurable seva outcomes, and a spiritually grounded partnership process that made collaboration practical and meaningful.",
-    },
-    {
-      name: "Program Coordinator",
-      org: "Community Welfare Collective",
-      quote:
-        "Our joint outreach felt disciplined from planning to execution. The trust combines devotional purpose with strong program ownership on the ground.",
-    },
-    {
-      name: "Academic Outreach Lead",
-      org: "Values Education Network",
-      quote:
-        "The educational collaboration was thoughtful and well organized, especially for youth values sessions, community learning, and cultural engagement.",
-    },
+    "The Trust offered a clear structure, measurable seva outcomes, and a spiritually grounded partnership process that made collaboration meaningful.",
+    "Our joint outreach felt disciplined from planning to execution. The Trust combines devotional purpose with strong program ownership.",
+    "The collaboration was thoughtful and well organised, especially for youth values, cultural learning, and community engagement.",
   ];
 
   const faqs = [
     {
-      question: "Who can apply to partner with the trust?",
-      answer: "Companies, NGOs, community groups, educational institutions, event teams, and mission-aligned organizations can submit a partnership request.",
+      question: "Who can apply to partner with the Trust?",
+      answer:
+        "Corporates, NGOs, community groups, educational institutions, event teams, mandirs, trusts, and mission-aligned organisations can submit a partnership request.",
     },
     {
-      question: "Can partnerships be project-based instead of long term?",
-      answer: "Yes. The trust can structure one-event, campaign-based, seasonal, or long-term partnerships depending on the need and fit.",
+      question: "Can partnerships be project-based instead of long-term?",
+      answer:
+        "Yes. The Trust welcomes one-time, campaign-based, seasonal, event-based, and long-term partnerships depending on the need.",
     },
     {
-      question: "What documents are helpful in the application?",
-      answer: "A basic organization profile, contact details, collaboration proposal, and a short summary of your intended contribution are enough to begin review.",
+      question: "What documents are helpful for application?",
+      answer:
+        "Organisation profile, contact details, collaboration proposal, registration details if applicable, and any summary of past work are helpful.",
     },
     {
-      question: "How does the approval process work?",
-      answer: "Requests are reviewed by the trust team, followed by discussion, planning, and formal alignment before implementation begins.",
+      question: "How does approval work?",
+      answer:
+        "Requests are reviewed by the Trust team, followed by discussion, planning, and formal confirmation before implementation.",
+    },
+    {
+      question: "Can international organisations collaborate?",
+      answer: "Yes. International collaborations may be reviewed based on mission alignment, documentation, and feasibility.",
     },
   ];
 
-  const [partnerForm, setPartnerForm] = useState({
-    organizationName: "",
-    contactName: "",
-    email: "",
-    phone: "",
-    organizationType: "Corporate",
-    partnershipCategory: partnershipCategories[0].title,
-    message: "",
-  });
-  const [profileFileName, setProfileFileName] = useState("");
-  const [requestSubmitted, setRequestSubmitted] = useState(false);
-  const partnerInputClass =
-    "rounded-2xl border border-white/10 bg-[var(--campaign-surface)] px-4 py-3 text-white outline-none placeholder:text-[#aac0ca] focus:border-[var(--campaign-accent)]";
-  const partnerBadgeClass =
-    "rounded-xl bg-[var(--campaign-accent)]/15 px-4 py-2 text-sm font-bold text-[var(--campaign-accent)] transition-colors hover:bg-[var(--campaign-accent)]/20";
+  const validateForm = () => {
+    const nextErrors: Record<string, string> = {};
 
-  const handlePartnerSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setRequestSubmitted(true);
+    if (!partnerForm.organizationName.trim()) nextErrors.organizationName = "Organization / Institution Name is required.";
+    if (!partnerForm.contactPersonName.trim()) nextErrors.contactPersonName = "Contact Person Name is required.";
+    if (!partnerForm.emailAddress.trim()) nextErrors.emailAddress = "Email Address is required.";
+    if (!partnerForm.phoneNumber.trim()) nextErrors.phoneNumber = "Phone Number is required.";
+    if (!partnerForm.organizationType.trim()) nextErrors.organizationType = "Organization Type is required.";
+    if (!partnerForm.partnershipType.trim()) nextErrors.partnershipType = "Partnership Type is required.";
+    if (!partnerForm.messageProposal.trim()) nextErrors.messageProposal = "Message / Proposal is required.";
+    if (!partnerForm.consent) nextErrors.consent = "Please confirm consent before submitting.";
+
+    if (partnerForm.emailAddress.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(partnerForm.emailAddress.trim())) {
+      nextErrors.emailAddress = "Please enter a valid email address.";
+    }
+
+    if (partnerForm.phoneNumber.trim() && !/^[+]?[\d\s()-]{7,20}$/.test(partnerForm.phoneNumber.trim())) {
+      nextErrors.phoneNumber = "Please enter a valid phone number.";
+    }
+
+    return nextErrors;
   };
 
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    const checked = event.target instanceof HTMLInputElement ? event.target.checked : false;
+    const nextValue = event.target instanceof HTMLInputElement && event.target.type === "checkbox" ? checked : value;
+
+    setPartnerForm((current) => ({ ...current, [name]: nextValue }));
+    setFormErrors((current) => ({ ...current, [name]: "" }));
+    setRequestSubmitted(false);
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0] ?? null;
+    setPartnerForm((current) => ({ ...current, organizationProfile: selectedFile }));
+    setRequestSubmitted(false);
+  };
+
+  const handlePartnerSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const validationErrors = validateForm();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setFormErrors(validationErrors);
+      setRequestSubmitted(false);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setFormErrors({});
+
+    const payload = {
+      organizationName: partnerForm.organizationName.trim(),
+      contactPersonName: partnerForm.contactPersonName.trim(),
+      emailAddress: partnerForm.emailAddress.trim(),
+      phoneNumber: partnerForm.phoneNumber.trim(),
+      organizationType: partnerForm.organizationType,
+      partnershipType: partnerForm.partnershipType,
+      preferredCollaborationArea: partnerForm.preferredCollaborationArea,
+      cityStateCountry: partnerForm.cityStateCountry.trim(),
+      websiteOrSocialMedia: partnerForm.websiteOrSocialMedia.trim(),
+      organizationProfileFileName: partnerForm.organizationProfile?.name ?? "",
+      messageProposal: partnerForm.messageProposal.trim(),
+      consent: partnerForm.consent,
+    };
+
+    try {
+      // TODO: Backend integration when API becomes available:
+      // await apiClient.post("/api/partnerships", payload);
+      void payload;
+      await new Promise((resolve) => setTimeout(resolve, 650));
+
+      setRequestSubmitted(true);
+      setPartnerForm(initialFormState);
+    } catch (_error) {
+      setFormErrors((current) => ({
+        ...current,
+        submit: "We could not submit the request right now. Please try again in a moment.",
+      }));
+      setRequestSubmitted(false);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const fieldClass = (fieldName: string) =>
+    `${inputBaseClass} ${formErrors[fieldName] ? "border-[#B42318]" : "border-[#E3CDA7]"}`;
+
   return (
-    <div className="min-h-screen bg-[var(--campaign-deep)] pb-16">
-      <HeroSection
-        title="Partner With Us"
-        subtitle="Collaborate with Bhagwat Heritage Service Foundation Trust to expand spiritual education, seva, charity, and community upliftment through purposeful partnership"
-        backgroundImage="/images/heritage1.png"
-        subtitleClassName={EVENT_SEVA_HERO_SUBTITLE_WRAP_CLASS}
-        contentClassName={EVENT_SEVA_HERO_CONTENT_CLASS}
-        boxed
-        heightClass="h-[360px] md:h-[520px]"
-        overlayClass="bg-black/55"
-      >
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <a
-            href="#partnership-form"
-            className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}
-          >
-            Become a Partner
-          </a>
-          <Link
-            to={ROUTES.contact}
-            className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}
-          >
-            Contact Us
-          </Link>
-        </div>
-      </HeroSection>
-
-      <section className="relative z-20 mt-[10px] pb-6">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              { title: "Collaboration Tracks", value: "5", note: "Corporate, NGO, event, educational, and community partnership models." },
-              { title: "Partnership Style", value: "Flexible", note: "Project-based, event-based, recurring, or long-term collaboration paths." },
-              { title: "Mission Areas", value: "Spiritual + Social", note: "Education, seva, charity, events, and community development support." },
-              { title: "Response Flow", value: "Structured", note: "Review, planning, approval, and implementation through the trust team." },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className={EVENT_SEVA_HIGHLIGHT_CARD_CLASS}
+    <div className="bg-[#FFF9ED] pb-16 text-[#3E2A16]">
+      <section className="relative overflow-hidden">
+        <img
+          src="/assets/images/partner-with-us/partner-with-us-hero.jpg"
+          alt="Bhagwat Heritage partnership hero visual"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(38,22,12,0.82),rgba(126,70,17,0.72),rgba(8,71,80,0.62))]" />
+        <div className="absolute -right-28 top-12 h-72 w-72 rounded-full bg-[#F8CF82]/20 blur-3xl" />
+        <div className="relative py-20 md:py-24">
+          <div className={pageContainerClass}>
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#FCE3AF]">Collaborate for Seva, Sanskar &amp; Society</p>
+            <h1 className="mt-4 max-w-3xl text-4xl font-black tracking-tight text-white md:text-5xl">Partner With Bhagwat Heritage</h1>
+            <p className="mt-5 max-w-3xl text-base leading-7 text-[#F9EED5] md:text-lg">
+              Join hands with Bhagwat Heritage Service Foundation Trust to expand spiritual education, seva initiatives,
+              cultural programs, and community upliftment through purposeful collaboration.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#partnership-form"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-gradient-to-r from-[#C56E1F] to-[#E19A35] px-6 py-3 text-sm font-bold text-white shadow-[0_14px_30px_rgba(143,80,22,0.38)] transition hover:-translate-y-0.5"
               >
-                <p className={SEVA_HIGHLIGHT_TITLE_CLASS}>* {item.title}</p>
-                <p className={SEVA_HIGHLIGHT_VALUE_CLASS}>{item.value}</p>
-                <p className={`mt-1 ${SEVA_BODY_TEXT_CLASS}`}>{item.note}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className={EVENT_SEVA_SECTION_CLASS}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Introduction</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Partnerships expand the trust&apos;s real impact</h2>
-          <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className={`space-y-5 ${SEVA_BODY_TEXT_CLASS}`}>
-              <p>
-                Bhagwat Heritage Service Foundation Trust is focused on spiritual education, devotional gatherings,
-                value-based learning, seva programs, charitable outreach, and community development rooted in dharma.
-              </p>
-              <p>
-                Partnerships matter because trust impact grows faster when institutions, communities, and service-minded
-                organizations work together with clarity, shared intent, and disciplined execution.
-              </p>
+                Become a Partner
+              </a>
+              <a
+                href="#partnership-contact"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#F6D4A2] bg-white/10 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/20"
+              >
+                Discuss Collaboration
+              </a>
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1">
-              {[
-                { title: "Spiritual Education", desc: "Pathshala, discourse, study support, youth values, and cultural learning programs." },
-                { title: "Charity and Seva", desc: "Gau seva, relief work, medicine support, food seva, and community care initiatives." },
-                { title: "Community Service", desc: "Volunteer mobilization, event support, social campaigns, and local service action." },
-              ].map((item) => (
-                <div key={item.title} className={EVENT_SEVA_CARD_CLASS}>
-                  <h3 className={SEVA_CARD_TITLE_CLASS}>{item.title}</h3>
-                  <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-                </div>
+            <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {heroHighlights.map((item) => (
+                <article key={item.title} className="rounded-2xl border border-[#F4D7AF]/50 bg-[#FFF8EA]/90 p-4 backdrop-blur-sm">
+                  <h3 className="text-sm font-bold text-[#794B16]">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#4E3A24]">{item.text}</p>
+                </article>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className={EVENT_SEVA_SECTION_CLASS}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Types of Partnerships</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Choose the right collaboration path</h2>
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {partnershipCategories.map((item) => (
-              <article
-                key={item.title}
-                className={EVENT_SEVA_CARD_CLASS}
-              >
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--campaign-accent)]/15 text-sm font-black text-[var(--campaign-accent)]">
-                  {item.icon}
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className={sectionClass}>
+          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Partnerships That Multiply Real Impact</h2>
+          <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+            <p className="text-[15px] leading-7 text-[#5A442C]">
+              Bhagwat Heritage Service Foundation Trust welcomes meaningful partnerships with institutions, organisations,
+              community groups, corporates, temples, educational bodies, and seva-oriented teams that wish to contribute
+              to spiritual awakening, social welfare, cultural preservation, and value-based development.
+            </p>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {introductionCards.map((item) => (
+                <article key={item.title} className="rounded-2xl border border-[#ECDAB7] bg-white p-4 shadow-[0_10px_22px_rgba(145,95,37,0.10)]">
+                  <img src={item.icon} alt={`${item.title} icon`} className="h-11 w-11" loading="lazy" />
+                  <h3 className="mt-3 text-base font-bold text-[#72471A]">{item.title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-[#5E4831]">{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className={sectionClass}>
+          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Types of Partnerships</h2>
+          <p className="mt-2 text-sm font-medium uppercase tracking-[0.08em] text-[#0E7A7C]">Choose the right collaboration path</p>
+          <div className="mt-7 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {partnershipTypes.map((item) => (
+              <article key={item.title} className="overflow-hidden rounded-2xl border border-[#E8D5B3] bg-white shadow-[0_12px_24px_rgba(146,95,30,0.10)]">
+                <img src={item.image} alt={item.title} className="h-40 w-full object-cover" loading="lazy" />
+                <div className="p-5">
+                  <img src={item.icon} alt={`${item.title} icon`} className="h-11 w-11" loading="lazy" />
+                  <h3 className="mt-3 text-lg font-black text-[#6C4215]">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#5A442C]">{item.description}</p>
+                  <a
+                    href="#partnership-form"
+                    className="mt-4 inline-flex items-center rounded-full border border-[#DFAF66] bg-[#FFF3DF] px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-[#9A601E] transition hover:bg-[#FFE9C8]"
+                  >
+                    Learn More
+                  </a>
                 </div>
-                <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
-                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-                <p className="mt-3 text-sm leading-6 text-[#aac0ca]">{item.detail}</p>
-                <a
-                  href="#partnership-process"
-                  className="mt-5 inline-flex rounded-xl border border-[var(--campaign-accent)]/40 bg-[var(--campaign-accent)]/10 px-4 py-2 text-sm font-bold text-[var(--campaign-accent)] transition-colors hover:bg-[var(--campaign-accent)]/20"
-                >
-                  Learn More
-                </a>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className={EVENT_SEVA_SECTION_CLASS}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Partnership Benefits</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Why organizations partner</h2>
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-            {[
-              "Brand visibility across website, programs, and event-level acknowledgements.",
-              "Recognition inside trust-led spiritual and social initiatives.",
-              "Direct contribution to social impact and spiritual outreach.",
-              "Networking with spiritual guides, trustees, and community leaders.",
-              "Participation in large devotional gatherings and organized service campaigns.",
-            ].map((benefit) => (
-              <div key={benefit} className="flex gap-3 rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-4">
-                <span className="mt-2 h-2.5 w-2.5 rounded-full bg-[var(--campaign-accent)]" />
-                <p className={SEVA_BODY_TEXT_CLASS}>{benefit}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className={EVENT_SEVA_SECTION_CLASS}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Partner Showcase</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Existing supporters and collaboration circles</h2>
-          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
-            {partnerShowcase.map((item) => (
-              <div
-                key={item}
-                className="flex min-h-[132px] items-center justify-center rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 text-center shadow-sm transition-transform duration-300 hover:-translate-y-1"
-              >
-                <div>
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[var(--campaign-accent)]/15 text-sm font-black text-[var(--campaign-accent)]">
-                    {item
-                      .split(" ")
-                      .slice(0, 2)
-                      .map((word) => word[0])
-                      .join("")}
-                  </div>
-                  <p className="mt-3 text-sm font-bold leading-6 text-white">{item}</p>
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className={sectionClass}>
+          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Why Partner With Bhagwat Heritage?</h2>
+          <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {partnershipBenefits.map((benefit, index) => (
+              <article key={benefit} className="rounded-2xl border border-[#F0DFC1] bg-[#FFF8EC] p-5">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFE8C2]">
+                  <img
+                    src={index % 2 === 0 ? "/assets/icons/partner-with-us/icon-handshake.svg" : "/assets/icons/partner-with-us/icon-youth-development.svg"}
+                    alt="Benefit icon"
+                    className="h-6 w-6"
+                    loading="lazy"
+                  />
                 </div>
-              </div>
+                <h3 className="mt-3 text-base font-bold text-[#754A1C]">{benefit}</h3>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="partnership-form" className="mx-auto max-w-7xl px-4 py-8">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className={EVENT_SEVA_SECTION_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Partnership Application Form</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Submit a partnership request</h2>
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className={sectionClass}>
+          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Core Areas for Collaboration</h2>
+          <div className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="overflow-hidden rounded-2xl border border-[#E9D6B5]">
+              <img
+                src="/assets/images/partner-with-us/partnership-collaboration.jpg"
+                alt="Community collaboration in spiritual and seva activities"
+                className="h-full min-h-[300px] w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="space-y-3">
+              {collaborationAreas.map((item) => (
+                <article key={item} className="rounded-2xl border border-[#EFDDBE] bg-white px-4 py-3">
+                  <h3 className="text-sm font-bold text-[#6E4517]">{item}</h3>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <form className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2" onSubmit={handlePartnerSubmit}>
-              <input
-                value={partnerForm.organizationName}
-                onChange={(event) => setPartnerForm((current) => ({ ...current, organizationName: event.target.value }))}
-                placeholder="Organization Name"
-                className={partnerInputClass}
-              />
-              <input
-                value={partnerForm.contactName}
-                onChange={(event) => setPartnerForm((current) => ({ ...current, contactName: event.target.value }))}
-                placeholder="Contact Person Name"
-                className={partnerInputClass}
-              />
-              <input
-                value={partnerForm.email}
-                onChange={(event) => setPartnerForm((current) => ({ ...current, email: event.target.value }))}
-                placeholder="Email Address"
-                className={partnerInputClass}
-              />
-              <input
-                value={partnerForm.phone}
-                onChange={(event) => setPartnerForm((current) => ({ ...current, phone: event.target.value }))}
-                placeholder="Phone Number"
-                className={partnerInputClass}
-              />
-              <select
-                value={partnerForm.organizationType}
-                onChange={(event) => setPartnerForm((current) => ({ ...current, organizationType: event.target.value }))}
-                className={partnerInputClass}
-              >
-                {["Corporate", "NGO", "Educational Institution", "Community Group", "Event Team"].map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-              <select
-                value={partnerForm.partnershipCategory}
-                onChange={(event) => setPartnerForm((current) => ({ ...current, partnershipCategory: event.target.value }))}
-                className={partnerInputClass}
-              >
-                {partnershipCategories.map((item) => (
-                  <option key={item.title} value={item.title}>
-                    {item.title}
-                  </option>
-                ))}
-              </select>
-              <textarea
-                value={partnerForm.message}
-                onChange={(event) => setPartnerForm((current) => ({ ...current, message: event.target.value }))}
-                placeholder="Message / Proposal"
-                rows={5}
-                className={`${partnerInputClass} md:col-span-2`}
-              />
-              <label className="flex cursor-pointer items-center justify-between rounded-2xl border border-dashed border-[var(--campaign-accent)]/45 bg-[var(--campaign-surface)] px-4 py-3 text-white md:col-span-2">
-                <span>{profileFileName || "Upload Organization Profile"}</span>
-                <span className="rounded-lg bg-[var(--campaign-accent)]/15 px-3 py-1 text-sm font-bold text-[var(--campaign-accent)]">Choose File</span>
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className={sectionClass}>
+          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Partner Showcase</h2>
+          <p className="mt-2 text-sm font-medium text-[#6E5A3E]">Existing supporters and collaboration circles</p>
+          <div className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            {showcasePartners.map((partner, index) => (
+              <article key={partner} className="rounded-2xl border border-[#EBD8B7] bg-white p-4 text-center shadow-[0_12px_22px_rgba(137,93,35,0.10)]">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF0D7]">
+                  <img
+                    src={index % 2 === 0 ? "/assets/icons/partner-with-us/icon-seva-network.svg" : "/assets/icons/partner-with-us/icon-cultural-program.svg"}
+                    alt={`${partner} symbol`}
+                    className="h-7 w-7"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 className="mt-3 text-sm font-bold text-[#72481B]">{partner}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.08em] text-[#0F7F82]">Collaboration Circle</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="partnership-form" className={`${pageContainerClass} mt-10`}>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className={sectionClass}>
+            <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Partnership Application Form</h2>
+            <form className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2" onSubmit={handlePartnerSubmit} noValidate>
+              <div>
+                <label className={labelClass} htmlFor="organizationName">Organization / Institution Name</label>
                 <input
+                  id="organizationName"
+                  name="organizationName"
+                  value={partnerForm.organizationName}
+                  onChange={handleInputChange}
+                  className={fieldClass("organizationName")}
+                />
+                {formErrors.organizationName ? <p className={errorClass}>{formErrors.organizationName}</p> : null}
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="contactPersonName">Contact Person Name</label>
+                <input
+                  id="contactPersonName"
+                  name="contactPersonName"
+                  value={partnerForm.contactPersonName}
+                  onChange={handleInputChange}
+                  className={fieldClass("contactPersonName")}
+                />
+                {formErrors.contactPersonName ? <p className={errorClass}>{formErrors.contactPersonName}</p> : null}
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="emailAddress">Email Address</label>
+                <input
+                  id="emailAddress"
+                  name="emailAddress"
+                  value={partnerForm.emailAddress}
+                  onChange={handleInputChange}
+                  className={fieldClass("emailAddress")}
+                  type="email"
+                />
+                {formErrors.emailAddress ? <p className={errorClass}>{formErrors.emailAddress}</p> : null}
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="phoneNumber">Phone Number</label>
+                <input
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  value={partnerForm.phoneNumber}
+                  onChange={handleInputChange}
+                  className={fieldClass("phoneNumber")}
+                  inputMode="tel"
+                />
+                {formErrors.phoneNumber ? <p className={errorClass}>{formErrors.phoneNumber}</p> : null}
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="organizationType">Organization Type</label>
+                <select
+                  id="organizationType"
+                  name="organizationType"
+                  value={partnerForm.organizationType}
+                  onChange={handleInputChange}
+                  className={fieldClass("organizationType")}
+                >
+                  {[
+                    "Corporate",
+                    "NGO",
+                    "Educational Institution",
+                    "Temple or Trust",
+                    "Community Group",
+                    "Event Organizer",
+                    "Media Partner",
+                    "Other",
+                  ].map((item) => (
+                    <option key={item} value={item}>{item}</option>
+                  ))}
+                </select>
+                {formErrors.organizationType ? <p className={errorClass}>{formErrors.organizationType}</p> : null}
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="partnershipType">Partnership Type</label>
+                <select
+                  id="partnershipType"
+                  name="partnershipType"
+                  value={partnerForm.partnershipType}
+                  onChange={handleInputChange}
+                  className={fieldClass("partnershipType")}
+                >
+                  {[
+                    "CSR Partnership",
+                    "Seva Collaboration",
+                    "Event Partnership",
+                    "Educational Partnership",
+                    "Cultural Program",
+                    "Digital Collaboration",
+                    "Other",
+                  ].map((item) => (
+                    <option key={item} value={item}>{item}</option>
+                  ))}
+                </select>
+                {formErrors.partnershipType ? <p className={errorClass}>{formErrors.partnershipType}</p> : null}
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="preferredCollaborationArea">Preferred Collaboration Area</label>
+                <select
+                  id="preferredCollaborationArea"
+                  name="preferredCollaborationArea"
+                  value={partnerForm.preferredCollaborationArea}
+                  onChange={handleInputChange}
+                  className={fieldClass("preferredCollaborationArea")}
+                >
+                  {[
+                    "Spiritual Education",
+                    "Gau Seva",
+                    "Ann Seva",
+                    "Education Support",
+                    "Health Support",
+                    "Youth Programs",
+                    "Cultural Events",
+                    "Digital Outreach",
+                    "Other",
+                  ].map((item) => (
+                    <option key={item} value={item}>{item}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="cityStateCountry">City / State / Country</label>
+                <input
+                  id="cityStateCountry"
+                  name="cityStateCountry"
+                  value={partnerForm.cityStateCountry}
+                  onChange={handleInputChange}
+                  className={fieldClass("cityStateCountry")}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className={labelClass} htmlFor="websiteOrSocialMedia">Website or Social Media Link</label>
+                <input
+                  id="websiteOrSocialMedia"
+                  name="websiteOrSocialMedia"
+                  value={partnerForm.websiteOrSocialMedia}
+                  onChange={handleInputChange}
+                  className={fieldClass("websiteOrSocialMedia")}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className={labelClass} htmlFor="organizationProfile">Upload organization profile/document</label>
+                <label
+                  htmlFor="organizationProfile"
+                  className="flex cursor-pointer items-center justify-between rounded-xl border border-dashed border-[#D8B079] bg-[#FFF9EC] px-4 py-3"
+                >
+                  <span className="truncate pr-2 text-sm text-[#694629]">
+                    {partnerForm.organizationProfile?.name || "Choose file to upload"}
+                  </span>
+                  <span className="rounded-lg bg-[#FFE5BD] px-3 py-1 text-xs font-bold text-[#965B19]">Browse</span>
+                </label>
+                <input
+                  id="organizationProfile"
                   type="file"
                   className="hidden"
-                  onChange={(event) => setProfileFileName(event.target.files?.[0]?.name ?? "")}
+                  onChange={handleFileChange}
                 />
-              </label>
-              <button
-                type="submit"
-                className="rounded-xl bg-[var(--campaign-accent)] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[var(--campaign-accent-hover)] md:col-span-2"
-              >
-                Submit Partnership Request
-              </button>
+              </div>
+              <div className="md:col-span-2">
+                <label className={labelClass} htmlFor="messageProposal">Message / Proposal</label>
+                <textarea
+                  id="messageProposal"
+                  name="messageProposal"
+                  value={partnerForm.messageProposal}
+                  onChange={handleInputChange}
+                  rows={5}
+                  className={fieldClass("messageProposal")}
+                />
+                {formErrors.messageProposal ? <p className={errorClass}>{formErrors.messageProposal}</p> : null}
+              </div>
+              <div className="md:col-span-2">
+                <label className="flex items-start gap-3 rounded-xl border border-[#ECD6B2] bg-[#FFF7E8] p-3">
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    checked={partnerForm.consent}
+                    onChange={handleInputChange}
+                    className="mt-0.5 h-4 w-4 rounded border-[#C79A62]"
+                  />
+                  <span className="text-sm leading-6 text-[#5B452E]">
+                    I confirm that the shared information is accurate and our proposed collaboration is aligned with
+                    ethical, social, cultural, and spiritual values.
+                  </span>
+                </label>
+                {formErrors.consent ? <p className={errorClass}>{formErrors.consent}</p> : null}
+              </div>
+              <div className="md:col-span-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-gradient-to-r from-[#C56E1F] to-[#E09B36] px-7 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(145,84,24,0.28)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {isSubmitting ? "Submitting..." : "Submit Partnership Request"}
+                </button>
+              </div>
             </form>
-
             {requestSubmitted ? (
-              <p className="mt-4 rounded-2xl border border-[var(--campaign-accent)]/35 bg-[var(--campaign-surface)] px-4 py-3 text-sm font-medium text-white">
-                Partnership request drafted successfully. The trust team can now review the proposal and continue the discussion process.
+              <p className="mt-4 rounded-xl border border-[#E4BF89] bg-[#FFF3DE] px-4 py-3 text-sm font-semibold text-[#6C4315]">
+                Your partnership request has been received. Our team will review and contact you soon.
               </p>
             ) : null}
+            {formErrors.submit ? <p className={errorClass}>{formErrors.submit}</p> : null}
           </div>
 
           <div className="space-y-6">
-            <div id="partnership-process" className={EVENT_SEVA_SECTION_CLASS}>
-              <p className={SEVA_SECTION_LABEL_CLASS}>Partnership Process</p>
-              <h2 className={SEVA_SECTION_HEADING_CLASS}>How collaboration moves forward</h2>
-              <div className="mt-8 space-y-4">
-                {[
-                  "Submit partnership request",
-                  "Review by trust committee",
-                  "Discussion and planning",
-                  "Formal partnership agreement",
-                  "Collaboration implementation",
-                ].map((step, index) => (
-                  <div key={step} className="flex gap-4 rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--campaign-accent)] text-sm font-black text-white">
-                      {index + 1}
-                    </div>
-                    <div>
-                      <p className={SEVA_CARD_TITLE_CLASS}>{step}</p>
-                      <p className={`mt-1 text-sm leading-6 ${SEVA_BODY_TEXT_CLASS}`}>
-                        Structured review keeps the collaboration aligned, practical, and mission-consistent.
-                      </p>
-                    </div>
-                  </div>
+            <aside className={sectionClass}>
+              <h3 className="text-xl font-black text-[#633E14]">Collaboration Process Snapshot</h3>
+              <div className="mt-4 space-y-3">
+                {processPreview.map((item) => (
+                  <p key={item} className="rounded-xl border border-[#EDD9B6] bg-white px-4 py-3 text-sm font-semibold text-[#64411D]">{item}</p>
                 ))}
               </div>
-            </div>
-
-            <div className={EVENT_SEVA_SECTION_CLASS}>
-              <p className={SEVA_SECTION_LABEL_CLASS}>Contact Section</p>
-              <h2 className={SEVA_SECTION_HEADING_CLASS}>Talk to the partnership desk</h2>
-              <div className={`mt-6 space-y-4 ${SEVA_BODY_TEXT_CLASS}`}>
+            </aside>
+            <aside id="partnership-contact" className={sectionClass}>
+              <h3 className="text-xl font-black text-[#633E14]">Partnership Help Desk</h3>
+              <div className="mt-4 space-y-2 text-sm leading-7 text-[#5C452E]">
+                <p><span className="font-bold text-[#7A4A17]">Email:</span> join@bhagwatheritage.org</p>
+                <p><span className="font-bold text-[#7A4A17]">Phone:</span> +91-866-889-7445</p>
                 <p>
-                  <span className="font-black text-white">Email:</span> join@bhagwatheritage.org
-                </p>
-                <p>
-                  <span className="font-black text-white">Phone:</span> +91-866-889-7445
-                </p>
-                <p>
-                  <span className="font-black text-white">Office Address:</span> Bhagwat Dham - Shree Swaminarayan Mandir, Kasturba Rd, Hospital ward, Chandrapur, Maharashtra 442402
+                  <span className="font-bold text-[#7A4A17]">Address:</span> Bhagwat Dham - Shree Swaminarayan Mandir, Kasturba Rd, Hospital Ward, Chandrapur, Maharashtra 442402
                 </p>
               </div>
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-4 flex flex-wrap gap-2">
                 <a
                   href="https://www.instagram.com/bhagwat.heritage"
                   target="_blank"
                   rel="noreferrer"
-                  className={partnerBadgeClass}
+                  className="rounded-full border border-[#DAB27A] bg-[#FFF2DB] px-4 py-2 text-xs font-bold uppercase tracking-[0.06em] text-[#915A1B]"
                 >
                   Instagram
-                </a>
-                <a
-                  href="https://www.facebook.com/share/1AtpQtn1SL/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={partnerBadgeClass}
-                >
-                  Facebook
                 </a>
                 <a
                   href="https://youtube.com/@bhagwatheritage"
                   target="_blank"
                   rel="noreferrer"
-                  className={partnerBadgeClass}
+                  className="rounded-full border border-[#DAB27A] bg-[#FFF2DB] px-4 py-2 text-xs font-bold uppercase tracking-[0.06em] text-[#915A1B]"
                 >
                   YouTube
                 </a>
@@ -10732,42 +11034,135 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
                   href="https://wa.me/918668897445"
                   target="_blank"
                   rel="noreferrer"
-                  className={partnerBadgeClass}
+                  className="rounded-full border border-[#DAB27A] bg-[#FFF2DB] px-4 py-2 text-xs font-bold uppercase tracking-[0.06em] text-[#915A1B]"
                 >
                   WhatsApp
                 </a>
               </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="partnership-process" className={`${pageContainerClass} mt-10`}>
+        <div className={sectionClass}>
+          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">How Collaboration Moves Forward</h2>
+          <div className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="overflow-hidden rounded-2xl border border-[#E8D3B0]">
+              <img
+                src="/assets/images/partner-with-us/partnership-process.jpg"
+                alt="Partnership process and planning"
+                className="h-full min-h-[300px] w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="space-y-4">
+              {processTimeline.map((step, index) => (
+                <article key={step.title} className="relative rounded-2xl border border-[#ECD9B7] bg-white p-4">
+                  {index < processTimeline.length - 1 ? <span className="absolute left-[38px] top-[60px] h-8 w-px bg-[#D9B179]" /> : null}
+                  <div className="flex gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FFF2DC] text-sm font-black text-[#9A5D1A]">
+                      {index + 1}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <img src={step.icon} alt={`${step.title} icon`} className="h-6 w-6" loading="lazy" />
+                        <h3 className="text-base font-black text-[#6C4317]">{step.title}</h3>
+                      </div>
+                      <p className="mt-2 text-sm leading-6 text-[#5A442C]">{step.description}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_0.95fr]">
-          <div className={EVENT_SEVA_SECTION_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Testimonials</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>What existing partners say</h2>
-            <div className="mt-8 space-y-4">
-              {testimonials.map((item) => (
-                <div key={item.name} className="rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-5">
-                  <p className={SEVA_BODY_TEXT_CLASS}>&quot;{item.quote}&quot;</p>
-                  <p className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.name}</p>
-                  <p className="text-sm text-[var(--campaign-accent)]">{item.org}</p>
-                </div>
-              ))}
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className="rounded-2xl border border-[#E7C58E] bg-[#FFF3DB] p-6 shadow-[0_10px_22px_rgba(156,102,32,0.12)]">
+          <div className="flex items-start gap-3">
+            <img src="/assets/icons/partner-with-us/icon-ethical-collaboration.svg" alt="Ethical collaboration icon" className="h-11 w-11" loading="lazy" />
+            <div>
+              <h2 className="text-2xl font-black text-[#6A3F12]">Ethical &amp; Mission-Aligned Collaboration</h2>
+              <p className="mt-3 text-sm leading-7 text-[#5A432A]">
+                Bhagwat Heritage Service Foundation Trust accepts partnerships that are aligned with seva, spirituality,
+                cultural dignity, education, social upliftment, and ethical community development. The Trust reserves the
+                right to review, approve, or decline collaboration proposals based on mission alignment, documentation, and
+                public interest.
+              </p>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className={EVENT_SEVA_SECTION_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>FAQ</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Common partnership questions</h2>
-            <div className="mt-8 space-y-4">
-              {faqs.map((item) => (
-                <div key={item.question} className="rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-5">
-                  <h3 className={SEVA_CARD_TITLE_CLASS}>{item.question}</h3>
-                  <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.answer}</p>
-                </div>
-              ))}
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className={sectionClass}>
+          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">What Existing Partners Say</h2>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {testimonials.map((item) => (
+              <article key={item} className="rounded-2xl border border-[#EBD8B8] bg-white p-5">
+                <img src="/assets/icons/partner-with-us/icon-handshake.svg" alt="Testimonial icon" className="h-9 w-9" loading="lazy" />
+                <p className="mt-3 text-sm leading-7 text-[#56422A]">&quot;{item}&quot;</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className={sectionClass}>
+          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Common Partnership Questions</h2>
+          <div className="mt-6 space-y-3">
+            {faqs.map((item, index) => {
+              const isOpen = openFaqIndex === index;
+
+              return (
+                <article key={item.question} className="overflow-hidden rounded-2xl border border-[#ECD9B9] bg-white">
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left"
+                    onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                  >
+                    <h3 className="text-base font-bold text-[#6E4519]">{item.question}</h3>
+                    <span className="text-xl font-black text-[#A56721]">{isOpen ? "-" : "+"}</span>
+                  </button>
+                  {isOpen ? <p className="px-5 pb-5 text-sm leading-7 text-[#5A432B]">{item.answer}</p> : null}
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className="relative overflow-hidden rounded-[30px] border border-[#E3C28D] p-8 md:p-12">
+          <img
+            src="/assets/images/partner-with-us/partnership-cta-banner.jpg"
+            alt="Partnership call to action background"
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(49,27,10,0.82),rgba(142,82,23,0.75),rgba(9,92,98,0.60))]" />
+          <div className="relative">
+            <h2 className="max-w-3xl text-3xl font-black text-white md:text-4xl">Let Us Join Hands for Dharma, Seva and Society</h2>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-[#F8ECD3]">
+              Your organisation can become a meaningful force in expanding spiritual education, seva, culture, and community welfare.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a
+                href="#partnership-form"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-gradient-to-r from-[#C56E1F] to-[#E19A35] px-6 py-3 text-sm font-bold text-white"
+              >
+                Become a Partner
+              </a>
+              <a
+                href="#partnership-contact"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#F4D7AA] bg-white/10 px-6 py-3 text-sm font-bold text-white"
+              >
+                Contact Partnership Desk
+              </a>
             </div>
           </div>
         </div>
@@ -10777,149 +11172,211 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
 });
 
 export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
-  const [activeTrack, setActiveTrack] = useState<"All" | "Spiritual" | "Seva" | "Education" | "Mandir">("All");
+  type SponsorTrack = "All" | "Spiritual" | "Seva" | "Education" | "Mandir" | "Emergency";
+
+  const [activeTrack, setActiveTrack] = useState<SponsorTrack>("All");
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const thirdButtonClass =
+    "inline-flex items-center rounded-lg border border-white/70 bg-white/12 px-6 py-3 font-semibold text-white shadow-[0_14px_28px_rgba(23,26,32,0.18)] transition hover:-translate-y-0.5 hover:bg-white hover:text-[#7A4A12]";
+  const ctaPrimaryClass =
+    "inline-flex min-h-[48px] items-center justify-center rounded-full bg-gradient-to-r from-[#C86B19] via-[#D88B2A] to-[#E6A642] px-6 py-3 text-sm font-black text-white shadow-[0_14px_28px_rgba(182,98,28,0.28)] transition duration-300 hover:-translate-y-0.5 hover:from-[#B85E14] hover:to-[#D4973B]";
+  const ctaSecondaryClass =
+    "inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#D5B589] bg-[#FFF4DF] px-6 py-3 text-sm font-black text-[#7A4A12] shadow-[0_10px_22px_rgba(108,67,25,0.14)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#FEE9C5]";
+  const surfaceCardClass =
+    "rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-[0_14px_28px_rgba(0,0,0,0.2)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_32px_rgba(0,0,0,0.26)]";
+  const iconBadgeClass = "inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[#E7CFA5] bg-[#FFF8EA]";
+  const iconImageClass = "h-7 w-7 object-contain";
 
   const sponsorPrograms = [
     {
       category: "Spiritual" as const,
       title: "Bhagwat Katha and Festival Sponsorship",
-      desc: "Support major satsang programs, festival celebrations, stage arrangements, prasad, hospitality, and devotee experience.",
-      impact: "Visible devotional impact during high-footfall events and temple celebrations.",
-      support: "Festival seva, katha logistics, decor, sound, seating, and spiritual hospitality.",
+      badge: "Featured Sponsor Route",
+      description:
+        "Support major spiritual programs, festival celebrations, stage arrangements, prasad, hospitality, and devotee experience.",
+      impact: "Creates devotional impact during high-footfall events and temple celebrations.",
+      supports: "Event setup, katha logistics, decor, sound, seating, prasad, and spiritual hospitality.",
+      icon: "/assets/icons/sponsor-programs/icon-katha-sponsorship.svg",
     },
     {
       category: "Seva" as const,
       title: "Gau Seva Sponsorship",
-      desc: "Sponsor grass, fodder, medical care, shelter support, and day-to-day gaushala seva continuity.",
+      description: "Sponsor grass, fodder, medical care, shelter support, and daily gau-shala seva continuity.",
       impact: "Provides disciplined care support for cows through recurring and need-based seva.",
-      support: "Fodder seva, emergency care, routine nourishment, and gaushala operations.",
+      supports: "Fodder, green grass, emergency care, routine nourishment, and gaushala operations.",
+      icon: "/assets/icons/sponsor-programs/icon-gau-seva-sponsor.svg",
     },
     {
-      category: "Seva" as const,
+      category: "Emergency" as const,
       title: "Disaster Relief Sponsorship",
-      desc: "Fund emergency kits, food distribution, blankets, temporary essentials, and field response support.",
+      description: "Fund emergency kits, food distribution, blankets, temporary essentials, and field response support.",
       impact: "Helps the trust respond quickly when families need urgent practical support.",
-      support: "Relief kits, transport, volunteer deployment, and rapid-response field coordination.",
+      supports: "Relief kits, transport, volunteer deployment, and rapid-response coordination.",
+      icon: "/assets/icons/sponsor-programs/icon-disaster-relief-sponsor.svg",
     },
     {
       category: "Education" as const,
       title: "Scholarship and Student Sponsorship",
-      desc: "Support students through scholarship assistance, books, learning tools, and values-based educational guidance.",
+      description:
+        "Support students through scholarship assistance, books, learning tools, and value-based educational guidance.",
       impact: "Creates measurable long-term upliftment through education and character support.",
-      support: "Fees, study material, mentoring, and structured student support routes.",
+      supports: "Fees, study materials, mentoring, and structured student support routes.",
+      icon: "/assets/icons/sponsor-programs/icon-education-sponsor.svg",
     },
     {
       category: "Education" as const,
       title: "Pathshala and Children Learning Sponsorship",
-      desc: "Enable bal sanskar programs, digital Pathshala support, child learning modules, and family spiritual education initiatives.",
+      description:
+        "Enable Bal Sanskar programs, digital Pathshala support, child learning modules, and family spiritual education initiatives.",
       impact: "Builds the next generation through dharmic learning and disciplined spiritual formation.",
-      support: "Class materials, mentor support, event days, and children learning resources.",
+      supports: "Class material, mentor support, event days, learning resources, and children’s workshops.",
+      icon: "/assets/icons/sponsor-programs/icon-education-sponsor.svg",
     },
     {
       category: "Mandir" as const,
       title: "Mandir and Installation Sponsorship",
-      desc: "Support temple construction-linked features, sacred installations, devotional infrastructure, and visitor experience planning.",
+      description:
+        "Support temple construction-linked features, sacred installations, devotional infrastructure, and visitor experience planning.",
       impact: "Strengthens long-term mandir vision and the spiritual environment for devotees.",
-      support: "Murti support, installations, visitor pathways, decor, lighting, and sacred space readiness.",
+      supports: "Murti support, installation, visitor pathways, decor, lighting, and sacred-space readiness.",
+      icon: "/assets/icons/sponsor-programs/icon-mandir-sponsor.svg",
     },
     {
       category: "Seva" as const,
       title: "Medicine Distribution Sponsorship",
-      desc: "Fund medicine kits, recurring patient support, health camps, and essential care outreach for vulnerable families.",
-      impact: "Converts sponsor contribution into direct healthcare stability for beneficiaries.",
-      support: "Medicine supply, camp support, distribution logistics, and chronic care assistance.",
+      description:
+        "Fund medicine kits, recurring patient support, health camps, and essential care outreach for vulnerable families.",
+      impact: "Converts sponsor contribution into direct healthcare relief for beneficiaries.",
+      supports: "Medicine supply, camp support, distribution logistics, and chronic care assistance.",
+      icon: "/assets/icons/sponsor-programs/icon-medical-sponsor.svg",
     },
     {
       category: "Spiritual" as const,
       title: "Annakut and Prasad Sponsorship",
-      desc: "Sponsor offering arrangements, prasad preparation, festival hospitality, and temple celebration support.",
+      description: "Sponsor offering arrangements, prasad preparation, festival hospitality, and temple celebration support.",
       impact: "Creates direct devotional participation through large-scale offering and guest care.",
-      support: "Bhog, prasad seva, utensils, serving support, and festival hospitality infrastructure.",
+      supports: "Bhog, prasad seva, utensils, serving support, and festival hospitality infrastructure.",
+      icon: "/assets/icons/sponsor-programs/icon-prasad-sponsor.svg",
     },
   ];
 
+  const tracks: readonly SponsorTrack[] = ["All", "Spiritual", "Seva", "Education", "Mandir", "Emergency"];
   const visiblePrograms =
     activeTrack === "All" ? sponsorPrograms : sponsorPrograms.filter((item) => item.category === activeTrack);
-  const sponsorInfoCardClass = "rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-5";
 
   usePageMeta(
     "Sponsor Programs",
-    "Sponsor trust programs across seva, education, mandir development, and spiritual events with structured participation options.",
+    "Sponsor Bhagwat Katha, Gau Seva, Ann Seva, Education Support, Mandir Development, Medical Seva, Disaster Relief, Pathshala, and Prasad Seva through Bhagwat Heritage Service Foundation Trust.",
   );
 
   return (
     <div className="min-h-screen bg-[var(--campaign-deep)] pb-16">
       <HeroSection
         title="Sponsor Programs"
-        subtitle="Sponsor meaningful seva, education, mandir development, and spiritual initiatives with structured contribution paths"
-        backgroundImage="/images/kathapravachan.png"
+        subtitle="Sponsor meaningful seva, education, mandir development, and spiritual initiatives through structured contribution paths."
+        backgroundImage="/assets/images/sponsor-programs/sponsor-programs-hero.jpg"
         subtitleClassName={EVENT_SEVA_HERO_SUBTITLE_WRAP_CLASS}
         contentClassName={EVENT_SEVA_HERO_CONTENT_CLASS}
         boxed
-        heightClass="h-[360px] md:h-[520px]"
-        overlayClass="bg-black/55"
+        heightClass="h-[460px] md:h-[600px]"
+        overlayClass="bg-[linear-gradient(120deg,rgba(57,26,0,0.84),rgba(119,53,4,0.66),rgba(12,57,67,0.35))]"
       >
+        <p className="mx-auto mt-2 max-w-4xl text-sm leading-7 text-white/90 md:text-base">
+          Your support can become a living form of seva by helping Bhagwat Katha, Gau Seva, Ann Seva, Education
+          Support, Mandir Development, Medical Seva, Disaster Relief, Pathshala, and Prasad Seva reach more families,
+          devotees, students, and communities.
+        </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Link
-            to={ROUTES.donate}
-            className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}
-          >
+          <Link to={ROUTES.donate} className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>
             Sponsor Now
           </Link>
-          <Link
-            to={ROUTES.contact}
-            className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}
-          >
+          <Link to={ROUTES.contact} className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>
             Talk to Sponsor Team
           </Link>
+          <a href="/assets/docs/sponsorship-brief.txt" download className={thirdButtonClass}>
+            Download Sponsorship Brief
+          </a>
         </div>
       </HeroSection>
 
-      <section className="relative z-20 mt-[10px] pb-6">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+      <section className="relative z-20 mt-2 pb-6">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             {[
-              { title: "Sponsor Tracks", value: "8", note: "Program-focused sponsorship options across seva, learning, and mandir work" },
-              { title: "Impact Areas", value: "4", note: "Spiritual, Seva, Education, and Mandir development support" },
-              { title: "Support Model", value: "Flexible", note: "Sponsor one event, one program, one season, or recurring monthly seva" },
-              { title: "Recognition Flow", value: "Transparent", note: "Sponsors support clear causes with visible trust purpose and allocation direction" },
+              { title: "Sponsor Tracks", value: "8+", note: "Purpose-led sponsorship tracks for trust-led outcomes." },
+              {
+                title: "Impact Areas",
+                value: "Spiritual, Seva, Education & Mandir",
+                note: "Structured routes across core trust work areas.",
+              },
+              {
+                title: "Support Options",
+                value: "One-time, Monthly, Annual",
+                note: "Support flow designed for every sponsor profile.",
+              },
+              { title: "Contribution Clarity", value: "Purpose-based", note: "Clear contribution direction and communication flow." },
             ].map((item) => (
-              <div key={item.title} className={EVENT_SEVA_HIGHLIGHT_CARD_CLASS}>
-                <p className={SEVA_HIGHLIGHT_TITLE_CLASS}>* {item.title}</p>
-                <p className={SEVA_HIGHLIGHT_VALUE_CLASS}>{item.value}</p>
-                <p className={`mt-1 ${SEVA_BODY_TEXT_CLASS}`}>{item.note}</p>
-              </div>
+              <article key={item.title} className={EVENT_SEVA_HIGHLIGHT_CARD_CLASS}>
+                <p className={SEVA_HIGHLIGHT_TITLE_CLASS}>{item.title}</p>
+                <p className="mt-1 text-lg font-black leading-tight text-white">{item.value}</p>
+                <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.note}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className={EVENT_SEVA_SECTION_CLASS}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>About Sponsor Programs</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>A clearer structure for meaningful sponsorship</h2>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
-            {[
-              {
-                title: "Cause-Focused Sponsorship",
-                desc: "Sponsors should be able to choose a real program area instead of donating without context.",
-              },
-              {
-                title: "Visible Seva Direction",
-                desc: "Each sponsorship route should explain what part of trust work it strengthens in practice.",
-              },
-              {
-                title: "Flexible Contribution Entry",
-                desc: "Some sponsors want one-time support while others want monthly, seasonal, or annual program participation.",
-              },
-            ].map((item) => (
-              <div key={item.title} className={`${EVENT_SEVA_CARD_CLASS} text-center`}>
-                <h3 className={`mb-3 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
-                <p className={SEVA_BODY_TEXT_CLASS}>{item.desc}</p>
-              </div>
-            ))}
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.12fr_0.88fr]">
+          <div className={`${EVENT_SEVA_SECTION_CLASS} relative overflow-hidden`}>
+            <div className="pointer-events-none absolute -right-10 -top-10 opacity-[0.08]">
+              <img src="/assets/icons/sponsor-programs/icon-mandir-sponsor.svg" alt="" className="h-52 w-52" loading="lazy" />
+            </div>
+            <p className={SEVA_SECTION_LABEL_CLASS}>About Sponsor Programs</p>
+            <h2 className={SEVA_SECTION_HEADING_CLASS}>A clearer structure for meaningful sponsorship</h2>
+            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+              {[
+                {
+                  title: "Cause-Focused Sponsorship",
+                  text: "Sponsors can choose a real program area instead of contributing without clear purpose.",
+                },
+                {
+                  title: "Visible Seva Direction",
+                  text: "Each sponsorship route explains what part of trust work it strengthens in practice.",
+                },
+                {
+                  title: "Flexible Contribution Entry",
+                  text: "Sponsors may support one-time, monthly, seasonal, annual, or program-based seva.",
+                },
+                {
+                  title: "Transparent Support Flow",
+                  text: "Every sponsorship should include clear purpose, receipt, acknowledgement, and impact communication.",
+                },
+              ].map((item) => (
+                <article key={item.title} className={`${surfaceCardClass} h-full`}>
+                  <h3 className={SEVA_CARD_TITLE_CLASS}>{item.title}</h3>
+                  <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.text}</p>
+                </article>
+              ))}
+            </div>
           </div>
+
+          <aside className={`${EVENT_SEVA_SECTION_CLASS} overflow-hidden p-0`}>
+            <img
+              src="/assets/images/sponsor-programs/sponsor-seva-impact.jpg"
+              alt="Seva impact collage showing gau seva, food service, education support, and mandir care"
+              className="h-[300px] w-full object-cover md:h-[360px]"
+              loading="lazy"
+            />
+            <div className="p-6">
+              <h3 className={SEVA_CARD_TITLE_CLASS}>Seva impact that sponsors can connect with clearly</h3>
+              <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>
+                Sponsorship options are organized for families, devotees, institutions, and businesses that want clear
+                intent, dignified seva communication, and practical trust coordination.
+              </p>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -10928,20 +11385,21 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <p className={SEVA_SECTION_LABEL_CLASS}>Sponsor Program Explorer</p>
-              <h2 className={SEVA_SECTION_HEADING_CLASS}>Browse sponsorship opportunities by category</h2>
+              <h2 className={SEVA_SECTION_HEADING_CLASS}>Choose the right sponsor route by category</h2>
             </div>
             <div className="flex flex-wrap gap-2">
-              {(["All", "Spiritual", "Seva", "Education", "Mandir"] as const).map((track) => {
+              {tracks.map((track) => {
                 const active = track === activeTrack;
                 return (
                   <button
                     key={track}
                     type="button"
                     onClick={() => setActiveTrack(track)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    aria-pressed={active}
+                    className={`rounded-full px-4 py-2 text-sm font-bold transition ${
                       active
-                        ? "bg-[var(--campaign-accent)] text-white shadow-[0_10px_24px_rgba(239,154,30,0.24)]"
-                        : "border border-white/10 bg-[var(--campaign-surface)] text-[var(--campaign-text)] hover:border-[var(--campaign-accent)]"
+                        ? "bg-gradient-to-r from-[#C86B19] to-[#E6A642] text-white shadow-[0_12px_24px_rgba(196,109,26,0.24)]"
+                        : "border border-white/15 bg-[var(--campaign-surface)] text-[var(--campaign-text)] hover:border-[#E3B56B]"
                     }`}
                   >
                     {track}
@@ -10951,140 +11409,341 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
             {visiblePrograms.map((item) => (
-              <div key={item.title} className={`${EVENT_SEVA_DETAIL_CARD_CLASS} flex h-full flex-col`}>
+              <article key={item.title} className={`${EVENT_SEVA_DETAIL_CARD_CLASS} flex h-full flex-col`}>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-[var(--campaign-accent)] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                  <span className={iconBadgeClass}>
+                    <img src={item.icon} alt="" loading="lazy" className={iconImageClass} />
+                  </span>
+                  <span className="rounded-full bg-[#E8A03A] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#31210D]">
                     {item.category}
                   </span>
-                  <span className="rounded-full border border-white/10 bg-[var(--campaign-bg)] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[var(--campaign-text)]">
-                    Sponsor Route
-                  </span>
+                  {item.badge ? (
+                    <span className="rounded-full border border-[#86B9B1] bg-[#0F7D81]/15 px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#8AD7CD]">
+                      {item.badge}
+                    </span>
+                  ) : null}
                 </div>
                 <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
-                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-                <div className="mt-4 grid grid-cols-1 gap-3">
+                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{item.description}</p>
+                <div className="mt-4 space-y-3">
                   <div className="rounded-2xl border border-white/10 bg-[var(--campaign-bg)] p-4">
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Impact</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F0B65A]">Impact</p>
                     <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.impact}</p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-[var(--campaign-bg)] p-4">
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">What Sponsorship Supports</p>
-                    <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.support}</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F0B65A]">Supports</p>
+                    <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.supports}</p>
                   </div>
                 </div>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link to={ROUTES.donate} className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>
+                  <Link to={ROUTES.donate} className={ctaPrimaryClass}>
                     Sponsor This Program
                   </Link>
-                  <Link
-                    to={ROUTES.contact}
-                    className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}
-                  >
+                  <Link to={ROUTES.contact} className={ctaSecondaryClass}>
                     Request Details
                   </Link>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className={EVENT_SEVA_SECTION_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Sponsor Seva Ideas</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Program ideas sponsors can support directly</h2>
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                {
-                  title: "Monthly Gau Grass Seva",
-                  desc: "A recurring sponsor option for daily grass and nourishment support in the gaushala.",
-                },
-                {
-                  title: "Festival Decoration and Puja Seva",
-                  desc: "Support mandap decor, flowers, lighting, and puja-related festival arrangements.",
-                },
-                {
-                  title: "Child Sanskar Kit Sponsorship",
-                  desc: "Support books, activity material, and spiritual learning kits for children and Pathshala batches.",
-                },
-                {
-                  title: "Medical Camp Support",
-                  desc: "Fund health camps, medicine distribution days, and practical wellness seva for families in need.",
-                },
-              ].map((item) => (
-                <div key={item.title} className={sponsorInfoCardClass}>
-                  <h3 className={SEVA_CARD_TITLE_CLASS}>{item.title}</h3>
-                  <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={EVENT_SEVA_SECTION_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Sponsor Journey</p>
-            <h3 className={SEVA_SECTION_HEADING_CLASS}>How sponsorship can work</h3>
-            <div className="mt-6 space-y-4">
-              {[
-                "Choose the trust program or seva area you want to support.",
-                "Connect with the trust for scope, amount, and sponsorship type if needed.",
-                "Complete contribution through the donation route or guided sponsor coordination.",
-                "Stay connected with the purpose and continuity of the supported trust work.",
-              ].map((line, index) => (
-                <div key={line} className="rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-4">
-                  <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Step {index + 1}</p>
-                  <p className={`mt-1 ${SEVA_BODY_TEXT_CLASS}`}>{line}</p>
-                </div>
-              ))}
-            </div>
+        <div className={EVENT_SEVA_SECTION_CLASS}>
+          <p className={SEVA_SECTION_LABEL_CLASS}>Sponsor Seva Ideas</p>
+          <h2 className={SEVA_SECTION_HEADING_CLASS}>Program ideas sponsors can support directly</h2>
+          <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>Program ideas sponsors can support directly</p>
+          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {[
+              {
+                title: "Monthly Gau Grass Seva",
+                text: "Recurring support for daily grass and nourishment in gaushala.",
+                icon: "/assets/icons/sponsor-programs/icon-gau-seva-sponsor.svg",
+              },
+              {
+                title: "Festival Decoration and Puja Seva",
+                text: "Support mandap decor, flowers, lighting, and puja-related arrangements.",
+                icon: "/assets/icons/sponsor-programs/icon-katha-sponsorship.svg",
+              },
+              {
+                title: "Child Sanskar Kit Sponsorship",
+                text: "Support books, activity material, and learning kits for children and Pathshala batches.",
+                icon: "/assets/icons/sponsor-programs/icon-education-sponsor.svg",
+              },
+              {
+                title: "Medical Camp Support",
+                text: "Fund health camps, medicine distribution days, and practical wellness support.",
+                icon: "/assets/icons/sponsor-programs/icon-medical-sponsor.svg",
+              },
+              {
+                title: "Prasad Distribution Seva",
+                text: "Support prasad preparation, packing, serving, and distribution.",
+                icon: "/assets/icons/sponsor-programs/icon-ann-seva-sponsor.svg",
+              },
+              {
+                title: "Scholarship Support",
+                text: "Support fee assistance, books, uniforms, and guidance for deserving students.",
+                icon: "/assets/icons/sponsor-programs/icon-education-sponsor.svg",
+              },
+            ].map((item) => (
+              <article key={item.title} className={`${surfaceCardClass} flex h-full flex-col`}>
+                <span className={iconBadgeClass}>
+                  <img src={item.icon} alt="" loading="lazy" className={iconImageClass} />
+                </span>
+                <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
+                <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.06fr_0.94fr]">
           <div className={EVENT_SEVA_SECTION_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Why This Page Helps</p>
-            <h3 className={SEVA_SECTION_HEADING_CLASS}>Why this page is better now</h3>
-            <ul className={`mt-6 space-y-3 ${SEVA_BODY_TEXT_CLASS}`}>
+            <p className={SEVA_SECTION_LABEL_CLASS}>Transparent Support Model</p>
+            <h2 className={SEVA_SECTION_HEADING_CLASS}>How sponsorship remains clear and purpose-based</h2>
+            <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {[
-                "Sponsors can now choose real trust programs instead of reading generic sponsorship text.",
-                "The page includes both seva and spiritual sponsorship routes for broader participation.",
-                "It explains what each sponsorship actually supports in practice.",
-                "It gives a direct path to sponsor now or request details from the trust team.",
-              ].map((line) => (
-                <li key={line} className="flex gap-3">
-                  <span className="mt-2 h-2.5 w-2.5 rounded-full bg-[var(--campaign-accent)]" />
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className={EVENT_SEVA_SECTION_CLASS}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Start Sponsoring Trust Work</p>
-            <h3 className={SEVA_SECTION_HEADING_CLASS}>Clear options for sponsor participation</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-              {[
-                { label: "One-Time Support", amount: "Available" },
-                { label: "Monthly Seva", amount: "Possible" },
-                { label: "Festival Sponsor", amount: "Ready" },
-              ].map((tier) => (
-                <div key={tier.label} className="rounded-xl border border-white/10 bg-[var(--campaign-surface)] p-4 text-center">
-                  <p className="text-base font-semibold text-[var(--campaign-text)]">{tier.label}</p>
-                  <p className="mt-1 text-2xl font-black text-white">{tier.amount}</p>
-                </div>
+                "Sponsor selects program area",
+                "Trust confirms scope and estimated use",
+                "Contribution is received through official channel",
+                "Receipt and acknowledgement are issued",
+                "Program support is executed",
+                "Update/report is shared where applicable",
+              ].map((step, index) => (
+                <article key={step} className={`${surfaceCardClass} h-full p-4`}>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#D8A244]">Step {index + 1}</p>
+                  <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{step}</p>
+                </article>
               ))}
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link to={ROUTES.donate} className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>
+            <p className="mt-6 rounded-xl border border-[#D9BC8F]/40 bg-[#FFF4DF]/10 p-4 text-sm leading-7 text-[#F7E5C8]">
+              All sponsorships should be routed through official trust channels only. Program execution depends on
+              current need, feasibility, event calendar, and trust approval.
+            </p>
+          </div>
+
+          <aside className={`${EVENT_SEVA_SECTION_CLASS} overflow-hidden p-0`}>
+            <img
+              src="/assets/images/sponsor-programs/sponsor-transparency.jpg"
+              alt="Donation receipt and seva reporting documents arranged for transparency"
+              className="h-[300px] w-full object-cover md:h-[360px]"
+              loading="lazy"
+            />
+            <div className="p-6">
+              <div className="flex items-center gap-3">
+                <span className={iconBadgeClass}>
+                  <img
+                    src="/assets/icons/sponsor-programs/icon-transparency-report.svg"
+                    alt=""
+                    loading="lazy"
+                    className={iconImageClass}
+                  />
+                </span>
+                <h3 className={SEVA_CARD_TITLE_CLASS}>Trust transparency and communication</h3>
+              </div>
+              <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>
+                Sponsors receive structured communication aligned to trust process, practical feasibility, and dignified
+                seva standards.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8">
+        <div className={EVENT_SEVA_SECTION_CLASS}>
+          <p className={SEVA_SECTION_LABEL_CLASS}>Sponsor Journey</p>
+          <h2 className={SEVA_SECTION_HEADING_CLASS}>How sponsorship can work</h2>
+          <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
+            {[
+              "Choose the trust program or seva area you want to support.",
+              "Connect with the sponsor desk for scope, amount, and sponsorship type.",
+              "Complete contribution through the donation route or guided sponsor coordination.",
+              "Receive acknowledgement, receipt, and program communication.",
+              "Stay connected with the purpose and continuity of the supported trust work.",
+            ].map((step, index) => (
+              <article key={step} className={`${surfaceCardClass} h-full p-4`}>
+                <span className={iconBadgeClass}>
+                  <img
+                    src={
+                      index === 3
+                        ? "/assets/icons/sponsor-programs/icon-receipt.svg"
+                        : index === 4
+                          ? "/assets/icons/sponsor-programs/icon-recognition.svg"
+                          : "/assets/icons/sponsor-programs/icon-sponsor-journey.svg"
+                    }
+                    alt=""
+                    loading="lazy"
+                    className={iconImageClass}
+                  />
+                </span>
+                <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-[#D8A244]">Step {index + 1}</p>
+                <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{step}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8">
+        <div className={EVENT_SEVA_SECTION_CLASS}>
+          <p className={SEVA_SECTION_LABEL_CLASS}>Recognition and Reporting</p>
+          <h2 className={SEVA_SECTION_HEADING_CLASS}>Sponsor Recognition &amp; Seva Reporting</h2>
+          <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {[
+              {
+                title: "Official Receipt",
+                text: "Sponsors receive appropriate official donation receipt as per trust process.",
+                icon: "/assets/icons/sponsor-programs/icon-receipt.svg",
+              },
+              {
+                title: "Seva Acknowledgement",
+                text: "The trust may acknowledge sponsorship through certificate, event mention, or appreciation note.",
+                icon: "/assets/icons/sponsor-programs/icon-recognition.svg",
+              },
+              {
+                title: "Program Update",
+                text: "Where possible, sponsors may receive photos, summary updates, or impact notes.",
+                icon: "/assets/icons/sponsor-programs/icon-transparency-report.svg",
+              },
+              {
+                title: "Annual Impact Summary",
+                text: "Regular sponsors can be included in broader impact reporting and seva summaries.",
+                icon: "/assets/icons/sponsor-programs/icon-transparency-report.svg",
+              },
+              {
+                title: "Donor Wall / Website Mention",
+                text: "Selected sponsors may be recognized on the website or trust publications where appropriate.",
+                icon: "/assets/icons/sponsor-programs/icon-recognition.svg",
+              },
+            ].map((item) => (
+              <article key={item.title} className={`${surfaceCardClass} h-full`}>
+                <span className={iconBadgeClass}>
+                  <img src={item.icon} alt="" loading="lazy" className={iconImageClass} />
+                </span>
+                <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
+                <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-6 rounded-xl border border-[#D9BC8F]/40 bg-[#FFF4DF]/10 p-4 text-sm leading-7 text-[#F7E5C8]">
+            Recognition must remain dignified, devotional, and compliant with trust policy. Spiritual seva should not
+            become commercial promotion.
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8">
+        <div className={EVENT_SEVA_SECTION_CLASS}>
+          <p className={SEVA_SECTION_LABEL_CLASS}>Why This Page Helps</p>
+          <h2 className={SEVA_SECTION_HEADING_CLASS}>Why this page helps sponsors give better now</h2>
+          <ul className={`mt-6 space-y-3 ${SEVA_BODY_TEXT_CLASS}`}>
+            {[
+              "Sponsors can now choose real trust programs instead of reading generic sponsorship text.",
+              "The page includes both seva and spiritual sponsorship routes for broader participation.",
+              "It explains what each sponsorship supports in practice.",
+              "It builds confidence through transparency, recognition, and structured communication.",
+              "It gives a direct path to sponsor now or request details from the trust team.",
+            ].map((line) => (
+              <li key={line} className="flex gap-3">
+                <span className="mt-2 h-2.5 w-2.5 rounded-full bg-[#E5A13D]" />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8">
+        <div className={EVENT_SEVA_SECTION_CLASS}>
+          <p className={SEVA_SECTION_LABEL_CLASS}>FAQ</p>
+          <h2 className={SEVA_SECTION_HEADING_CLASS}>Sponsor questions answered clearly</h2>
+          <div className="mt-7 space-y-3">
+            {[
+              {
+                q: "Can I sponsor a specific program?",
+                a: "Yes. Sponsors may choose from available sponsor routes such as Gau Seva, Ann Seva, Education Support, Bhagwat Katha, Mandir Development, Medical Seva, Disaster Relief, or Prasad Seva.",
+              },
+              {
+                q: "Can sponsorship be monthly?",
+                a: "Yes. Some programs may be supported monthly, seasonally, annually, or one-time depending on the seva route.",
+              },
+              {
+                q: "Will I receive a receipt?",
+                a: "Yes. Contributions should be processed through official trust channels and receipts should be issued as per trust process.",
+              },
+              {
+                q: "Can a family sponsor in memory of someone?",
+                a: "Yes. Families may request memorial or occasion-based sponsorship subject to trust approval and program suitability.",
+              },
+              {
+                q: "Can businesses or institutions sponsor?",
+                a: "Yes. Businesses, institutions, and community groups may support selected trust programs through structured sponsorship routes.",
+              },
+              {
+                q: "Will I get photos or reports?",
+                a: "Where appropriate and feasible, the trust may share program updates, photos, summary notes, or impact communication.",
+              },
+            ].map((item, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <article key={item.q} className="overflow-hidden rounded-2xl border border-white/12 bg-[var(--campaign-surface)]">
+                  <h3>
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                      onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                      aria-expanded={isOpen}
+                      aria-controls={`sponsor-faq-${index}`}
+                    >
+                      <span className="text-base font-semibold text-white">{item.q}</span>
+                      <span className="text-xl font-black text-[#E3A440]" aria-hidden="true">
+                        {isOpen ? "−" : "+"}
+                      </span>
+                    </button>
+                  </h3>
+                  <div id={`sponsor-faq-${index}`} className={`px-5 pb-4 ${isOpen ? "block" : "hidden"}`}>
+                    <p className={SEVA_BODY_TEXT_CLASS}>{item.a}</p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pt-8">
+        <div
+          className="relative overflow-hidden rounded-[30px] border border-[#E7C794]/40 p-7 md:p-10"
+          style={{
+            backgroundImage:
+              "linear-gradient(120deg, rgba(51, 23, 1, 0.76), rgba(103, 50, 7, 0.58), rgba(13, 54, 56, 0.42)), url('/assets/images/sponsor-programs/sponsor-cta-banner.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#F9D38C]">Final CTA</p>
+            <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">Start Sponsoring Trust Work</h2>
+            <p className="mt-3 text-sm leading-7 text-white/90 md:text-base">
+              Choose a purposeful seva route and support spiritual, cultural, educational, and humanitarian work through
+              Bhagwat Heritage Service Foundation Trust.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to={ROUTES.donate} className={ctaPrimaryClass}>
                 Sponsor Now
               </Link>
-              <Link to={ROUTES.contact} className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>
+              <Link to={ROUTES.contact} className={ctaSecondaryClass}>
                 Contact Sponsor Desk
               </Link>
+              <a href="/assets/docs/sponsorship-brief.txt" download className={ctaSecondaryClass}>
+                Download Sponsorship Brief
+              </a>
             </div>
           </div>
         </div>
