@@ -7186,233 +7186,693 @@ const MediaVideoCard = memo(function MediaVideoCard({ item, index, onOpen }: Med
   );
 });
 
+type VideoGalleryCategoryV2 = "Pravachan" | "Bhagwat Katha" | "Bhajan" | "Events" | "Live Darshan" | "Youth" | "Festivals";
+type VideoGalleryActiveCategoryV2 = "All" | VideoGalleryCategoryV2;
+type VideoSortOptionV2 = "Latest" | "Most Viewed" | "Featured" | "Oldest";
+
+type VideoGalleryItemV2 = {
+  id: string;
+  title: string;
+  slug: string;
+  category: VideoGalleryCategoryV2;
+  description: string;
+  thumbnail: string;
+  videoUrl?: string;
+  embedUrl?: string;
+  duration: string;
+  date: string;
+  views: number;
+  featured: boolean;
+  playlist: string;
+  tags: string[];
+};
+
+type PlaylistCardItemV2 = {
+  title: string;
+  description: string;
+  videos: number;
+  icon: string;
+};
+
+type FaqItemV2 = {
+  question: string;
+  answer: string;
+};
+
+const VIDEO_GALLERY_DATA_V2: VideoGalleryItemV2[] = [
+  {
+    id: "vid-1",
+    title: "Bhagwat Katha: Eternal Leela of Sri Krishna",
+    slug: "bhagwat-katha-eternal-leela",
+    category: "Bhagwat Katha",
+    description: "A devotional discourse revealing the eternal leelas of Shri Krishna through Bhagwat wisdom.",
+    thumbnail: "/assets/images/media-gallery/featured-bhagwat-katha-video.jpg",
+    embedUrl: "https://www.youtube.com/embed/Z-zaUl-uazk",
+    duration: "38:42",
+    date: "2026-04-10",
+    views: 28400,
+    featured: true,
+    playlist: "Bhagwat Katha Series",
+    tags: ["Krishna", "Bhagwat", "Leela", "Satsang"],
+  },
+  {
+    id: "vid-2",
+    title: "Daily Pravachan: Bhakti and Inner Discipline",
+    slug: "daily-pravachan-bhakti-discipline",
+    category: "Pravachan",
+    description: "Practical spiritual guidance for daily discipline, seva mindset, and mindful living.",
+    thumbnail: "/assets/images/media-gallery/pravachan-thumbnail-01.jpg",
+    embedUrl: "https://www.youtube.com/embed/cOFNyxt4MhM",
+    duration: "24:18",
+    date: "2026-04-08",
+    views: 14120,
+    featured: false,
+    playlist: "Daily Pravachan",
+    tags: ["Pravachan", "Daily", "Bhakti"],
+  },
+  {
+    id: "vid-3",
+    title: "Bhajan Sandhya: Naam Smaran Kirtan",
+    slug: "bhajan-sandhya-naam-smaran",
+    category: "Bhajan",
+    description: "Evening bhajan and kirtan session for collective devotion and peaceful remembrance.",
+    thumbnail: "/assets/images/media-gallery/bhajan-thumbnail-01.jpg",
+    embedUrl: "https://www.youtube.com/embed/wrg8NMrPwOs",
+    duration: "17:09",
+    date: "2026-04-05",
+    views: 9800,
+    featured: false,
+    playlist: "Bhajan & Kirtan",
+    tags: ["Bhajan", "Kirtan", "Naam"],
+  },
+  {
+    id: "vid-4",
+    title: "Spiritual Event Highlights: Mandir Utsav",
+    slug: "spiritual-event-highlights-mandir-utsav",
+    category: "Events",
+    description: "Key moments from Bhagwat Heritage spiritual gatherings and mandir celebrations.",
+    thumbnail: "/assets/images/media-gallery/event-video-thumbnail-01.jpg",
+    embedUrl: "https://www.youtube.com/embed/ZYX6zpiY-6w",
+    duration: "13:26",
+    date: "2026-04-01",
+    views: 11150,
+    featured: false,
+    playlist: "Social & Cultural Events",
+    tags: ["Events", "Mandir", "Highlights"],
+  },
+  {
+    id: "vid-5",
+    title: "Live Darshan: Evening Aarti Stream",
+    slug: "live-darshan-evening-aarti",
+    category: "Live Darshan",
+    description: "Experience live darshan and aarti with a devotional atmosphere from the temple.",
+    thumbnail: "/assets/images/media-gallery/live-darshan-video.jpg",
+    embedUrl: "https://www.youtube.com/embed/oW_Z8hICrHo",
+    duration: "41:05",
+    date: "2026-03-30",
+    views: 20740,
+    featured: true,
+    playlist: "Live Darshan",
+    tags: ["Live", "Darshan", "Aarti"],
+  },
+  {
+    id: "vid-6",
+    title: "Youth Sanskar Session: Values in Action",
+    slug: "youth-sanskar-values-in-action",
+    category: "Youth",
+    description: "Youth-centered spiritual learning session focused on values, clarity, and discipline.",
+    thumbnail: "/assets/images/gallery/youth-family-session.jpg",
+    embedUrl: "https://www.youtube.com/embed/Rq5iBnW8UEQ",
+    duration: "19:14",
+    date: "2026-03-26",
+    views: 7430,
+    featured: false,
+    playlist: "Youth Sanskar Videos",
+    tags: ["Youth", "Sanskar", "Family"],
+  },
+  {
+    id: "vid-7",
+    title: "Festival Celebrations: Guru Purnima Darshan",
+    slug: "festival-celebrations-guru-purnima",
+    category: "Festivals",
+    description: "A devotional visual journey through Guru Purnima offerings, satsang, and bhakti.",
+    thumbnail: "/assets/images/gallery/guru-purnima-event.jpg",
+    embedUrl: "https://www.youtube.com/embed/Z-zaUl-uazk",
+    duration: "15:52",
+    date: "2026-03-22",
+    views: 13480,
+    featured: false,
+    playlist: "Festival Celebrations",
+    tags: ["Festival", "Guru Purnima", "Celebration"],
+  },
+  {
+    id: "vid-8",
+    title: "Bhagwat Katha Episode 2: Bhakti and Dharma",
+    slug: "bhagwat-katha-episode-2-bhakti-dharma",
+    category: "Bhagwat Katha",
+    description: "Continuing the Katha series with deeper insight into bhakti, dharma, and life wisdom.",
+    thumbnail: "/assets/images/media-gallery/featured-bhagwat-katha-video.jpg",
+    embedUrl: "https://www.youtube.com/embed/cOFNyxt4MhM",
+    duration: "33:11",
+    date: "2026-03-20",
+    views: 16890,
+    featured: false,
+    playlist: "Bhagwat Katha Series",
+    tags: ["Bhagwat", "Episode", "Dharma"],
+  },
+  {
+    id: "vid-9",
+    title: "Special Pravachan: Gita in Daily Life",
+    slug: "special-pravachan-gita-daily-life",
+    category: "Pravachan",
+    description: "Applying Gita wisdom through practical discipline, seva, and spiritual steadiness.",
+    thumbnail: "/assets/images/media-gallery/pravachan-thumbnail-01.jpg",
+    embedUrl: "https://www.youtube.com/embed/wrg8NMrPwOs",
+    duration: "28:09",
+    date: "2026-03-18",
+    views: 12640,
+    featured: false,
+    playlist: "Special Discourses",
+    tags: ["Pravachan", "Gita", "Discourse"],
+  },
+  {
+    id: "vid-10",
+    title: "Bhajan Series: Hari Naam Mahima",
+    slug: "bhajan-series-hari-naam-mahima",
+    category: "Bhajan",
+    description: "Melodic devotional singing session centered around Hari naam and divine remembrance.",
+    thumbnail: "/assets/images/media-gallery/bhajan-thumbnail-01.jpg",
+    embedUrl: "https://www.youtube.com/embed/oW_Z8hICrHo",
+    duration: "16:44",
+    date: "2026-03-15",
+    views: 8540,
+    featured: false,
+    playlist: "Bhajan & Kirtan",
+    tags: ["Bhajan", "Naam", "Kirtan"],
+  },
+  {
+    id: "vid-11",
+    title: "Event Documentary: Seva and Community Outreach",
+    slug: "event-documentary-seva-community-outreach",
+    category: "Events",
+    description: "A visual documentary of seva-led outreach initiatives and trust-driven community support.",
+    thumbnail: "/assets/images/media-gallery/event-video-thumbnail-01.jpg",
+    embedUrl: "https://www.youtube.com/embed/Rq5iBnW8UEQ",
+    duration: "21:35",
+    date: "2026-03-11",
+    views: 7920,
+    featured: false,
+    playlist: "Social & Cultural Events",
+    tags: ["Seva", "Community", "Events"],
+  },
+  {
+    id: "vid-12",
+    title: "Festival Reflection: Deepotsav Darshan",
+    slug: "festival-reflection-deepotsav-darshan",
+    category: "Festivals",
+    description: "Sacred festival moments with deep daan, darshan, and devotional gatherings.",
+    thumbnail: "/assets/images/gallery/festival-celebration.jpg",
+    embedUrl: "https://www.youtube.com/embed/ZYX6zpiY-6w",
+    duration: "14:22",
+    date: "2026-03-05",
+    views: 10860,
+    featured: false,
+    playlist: "Festival Celebrations",
+    tags: ["Festival", "Deepotsav", "Darshan"],
+  },
+];
+
+const VIDEO_FILTERS_V2: VideoGalleryActiveCategoryV2[] = ["All", "Pravachan", "Bhagwat Katha", "Bhajan", "Events", "Live Darshan", "Youth", "Festivals"];
+
+const PLAYLIST_CARDS_V2: PlaylistCardItemV2[] = [
+  { title: "Bhagwat Katha Series", description: "Structured episode-based katha sessions and scripture reflections.", videos: 24, icon: "/assets/images/media-gallery/icons/icon-bhagwat-katha-video.svg" },
+  { title: "Daily Pravachan", description: "Daily guidance discourses for spiritual clarity and discipline.", videos: 31, icon: "/assets/images/media-gallery/icons/icon-pravachan-video.svg" },
+  { title: "Bhajan & Kirtan", description: "Devotional bhajan and kirtan archives for satsang listening.", videos: 18, icon: "/assets/images/media-gallery/icons/icon-bhajan-video.svg" },
+  { title: "Festival Celebrations", description: "Major utsav highlights, darshan moments, and cultural devotion.", videos: 22, icon: "/assets/images/media-gallery/icons/icon-festival-video.svg" },
+  { title: "Youth Sanskar Videos", description: "Youth-focused sessions rooted in values and spiritual responsibility.", videos: 15, icon: "/assets/images/media-gallery/icons/icon-youth-video.svg" },
+  { title: "Live Darshan", description: "Live and archived temple darshan and aarti broadcast recordings.", videos: 12, icon: "/assets/images/media-gallery/icons/icon-live-darshan.svg" },
+  { title: "Social & Cultural Events", description: "Field events, social programs, and cultural initiative coverage.", videos: 19, icon: "/assets/images/media-gallery/icons/icon-event-video.svg" },
+  { title: "Special Discourses", description: "Theme-based deep dives on dharma, bhakti, and life practice.", videos: 14, icon: "/assets/images/media-gallery/icons/icon-playlist.svg" },
+];
+
+const VIDEO_FAQS_V2: FaqItemV2[] = [
+  { question: "How can I watch Bhagwat Katha videos?", answer: "You can watch directly from this page by clicking Watch on any video card or using the Featured Video section." },
+  { question: "Are videos available in Hindi?", answer: "Yes. Core pravachan, katha, and bhajan content is published primarily in Hindi with spiritual context suitable for broad audiences." },
+  { question: "Can I share these videos with family and groups?", answer: "Yes. You may share video links across family, satsang groups, and communities to spread devotional learning." },
+  { question: "How can I request a specific pravachan topic?", answer: "Use the Contact Media Team option to submit a topic request. The trust reviews requests for future sessions." },
+  { question: "Can live events be watched later?", answer: "Most live sessions are archived and published in this gallery after event completion, based on media review." },
+];
+
+function toEmbedUrlV2(video: VideoGalleryItemV2): string {
+  if (video.embedUrl) return `${video.embedUrl}?autoplay=1&rel=0`;
+  if (!video.videoUrl) return "";
+  const watchMatch = video.videoUrl.match(/[?&]v=([^&#]+)/);
+  const shortMatch = video.videoUrl.match(/youtu\.be\/([^?&#]+)/);
+  const id = watchMatch?.[1] || shortMatch?.[1];
+  if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  return video.videoUrl;
+}
+
+function formatViewCountV2(views: number): string {
+  if (views >= 1000000) return `${(views / 1000000).toFixed(1)}M`;
+  if (views >= 1000) return `${(views / 1000).toFixed(1)}K`;
+  return `${views}`;
+}
+
 export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
-  const [activeFilter, setActiveFilter] = useState<MediaVideoFilter>("All");
+  const [activeCategory, setActiveCategory] = useState<VideoGalleryActiveCategoryV2>("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [visibleCount, setVisibleCount] = useState(6);
-  const [selectedVideo, setSelectedVideo] = useState<VideoGalleryItem | null>(null);
-  const [popularIndex, setPopularIndex] = useState(0);
+  const [sortOption, setSortOption] = useState<VideoSortOptionV2>("Latest");
+  const [visibleCount, setVisibleCount] = useState(9);
+  const [selectedVideo, setSelectedVideo] = useState<VideoGalleryItemV2 | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const popularTrackRef = useRef<HTMLDivElement | null>(null);
+  const [showPopularArrows, setShowPopularArrows] = useState(false);
 
   usePageMeta(
     "Video Gallery",
-    "Premium spiritual video gallery featuring pravachan, bhajan, event moments, and divine media from Bhagwat Heritage.",
+    "Watch Bhagwat Katha, pravachan, bhajan, live darshan, and spiritual event videos from Bhagwat Heritage.",
   );
 
-  const filteredVideos = useMemo(() => {
-    return MEDIA_VIDEO_GALLERY_ITEMS.filter((item) => {
-      const matchesFilter = activeFilter === "All" ? true : getMediaVideoFilter(item) === activeFilter;
-      const haystack = `${item.title} ${item.note} ${item.summary} ${item.theme} ${item.category}`.toLowerCase();
-      const matchesSearch = searchQuery.trim() ? haystack.includes(searchQuery.trim().toLowerCase()) : true;
-      return matchesFilter && matchesSearch;
-    }).sort((a, b) => MEDIA_VIDEO_GALLERY_ITEMS.findIndex((item) => item.slug === a.slug) - MEDIA_VIDEO_GALLERY_ITEMS.findIndex((item) => item.slug === b.slug));
-  }, [activeFilter, searchQuery]);
+  const filteredAndSortedVideos = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
 
-  const featuredVideo = filteredVideos[0] ?? MEDIA_VIDEO_GALLERY_ITEMS[0];
-  const latestVideos = filteredVideos.slice(0, visibleCount);
-  const popularVideos = useMemo(
-    () => [...MEDIA_VIDEO_GALLERY_ITEMS].sort((a, b) => parseViews(b.views) - parseViews(a.views)).slice(0, 6),
-    [],
+    const filtered = VIDEO_GALLERY_DATA_V2.filter((video) => {
+      const categoryMatch = activeCategory === "All" || video.category === activeCategory;
+      const searchPool = `${video.title} ${video.description} ${video.category} ${video.playlist} ${video.tags.join(" ")}`.toLowerCase();
+      const searchMatch = q.length === 0 || searchPool.includes(q);
+      return categoryMatch && searchMatch;
+    });
+
+    return [...filtered].sort((a, b) => {
+      if (sortOption === "Latest") return new Date(b.date).getTime() - new Date(a.date).getTime();
+      if (sortOption === "Oldest") return new Date(a.date).getTime() - new Date(b.date).getTime();
+      if (sortOption === "Most Viewed") return b.views - a.views;
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+  }, [activeCategory, searchQuery, sortOption]);
+
+  const featuredVideo = useMemo(
+    () => filteredAndSortedVideos.find((video) => video.featured) ?? filteredAndSortedVideos[0] ?? VIDEO_GALLERY_DATA_V2[0],
+    [filteredAndSortedVideos],
   );
 
-  useEffect(() => {
-    setVisibleCount(6);
-  }, [activeFilter, searchQuery]);
+  const latestVideos = useMemo(() => filteredAndSortedVideos.slice(0, visibleCount), [filteredAndSortedVideos, visibleCount]);
+  const popularVideos = useMemo(() => [...VIDEO_GALLERY_DATA_V2].sort((a, b) => b.views - a.views).slice(0, 8), []);
 
   useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setPopularIndex((current) => (current + 1) % Math.max(popularVideos.length, 1));
-    }, 4200);
-    return () => window.clearInterval(intervalId);
+    setVisibleCount(9);
+  }, [activeCategory, searchQuery, sortOption]);
+
+  useEffect(() => {
+    const node = popularTrackRef.current;
+    if (!node) return;
+
+    const evaluateOverflow = () => {
+      setShowPopularArrows(node.scrollWidth > node.clientWidth + 8);
+    };
+
+    evaluateOverflow();
+    window.addEventListener("resize", evaluateOverflow);
+    return () => window.removeEventListener("resize", evaluateOverflow);
   }, [popularVideos.length]);
 
-  const visiblePopular = popularVideos.length
-    ? [popularVideos[popularIndex], popularVideos[(popularIndex + 1) % popularVideos.length], popularVideos[(popularIndex + 2) % popularVideos.length]]
-    : [];
+  useEffect(() => {
+    if (!selectedVideo) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedVideo(null);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
 
-  return (
-    <div className="pb-14">
-      <motion.section
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative overflow-hidden rounded-[34px] border border-[#efe1cf] bg-[url('/images/spiritual1.png')] bg-cover bg-center shadow-[0_26px_62px_rgba(31,115,160,0.10)]"
-      >
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(21,47,71,0.58)_0%,rgba(21,47,71,0.30)_38%,rgba(244,206,90,0.10)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(249,242,169,0.22),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(233,147,45,0.18),transparent_28%)]" />
-        <div className="relative px-6 py-16 md:px-10 md:py-24">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.1 }}
-            className="max-w-3xl text-4xl font-semibold tracking-tight text-white md:text-6xl"
-          >
-            Video Gallery
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.18 }}
-            className="mt-5 max-w-2xl text-lg leading-8 text-white md:text-2xl md:leading-10"
-          >
-            Explore Pravachan, Bhajan, Events & Divine Moments
-          </motion.p>
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedVideo]);
+
+  const scrollPopularBy = (direction: "left" | "right") => {
+    const node = popularTrackRef.current;
+    if (!node) return;
+    const offset = direction === "left" ? -360 : 360;
+    node.scrollBy({ left: offset, behavior: "smooth" });
+  };
+
+  const VideoHero = () => (
+    <section className="relative overflow-hidden rounded-[34px] border border-[#EAD8BC] bg-[#1D1A17] shadow-[0_24px_54px_rgba(83,57,24,0.22)]">
+      <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777267204/ChatGPT_Image_Apr_27_2026_09_51_10_AM_hlbplt.png" alt="Bhagwat Heritage video gallery hero" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+      <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(36,24,12,0.88),rgba(18,41,51,0.76),rgba(200,146,46,0.52))]" />
+      <div className="relative z-10 px-6 py-14 text-white md:px-10 md:py-20">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#F8DDA9]">Home / Media Gallery / Video Gallery</p>
+        <h1 className="mt-4 text-4xl font-black leading-tight md:text-6xl">Video Gallery</h1>
+        <p className="mt-4 max-w-3xl text-base leading-7 text-white/90 md:text-lg">
+          Watch Bhagwat Katha, pravachan, bhajan, live darshan, and spiritual event videos from Bhagwat Heritage.
+        </p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <button type="button" onClick={() => setSelectedVideo(featuredVideo)} className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#BE7D17]">Watch Latest Video</button>
+          <a href="#video-playlists" className="rounded-full border border-white/60 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white hover:text-[#3A2A1B]">Explore Playlists</a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" className="rounded-full border border-white/60 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white hover:text-[#3A2A1B]">Subscribe Channel</a>
         </div>
-      </motion.section>
+      </div>
+    </section>
+  );
 
-      <motion.section
-        initial={{ opacity: 0, y: 26 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, delay: 0.2 }}
-        className="mt-[5px] px-2 md:px-5"
-      >
-        <div className="rounded-[30px] border border-[#efe1cf] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,251,245,0.98)_100%)] p-5 shadow-[0_22px_54px_rgba(31,115,160,0.08)] md:p-6">
-          <MediaVideoFilterBar
-            activeFilter={activeFilter}
-            onFilterChange={setActiveFilter}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
+  const VideoFilterBar = () => (
+    <section className="relative z-20 -mt-5 rounded-[24px] border border-[#E6D3B1] bg-[#FFF9EB]/95 p-4 shadow-[0_16px_30px_rgba(92,64,28,0.15)] backdrop-blur md:p-5">
+      <div className="grid gap-3 lg:grid-cols-[1.1fr_0.55fr_0.35fr]">
+        <div className="relative">
+          <span aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#B87918]">⌕</span>
+          <input
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Search videos by title, category, or devotion theme..."
+            aria-label="Search videos"
+            className="w-full rounded-full border border-[#E0C8A0] bg-white px-10 py-3 text-sm text-[#4E3928] outline-none focus:border-[#C8922E] focus:ring-2 focus:ring-[#EFD8A8]"
           />
         </div>
-      </motion.section>
-
-      <motion.section
-        initial={{ opacity: 0, y: 28 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.18 }}
-        transition={{ duration: 0.55 }}
-        className="mt-8"
-      >
-        <div className="overflow-hidden rounded-[32px] border border-[#ead7bb] bg-[linear-gradient(135deg,rgba(21,47,71,0.92)_0%,rgba(31,115,160,0.80)_42%,rgba(233,147,45,0.34)_100%)] shadow-[0_24px_60px_rgba(31,115,160,0.12)]">
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_1.12fr]">
-            <div className="relative flex flex-col justify-center px-6 py-8 text-white md:px-8 md:py-10">
-              <span className="mb-5 inline-flex w-fit rounded-full bg-[#e76648] px-4 py-1.5 text-sm font-bold uppercase tracking-[0.18em] text-white">
-                Featured
-              </span>
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#F9F2A9]">Featured Video</p>
-              <h2 className="mt-4 max-w-xl text-3xl font-semibold leading-tight text-white md:text-5xl">{featuredVideo.title}</h2>
-              <p className="mt-5 max-w-xl text-base leading-8 text-white/85 md:text-lg">{featuredVideo.summary}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={() => setSelectedVideo(featuredVideo)}
-                  className="rounded-2xl bg-[linear-gradient(135deg,#F4CE5A_0%,#E9932D_100%)] px-6 py-3 text-base font-bold text-[#17344A] shadow-[0_20px_36px_rgba(233,147,45,0.30)] transition hover:-translate-y-0.5"
-                >
-                  Watch Now
-                </button>
-                <Link
-                  to={`${ROUTES.media.videos}/${featuredVideo.slug}`}
-                  className="rounded-2xl border border-white/25 bg-white/10 px-6 py-3 text-base font-semibold text-white transition hover:bg-white hover:text-[#17344A]"
-                >
-                  Open Player
-                </Link>
-              </div>
-            </div>
-
-            <div className="relative min-h-[320px] overflow-hidden">
-              <img src={featuredVideo.image} alt={featuredVideo.title} className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,31,44,0.08)_0%,rgba(15,31,44,0.00)_40%,rgba(15,31,44,0.30)_100%)]" />
-              <motion.button
-                type="button"
-                onClick={() => setSelectedVideo(featuredVideo)}
-                whileHover={{ scale: 1.08 }}
-                animate={{ scale: [1, 1.04, 1] }}
-                transition={{ duration: 2.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(41,24,7,0.35)] text-3xl text-white shadow-[0_0_0_14px_rgba(255,255,255,0.12)] backdrop-blur-sm"
-              >
-                ▶
-              </motion.button>
-              <span className="absolute bottom-6 right-6 rounded-2xl bg-black/58 px-4 py-2 text-sm font-semibold text-white">
-                {featuredVideo.duration}
-              </span>
-            </div>
-          </div>
+        <div>
+          <label htmlFor="video-sort" className="sr-only">Sort videos</label>
+          <select
+            id="video-sort"
+            value={sortOption}
+            onChange={(event) => setSortOption(event.target.value as VideoSortOptionV2)}
+            className="w-full rounded-full border border-[#E0C8A0] bg-white px-4 py-3 text-sm font-semibold text-[#4E3928] outline-none focus:border-[#C8922E]"
+          >
+            <option>Latest</option>
+            <option>Most Viewed</option>
+            <option>Featured</option>
+            <option>Oldest</option>
+          </select>
         </div>
-      </motion.section>
-
-      <section className="mt-12">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 className="text-4xl font-semibold tracking-tight text-[#17344A]">Latest Videos</h2>
-            <p className="mt-3 max-w-2xl text-base leading-8 text-[#5d6f79]">
-              Graceful pravachan, bhajan, and event media arranged in a premium devotional gallery with clean search and smooth interaction.
-            </p>
-          </div>
+        <div className="flex items-center justify-start lg:justify-end">
+          <p className="text-sm font-bold text-[#735433]">Showing {filteredAndSortedVideos.length} videos</p>
         </div>
-
-        <div className="mt-6 rounded-[28px] border border-[#efe1cf] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(255,250,244,0.92)_100%)] p-5 shadow-[0_20px_48px_rgba(31,115,160,0.07)] md:p-6">
-          <MediaVideoFilterBar
-            activeFilter={activeFilter}
-            onFilterChange={setActiveFilter}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-          />
-        </div>
-
-        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {latestVideos.map((item, index) => (
-            <MediaVideoCard key={item.slug} item={item} index={index} onOpen={setSelectedVideo} />
-          ))}
-        </div>
-
-        {visibleCount < filteredVideos.length ? (
-          <div className="mt-10 flex justify-center">
-            <motion.button
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {VIDEO_FILTERS_V2.map((filter) => {
+          const isActive = activeCategory === filter;
+          return (
+            <button
+              key={filter}
               type="button"
-              whileHover={{ y: -3 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setVisibleCount((current) => current + 3)}
-              className="rounded-2xl bg-[linear-gradient(135deg,#F4CE5A_0%,#E9932D_100%)] px-8 py-4 text-base font-bold text-[#17344A] shadow-[0_22px_34px_rgba(233,147,45,0.28)] transition"
+              aria-pressed={isActive}
+              onClick={() => setActiveCategory(filter)}
+              className={`rounded-full border px-4 py-2 text-xs font-black uppercase tracking-[0.08em] transition ${
+                isActive ? "border-[#C8922E] bg-[#D89B2B] text-white" : "border-[#E2CCA6] bg-white text-[#6D5132] hover:border-[#C8922E] hover:bg-[#FFF1D6]"
+              }`}
             >
-              Load More
-            </motion.button>
+              {filter}
+            </button>
+          );
+        })}
+      </div>
+    </section>
+  );
+
+  const FeaturedVideo = () => (
+    <section className="mt-8 overflow-hidden rounded-[30px] border border-[#EAD6B9] bg-[linear-gradient(140deg,#FFF4D8_0%,#FFFDF8_40%,#F6E8CA_100%)] shadow-[0_18px_42px_rgba(104,75,38,0.13)]">
+      <div className="grid gap-0 lg:grid-cols-[1fr_1.15fr]">
+        <div className="p-6 md:p-8">
+          <p className="inline-flex rounded-full bg-[#0F6B6B] px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-white">Featured Video</p>
+          <h2 className="mt-4 text-3xl font-black leading-tight text-[#1D342C] md:text-4xl">Bhagwat Katha: Eternal Leela of Sri Krishna</h2>
+          <p className="mt-4 text-base leading-7 text-[#5A4736]">{featuredVideo.description}</p>
+          <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold text-[#6F5230]">
+            <span>Duration: {featuredVideo.duration}</span>
+            <span>Date: {new Date(featuredVideo.date).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}</span>
+            <span>Views: {formatViewCountV2(featuredVideo.views)}</span>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button type="button" onClick={() => setSelectedVideo(featuredVideo)} className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#BE7D17]">Watch Now</button>
+            <button type="button" onClick={() => setSelectedVideo(featuredVideo)} className="rounded-full border border-[#D6B17A] bg-white px-6 py-3 text-sm font-black text-[#845116] transition hover:bg-[#FFF3DA]">Open Player</button>
+          </div>
+        </div>
+        <div className="relative aspect-video overflow-hidden">
+          <img src={featuredVideo.thumbnail} alt={featuredVideo.title} className="h-full w-full object-cover" loading="lazy" />
+          <span className="absolute left-4 top-4 rounded-full bg-[#D89B2B] px-3 py-1 text-xs font-black text-white">{featuredVideo.category}</span>
+          <span className="absolute bottom-4 right-4 rounded-full bg-black/70 px-3 py-1 text-xs font-black text-white">{featuredVideo.duration}</span>
+          <button
+            type="button"
+            onClick={() => setSelectedVideo(featuredVideo)}
+            aria-label={`Play ${featuredVideo.title}`}
+            className="absolute left-1/2 top-1/2 inline-flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-3xl text-white shadow-[0_0_0_10px_rgba(255,255,255,0.16)] transition hover:scale-105"
+          >
+            ▶
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+
+  const VideoCard = ({ video }: { video: VideoGalleryItemV2 }) => (
+    <article className="group overflow-hidden rounded-[22px] border border-[#E8D8BC] bg-white shadow-[0_14px_30px_rgba(103,75,37,0.10)] transition hover:-translate-y-1.5 hover:shadow-[0_22px_38px_rgba(103,75,37,0.15)]">
+      <div className="relative aspect-video overflow-hidden">
+        <img src={video.thumbnail} alt={video.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" loading="lazy" />
+        <span className="absolute left-3 top-3 rounded-full bg-[#D89B2B] px-3 py-1 text-[11px] font-black text-white">{video.category}</span>
+        <span className="absolute right-3 top-3 rounded-full bg-black/70 px-3 py-1 text-[11px] font-black text-white">{video.duration}</span>
+        <button
+          type="button"
+          onClick={() => setSelectedVideo(video)}
+          aria-label={`Play ${video.title}`}
+          className="absolute left-1/2 top-1/2 inline-flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-lg text-white shadow-[0_0_0_7px_rgba(255,255,255,0.16)]"
+        >
+          ▶
+        </button>
+      </div>
+      <div className="space-y-2 p-5">
+        <h3 className="line-clamp-2 text-xl font-black leading-tight text-[#2A2118]">{video.title}</h3>
+        <p className="line-clamp-2 text-sm leading-6 text-[#5F4B38]">{video.description}</p>
+        <div className="flex flex-wrap gap-3 text-sm font-semibold text-[#775839]">
+          <span>{new Date(video.date).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}</span>
+          <span>•</span>
+          <span>{formatViewCountV2(video.views)} views</span>
+        </div>
+        <div className="pt-2 flex gap-3">
+          <button type="button" onClick={() => setSelectedVideo(video)} className="rounded-full bg-[#D89B2B] px-4 py-2 text-sm font-black text-white transition hover:bg-[#BE7D17]">Watch</button>
+          <button type="button" onClick={() => setSelectedVideo(video)} className="rounded-full border border-[#D8B17A] bg-[#FFF7E6] px-4 py-2 text-sm font-black text-[#845116] transition hover:bg-[#FFEAC2]">Details</button>
+        </div>
+      </div>
+    </article>
+  );
+
+  const PlaylistCard = ({ item }: { item: PlaylistCardItemV2 }) => (
+    <article className="rounded-[20px] border border-[#E7D5B5] bg-white p-5 shadow-[0_12px_28px_rgba(104,75,38,0.09)]">
+      <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF1D8]">
+        <img src={item.icon} alt={`${item.title} icon`} className="h-7 w-7 object-contain" loading="lazy" />
+      </div>
+      <h3 className="mt-4 text-xl font-black text-[#2A2118]">{item.title}</h3>
+      <p className="mt-2 text-sm leading-6 text-[#5F4B38]">{item.description}</p>
+      <div className="mt-3 flex items-center justify-between text-sm font-semibold text-[#705130]">
+        <span>{item.videos} videos</span>
+        <button type="button" className="text-[#B87518] hover:underline">View Playlist</button>
+      </div>
+    </article>
+  );
+
+  const PopularVideos = () => (
+    <section className="mt-12">
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Popular Videos</h2>
+          <p className="mt-2 text-sm text-[#5F4B38]">Most watched spiritual videos across Bhagwat Heritage channels.</p>
+        </div>
+        {showPopularArrows ? (
+          <div className="hidden items-center gap-2 md:flex">
+            <button type="button" onClick={() => scrollPopularBy("left")} aria-label="Scroll popular videos left" className="rounded-full border border-[#E2CCA6] bg-white px-3 py-2 text-[#916022] hover:bg-[#FFF2D8]">←</button>
+            <button type="button" onClick={() => scrollPopularBy("right")} aria-label="Scroll popular videos right" className="rounded-full border border-[#E2CCA6] bg-white px-3 py-2 text-[#916022] hover:bg-[#FFF2D8]">→</button>
           </div>
         ) : null}
-      </section>
+      </div>
+      <div ref={popularTrackRef} className="mt-5 flex gap-4 overflow-x-auto pb-2 [scrollbar-width:thin]">
+        {popularVideos.map((video) => (
+          <article key={video.id} className="min-w-[280px] max-w-[320px] flex-1 rounded-[20px] border border-[#E8D8BC] bg-white shadow-[0_10px_24px_rgba(103,75,37,0.10)]">
+            <div className="aspect-video overflow-hidden rounded-t-[20px]">
+              <img src={video.thumbnail} alt={video.title} className="h-full w-full object-cover" loading="lazy" />
+            </div>
+            <div className="p-4">
+              <h3 className="line-clamp-2 text-lg font-black text-[#2A2118]">{video.title}</h3>
+              <p className="mt-2 text-sm text-[#6D5030]">{formatViewCountV2(video.views)} views • {video.category}</p>
+              <button type="button" onClick={() => setSelectedVideo(video)} className="mt-3 rounded-full bg-[#D89B2B] px-4 py-2 text-xs font-black text-white">Watch</button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 
-      <section className="mt-16">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <h2 className="text-4xl font-semibold tracking-tight text-[#17344A]">Popular Videos</h2>
-            <p className="mt-3 text-base leading-8 text-[#5d6f79]">Most-viewed devotional media from the Bhagwat Heritage library.</p>
-          </div>
-          <div className="flex gap-3">
-            <button
-              type="button"
-              aria-label="Previous popular videos"
-              onClick={() => setPopularIndex((current) => (current - 1 + popularVideos.length) % popularVideos.length)}
-              className="rounded-full border border-[#d8e8ec] bg-white px-4 py-3 text-[#1F73A0] shadow-[0_10px_24px_rgba(31,115,160,0.08)] transition hover:border-[#F4CE5A] hover:bg-[#fff9e8]"
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              aria-label="Next popular videos"
-              onClick={() => setPopularIndex((current) => (current + 1) % popularVideos.length)}
-              className="rounded-full border border-[#d8e8ec] bg-white px-4 py-3 text-[#1F73A0] shadow-[0_10px_24px_rgba(31,115,160,0.08)] transition hover:border-[#F4CE5A] hover:bg-[#fff9e8]"
-            >
-              →
-            </button>
+  const LiveDarshanSection = () => (
+    <section className="mt-12 rounded-[28px] border border-[#E6D3B1] bg-[linear-gradient(135deg,#FFF5DE_0%,#FFFDF8_42%,#F4E8CC_100%)] p-6 shadow-[0_16px_36px_rgba(95,67,30,0.11)] md:p-8">
+      <div className="grid gap-6 md:grid-cols-[1fr_320px] md:items-center">
+        <div>
+          <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Live Darshan &amp; Upcoming Broadcasts</h2>
+          <p className="mt-4 text-base leading-7 text-[#5F4B38]">Next Live Satsang: Sunday, 7:00 PM IST • Platform: YouTube / Website Live</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <button type="button" className="rounded-full bg-[#0F6B6B] px-5 py-3 text-sm font-black text-white">Join Live</button>
+            <button type="button" className="rounded-full border border-[#0F6B6B] bg-white px-5 py-3 text-sm font-black text-[#0F6B6B]">Set Reminder</button>
           </div>
         </div>
+        <div className="overflow-hidden rounded-[20px] border border-[#DFC7A0] shadow-[0_12px_28px_rgba(95,67,30,0.12)]">
+          <img src="/assets/images/media-gallery/live-darshan-video.jpg" alt="Live darshan preview" className="h-full w-full object-cover" loading="lazy" />
+        </div>
+      </div>
+    </section>
+  );
 
-        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {visiblePopular.map((item, index) => (
-              <motion.div
-                key={`${item.slug}-${popularIndex}-${index}`}
-                initial={{ opacity: 0, x: 26 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -26 }}
-                transition={{ duration: 0.35 }}
+  const YoutubeCTA = () => (
+    <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E5C88E] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+      <img src="/assets/images/media-gallery/youtube-cta-bg.jpg" alt="YouTube CTA background" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+      <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(180,117,24,0.86),rgba(216,155,43,0.84),rgba(15,107,107,0.74))]" />
+      <div className="relative z-10 text-white">
+        <h2 className="text-3xl font-black md:text-4xl">Stay Connected with Bhagwat Heritage</h2>
+        <p className="mt-3 max-w-4xl text-base leading-7 text-white/90">Subscribe to receive latest Bhagwat Katha, pravachan, bhajan, live darshan, and spiritual event videos.</p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" className="rounded-full bg-white px-6 py-3 text-sm font-black text-[#8A5515]">Subscribe on YouTube</a>
+          <button type="button" className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Share Video Gallery</button>
+          <Link to={`${ROUTES.contact}?subject=media-team`} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Contact Media Team</Link>
+        </div>
+      </div>
+    </section>
+  );
+
+  const FAQAccordion = () => (
+    <section className="mt-12 rounded-[28px] border border-[#E8D8BC] bg-[#FFFCF5] p-6 shadow-[0_14px_32px_rgba(103,75,37,0.10)] md:p-8">
+      <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Frequently Asked Questions</h2>
+      <div className="mt-6 space-y-3">
+        {VIDEO_FAQS_V2.map((item, index) => {
+          const isOpen = openFaq === index;
+          return (
+            <article key={item.question} className="rounded-[18px] border border-[#E6D4B4] bg-white p-4">
+              <button
+                type="button"
+                onClick={() => setOpenFaq(isOpen ? null : index)}
+                className="flex w-full items-center justify-between gap-3 text-left"
+                aria-expanded={isOpen}
+                aria-label={item.question}
               >
-                <MediaVideoCard item={item} index={index} onOpen={setSelectedVideo} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
+                <span className="text-base font-black text-[#2A2118] md:text-lg">{item.question}</span>
+                <span className={`inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#FFF0D6] text-[#9A5E14] transition ${isOpen ? "rotate-45" : ""}`}>+</span>
+              </button>
+              {isOpen ? <p className="mt-3 text-sm leading-7 text-[#5F4B38]">{item.answer}</p> : null}
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+
+  const VideoModal = () => {
+    if (!selectedVideo) return null;
+    const src = toEmbedUrlV2(selectedVideo);
+
+    return (
+      <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-3 md:p-6" role="dialog" aria-modal="true" aria-label={`Playing ${selectedVideo.title}`} onClick={() => setSelectedVideo(null)}>
+        <button
+          type="button"
+          onClick={() => setSelectedVideo(null)}
+          aria-label="Close video modal"
+          className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]"
+        >
+          ×
+        </button>
+        <div className="w-full max-w-5xl overflow-hidden rounded-[20px] border border-white/20 bg-[#120F0D]" onClick={(event) => event.stopPropagation()}>
+          <div className="aspect-video bg-black">
+            {src ? (
+              <iframe src={src} title={selectedVideo.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="h-full w-full" />
+            ) : selectedVideo.videoUrl ? (
+              <video src={selectedVideo.videoUrl} controls autoPlay className="h-full w-full" />
+            ) : null}
+          </div>
+          <div className="p-4 text-white md:p-5">
+            <h3 className="text-xl font-black">{selectedVideo.title}</h3>
+            <p className="mt-2 text-sm text-white/85">{selectedVideo.description}</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="space-y-0 pb-14">
+      <VideoHero />
+      <VideoFilterBar />
+      <FeaturedVideo />
+
+      <section className="mt-10">
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Latest Videos</h2>
+            <p className="mt-2 text-sm text-[#5F4B38]">Fresh uploads from Bhagwat Katha, pravachan, bhajan, events, and spiritual media.</p>
+          </div>
+        </div>
+
+        {filteredAndSortedVideos.length === 0 ? (
+          <div className="mt-6 rounded-[22px] border border-dashed border-[#DDBF90] bg-[#FFF7E6] px-6 py-12 text-center text-[#6D4F2F]">No videos found. Try another search or category.</div>
+        ) : (
+          <>
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {latestVideos.map((video) => (
+                <VideoCard key={video.id} video={video} />
+              ))}
+            </div>
+
+            {visibleCount < filteredAndSortedVideos.length ? (
+              <div className="mt-8 flex justify-center">
+                <button type="button" onClick={() => setVisibleCount((count) => count + 6)} className="rounded-full bg-[#D89B2B] px-7 py-3 text-sm font-black text-white hover:bg-[#BE7D17]">Load More</button>
+              </div>
+            ) : null}
+          </>
+        )}
+      </section>
+
+      <section id="video-playlists" className="mt-12">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Playlist Categories</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {PLAYLIST_CARDS_V2.map((playlist) => (
+            <PlaylistCard key={playlist.title} item={playlist} />
+          ))}
         </div>
       </section>
 
-      <MediaVideoModal video={selectedVideo} onClose={() => setSelectedVideo(null)} />
+      <PopularVideos />
+
+      <LiveDarshanSection />
+
+      <section className="mt-12 rounded-[28px] border border-[#E8D8BC] bg-[#FFFCF5] p-6 shadow-[0_14px_32px_rgba(103,75,37,0.10)] md:p-8">
+        <div className="grid gap-6 lg:grid-cols-[360px_1fr] lg:items-center">
+          <div className="overflow-hidden rounded-[20px] border border-[#E0CAA3]">
+            <img src="/assets/images/media-gallery/bhagwat-katha-series.jpg" alt="Bhagwat Katha series" className="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div>
+            <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Complete Bhagwat Katha Video Series</h2>
+            <p className="mt-3 text-base leading-7 text-[#5F4B38]">Organized spiritual discourses for seekers, families, youth, and devotees.</p>
+            <div className="mt-4 grid gap-2 text-sm font-semibold text-[#6C4F2F] md:grid-cols-2">
+              <p>Series Progress: 24 / 36 episodes</p>
+              <p>Topics: Leela, Bhakti, Dharma, Gita Wisdom</p>
+            </div>
+            <button type="button" onClick={() => setSelectedVideo(featuredVideo)} className="mt-5 rounded-full bg-[#0F6B6B] px-6 py-3 text-sm font-black text-white">Start Watching Series</button>
+          </div>
+        </div>
+      </section>
+
+      <YoutubeCTA />
+      <FAQAccordion />
+
+      <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+        <img src="/assets/images/media-gallery/final-video-gallery-cta.jpg" alt="Final video gallery call to action" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(37,24,13,0.84),rgba(15,107,107,0.74),rgba(216,155,43,0.70))]" />
+        <div className="relative z-10 text-white">
+          <h2 className="text-3xl font-black md:text-4xl">Let Divine Knowledge Reach Every Home</h2>
+          <p className="mt-3 max-w-3xl text-base leading-7 text-white/90">Share Bhagwat Heritage videos with your family, friends, and community.</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button type="button" onClick={() => setSelectedVideo(featuredVideo)} className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white">Watch Latest Videos</button>
+            <a href="https://wa.me/" target="_blank" rel="noreferrer" className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Join WhatsApp Updates</a>
+            <Link to={ROUTES.donate} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Support Digital Seva</Link>
+          </div>
+        </div>
+      </section>
+
+      <VideoModal />
     </div>
   );
 });
@@ -7551,425 +8011,1588 @@ export const MediaVideoPlayerPage = memo(function MediaVideoPlayerPage() {
   );
 });
 
+type EventHighlightCategoryV2 = "Spiritual Events" | "Seva Events" | "Cultural Events" | "Youth Events" | "Festivals";
+type ActiveEventHighlightCategoryV2 = "All" | EventHighlightCategoryV2;
+
+/**
+ * CMS-ready Event Highlight model:
+ * {
+ *   title: string,
+ *   slug: string,
+ *   category: string,
+ *   eventDate: string,
+ *   location: string,
+ *   shortDescription: string,
+ *   fullDescription: string,
+ *   coverImage: string,
+ *   galleryImages: string[],
+ *   videoUrl: string,
+ *   youtubeEmbedUrl: string,
+ *   isFeatured: boolean,
+ *   status: "published" | "draft",
+ *   photoCount: number,
+ *   videoCount: number,
+ *   createdAt: string,
+ *   updatedAt: string
+ * }
+ *
+ * Admin actions:
+ * - add/edit/delete highlights
+ * - upload cover + gallery images
+ * - add video URL / YouTube embed URL
+ * - set category and featured
+ * - publish/unpublish
+ * - reorder highlights
+ */
+type EventHighlightItemV2 = {
+  title: string;
+  slug: string;
+  category: EventHighlightCategoryV2;
+  eventDate: string;
+  location: string;
+  shortDescription: string;
+  fullDescription: string;
+  coverImage: string;
+  galleryImages: string[];
+  videoUrl?: string;
+  youtubeEmbedUrl?: string;
+  isFeatured: boolean;
+  status: "published" | "draft";
+  photoCount: number;
+  videoCount: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type EventVideoHighlightV2 = {
+  title: string;
+  category: string;
+  duration: string;
+  thumbnail: string;
+  youtubeEmbedUrl: string;
+};
+
+type EventCategoryCardV2 = {
+  title: string;
+  icon: string;
+  text: string;
+};
+
+type ImpactMetricV2 = {
+  label: string;
+  value: string;
+};
+
+type EventJourneyStepV2 = {
+  title: string;
+  icon: string;
+  text: string;
+};
+
+type ReflectionItemV2 = {
+  name: string;
+  text: string;
+};
+
+const EVENT_HIGHLIGHT_CATEGORY_FILTERS_V2: ActiveEventHighlightCategoryV2[] = [
+  "All",
+  "Spiritual Events",
+  "Seva Events",
+  "Cultural Events",
+  "Youth Events",
+  "Festivals",
+];
+
+const EVENT_CATEGORY_CARDS_V2: EventCategoryCardV2[] = [
+  {
+    title: "Bhagwat Katha Mahotsav",
+    icon: "/assets/images/media-gallery/icons/icon-bhagwat-katha.svg",
+    text: "Sacred discourses, devotional gatherings, satsang and spiritual awakening through Shrimad Bhagwat Katha.",
+  },
+  {
+    title: "Festival Celebrations",
+    icon: "/assets/images/media-gallery/icons/icon-festival-celebration.svg",
+    text: "Divine celebrations of traditional festivals with puja, bhajan, aarti, prasad and family participation.",
+  },
+  {
+    title: "Guru Purnima",
+    icon: "/assets/images/media-gallery/icons/icon-guru-purnima.svg",
+    text: "Moments of guru bhakti, samarpan, gurupujan, blessings and spiritual gratitude.",
+  },
+  {
+    title: "Annakut Mahotsav",
+    icon: "/assets/images/media-gallery/icons/icon-annakut.svg",
+    text: "Grand devotional offerings, 56 bhog, aarti, mahaprasad and community participation.",
+  },
+  {
+    title: "Youth & Cultural Programs",
+    icon: "/assets/images/media-gallery/icons/icon-youth-cultural.svg",
+    text: "Programs for youth inspiration, sanskar education, cultural performance and values-based leadership.",
+  },
+  {
+    title: "Seva Events",
+    icon: "/assets/images/media-gallery/icons/icon-seva-event.svg",
+    text: "Food seva, education support, medical assistance, gau seva, disaster relief and social welfare activities.",
+  },
+];
+
+const EVENT_IMPACT_METRICS_V2: ImpactMetricV2[] = [
+  { label: "Events Organised", value: "100+" },
+  { label: "Devotees Reached", value: "50,000+" },
+  { label: "Volunteers Engaged", value: "1,000+" },
+  { label: "Cities & Communities Connected", value: "25+" },
+  { label: "Beneficiaries Through Seva", value: "Thousands" },
+];
+
+const EVENT_HIGHLIGHTS_DATA_V2: EventHighlightItemV2[] = [
+  {
+    title: "Bhagwat Katha Mahotsav",
+    slug: "bhagwat-katha-mahotsav-highlight",
+    category: "Spiritual Events",
+    eventDate: "2026-04-02",
+    location: "Bhagwat Dham, Chandrapur",
+    shortDescription: "A devotional gathering filled with Bhagwat wisdom, satsang, bhajan and spiritual guidance.",
+    fullDescription:
+      "Bhagwat Katha Mahotsav brought together devotees, families, and youth in a sacred space of learning, remembrance, and collective spiritual upliftment.",
+    coverImage: "/assets/images/media-gallery/highlight-bhagwat-katha.jpg",
+    galleryImages: ["/assets/images/media-gallery/event-moment-1.jpg", "/assets/images/media-gallery/event-moment-2.jpg"],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/Z-zaUl-uazk",
+    isFeatured: true,
+    status: "published",
+    photoCount: 58,
+    videoCount: 9,
+    createdAt: "2026-04-03T10:00:00.000Z",
+    updatedAt: "2026-04-05T10:00:00.000Z",
+  },
+  {
+    title: "Guru Purnima Samarpan Parv",
+    slug: "guru-purnima-samarpan-parv",
+    category: "Spiritual Events",
+    eventDate: "2026-03-16",
+    location: "Main Mandap",
+    shortDescription: "A sacred celebration of gratitude, gurupujan, blessings and disciple devotion.",
+    fullDescription: "Devotees offered guru vandana with humility, bhakti, and collective prayer under guidance of the trust.",
+    coverImage: "/assets/images/media-gallery/highlight-guru-purnima.jpg",
+    galleryImages: ["/assets/images/media-gallery/event-moment-3.jpg"],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/cOFNyxt4MhM",
+    isFeatured: false,
+    status: "published",
+    photoCount: 42,
+    videoCount: 6,
+    createdAt: "2026-03-17T10:00:00.000Z",
+    updatedAt: "2026-03-17T10:00:00.000Z",
+  },
+  {
+    title: "Annakut Mahotsav",
+    slug: "annakut-mahotsav",
+    category: "Festivals",
+    eventDate: "2026-02-22",
+    location: "Temple Courtyard",
+    shortDescription: "Grand divine offering, 56 bhog darshan, aarti and mahaprasad seva.",
+    fullDescription: "Annakut Mahotsav offered vibrant devotional participation with ceremonial offerings and prasad distribution.",
+    coverImage: "/assets/images/media-gallery/highlight-annakut.jpg",
+    galleryImages: ["/assets/images/media-gallery/event-moment-4.jpg"],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/wrg8NMrPwOs",
+    isFeatured: false,
+    status: "published",
+    photoCount: 50,
+    videoCount: 5,
+    createdAt: "2026-02-23T10:00:00.000Z",
+    updatedAt: "2026-02-24T10:00:00.000Z",
+  },
+  {
+    title: "Matru-Pitru Pujan",
+    slug: "matru-pitru-pujan",
+    category: "Cultural Events",
+    eventDate: "2026-02-10",
+    location: "Cultural Hall",
+    shortDescription: "A values-based family event inspiring respect, gratitude and Indian sanskar.",
+    fullDescription: "Children honored parents with traditional rituals and gratitude-focused values sessions.",
+    coverImage: "/assets/images/media-gallery/highlight-matru-pitru-pujan.jpg",
+    galleryImages: ["/assets/images/media-gallery/event-moment-5.jpg"],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/ZYX6zpiY-6w",
+    isFeatured: false,
+    status: "published",
+    photoCount: 36,
+    videoCount: 4,
+    createdAt: "2026-02-11T10:00:00.000Z",
+    updatedAt: "2026-02-11T10:00:00.000Z",
+  },
+  {
+    title: "Youth Sanskar Program",
+    slug: "youth-sanskar-program",
+    category: "Youth Events",
+    eventDate: "2026-01-29",
+    location: "Youth Learning Center",
+    shortDescription: "Youth-focused session for character building, leadership and cultural awareness.",
+    fullDescription: "A practical youth initiative combining values education, discipline, and future-focused service awareness.",
+    coverImage: "/assets/images/media-gallery/highlight-youth-program.jpg",
+    galleryImages: ["/assets/images/media-gallery/event-moment-6.jpg"],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/oW_Z8hICrHo",
+    isFeatured: false,
+    status: "published",
+    photoCount: 29,
+    videoCount: 3,
+    createdAt: "2026-01-30T10:00:00.000Z",
+    updatedAt: "2026-01-30T10:00:00.000Z",
+  },
+  {
+    title: "Ann Seva Community Drive",
+    slug: "ann-seva-community-drive",
+    category: "Seva Events",
+    eventDate: "2026-01-21",
+    location: "Community Service Zone",
+    shortDescription: "Community service activity dedicated to food distribution, compassion and human welfare.",
+    fullDescription: "Volunteers and devotees collectively delivered food seva with dignity and care to families in need.",
+    coverImage: "/assets/images/media-gallery/highlight-ann-seva.jpg",
+    galleryImages: ["/assets/images/media-gallery/event-moment-7.jpg"],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/Rq5iBnW8UEQ",
+    isFeatured: false,
+    status: "published",
+    photoCount: 47,
+    videoCount: 4,
+    createdAt: "2026-01-22T10:00:00.000Z",
+    updatedAt: "2026-01-22T10:00:00.000Z",
+  },
+  {
+    title: "Festival Deepotsav Gathering",
+    slug: "festival-deepotsav-gathering",
+    category: "Festivals",
+    eventDate: "2025-12-20",
+    location: "Mandir Prangan",
+    shortDescription: "Evening diyas, devotional bhajans, and family participation in festival darshan.",
+    fullDescription: "Deepotsav was celebrated through collective prayer, light offerings, and devotional singing.",
+    coverImage: "/assets/images/media-gallery/highlight-annakut.jpg",
+    galleryImages: ["/assets/images/media-gallery/event-moment-8.jpg"],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/Z-zaUl-uazk",
+    isFeatured: false,
+    status: "published",
+    photoCount: 39,
+    videoCount: 3,
+    createdAt: "2025-12-21T10:00:00.000Z",
+    updatedAt: "2025-12-21T10:00:00.000Z",
+  },
+  {
+    title: "Bhakti Satsang Sabha",
+    slug: "bhakti-satsang-sabha",
+    category: "Spiritual Events",
+    eventDate: "2025-12-08",
+    location: "Bhagwat Satsang Hall",
+    shortDescription: "Collective satsang with scriptural reflection and spiritual guidance.",
+    fullDescription: "A reflective satsang gathering focused on daily bhakti, inner discipline, and dharmic living.",
+    coverImage: "/assets/images/media-gallery/highlight-bhagwat-katha.jpg",
+    galleryImages: [],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/cOFNyxt4MhM",
+    isFeatured: false,
+    status: "published",
+    photoCount: 21,
+    videoCount: 2,
+    createdAt: "2025-12-08T10:00:00.000Z",
+    updatedAt: "2025-12-09T10:00:00.000Z",
+  },
+  {
+    title: "Cultural Sanskar Showcase",
+    slug: "cultural-sanskar-showcase",
+    category: "Cultural Events",
+    eventDate: "2025-11-26",
+    location: "Community Cultural Stage",
+    shortDescription: "Cultural performances showcasing values, tradition, and devotional expression.",
+    fullDescription: "Students and families presented value-rich performances rooted in spiritual heritage.",
+    coverImage: "/assets/images/media-gallery/highlight-matru-pitru-pujan.jpg",
+    galleryImages: [],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/wrg8NMrPwOs",
+    isFeatured: false,
+    status: "published",
+    photoCount: 33,
+    videoCount: 3,
+    createdAt: "2025-11-27T10:00:00.000Z",
+    updatedAt: "2025-11-27T10:00:00.000Z",
+  },
+  {
+    title: "Youth Leadership Circle",
+    slug: "youth-leadership-circle",
+    category: "Youth Events",
+    eventDate: "2025-11-11",
+    location: "Youth Sanskar Campus",
+    shortDescription: "Leadership and service orientation for youth through value-based sessions.",
+    fullDescription: "An interactive forum building confidence, teamwork, and spiritual responsibility among youth.",
+    coverImage: "/assets/images/media-gallery/highlight-youth-program.jpg",
+    galleryImages: [],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/ZYX6zpiY-6w",
+    isFeatured: false,
+    status: "published",
+    photoCount: 24,
+    videoCount: 2,
+    createdAt: "2025-11-12T10:00:00.000Z",
+    updatedAt: "2025-11-12T10:00:00.000Z",
+  },
+  {
+    title: "Medical Seva Outreach",
+    slug: "medical-seva-outreach",
+    category: "Seva Events",
+    eventDate: "2025-10-30",
+    location: "Service Wing",
+    shortDescription: "Medical support outreach with compassion, coordination, and volunteer care.",
+    fullDescription: "Medical seva camp addressing community health needs with trust-led support and volunteers.",
+    coverImage: "/assets/images/media-gallery/highlight-ann-seva.jpg",
+    galleryImages: [],
+    youtubeEmbedUrl: "https://www.youtube.com/embed/oW_Z8hICrHo",
+    isFeatured: false,
+    status: "published",
+    photoCount: 18,
+    videoCount: 2,
+    createdAt: "2025-10-31T10:00:00.000Z",
+    updatedAt: "2025-10-31T10:00:00.000Z",
+  },
+];
+
+const EVENT_VIDEO_HIGHLIGHTS_V2: EventVideoHighlightV2[] = [
+  {
+    title: "Bhagwat Katha Divine Moments",
+    category: "Spiritual Events",
+    duration: "12:22",
+    thumbnail: "/assets/images/media-gallery/highlight-bhagwat-katha.jpg",
+    youtubeEmbedUrl: "https://www.youtube.com/embed/Z-zaUl-uazk",
+  },
+  {
+    title: "Guru Purnima Samarpan Highlights",
+    category: "Spiritual Events",
+    duration: "10:38",
+    thumbnail: "/assets/images/media-gallery/highlight-guru-purnima.jpg",
+    youtubeEmbedUrl: "https://www.youtube.com/embed/cOFNyxt4MhM",
+  },
+  {
+    title: "Annakut Mahotsav Darshan",
+    category: "Festivals",
+    duration: "09:11",
+    thumbnail: "/assets/images/media-gallery/highlight-annakut.jpg",
+    youtubeEmbedUrl: "https://www.youtube.com/embed/wrg8NMrPwOs",
+  },
+  {
+    title: "Youth Sanskar Program",
+    category: "Youth Events",
+    duration: "08:49",
+    thumbnail: "/assets/images/media-gallery/highlight-youth-program.jpg",
+    youtubeEmbedUrl: "https://www.youtube.com/embed/oW_Z8hICrHo",
+  },
+  {
+    title: "Seva Activity Highlights",
+    category: "Seva Events",
+    duration: "11:16",
+    thumbnail: "/assets/images/media-gallery/highlight-ann-seva.jpg",
+    youtubeEmbedUrl: "https://www.youtube.com/embed/Rq5iBnW8UEQ",
+  },
+  {
+    title: "Festival Celebration Moments",
+    category: "Festivals",
+    duration: "07:54",
+    thumbnail: "/assets/images/media-gallery/event-moment-4.jpg",
+    youtubeEmbedUrl: "https://www.youtube.com/embed/ZYX6zpiY-6w",
+  },
+];
+
+const EVENT_MOMENT_IMAGES_V2 = [
+  { src: "/assets/images/media-gallery/event-moment-1.jpg", caption: "Devotee gathering in satsang atmosphere" },
+  { src: "/assets/images/media-gallery/event-moment-2.jpg", caption: "Aarti and collective prayer moments" },
+  { src: "/assets/images/media-gallery/event-moment-3.jpg", caption: "Seva and volunteer support in action" },
+  { src: "/assets/images/media-gallery/event-moment-4.jpg", caption: "Festival celebration with devotional energy" },
+  { src: "/assets/images/media-gallery/event-moment-5.jpg", caption: "Cultural participation and family values" },
+  { src: "/assets/images/media-gallery/event-moment-6.jpg", caption: "Youth sessions with sanskar learning" },
+  { src: "/assets/images/media-gallery/event-moment-7.jpg", caption: "Prasad seva and distribution support" },
+  { src: "/assets/images/media-gallery/event-moment-8.jpg", caption: "Volunteer team and community harmony" },
+];
+
+const EVENT_JOURNEY_STEPS_V2: EventJourneyStepV2[] = [
+  {
+    title: "Planning with Purpose",
+    icon: "/assets/images/media-gallery/icons/icon-event-planning.svg",
+    text: "Each event begins with a clear spiritual, cultural or seva-based purpose.",
+  },
+  {
+    title: "Community Invitation",
+    icon: "/assets/images/media-gallery/icons/icon-community-invitation.svg",
+    text: "Families, devotees, youth, volunteers and community members are invited with respect.",
+  },
+  {
+    title: "Devotional Participation",
+    icon: "/assets/images/media-gallery/icons/icon-devotional-participation.svg",
+    text: "The event becomes alive through satsang, puja, katha, seva, bhajan and collective prayer.",
+  },
+  {
+    title: "Volunteer Seva",
+    icon: "/assets/images/media-gallery/icons/icon-volunteer-seva.svg",
+    text: "Dedicated volunteers support arrangements, discipline, hospitality and seva.",
+  },
+  {
+    title: "Prasad & Blessings",
+    icon: "/assets/images/media-gallery/icons/icon-prasad-blessings.svg",
+    text: "Participants receive spiritual inspiration, mahaprasad and divine blessings.",
+  },
+  {
+    title: "Impact Archive",
+    icon: "/assets/images/media-gallery/icons/icon-impact-archive.svg",
+    text: "Photos, videos and reports are preserved as a meaningful media archive.",
+  },
+];
+
+const EVENT_REFLECTIONS_V2: ReflectionItemV2[] = [
+  {
+    name: "Devotee Participant",
+    text: "The event was not only well organised but spiritually uplifting. It gave our family a deep feeling of devotion and togetherness.",
+  },
+  {
+    name: "Volunteer Sevak",
+    text: "Serving in these events gives us discipline, humility and the joy of contributing to a divine mission.",
+  },
+  {
+    name: "Youth Participant",
+    text: "The cultural and spiritual programs helped us understand our roots and responsibilities in a practical way.",
+  },
+];
+
 export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage() {
-  const [activeHighlight, setActiveHighlight] = useState<"All" | "Spiritual" | "Festival" | "Seva" | "Youth">("All");
-
-  const highlightStreams = [
-    {
-      category: "Spiritual" as const,
-      title: "Spiritual Moments",
-      desc: "Highlight pages should spotlight the most peaceful and transformative satsang moments, not just event attendance numbers.",
-      output: "Katha moments, aarti atmosphere, and devotional audience response.",
-    },
-    {
-      category: "Festival" as const,
-      title: "Festival Story Frames",
-      desc: "Festival highlights should capture color, darshan, prasad, family participation, and the visual joy of celebration.",
-      output: "Decor details, crowd flow snapshots, and celebration atmosphere.",
-    },
-    {
-      category: "Seva" as const,
-      title: "Seva Impact Highlights",
-      desc: "This section should show how trust work translated into visible community help and practical service outcomes.",
-      output: "Volunteer action frames, beneficiary touchpoints, and field support sequences.",
-    },
-    {
-      category: "Youth" as const,
-      title: "Youth and Sanskar Highlights",
-      desc: "Youth highlights should show confidence, participation, learning, and growth rather than just stage photos.",
-      output: "Mentor-led moments, activity snapshots, and disciplined youth engagement.",
-    },
-  ];
-
-  const visibleHighlights =
-    activeHighlight === "All" ? highlightStreams : highlightStreams.filter((item) => item.category === activeHighlight);
-
-  const imageHighlightItems = [
-    {
-      category: "Spiritual" as const,
-      title: "Evening Aarti Reflection",
-      image: "/images/spiritual1.png",
-      note: "Aarti atmosphere, lamp glow, and focused darshan moments",
-    },
-    {
-      category: "Festival" as const,
-      title: "Festival Decor Wall",
-      image: "/images/hanuman5.JPG",
-      note: "Color, mandap decoration, and devotee arrival energy",
-    },
-    {
-      category: "Seva" as const,
-      title: "Volunteer Seva Action",
-      image: "/images/hanuman3.JPG",
-      note: "Field-level discipline, movement, and service support",
-    },
-    {
-      category: "Youth" as const,
-      title: "Youth Participation Frame",
-      image: "/images/hanuman2.JPG",
-      note: "Mentor-led learning and youth-led contribution moments",
-    },
-    {
-      category: "Festival" as const,
-      title: "Prasad Distribution Highlight",
-      image: "/images/hanuman4.JPG",
-      note: "Hospitality, distribution, and festival flow snapshot",
-    },
-    {
-      category: "Spiritual" as const,
-      title: "Katha Darshan Audience",
-      image: "/images/kathapravachan.png",
-      note: "Absorption, listening, and spiritual atmosphere capture",
-    },
-  ];
-
-  const visibleImageHighlights =
-    activeHighlight === "All"
-      ? imageHighlightItems
-      : imageHighlightItems.filter((item) => item.category === activeHighlight);
+  const [activeCategory, setActiveCategory] = useState<ActiveEventHighlightCategoryV2>("All");
+  const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(9);
+  const [videoModalIndex, setVideoModalIndex] = useState<number | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   usePageMeta(
     "Event Highlights",
-    "Curated event highlights page with story-focused spotlighting across festivals, seva, satsang, and youth programs.",
+    "Explore event highlights from Bhagwat Katha Mahotsav, spiritual festivals, seva activities, cultural programs, Guru Purnima, Annakut Mahotsav, youth programs and community gatherings by Bhagwat Heritage Service Foundation Trust.",
   );
 
-  return (
-    <div className="space-y-6 pb-12">
-      <section className="rounded-[30px] border border-borderBeige bg-[linear-gradient(180deg,rgba(255,245,225,0.92)_0%,rgba(255,252,247,0.98)_48%,rgba(245,232,204,0.95)_100%)] p-6 shadow-[0_22px_52px_rgba(101,71,35,0.09)] md:p-8">
-        <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-saffron">Media Gallery</p>
-        <h1 className="mt-2 text-3xl font-black tracking-tight text-tealDeep md:text-5xl">Event Highlights</h1>
-        <p className="mt-3 max-w-3xl text-brownSoft md:text-lg">Story-led highlights and event memory cards presented with the same calm layout, warm palette, and premium spacing as the About page.</p>
-      </section>
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsLoading(false), 450);
+    return () => window.clearTimeout(timer);
+  }, []);
 
-      <Card className="hover:scale-100">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-saffron">Filter Highlights</p>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-tealDeep md:text-4xl">Highlight Storyboard</h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {(["All", "Spiritual", "Festival", "Seva", "Youth"] as const).map((stream) => (
-              <button
-                key={stream}
-                type="button"
-                onClick={() => setActiveHighlight(stream)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${activeHighlight === stream ? "bg-tealPrimary text-white" : "border border-borderCard bg-bgSoft text-brownSoft hover:border-gold hover:bg-sand"}`}
-              >
-                {stream}
-              </button>
-            ))}
+  useEffect(() => {
+    const ogTitle = "Event Highlights | Bhagwat Heritage Service Foundation Trust";
+    const ogDescription =
+      "Explore event highlights from Bhagwat Katha Mahotsav, spiritual festivals, seva activities, cultural programs, Guru Purnima, Annakut Mahotsav, youth programs and community gatherings by Bhagwat Heritage Service Foundation Trust.";
+    const ogImage = "/assets/images/media-gallery/event-highlights-hero.jpg";
+
+    const setMeta = (property: string, content: string) => {
+      let node = document.querySelector(`meta[property='${property}']`) as HTMLMetaElement | null;
+      if (!node) {
+        node = document.createElement("meta");
+        node.setAttribute("property", property);
+        document.head.appendChild(node);
+      }
+      node.setAttribute("content", content);
+    };
+
+    setMeta("og:title", ogTitle);
+    setMeta("og:description", ogDescription);
+    setMeta("og:image", ogImage);
+  }, []);
+
+  useEffect(() => {
+    setVisibleCount(9);
+  }, [activeCategory, query]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setVideoModalIndex(null);
+        setLightboxIndex(null);
+      }
+      if (lightboxIndex !== null && event.key === "ArrowRight") {
+        setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % EVENT_MOMENT_IMAGES_V2.length));
+      }
+      if (lightboxIndex !== null && event.key === "ArrowLeft") {
+        setLightboxIndex((prev) => (prev === null ? null : (prev - 1 + EVENT_MOMENT_IMAGES_V2.length) % EVENT_MOMENT_IMAGES_V2.length));
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [lightboxIndex]);
+
+  const publishedHighlights = useMemo(() => EVENT_HIGHLIGHTS_DATA_V2.filter((item) => item.status === "published"), []);
+
+  const featuredHighlight = useMemo(() => publishedHighlights.find((item) => item.isFeatured) ?? publishedHighlights[0], [publishedHighlights]);
+
+  const filteredHighlights = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return publishedHighlights.filter((item) => {
+      const categoryMatch = activeCategory === "All" || item.category === activeCategory;
+      const queryMatch =
+        q.length === 0 || item.title.toLowerCase().includes(q) || item.location.toLowerCase().includes(q) || item.shortDescription.toLowerCase().includes(q);
+      return categoryMatch && queryMatch;
+    });
+  }, [publishedHighlights, activeCategory, query]);
+
+  const visibleHighlights = useMemo(() => filteredHighlights.slice(0, visibleCount), [filteredHighlights, visibleCount]);
+  const activeVideo = videoModalIndex !== null ? EVENT_VIDEO_HIGHLIGHTS_V2[videoModalIndex] : null;
+  const activeImage = lightboxIndex !== null ? EVENT_MOMENT_IMAGES_V2[lightboxIndex] : null;
+
+  return (
+    <div className="space-y-0 pb-14">
+      <section className="relative overflow-hidden rounded-[34px] border border-[#E6D0AF] shadow-[0_24px_52px_rgba(95,62,26,0.18)]">
+        <img src="/assets/images/media-gallery/event-highlights-hero.jpg" alt="Large spiritual event gathering with devotees and warm lights" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(54,20,10,0.78),rgba(88,24,18,0.60),rgba(15,107,107,0.45))]" />
+        <div className="relative z-10 px-6 py-14 text-white md:px-10 md:py-20">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#F3D8A5]">Home / Media Gallery / Event Highlights</p>
+          <p className="mt-5 inline-flex rounded-full bg-white/12 px-4 py-1 text-xs font-black uppercase tracking-[0.14em] text-white">Media Gallery</p>
+          <h1 className="mt-4 text-4xl font-black leading-tight md:text-6xl">Event Highlights</h1>
+          <h2 className="mt-4 text-xl font-black text-[#FFE9C3] md:text-3xl">Moments of Seva, Sanskar, Bhakti &amp; Cultural Awakening</h2>
+          <p className="mt-4 max-w-4xl text-base leading-7 text-white/90 md:text-lg">
+            Explore the inspiring moments from Bhagwat Heritage events where devotion, service, culture, family values, youth participation, and community awakening come together as a living celebration of Dharma.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a href="#latest-event-highlights" className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#BD7A14]">View Latest Highlights</a>
+            <Link to={ROUTES.media.photos} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white hover:text-[#3A2416]">Explore Photo Gallery</Link>
           </div>
         </div>
-      </Card>
+      </section>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {visibleImageHighlights.map((item) => (
-          <Card key={item.title} className="group p-0">
-            <div className="overflow-hidden rounded-t-2xl">
-              <img src={item.image} alt={item.title} className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-110" />
-            </div>
-            <div className="p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-saffron">{item.category}</p>
-              <h3 className="mt-2 text-xl font-semibold text-tealCard">{item.title}</h3>
-              <p className="mt-2 text-brownSoft">{item.note}</p>
-            </div>
-          </Card>
-        ))}
-      </div>
+      <section className="mt-10 rounded-[28px] border border-[#E8D8BC] bg-[#FFFCF4] p-6 shadow-[0_14px_36px_rgba(98,69,30,0.10)] md:p-8">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Highlights by Event Category</h2>
+        <p className="mt-3 text-base leading-7 text-[#5F4A37]">A curated archive of our major spiritual, cultural, social and community-based events.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {EVENT_CATEGORY_CARDS_V2.map((card) => (
+            <article key={card.title} className="rounded-[20px] border border-[#E6D4B5] bg-white p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)] transition hover:-translate-y-1 hover:border-[#D6A34F]">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2DC]">
+                <img src={card.icon} alt={`${card.title} icon`} className="h-7 w-7 object-contain" loading="lazy" />
+              </div>
+              <h3 className="mt-4 text-xl font-black text-[#2A2018]">{card.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{card.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {visibleHighlights.map((item) => (
-          <Card key={item.title}>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-saffron">{item.category}</p>
-            <h3 className="mt-3 text-xl font-semibold text-tealCard">{item.title}</h3>
-            <p className="mt-2 text-brownSoft">{item.desc}</p>
-            <div className="mt-4 rounded-xl bg-sand p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-saffron">Highlight Output</p>
-              <p className="mt-2 text-brownSoft">{item.output}</p>
+      <section className="mt-10 overflow-hidden rounded-[30px] border border-[#E7D4B7] bg-[linear-gradient(140deg,#FFF6DE_0%,#FFFDF8_50%,#F6E8CB_100%)] shadow-[0_16px_40px_rgba(103,75,37,0.12)]">
+        <div className="grid gap-0 lg:grid-cols-[1.1fr_1fr]">
+          <div className="aspect-[4/3] lg:aspect-auto">
+            <img src="/assets/images/media-gallery/featured-event-highlight.jpg" alt="Sant giving discourse while devotees listen with devotion" className="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div className="p-6 md:p-8">
+            <p className="inline-flex rounded-full bg-[#0F6B6B] px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-white">Featured Highlight</p>
+            <h2 className="mt-4 text-3xl font-black text-[#1D342C] md:text-4xl">Divine Moments from Bhagwat Heritage Events</h2>
+            <p className="mt-4 text-base leading-7 text-[#5F4A37]">
+              Every event organised by Bhagwat Heritage is designed to connect people with devotion, service, sanskar and cultural consciousness. These highlights preserve the most meaningful moments of collective prayer, seva, satsang, youth participation and community harmony.
+            </p>
+            <ul className="mt-4 space-y-2 text-sm font-semibold text-[#6F5030]">
+              <li>Event Type: Spiritual &amp; Cultural Gathering</li>
+              <li>Location: Bhagwat Dham / Community Event Venue</li>
+              <li>Participation: Devotees, Families, Youth &amp; Volunteers</li>
+              <li>Focus: Bhakti, Seva, Sanskar &amp; Social Awakening</li>
+            </ul>
+            <button type="button" className="mt-6 rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white transition hover:bg-[#BE7D17]">
+              View Complete Highlight
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="latest-event-highlights" className="mt-12">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Latest Event Highlights</h2>
+        <p className="mt-3 text-base leading-7 text-[#5F4A37]">Browse recent and past event highlights from our spiritual, social and cultural activities.</p>
+
+        <div className="mt-5 rounded-[24px] border border-[#E6D3B1] bg-[#FFF9EA] p-4 shadow-[0_14px_30px_rgba(99,71,31,0.11)] md:p-5">
+          <div className="grid gap-3 lg:grid-cols-[1fr_0.4fr]">
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search by event title or location..."
+              aria-label="Search highlights"
+              className="w-full rounded-full border border-[#E0C8A0] bg-white px-5 py-3 text-sm text-[#4E3928] outline-none focus:border-[#C8922E] focus:ring-2 focus:ring-[#F0D79D]"
+            />
+            <p className="flex items-center justify-start text-sm font-bold text-[#6F522F] lg:justify-end">Showing {filteredHighlights.length} highlights</p>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {EVENT_HIGHLIGHT_CATEGORY_FILTERS_V2.map((filter) => {
+              const isActive = activeCategory === filter;
+              return (
+                <button
+                  key={filter}
+                  type="button"
+                  aria-pressed={isActive}
+                  onClick={() => setActiveCategory(filter)}
+                  className={`rounded-full border px-4 py-2 text-xs font-black uppercase tracking-[0.08em] transition ${
+                    isActive ? "border-[#C8922E] bg-[#D89B2B] text-white" : "border-[#E2CCA6] bg-white text-[#6D5132] hover:border-[#C8922E] hover:bg-[#FFF1D6]"
+                  }`}
+                >
+                  {filter}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {isLoading ? (
+          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div key={idx} className="overflow-hidden rounded-[22px] border border-[#E8D8BC] bg-white p-5">
+                <div className="aspect-[4/3] animate-pulse rounded-[14px] bg-[#F4E7CE]" />
+                <div className="mt-4 h-5 w-2/3 animate-pulse rounded bg-[#F2E1C2]" />
+                <div className="mt-3 h-4 w-full animate-pulse rounded bg-[#F5EAD3]" />
+                <div className="mt-2 h-4 w-4/5 animate-pulse rounded bg-[#F5EAD3]" />
+              </div>
+            ))}
+          </div>
+        ) : filteredHighlights.length === 0 ? (
+          <div className="mt-6 rounded-[22px] border border-dashed border-[#DDBF90] bg-[#FFF7E6] px-6 py-12 text-center text-[#6D4F2F]">
+            No event highlights found. Please try another search or category.
+          </div>
+        ) : (
+          <>
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {visibleHighlights.map((item) => (
+                <article key={item.slug} className="overflow-hidden rounded-[22px] border border-[#E8D8BC] bg-white shadow-[0_12px_28px_rgba(104,75,38,0.09)] transition hover:-translate-y-1 hover:shadow-[0_20px_36px_rgba(104,75,38,0.14)]">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img src={item.coverImage} alt={`${item.title} event highlight`} className="h-full w-full object-cover" loading="lazy" />
+                    <span className="absolute left-3 top-3 rounded-full bg-[#D89B2B] px-3 py-1 text-[11px] font-black text-white">{item.category}</span>
+                    <span className="absolute right-3 top-3 rounded-full bg-black/70 px-3 py-1 text-[11px] font-black text-white">
+                      {item.photoCount} Photos • {item.videoCount} Videos
+                    </span>
+                  </div>
+                  <div className="space-y-2 p-5">
+                    <h3 className="line-clamp-2 text-xl font-black leading-tight text-[#2A2118]">{item.title}</h3>
+                    <p className="text-sm font-semibold text-[#0F6B6B]">
+                      {new Date(item.eventDate).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })} • {item.location}
+                    </p>
+                    <p className="line-clamp-3 text-sm leading-6 text-[#5F4A37]">{item.shortDescription}</p>
+                    <button type="button" className="mt-2 rounded-full bg-[#FFF1D5] px-4 py-2 text-sm font-black text-[#8A5617] transition hover:bg-[#FFE6B9]">
+                      View Details
+                    </button>
+                  </div>
+                </article>
+              ))}
             </div>
-          </Card>
-        ))}
-      </div>
+            {visibleCount < filteredHighlights.length ? (
+              <div className="mt-8 flex justify-center">
+                <button type="button" onClick={() => setVisibleCount((count) => count + 6)} className="rounded-full bg-[#D89B2B] px-7 py-3 text-sm font-black text-white hover:bg-[#BE7D17]">
+                  Load More
+                </button>
+              </div>
+            ) : null}
+          </>
+        )}
+      </section>
+
+      <section className="mt-12 rounded-[28px] border border-[#E4CCA0] bg-[linear-gradient(120deg,#FFF0CF_0%,#FFF8E6_42%,#F8E7C0_100%)] p-6 shadow-[0_16px_34px_rgba(98,71,31,0.13)] md:p-8">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Events That Create Spiritual &amp; Social Impact</h2>
+        <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
+          {EVENT_IMPACT_METRICS_V2.map((metric) => (
+            <article key={metric.label} className="rounded-[16px] border border-[#E5C88F] bg-white/90 p-4 text-center">
+              <p className="text-2xl font-black text-[#B87415]">{metric.value}</p>
+              <p className="mt-2 text-xs font-bold uppercase tracking-[0.08em] text-[#6A4C2C]">{metric.label}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Video Highlights</h2>
+        <p className="mt-3 text-base leading-7 text-[#5F4A37]">Watch selected moments from our major events, satsangs, seva activities and cultural programs.</p>
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {EVENT_VIDEO_HIGHLIGHTS_V2.map((video, index) => (
+            <article key={video.title} className="overflow-hidden rounded-[20px] border border-[#E8D8BC] bg-white shadow-[0_12px_28px_rgba(104,75,38,0.09)]">
+              <div className="relative aspect-video overflow-hidden">
+                <img src={video.thumbnail} alt={video.title} className="h-full w-full object-cover" loading="lazy" />
+                <button
+                  type="button"
+                  onClick={() => setVideoModalIndex(index)}
+                  aria-label={`Watch ${video.title}`}
+                  className="absolute left-1/2 top-1/2 inline-flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-xl text-white shadow-[0_0_0_8px_rgba(255,255,255,0.14)]"
+                >
+                  ▶
+                </button>
+                <span className="absolute right-3 top-3 rounded-full bg-black/70 px-3 py-1 text-[11px] font-black text-white">{video.duration}</span>
+              </div>
+              <div className="space-y-2 p-5">
+                <h3 className="text-xl font-black text-[#2A2118]">{video.title}</h3>
+                <p className="text-sm font-semibold text-[#0F6B6B]">{video.category}</p>
+                <button type="button" onClick={() => setVideoModalIndex(index)} className="rounded-full bg-[#D89B2B] px-4 py-2 text-sm font-black text-white">
+                  Watch
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Moments Captured in Devotion</h2>
+        <p className="mt-3 text-base leading-7 text-[#5F4A37]">A visual glimpse of devotion, service, cultural celebration and community participation.</p>
+        <div className="mt-6 columns-1 gap-4 sm:columns-2 xl:columns-4">
+          {EVENT_MOMENT_IMAGES_V2.map((image, index) => (
+            <figure key={image.src} className="mb-4 overflow-hidden rounded-[16px] border border-[#E6D5B5] bg-white shadow-[0_10px_20px_rgba(104,75,38,0.08)]">
+              <button type="button" onClick={() => setLightboxIndex(index)} className="block w-full text-left">
+                <img src={image.src} alt={image.caption} loading="lazy" className="h-auto w-full object-cover transition duration-300 hover:scale-[1.03]" />
+              </button>
+              <figcaption className="px-3 py-2 text-xs font-semibold text-[#6A4E30]">{image.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <div className="mt-5">
+          <Link to={ROUTES.media.photos} className="inline-flex rounded-full bg-[#0F6B6B] px-6 py-3 text-sm font-black text-white">
+            View Full Photo Gallery
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-12 rounded-[28px] border border-[#E8D8BC] bg-[#FFFCF5] p-6 shadow-[0_14px_32px_rgba(103,75,37,0.10)] md:p-8">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">How Every Event Becomes a Divine Experience</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {EVENT_JOURNEY_STEPS_V2.map((step) => (
+            <article key={step.title} className="rounded-[18px] border border-[#E7D5B6] bg-white p-5">
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#FFF2DC]">
+                <img src={step.icon} alt={`${step.title} icon`} className="h-6 w-6 object-contain" loading="lazy" />
+              </div>
+              <h3 className="mt-4 text-xl font-black text-[#2A2118]">{step.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{step.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12 rounded-[28px] border border-[#E8D8BC] bg-[#FFFCF5] p-6 shadow-[0_14px_32px_rgba(103,75,37,0.10)] md:p-8">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Voices from Our Events</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {EVENT_REFLECTIONS_V2.map((reflection) => (
+            <article key={reflection.name} className="rounded-[18px] border border-[#E6D4B4] bg-white p-5">
+              <p className="text-sm leading-7 text-[#5F4A37]">"{reflection.text}"</p>
+              <p className="mt-4 text-sm font-black uppercase tracking-[0.08em] text-[#8A5A1B]">{reflection.name}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+        <img src="/assets/images/media-gallery/event-highlights-cta.jpg" alt="Golden devotional event ambience with diya and temple lights" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(37,24,13,0.84),rgba(88,24,18,0.70),rgba(15,107,107,0.68))]" />
+        <div className="relative z-10 text-white">
+          <h2 className="text-3xl font-black md:text-4xl">Be Part of Our Upcoming Divine Events</h2>
+          <p className="mt-3 max-w-4xl text-base leading-7 text-white/90">
+            Join Bhagwat Heritage Service Foundation Trust as a devotee, volunteer, supporter or well-wisher and become part of events that spread bhakti, seva, sanskar and cultural awakening.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link to={ROUTES.involved.volunteer} className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white">Join as Volunteer</Link>
+            <Link to={ROUTES.donate} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Support Event Seva</Link>
+            <Link to={`${ROUTES.contact}?subject=invite-event`} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Invite for Event</Link>
+          </div>
+        </div>
+      </section>
+
+      {activeVideo ? (
+        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-3 md:p-6" role="dialog" aria-modal="true" aria-label={`Video modal for ${activeVideo.title}`} onClick={() => setVideoModalIndex(null)}>
+          <button type="button" aria-label="Close video modal" onClick={() => setVideoModalIndex(null)} className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]">
+            ×
+          </button>
+          <div className="w-full max-w-5xl overflow-hidden rounded-[20px] border border-white/20 bg-[#120F0D]" onClick={(event) => event.stopPropagation()}>
+            <div className="aspect-video bg-black">
+              <iframe src={`${activeVideo.youtubeEmbedUrl}?autoplay=1&rel=0`} title={activeVideo.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="h-full w-full" />
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {activeImage ? (
+        <div className="fixed inset-0 z-[91] flex items-center justify-center bg-black/85 p-3 md:p-6" role="dialog" aria-modal="true" aria-label={activeImage.caption} onClick={() => setLightboxIndex(null)}>
+          <button type="button" aria-label="Close image lightbox" onClick={() => setLightboxIndex(null)} className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]">
+            ×
+          </button>
+          <button type="button" aria-label="Previous image" onClick={(event) => { event.stopPropagation(); setLightboxIndex((prev) => (prev === null ? null : (prev - 1 + EVENT_MOMENT_IMAGES_V2.length) % EVENT_MOMENT_IMAGES_V2.length)); }} className="absolute left-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]">
+            ‹
+          </button>
+          <div className="w-full max-w-4xl overflow-hidden rounded-[20px] border border-white/20 bg-[#120F0D]" onClick={(event) => event.stopPropagation()}>
+            <img src={activeImage.src} alt={activeImage.caption} className="max-h-[75vh] w-full object-contain" />
+            <p className="p-4 text-sm font-semibold text-white/90">{activeImage.caption}</p>
+          </div>
+          <button type="button" aria-label="Next image" onClick={(event) => { event.stopPropagation(); setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % EVENT_MOMENT_IMAGES_V2.length)); }} className="absolute right-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]">
+            ›
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 });
 
+
+type PublicationCategoryV3 = "Reports" | "Brochures" | "Study" | "Festival Notes";
+type ActivePublicationCategoryV3 = "All" | PublicationCategoryV3;
+type PublicationLanguageV3 = "Hindi" | "English" | "Marathi" | "Gujarati";
+type PublicationSortV3 = "Latest First" | "Oldest First" | "Title A-Z";
+
+/**
+ * CMS/API-ready schema for GET /api/publications
+ * {
+ *   title: string;
+ *   slug: string;
+ *   category: "Reports" | "Brochures" | "Study" | "Festival Notes";
+ *   year: string;
+ *   language: "Hindi" | "English" | "Marathi" | "Gujarati";
+ *   description: string;
+ *   fileUrl: string;
+ *   thumbnail: string;
+ *   featured: boolean;
+ *   fileType: "PDF";
+ *   pageCount: number;
+ *   fileSize: string;
+ *   createdAt: string;
+ *   updatedAt: string;
+ *   isPublished: boolean;
+ * }
+ */
+type PublicationItemV3 = {
+  title: string;
+  slug: string;
+  category: PublicationCategoryV3;
+  year: string;
+  language: PublicationLanguageV3;
+  type: "PDF";
+  description: string;
+  fileUrl: string;
+  thumbnail: string;
+  featured: boolean;
+  pageCount: number;
+  fileSize: string;
+  createdAt: string;
+  updatedAt: string;
+  isPublished: boolean;
+};
+
+type PublicationOverviewCardV3 = {
+  title: string;
+  icon: string;
+  description: string;
+  bestUse: string;
+};
+
+const PUBLICATION_OVERVIEW_CARDS_V3: PublicationOverviewCardV3[] = [
+  {
+    title: "Annual & Impact Reports",
+    icon: "/assets/icons/publications/icon-annual-report.svg",
+    description: "Formal reporting documents covering seva outcomes, accountability, and annual trust progress.",
+    bestUse: "Best Use: Donors, institutions, compliance, and long-term understanding.",
+  },
+  {
+    title: "Trust & Mandir Brochures",
+    icon: "/assets/icons/publications/icon-brochure.svg",
+    description: "Public-facing brochure materials for trust mission, mandir identity, and support directions.",
+    bestUse: "Best Use: First-time visitors, outreach teams, and partner introductions.",
+  },
+  {
+    title: "Bhagwat Study Resources",
+    icon: "/assets/icons/publications/icon-study-booklet.svg",
+    description: "Spiritual study notes and devotional learning companions for satsang and Pathshala use.",
+    bestUse: "Best Use: Satsang circles, youth groups, and family devotional study.",
+  },
+  {
+    title: "Festival & Event Notes",
+    icon: "/assets/icons/publications/icon-festival-notes.svg",
+    description: "Seasonal publication notes, utsav guides, and event-linked devotional participation materials.",
+    bestUse: "Best Use: Festival planning, volunteer teams, and public event support.",
+  },
+];
+
+const PUBLICATION_TYPE_CARDS_V3 = [
+  {
+    category: "Reports" as const,
+    title: "Annual and Impact Reports",
+    text: "Formal trust reporting content for accountability, growth summaries, seva outcomes, and program visibility.",
+    use: "Ideal for donors, institutions, and long-term trust understanding.",
+  },
+  {
+    category: "Brochures" as const,
+    title: "Trust and Mandir Brochures",
+    text: "Public-facing introduction material for programs, campus vision, values, and organizational identity.",
+    use: "Useful for first-time visitors and outreach distribution.",
+  },
+  {
+    category: "Study" as const,
+    title: "Study and Spiritual Booklets",
+    text: "Short publications that support satsang learning, event interpretation, and devotional reading paths.",
+    use: "Useful for Pathshala, satsang circles, and scriptural orientation.",
+  },
+  {
+    category: "Festival Notes" as const,
+    title: "Festival and Event Publications",
+    text: "Event-specific notes, annual utsav guides, devotional schedules, and celebration-linked publication material.",
+    use: "Useful during public festivals and seasonal devotional planning.",
+  },
+];
+
+const PUBLICATION_ARCHIVE_V3: PublicationItemV3[] = [
+  {
+    title: "Annual Trust Report 2026",
+    slug: "annual-trust-report-2026",
+    category: "Reports",
+    year: "2026",
+    language: "English",
+    type: "PDF",
+    description: "Progress, seva reach, and annual trust summary.",
+    fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    thumbnail: "/assets/images/publications/annual-report-2026.jpg",
+    featured: true,
+    pageCount: 46,
+    fileSize: "5.2 MB",
+    createdAt: "2026-03-01T10:00:00.000Z",
+    updatedAt: "2026-03-10T10:00:00.000Z",
+    isPublished: true,
+  },
+  {
+    title: "Bhagwat Dham Vision Brochure",
+    slug: "bhagwat-dham-vision-brochure",
+    category: "Brochures",
+    year: "2026",
+    language: "Hindi",
+    type: "PDF",
+    description: "Mandir vision, visitor appeal, and support direction.",
+    fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    thumbnail: "/assets/images/publications/bhagwat-dham-brochure.jpg",
+    featured: true,
+    pageCount: 18,
+    fileSize: "2.1 MB",
+    createdAt: "2026-02-01T10:00:00.000Z",
+    updatedAt: "2026-02-03T10:00:00.000Z",
+    isPublished: true,
+  },
+  {
+    title: "Bhagwat Study Companion Notes",
+    slug: "bhagwat-study-companion-notes",
+    category: "Study",
+    year: "2025",
+    language: "Hindi",
+    type: "PDF",
+    description: "Learning aid for satsang and study circles.",
+    fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    thumbnail: "/assets/images/publications/study-companion-notes.jpg",
+    featured: true,
+    pageCount: 62,
+    fileSize: "6.4 MB",
+    createdAt: "2025-09-14T10:00:00.000Z",
+    updatedAt: "2025-09-18T10:00:00.000Z",
+    isPublished: true,
+  },
+  {
+    title: "Festival Calendar and Seva Guide",
+    slug: "festival-calendar-seva-guide",
+    category: "Festival Notes",
+    year: "2025",
+    language: "Hindi",
+    type: "PDF",
+    description: "Annual celebration guide and participation structure.",
+    fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    thumbnail: "/assets/images/publications/festival-calendar-guide.jpg",
+    featured: false,
+    pageCount: 28,
+    fileSize: "3.0 MB",
+    createdAt: "2025-10-08T10:00:00.000Z",
+    updatedAt: "2025-10-09T10:00:00.000Z",
+    isPublished: true,
+  },
+  {
+    title: "Trust Program Introduction Deck",
+    slug: "trust-program-introduction-deck",
+    category: "Brochures",
+    year: "2026",
+    language: "English",
+    type: "PDF",
+    description: "Overview of seva, education, and outreach routes.",
+    fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    thumbnail: "/assets/images/publications/program-introduction-deck.jpg",
+    featured: true,
+    pageCount: 24,
+    fileSize: "2.7 MB",
+    createdAt: "2026-01-22T10:00:00.000Z",
+    updatedAt: "2026-01-24T10:00:00.000Z",
+    isPublished: true,
+  },
+  {
+    title: "Impact Snapshot Publication",
+    slug: "impact-snapshot-publication",
+    category: "Reports",
+    year: "2025",
+    language: "English",
+    type: "PDF",
+    description: "Short-form donor and public-facing trust impact review.",
+    fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    thumbnail: "/assets/images/publications/impact-snapshot.jpg",
+    featured: false,
+    pageCount: 14,
+    fileSize: "1.6 MB",
+    createdAt: "2025-12-15T10:00:00.000Z",
+    updatedAt: "2025-12-16T10:00:00.000Z",
+    isPublished: true,
+  },
+];
+
 export const MediaPublicationsPage = memo(function MediaPublicationsPage() {
-  const [activePublication, setActivePublication] = useState<"All" | "Reports" | "Brochures" | "Study" | "Festival Notes">("All");
-
-  const publicationGroups = [
-    {
-      category: "Reports" as const,
-      title: "Annual and Impact Reports",
-      desc: "Formal trust reporting content for accountability, growth summaries, seva outcomes, and program visibility.",
-      use: "Ideal for donors, institutions, and long-form trust understanding.",
-    },
-    {
-      category: "Brochures" as const,
-      title: "Trust and Mandir Brochures",
-      desc: "Public-facing introduction material for programs, campus vision, values, and organizational identity.",
-      use: "Useful for first-time visitors and outreach distribution.",
-    },
-    {
-      category: "Study" as const,
-      title: "Study and Spiritual Booklets",
-      desc: "Short publications that support satsang learning, event interpretation, and devotional reading paths.",
-      use: "Useful for Pathshala, satsang circles, and scriptural orientation.",
-    },
-    {
-      category: "Festival Notes" as const,
-      title: "Festival and Event Publications",
-      desc: "Event-specific notes, annual utsav guides, devotional schedules, and celebration-linked publication material.",
-      use: "Useful during public festivals and seasonal devotional planning.",
-    },
-  ];
-
-  const visiblePublications =
-    activePublication === "All"
-      ? publicationGroups
-      : publicationGroups.filter((item) => item.category === activePublication);
-
-  const publicationCards = [
-    {
-      category: "Reports" as const,
-      title: "Annual Trust Report 2026",
-      format: "PDF Report",
-      note: "Progress, seva reach, and annual trust summary",
-    },
-    {
-      category: "Brochures" as const,
-      title: "Bhagwat Dham Vision Brochure",
-      format: "Campus Brochure",
-      note: "Mandir vision, visitor appeal, and support direction",
-    },
-    {
-      category: "Study" as const,
-      title: "Bhagwat Study Companion Notes",
-      format: "Study Booklet",
-      note: "Learning aid for satsang and study circles",
-    },
-    {
-      category: "Festival Notes" as const,
-      title: "Festival Calendar and Seva Guide",
-      format: "Festival Notes",
-      note: "Annual celebration guide and participation structure",
-    },
-    {
-      category: "Brochures" as const,
-      title: "Trust Program Introduction Deck",
-      format: "Program Booklet",
-      note: "Overview of seva, education, and outreach routes",
-    },
-    {
-      category: "Reports" as const,
-      title: "Impact Snapshot Publication",
-      format: "Summary Report",
-      note: "Short-form donor and public-facing trust impact review",
-    },
-  ];
-
-  const visiblePublicationCards =
-    activePublication === "All"
-      ? publicationCards
-      : publicationCards.filter((item) => item.category === activePublication);
+  const [query, setQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState<ActivePublicationCategoryV3>("All");
+  const [activeYear, setActiveYear] = useState<"All Years" | "2026" | "2025" | "2024">("All Years");
+  const [activeLanguage, setActiveLanguage] = useState<"All Languages" | PublicationLanguageV3>("All Languages");
+  const [sortBy, setSortBy] = useState<PublicationSortV3>("Latest First");
+  const [visibleCount, setVisibleCount] = useState(9);
 
   usePageMeta(
     "Publications",
-    "Publication archive for trust reports, brochures, study materials, and event-linked devotional documents.",
+    "Explore reports, brochures, study notes, festival guides, and official publications of Bhagwat Heritage Service Foundation Trust.",
   );
 
-  return (
-    <div className="space-y-6 pb-12">
-      <section className="rounded-[30px] border border-borderBeige bg-[linear-gradient(180deg,rgba(255,245,225,0.92)_0%,rgba(255,252,247,0.98)_48%,rgba(245,232,204,0.95)_100%)] p-6 shadow-[0_22px_52px_rgba(101,71,35,0.09)] md:p-8">
-        <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-saffron">Media Gallery</p>
-        <h1 className="mt-2 text-3xl font-black tracking-tight text-tealDeep md:text-5xl">Publications</h1>
-        <p className="mt-3 max-w-3xl text-brownSoft md:text-lg">Reports, brochures, study notes, and festival documents arranged with the same warm hierarchy and card rhythm as the About page.</p>
-      </section>
+  useEffect(() => {
+    setVisibleCount(9);
+  }, [query, activeCategory, activeYear, activeLanguage, sortBy]);
 
-      <Card className="hover:scale-100">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-saffron">Archive Navigator</p>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-tealDeep md:text-4xl">Browse Publication Types</h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {(["All", "Reports", "Brochures", "Study", "Festival Notes"] as const).map((group) => (
-              <button
-                key={group}
-                type="button"
-                onClick={() => setActivePublication(group)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${activePublication === group ? "bg-tealPrimary text-white" : "border border-borderCard bg-bgSoft text-brownSoft hover:border-gold hover:bg-sand"}`}
-              >
-                {group}
-              </button>
+  const publishedItems = useMemo(() => PUBLICATION_ARCHIVE_V3.filter((item) => item.isPublished), []);
+  const featuredPublications = useMemo(() => publishedItems.filter((item) => item.featured).slice(0, 4), [publishedItems]);
+
+  const filteredPublications = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const base = publishedItems.filter((item) => {
+      const queryMatch = q.length === 0 || item.title.toLowerCase().includes(q) || item.description.toLowerCase().includes(q);
+      const categoryMatch = activeCategory === "All" || item.category === activeCategory;
+      const yearMatch = activeYear === "All Years" || item.year === activeYear;
+      const languageMatch = activeLanguage === "All Languages" || item.language === activeLanguage;
+      return queryMatch && categoryMatch && yearMatch && languageMatch;
+    });
+
+    return [...base].sort((a, b) => {
+      if (sortBy === "Latest First") return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      if (sortBy === "Oldest First") return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      return a.title.localeCompare(b.title);
+    });
+  }, [publishedItems, query, activeCategory, activeYear, activeLanguage, sortBy]);
+
+  const visiblePublications = useMemo(() => filteredPublications.slice(0, visibleCount), [filteredPublications, visibleCount]);
+
+  return (
+    <div className="space-y-0 pb-14">
+      <section className="relative overflow-hidden rounded-[34px] border border-[#E6D0AF] bg-[linear-gradient(140deg,#FFF5DE_0%,#FFFDF8_50%,#F6E8CB_100%)] p-6 shadow-[0_22px_48px_rgba(95,62,26,0.14)] md:p-10">
+        <img src="/assets/images/publications/publication-hero.jpg" alt="Devotional publication desk with booklet, diya, and temple silhouette" className="absolute inset-0 h-full w-full object-cover opacity-20" loading="lazy" />
+        <div className="relative z-10">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#B97615]">Media Gallery</p>
+          <h1 className="mt-3 text-4xl font-black tracking-tight text-[#1D342C] md:text-6xl">Publications</h1>
+          <p className="mt-4 max-w-4xl text-base leading-7 text-[#5F4A37] md:text-lg">
+            Reports, brochures, study notes, festival documents, and trust publications arranged for devotees, donors, visitors, and well-wishers.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {["Annual Reports", "Brochures", "Study Notes", "Festival Guides"].map((badge) => (
+              <span key={badge} className="rounded-full border border-[#E2C48D] bg-white/85 px-4 py-1.5 text-xs font-black uppercase tracking-[0.08em] text-[#7D5119]">
+                {badge}
+              </span>
             ))}
           </div>
         </div>
-      </Card>
+      </section>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {visiblePublications.map((item) => (
-          <Card key={item.title}>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-saffron">{item.category}</p>
-            <h3 className="mt-3 text-xl font-semibold text-tealCard">{item.title}</h3>
-            <p className="mt-2 text-brownSoft">{item.desc}</p>
-            <div className="mt-4 rounded-xl bg-sand p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-saffron">Best Use</p>
-              <p className="mt-2 text-brownSoft">{item.use}</p>
-            </div>
-          </Card>
-        ))}
-      </div>
+      <section className="mt-10 rounded-[28px] border border-[#E8D8BC] bg-[#FFFCF4] p-6 shadow-[0_14px_36px_rgba(98,69,30,0.10)] md:p-8">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Trust Publication Overview</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {PUBLICATION_OVERVIEW_CARDS_V3.map((item) => (
+            <article key={item.title} className="rounded-[20px] border border-[#E6D4B5] bg-white p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)]">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2DC]">
+                <img src={item.icon} alt={`${item.title} icon`} className="h-7 w-7 object-contain" loading="lazy" />
+              </div>
+              <h3 className="mt-4 text-xl font-black text-[#2A2018]">{item.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{item.description}</p>
+              <p className="mt-3 text-xs font-bold uppercase tracking-[0.08em] text-[#8A5A1B]">{item.bestUse}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {visiblePublicationCards.map((item) => (
-          <Card key={item.title}>
-            <div className="rounded-xl bg-sand p-6 text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-saffron">{item.category}</p>
-              <p className="mt-2 text-xl font-semibold text-tealCard">{item.format}</p>
+      <section className="mt-12">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Featured Publications</h2>
+        <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {featuredPublications.map((item) => (
+            <article key={item.slug} className="overflow-hidden rounded-[22px] border border-[#E8D8BC] bg-white shadow-[0_12px_28px_rgba(104,75,38,0.09)]">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img src={item.thumbnail} alt={`${item.title} cover`} className="h-full w-full object-cover" loading="lazy" />
+              </div>
+              <div className="space-y-2 p-5">
+                <span className="inline-flex rounded-full bg-[#D89B2B] px-3 py-1 text-[11px] font-black text-white">{item.category}</span>
+                <h3 className="text-lg font-black leading-tight text-[#2A2118]">{item.title}</h3>
+                <p className="text-sm leading-6 text-[#5F4A37]">{item.description}</p>
+                <div className="pt-1 flex gap-2">
+                  <a href={item.fileUrl} target="_blank" rel="noreferrer" aria-label={`Open ${item.title}`} className="rounded-full bg-[#0F6B6B] px-3 py-2 text-xs font-black text-white">
+                    View Publication
+                  </a>
+                  <a href={item.fileUrl} download={`${item.slug}.pdf`} aria-label={`Download ${item.title} PDF`} className="rounded-full border border-[#D8B17A] bg-[#FFF7E6] px-3 py-2 text-xs font-black text-[#845116]">
+                    Download PDF
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12 rounded-[24px] border border-[#E6D3B1] bg-[#FFF9EA] p-4 shadow-[0_14px_30px_rgba(99,71,31,0.11)] md:p-5">
+        <div className="grid gap-3 lg:grid-cols-4">
+          <div className="lg:col-span-2">
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search publications..."
+              aria-label="Search publications"
+              className="w-full rounded-full border border-[#E0C8A0] bg-white px-5 py-3 text-sm text-[#4E3928] outline-none focus:border-[#C8922E] focus:ring-2 focus:ring-[#F0D79D]"
+            />
+          </div>
+          <select value={activeYear} onChange={(event) => setActiveYear(event.target.value as "All Years" | "2026" | "2025" | "2024")} className="rounded-full border border-[#E0C8A0] bg-white px-4 py-3 text-sm font-semibold text-[#4E3928] outline-none">
+            <option>All Years</option>
+            <option>2026</option>
+            <option>2025</option>
+            <option>2024</option>
+          </select>
+          <select value={activeLanguage} onChange={(event) => setActiveLanguage(event.target.value as "All Languages" | PublicationLanguageV3)} className="rounded-full border border-[#E0C8A0] bg-white px-4 py-3 text-sm font-semibold text-[#4E3928] outline-none">
+            <option>All Languages</option>
+            <option>Hindi</option>
+            <option>English</option>
+            <option>Marathi</option>
+            <option>Gujarati</option>
+          </select>
+        </div>
+        <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_220px]">
+          <div className="flex flex-wrap gap-2">
+            {(["All", "Reports", "Brochures", "Study", "Festival Notes"] as const).map((filter) => {
+              const isActive = activeCategory === filter;
+              return (
+                <button
+                  key={filter}
+                  type="button"
+                  aria-pressed={isActive}
+                  onClick={() => setActiveCategory(filter)}
+                  className={`rounded-full border px-4 py-2 text-xs font-black uppercase tracking-[0.08em] transition ${
+                    isActive ? "border-[#C8922E] bg-[#D89B2B] text-white" : "border-[#E2CCA6] bg-white text-[#6D5132] hover:border-[#C8922E] hover:bg-[#FFF1D6]"
+                  }`}
+                >
+                  {filter}
+                </button>
+              );
+            })}
+          </div>
+          <select value={sortBy} onChange={(event) => setSortBy(event.target.value as PublicationSortV3)} className="rounded-full border border-[#E0C8A0] bg-white px-4 py-3 text-sm font-semibold text-[#4E3928] outline-none">
+            <option>Latest First</option>
+            <option>Oldest First</option>
+            <option>Title A-Z</option>
+          </select>
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {PUBLICATION_TYPE_CARDS_V3.map((item) => (
+            <article key={item.title} className="rounded-[18px] border border-[#E7D5B6] bg-white p-5 shadow-[0_10px_22px_rgba(104,75,38,0.08)]">
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-[#B37415]">{item.category}</p>
+              <h3 className="mt-3 text-xl font-black text-[#2A2118]">{item.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{item.text}</p>
+              <p className="mt-3 text-xs font-bold uppercase tracking-[0.08em] text-[#8A5A1B]">Best Use: {item.use}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Publications Archive</h2>
+        {filteredPublications.length === 0 ? (
+          <div className="mt-6 rounded-[22px] border border-dashed border-[#DDBF90] bg-[#FFF7E6] px-6 py-12 text-center text-[#6D4F2F]">
+            No publications found. Please try another search or category.
+          </div>
+        ) : (
+          <>
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {visiblePublications.map((item) => (
+                <article key={item.slug} className="overflow-hidden rounded-[22px] border border-[#E8D8BC] bg-white shadow-[0_12px_28px_rgba(104,75,38,0.09)] transition hover:-translate-y-1 hover:shadow-[0_20px_36px_rgba(104,75,38,0.14)]">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#F7EAD3]">
+                    <img src={item.thumbnail} alt={`${item.title} publication cover`} className="h-full w-full object-cover" loading="lazy" />
+                    <span className="absolute left-3 top-3 rounded-full bg-[#D89B2B] px-3 py-1 text-[11px] font-black text-white">{item.category}</span>
+                  </div>
+                  <div className="space-y-2 p-5">
+                    <h3 className="line-clamp-2 text-xl font-black leading-tight text-[#2A2118]">{item.title}</h3>
+                    <p className="line-clamp-2 text-sm leading-6 text-[#5F4A37]">{item.description}</p>
+                    <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.06em] text-[#6D5132]">
+                      <span>{item.year}</span>
+                      <span>•</span>
+                      <span>{item.language}</span>
+                      <span>•</span>
+                      <span>{item.type}</span>
+                      <span>•</span>
+                      <span>{item.pageCount} Pages</span>
+                      <span>•</span>
+                      <span>{item.fileSize}</span>
+                    </div>
+                    <div className="pt-2 flex gap-2">
+                      <a href={item.fileUrl} target="_blank" rel="noreferrer" aria-label={`Open publication ${item.title}`} className="rounded-full bg-[#0F6B6B] px-4 py-2 text-sm font-black text-white">
+                        Open Publication
+                      </a>
+                      <a href={item.fileUrl} download={`${item.slug}.pdf`} aria-label={`Download publication ${item.title}`} className="rounded-full border border-[#D8B17A] bg-[#FFF7E6] px-4 py-2 text-sm font-black text-[#845116]">
+                        Download PDF
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
-            <h3 className="mt-5 text-xl font-semibold text-tealCard">{item.title}</h3>
-            <p className="mt-2 text-brownSoft">{item.note}</p>
-            <button type="button" className="spiritual-btn mt-5">Open Publication</button>
-          </Card>
-        ))}
-      </div>
+            {visibleCount < filteredPublications.length ? (
+              <div className="mt-8 flex justify-center">
+                <button type="button" onClick={() => setVisibleCount((count) => count + 6)} className="rounded-full bg-[#D89B2B] px-7 py-3 text-sm font-black text-white hover:bg-[#BE7D17]">
+                  Load More
+                </button>
+              </div>
+            ) : null}
+          </>
+        )}
+      </section>
+
+      <section className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article className="rounded-[18px] border border-[#E8D8BC] bg-[#FFFCF5] p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)]">
+          <h2 className="text-2xl font-black text-[#1D342C]">Annual Reports &amp; Impact Documents</h2>
+          <p className="mt-3 text-sm leading-6 text-[#5F4A37]">Transparent documentation of seva activities, organizational growth, community impact, and future direction.</p>
+          <button type="button" className="mt-4 rounded-full bg-[#D89B2B] px-5 py-2 text-xs font-black text-white">Explore Reports</button>
+        </article>
+        <article className="rounded-[18px] border border-[#E8D8BC] bg-[#FFFCF5] p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)]">
+          <h2 className="text-2xl font-black text-[#1D342C]">Brochures &amp; Program Introductions</h2>
+          <p className="mt-3 text-sm leading-6 text-[#5F4A37]">Simple, shareable introduction documents for devotees, visitors, donors, institutions, and event participants.</p>
+        </article>
+        <article className="rounded-[18px] border border-[#E8D8BC] bg-[#FFFCF5] p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)]">
+          <h2 className="text-2xl font-black text-[#1D342C]">Study Notes &amp; Spiritual Booklets</h2>
+          <p className="mt-3 text-sm leading-6 text-[#5F4A37]">Devotional learning resources for Bhagwat study, satsang circles, Pathshala learning, and family reading.</p>
+        </article>
+        <article className="rounded-[18px] border border-[#E8D8BC] bg-[#FFFCF5] p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)]">
+          <h2 className="text-2xl font-black text-[#1D342C]">Festival Notes &amp; Event Guides</h2>
+          <p className="mt-3 text-sm leading-6 text-[#5F4A37]">Publication material for utsavs, celebrations, schedules, seva participation, and cultural programs.</p>
+        </article>
+      </section>
+
+      <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+        <img src="/assets/images/publications/publication-cta-banner.jpg" alt="Spiritual document table with diya and brochure in golden atmosphere" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(37,24,13,0.84),rgba(88,24,18,0.70),rgba(15,107,107,0.62))]" />
+        <div className="relative z-10 text-white">
+          <h2 className="text-3xl font-black md:text-4xl">Need a Publication or Trust Document?</h2>
+          <p className="mt-3 max-w-4xl text-base leading-7 text-white/90">
+            For official reports, brochures, event notes, or institutional sharing material, please contact the Bhagwat Heritage team.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link to={ROUTES.contact} className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white">Contact Trust</Link>
+            <Link to={ROUTES.media.photos} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">View Gallery</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 });
+
+
+type SocialPlatformV4 = "Instagram" | "YouTube" | "Facebook" | "WhatsApp";
+type SocialCategoryV4 = "Announcements" | "Festival" | "Seva" | "Youth" | "Spiritual";
+type SocialFilterV4 = "All" | "Announcements" | "Festival" | "Seva" | "Youth" | "YouTube" | "Instagram" | "WhatsApp";
+
+type SocialPostV4 = {
+  platform: SocialPlatformV4;
+  category: SocialCategoryV4;
+  title: string;
+  date: string;
+  image: string;
+  description: string;
+  link: string;
+};
+
+type SocialChannelCardV4 = {
+  platform: SocialPlatformV4;
+  icon: string;
+  description: string;
+  link: string;
+};
+
+const SOCIAL_CHANNEL_CARDS_V4: SocialChannelCardV4[] = [
+  {
+    platform: "Instagram",
+    icon: "/assets/images/media-gallery/icons/icon-instagram.svg",
+    description: "Reels, festival glimpses, and seva moments from trust activities.",
+    link: "#",
+  },
+  {
+    platform: "YouTube",
+    icon: "/assets/images/media-gallery/icons/icon-youtube.svg",
+    description: "Katha videos, pravachan clips, and event highlights.",
+    link: "#",
+  },
+  {
+    platform: "Facebook",
+    icon: "/assets/images/media-gallery/icons/icon-facebook.svg",
+    description: "Official updates and public announcements from Bhagwat Heritage.",
+    link: "#",
+  },
+  {
+    platform: "WhatsApp",
+    icon: "/assets/images/media-gallery/icons/icon-whatsapp.svg",
+    description: "Fast seva coordination and community alerts.",
+    link: "#",
+  },
+];
+
+const SOCIAL_FEED_POSTS_V4: SocialPostV4[] = [
+  {
+    platform: "Instagram",
+    category: "Festival",
+    title: "Festival Reel Feedback",
+    date: "2026-04-12",
+    image: "/assets/images/media-gallery/social-festival-reel.jpg",
+    description:
+      "Festival reels feel vibrant and devotional when celebration atmosphere, darshan, aarti and community joy are shown clearly.",
+    link: "#",
+  },
+  {
+    platform: "Facebook",
+    category: "Announcements",
+    title: "Public Update Response",
+    date: "2026-04-10",
+    image: "/assets/images/media-gallery/social-announcement.jpg",
+    description:
+      "Structured announcement posts help followers stay informed about event dates, seva notices and official trust messages.",
+    link: "#",
+  },
+  {
+    platform: "WhatsApp",
+    category: "Seva",
+    title: "Seva Group Feedback",
+    date: "2026-04-08",
+    image: "/assets/images/media-gallery/social-whatsapp-seva.jpg",
+    description:
+      "WhatsApp updates are helpful for volunteer coordination, last-minute seva alerts and quick festival information sharing.",
+    link: "#",
+  },
+  {
+    platform: "YouTube",
+    category: "Spiritual",
+    title: "YouTube Viewer Response",
+    date: "2026-04-05",
+    image: "/assets/images/media-gallery/social-youtube-katha.jpg",
+    description:
+      "Long-form katha videos and highlight clips help devotees stay connected even when they cannot physically attend programs.",
+    link: "#",
+  },
+  {
+    platform: "Instagram",
+    category: "Youth",
+    title: "Youth Participation Moment",
+    date: "2026-04-03",
+    image: "/assets/images/media-gallery/social-youth-engagement.jpg",
+    description:
+      "Youth-focused posts should highlight discipline, cultural pride, seva participation and positive community engagement.",
+    link: "#",
+  },
+  {
+    platform: "Facebook",
+    category: "Seva",
+    title: "Ground Seva Update",
+    date: "2026-04-01",
+    image: "/assets/images/media-gallery/social-ground-seva.jpg",
+    description:
+      "Seva posts should show real impact through field clips, volunteer activity, food distribution and human service moments.",
+    link: "#",
+  },
+];
 
 export const MediaSocialFeedPage = memo(function MediaSocialFeedPage() {
-  const [activeChannel, setActiveChannel] = useState<"All" | "Announcements" | "Festival" | "Seva" | "Youth">("All");
-
-  const socialStreams = [
-    {
-      category: "Announcements" as const,
-      title: "Official Trust Announcements",
-      desc: "Important updates, route changes, event notices, trust messages, and verified public communication belong here.",
-      pulse: "Clear, reliable, and high-priority information flow.",
-    },
-    {
-      category: "Festival" as const,
-      title: "Festival Live Pulse",
-      desc: "This stream captures real-time feeling around festival prep, darshan, aarti windows, crowd notes, and celebration mood.",
-      pulse: "Fast and celebratory update rhythm.",
-    },
-    {
-      category: "Seva" as const,
-      title: "Seva Ground Updates",
-      desc: "Social feed should show seva in motion through field clips, volunteer work, and visible public service impact.",
-      pulse: "Practical, human, and impact-focused posting.",
-    },
-    {
-      category: "Youth" as const,
-      title: "Youth and Community Interaction",
-      desc: "Youth-focused content should highlight discipline, participation, and meaningful voice inside the trust ecosystem.",
-      pulse: "Engaging, positive, and growth-oriented.",
-    },
-  ];
-
-  const visibleChannels =
-    activeChannel === "All" ? socialStreams : socialStreams.filter((item) => item.category === activeChannel);
-
-  const socialFeedbackCards = [
-    {
-      platform: "Instagram",
-      category: "Festival" as const,
-      title: "Festival Reel Feedback",
-      feedback: "The darshan reels feel vibrant and devotional. Families connect quickly when the celebration atmosphere is shown clearly.",
-      accent: "from-[#f58529] via-[#dd2a7b] to-[#8134af]",
-    },
-    {
-      platform: "Facebook",
-      category: "Announcements" as const,
-      title: "Public Update Response",
-      feedback: "Structured announcement posts help us trust event dates, seva notices, and official temple messages without confusion.",
-      accent: "from-[#1877f2] to-[#0a4cb5]",
-    },
-    {
-      platform: "WhatsApp",
-      category: "Seva" as const,
-      title: "Seva Group Feedback",
-      feedback: "WhatsApp updates are useful for volunteer coordination, last-minute seva alerts, and fast festival information sharing.",
-      accent: "from-[#25d366] to-[#128c7e]",
-    },
-    {
-      platform: "YouTube",
-      category: "Spiritual" as const,
-      title: "YouTube Viewer Response",
-      feedback: "Long-form katha videos and highlight clips help devotees stay connected even when they cannot physically attend programs.",
-      accent: "from-[#ff0000] to-[#b31217]",
-    },
-  ];
-
-  const visibleFeedbackCards =
-    activeChannel === "All"
-      ? socialFeedbackCards
-      : socialFeedbackCards.filter((item) => item.category === activeChannel || (activeChannel === "Announcements" && item.platform === "Facebook"));
+  const [activeFilter, setActiveFilter] = useState<SocialFilterV4>("All");
 
   usePageMeta(
-    "Social Media Feed",
-    "Structured social feed page for official updates, festival pulse, seva stories, and community-facing trust communication.",
+    "Social Feed",
+    "Official updates, seva moments, festival highlights, youth participation, and community voices from Bhagwat Heritage Service Foundation Trust.",
   );
 
+  const filteredPosts = useMemo(() => {
+    if (activeFilter === "All") return SOCIAL_FEED_POSTS_V4;
+    if (activeFilter === "YouTube" || activeFilter === "Instagram" || activeFilter === "WhatsApp") {
+      return SOCIAL_FEED_POSTS_V4.filter((post) => post.platform === activeFilter);
+    }
+    return SOCIAL_FEED_POSTS_V4.filter((post) => post.category === activeFilter);
+  }, [activeFilter]);
+
   return (
-    <div className="space-y-6 pb-12">
-      <section className="rounded-[30px] border border-borderBeige bg-[linear-gradient(180deg,rgba(255,245,225,0.92)_0%,rgba(255,252,247,0.98)_48%,rgba(245,232,204,0.95)_100%)] p-6 shadow-[0_22px_52px_rgba(101,71,35,0.09)] md:p-8">
-        <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-saffron">Media Gallery</p>
-        <h1 className="mt-2 text-3xl font-black tracking-tight text-tealDeep md:text-5xl">Social Feed</h1>
-        <p className="mt-3 max-w-3xl text-brownSoft md:text-lg">Official updates, festival pulse, seva motion, and community voices expressed through the same About-page card language and warm structure.</p>
+    <div className="space-y-0 pb-14">
+      <section className="relative overflow-hidden rounded-[34px] border border-[#E6D0AF] bg-[linear-gradient(140deg,#FFF5DE_0%,#FFFDF8_50%,#F6E8CB_100%)] shadow-[0_24px_52px_rgba(95,62,26,0.16)]">
+        <img src="/assets/images/media-gallery/social-feed-hero.jpg" alt="Devotional social media hero with temple glow and community atmosphere" className="absolute inset-0 h-full w-full object-cover opacity-45" loading="lazy" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,245,221,0.88),rgba(255,252,245,0.82),rgba(230,196,138,0.72))]" />
+        <div className="relative z-10 px-6 py-14 md:px-10 md:py-20">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#B97615]">Media Gallery</p>
+          <h1 className="mt-3 text-4xl font-black tracking-tight text-[#1D342C] md:text-6xl">Social Feed</h1>
+          <p className="mt-4 max-w-4xl text-base leading-7 text-[#5F4A37] md:text-lg">
+            Official updates, seva moments, festival highlights, youth participation, and community voices from Bhagwat Heritage Service Foundation Trust.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {["Instagram", "YouTube", "Facebook", "WhatsApp"].map((badge) => (
+              <span key={badge} className="rounded-full border border-[#E2C48D] bg-white/90 px-4 py-1.5 text-xs font-black uppercase tracking-[0.08em] text-[#7D5119]">
+                {badge}
+              </span>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button type="button" className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#BD7A14]">
+              Follow Official Channels
+            </button>
+            <button type="button" className="rounded-full border border-[#0F6B6B] bg-white px-6 py-3 text-sm font-black text-[#0F6B6B] transition hover:bg-[#EEF9F9]">
+              Share Your Seva Story
+            </button>
+          </div>
+        </div>
       </section>
 
-      <Card className="hover:scale-100">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-saffron">Channel Filter</p>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-tealDeep md:text-4xl">Channel Pulse Board</h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {(["All", "Announcements", "Festival", "Seva", "Youth"] as const).map((channel) => (
+      <section className="mt-8">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {SOCIAL_CHANNEL_CARDS_V4.map((item) => (
+            <article key={item.platform} className="rounded-[20px] border border-[#E6D4B5] bg-white p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)] transition hover:-translate-y-1 hover:shadow-[0_16px_28px_rgba(104,75,38,0.12)]">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2DC]">
+                <img src={item.icon} alt={`${item.platform} icon`} className="h-7 w-7 object-contain" loading="lazy" />
+              </div>
+              <h2 className="mt-4 text-2xl font-black text-[#1D342C]">{item.platform}</h2>
+              <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{item.description}</p>
+              <a href={item.link} className="mt-4 inline-flex rounded-full bg-[#0F6B6B] px-4 py-2 text-xs font-black text-white" aria-label={`Open ${item.platform} channel`}>
+                Open Channel
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-[24px] border border-[#E6D3B1] bg-[#FFF9EA] p-4 shadow-[0_14px_30px_rgba(99,71,31,0.11)] md:p-5">
+        <div className="flex flex-wrap gap-2">
+          {(["All", "Announcements", "Festival", "Seva", "Youth", "YouTube", "Instagram", "WhatsApp"] as SocialFilterV4[]).map((filter) => {
+            const isActive = activeFilter === filter;
+            return (
               <button
-                key={channel}
+                key={filter}
                 type="button"
-                onClick={() => setActiveChannel(channel)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${activeChannel === channel ? "bg-tealPrimary text-white" : "border border-borderCard bg-bgSoft text-brownSoft hover:border-gold hover:bg-sand"}`}
+                aria-pressed={isActive}
+                onClick={() => setActiveFilter(filter)}
+                className={`rounded-full border px-4 py-2 text-xs font-black uppercase tracking-[0.08em] transition ${
+                  isActive ? "border-[#C8922E] bg-[linear-gradient(120deg,#0F6B6B,#D89B2B)] text-white" : "border-[#E2CCA6] bg-white text-[#6D5132] hover:border-[#C8922E] hover:bg-[#FFF1D6]"
+                }`}
               >
-                {channel}
+                {filter}
               </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {filteredPosts.map((post) => (
+            <article key={post.title} className="overflow-hidden rounded-[22px] border border-[#E8D8BC] bg-white shadow-[0_12px_28px_rgba(104,75,38,0.09)] transition hover:-translate-y-1 hover:shadow-[0_20px_36px_rgba(104,75,38,0.14)]">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img src={post.image} alt={`${post.title} social update`} className="h-full w-full object-cover" loading="lazy" />
+                <span className="absolute left-3 top-3 rounded-full bg-[#D89B2B] px-3 py-1 text-[11px] font-black text-white">{post.category}</span>
+              </div>
+              <div className="space-y-2 p-5">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#6C4F2F]">
+                  <img src={`/assets/images/media-gallery/icons/icon-${post.platform.toLowerCase()}.svg`} alt={`${post.platform} icon`} className="h-4 w-4 object-contain" loading="lazy" />
+                  <span>{post.platform}</span>
+                  <span>•</span>
+                  <span>{new Date(post.date).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}</span>
+                </div>
+                <h3 className="text-xl font-black leading-tight text-[#2A2118]">{post.title}</h3>
+                <p className="text-sm leading-6 text-[#5F4A37]">{post.description}</p>
+                <a href={post.link} className="inline-flex rounded-full bg-[#0F6B6B] px-4 py-2 text-sm font-black text-white" aria-label={`View update: ${post.title}`}>
+                  View Update
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Featured Social Highlights</h2>
+        <div className="mt-6 grid gap-5 md:grid-cols-3">
+          {[
+            { title: "Festival Live Pulse", image: "/assets/images/media-gallery/featured-festival-pulse.jpg", text: "Darshan atmosphere, festival devotion, and public celebration moments." },
+            { title: "Seva in Motion", image: "/assets/images/media-gallery/featured-seva-motion.jpg", text: "On-ground seva activity and volunteer effort in real-time action frames." },
+            { title: "Youth & Family Engagement", image: "/assets/images/media-gallery/featured-youth-family.jpg", text: "Youth participation and family-centered values through spiritual community activities." },
+          ].map((item) => (
+            <article key={item.title} className="overflow-hidden rounded-[22px] border border-[#E8D8BC] bg-white shadow-[0_12px_28px_rgba(104,75,38,0.09)]">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img src={item.image} alt={`${item.title} highlight`} className="h-full w-full object-cover" loading="lazy" />
+              </div>
+              <div className="space-y-2 p-5">
+                <h3 className="text-xl font-black text-[#2A2118]">{item.title}</h3>
+                <p className="text-sm leading-6 text-[#5F4A37]">{item.text}</p>
+                <button type="button" className="rounded-full bg-[#D89B2B] px-4 py-2 text-xs font-black text-white">Explore Highlights</button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12 rounded-[28px] border border-[#E8D8BC] bg-[#FFFCF5] p-6 shadow-[0_14px_32px_rgba(103,75,37,0.10)] md:p-8">
+        <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Video &amp; Reel Highlights</h2>
+            <p className="mt-3 text-base leading-7 text-[#5F4A37]">
+              Watch selected katha clips, devotional reels, seva highlights and event memories from our official media channels.
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              { title: "Bhagwat Katha Clip", image: "/assets/images/media-gallery/youtube-katha-preview.jpg" },
+              { title: "Festival Aarti Moment", image: "/assets/images/media-gallery/reel-aarti-preview.jpg" },
+              { title: "Seva Highlight Reel", image: "/assets/images/media-gallery/seva-reel-preview.jpg" },
+            ].map((video) => (
+              <article key={video.title} className="overflow-hidden rounded-[18px] border border-[#E7D5B6] bg-white">
+                <a href="#" className="block">
+                  <div className="relative aspect-video overflow-hidden">
+                    <img src={video.image} alt={`${video.title} preview`} className="h-full w-full object-cover" loading="lazy" />
+                    <span className="absolute left-1/2 top-1/2 inline-flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white">▶</span>
+                  </div>
+                </a>
+                <div className="p-3">
+                  <h3 className="text-sm font-black text-[#2A2118]">{video.title}</h3>
+                </div>
+              </article>
             ))}
           </div>
         </div>
-      </Card>
+      </section>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {visibleChannels.map((item) => (
-          <Card key={item.title}>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-saffron">{item.category}</p>
-            <h3 className="mt-3 text-xl font-semibold text-tealCard">{item.title}</h3>
-            <p className="mt-2 text-brownSoft">{item.desc}</p>
-            <div className="mt-4 rounded-xl bg-sand p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-saffron">Posting Pulse</p>
-              <p className="mt-2 text-brownSoft">{item.pulse}</p>
-            </div>
-          </Card>
-        ))}
-      </div>
+      <section className="mt-12 rounded-[28px] border border-[#E8D8BC] bg-[#FFFCF5] p-6 shadow-[0_14px_32px_rgba(103,75,37,0.10)] md:p-8">
+        <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Community Voices</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {[
+            "The updates help us remain connected with Bhagwat Heritage activities.",
+            "Festival posts bring devotional energy even from a distance.",
+            "Seva updates inspire more people to participate and contribute.",
+          ].map((text, idx) => (
+            <article key={idx} className="rounded-[18px] border border-[#E6D4B4] bg-white p-5">
+              <p className="text-[#B87415] text-2xl leading-none">“</p>
+              <p className="mt-2 text-sm leading-7 text-[#5F4A37]">{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {visibleFeedbackCards.map((item) => (
-          <Card key={item.platform}>
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-saffron">{item.platform}</span>
-              <span className="rounded-full bg-sand px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-tealDeep">{item.category}</span>
-            </div>
-            <h3 className="mt-4 text-xl font-semibold text-tealCard">{item.title}</h3>
-            <p className="mt-2 text-brownSoft">{item.feedback}</p>
-          </Card>
-        ))}
-      </div>
+      <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+        <img src="/assets/images/media-gallery/social-feed-cta.jpg" alt="Devotional community and seva volunteers with temple light ambience" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(37,24,13,0.84),rgba(88,24,18,0.68),rgba(15,107,107,0.62))]" />
+        <div className="relative z-10 text-white">
+          <h2 className="text-3xl font-black md:text-4xl">Share Your Seva Story With Us</h2>
+          <p className="mt-3 max-w-4xl text-base leading-7 text-white/90">
+            If you participated in seva, festivals, satsang, youth programs or cultural activities, share your experience and selected moments may be featured on our official channels.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button type="button" className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white">Submit Story</button>
+            <Link to={`${ROUTES.contact}?subject=media-team`} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Contact Media Team</Link>
+          </div>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {["YouTube", "Facebook", "Instagram", "WhatsApp"].map((channel) => (
+              <a key={channel} href="#" className="rounded-full border border-white/70 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.08em] text-white">
+                {channel}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 });
+
 
 export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
   const [activeMode, setActiveMode] = useState<"All" | "Live Audio" | "Live Video" | "Booking" | "Platforms">("All");
@@ -9484,6 +11107,10 @@ export const NotFoundPage = memo(function NotFoundPage() {
     </div>
   );
 });
+
+
+
+
 
 
 
