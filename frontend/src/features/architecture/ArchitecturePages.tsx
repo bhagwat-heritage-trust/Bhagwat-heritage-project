@@ -10415,6 +10415,31 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
     "w-full rounded-xl border bg-white px-4 py-3 text-sm text-[#3E2A16] outline-none transition placeholder:text-[#9E7E55] focus:border-[#B97822] focus:ring-2 focus:ring-[#EBC98B]/60";
   const labelClass = "mb-2 block text-sm font-semibold text-[#6A4520]";
   const errorClass = "mt-1 text-xs font-semibold text-[#B42318]";
+  const GI_LABEL_CLASS = "text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]";
+  const GI_HEADING_CLASS = "mt-2 text-3xl font-black text-[#1f3550] md:text-4xl";
+  const GI_CARD_TITLE_CLASS = "text-2xl font-black text-[#1f3550]";
+  const GI_BODY_CLASS = "text-base leading-7 text-[#5e5247] md:text-lg";
+  const partnerCloudinaryIconMap: Record<string, string> = {
+    "icon-spiritual-education.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-spiritual-education.svg",
+    "icon-charity-seva.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-charity-seva.svg",
+    "icon-seva-network.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-seva-network.svg",
+    "icon-cultural-program.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-cultural-program.svg",
+    "icon-csr-partnership.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-csr-partnership.svg",
+    "icon-ngo-collaboration.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-ngo-collaboration.svg",
+    "icon-event-partnership.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-event-partnership.svg",
+    "icon-education-partnership.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-education-partnership.svg",
+    "icon-community-partnership.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-community-partnership.svg",
+    "icon-digital-media.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-digital-media.svg",
+    "icon-document-review.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-document-review.svg",
+    "icon-ethical-collaboration.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-ethical-collaboration.svg",
+    "icon-handshake.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-handshake.svg",
+    "icon-youth-development.svg": "https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/icon-youth-development.svg",
+  };
+
+  const getPartnerCloudinaryIconUrl = (localIconPath: string) => {
+    const iconFile = localIconPath.split("/").pop() ?? "";
+    return partnerCloudinaryIconMap[iconFile] ?? `https://res.cloudinary.com/der8zinu8/image/upload/partner-icons/${iconFile}`;
+  };
 
   const heroHighlights = [
     {
@@ -10439,22 +10464,26 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
     {
       title: "Spiritual Education",
       description: "Value-based study programs, satsang circles, and sanskar learning.",
-      icon: "/assets/icons/partner-with-us/icon-spiritual-education.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_35_PM_vpi1qj.png",
+      bottomText: "Focus: Scriptures, values, and disciplined learning circles.",
     },
     {
       title: "Charity and Seva",
       description: "Service-led outreach through ann seva, aid support, and relief actions.",
-      icon: "/assets/icons/partner-with-us/icon-charity-seva.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png",
+      bottomText: "Focus: Relief, care support, and practical seva initiatives.",
     },
     {
       title: "Community Service",
       description: "Volunteer coordination, welfare action, and disciplined local support.",
-      icon: "/assets/icons/partner-with-us/icon-seva-network.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097561/ChatGPT_Image_Apr_25_2026_11_42_05_AM_bij6a0.png",
+      bottomText: "Focus: Local coordination, outreach teams, and impact delivery.",
     },
     {
       title: "Cultural Renaissance",
       description: "Programs that preserve dharma, festivals, and living heritage values.",
-      icon: "/assets/icons/partner-with-us/icon-cultural-program.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_12_PM_ark4ok.png",
+      bottomText: "Focus: Dharma continuity, festivals, and heritage preservation.",
     },
   ];
 
@@ -10463,52 +10492,70 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
       title: "Corporate CSR Partnerships",
       description:
         "For companies supporting social impact, spiritual initiatives, employee volunteering, and CSR-led seva alignment.",
-      image: "/assets/images/partner-with-us/csr-partnership.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777461512/ChatGPT_Image_Apr_29_2026_04_46_42_PM_cf4r3e.png",
       icon: "/assets/icons/partner-with-us/icon-csr-partnership.svg",
     },
     {
       title: "NGO Collaborations",
       description:
         "For NGOs working in education, welfare, health, de-addiction, disaster relief, social awareness, and community upliftment.",
-      image: "/assets/images/partner-with-us/ngo-collaboration.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777461512/ChatGPT_Image_Apr_29_2026_04_46_50_PM_n77rvw.png",
       icon: "/assets/icons/partner-with-us/icon-ngo-collaboration.svg",
     },
     {
       title: "Event Partnerships",
       description: "For Bhagwat Katha, festivals, spiritual gatherings, youth programs, and large devotional events.",
-      image: "/assets/images/partner-with-us/event-partnership.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777461510/ChatGPT_Image_Apr_29_2026_04_47_06_PM_odlp6v.png",
       icon: "/assets/icons/partner-with-us/icon-event-partnership.svg",
     },
     {
       title: "Educational Partnerships",
       description:
         "For schools, colleges, gurukuls, and institutions focused on values, sanskar, leadership, and cultural learning.",
-      image: "/assets/images/partner-with-us/educational-partnership.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777461510/ChatGPT_Image_Apr_29_2026_04_47_31_PM_dt1iud.png",
       icon: "/assets/icons/partner-with-us/icon-education-partnership.svg",
     },
     {
       title: "Community Partnerships",
       description:
         "For local groups, residential associations, mandir committees, social groups, and community networks.",
-      image: "/assets/images/partner-with-us/community-partnership.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777461510/ChatGPT_Image_Apr_29_2026_04_47_23_PM_tkpska.png",
       icon: "/assets/icons/partner-with-us/icon-community-partnership.svg",
     },
     {
       title: "Digital & Media Partnerships",
       description:
         "For content creators, media teams, publishers, platforms, and digital outreach collaborators.",
-      image: "/assets/images/partner-with-us/digital-media-partnership.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777461510/ChatGPT_Image_Apr_29_2026_04_47_31_PM_dt1iud.png",
       icon: "/assets/icons/partner-with-us/icon-digital-media.svg",
     },
   ];
 
   const partnershipBenefits = [
-    "Expand seva impact through a trusted spiritual platform",
-    "Participate in structured social and cultural programs",
-    "Reach families, youth, communities, and devotees",
-    "Collaborate with a mission-driven organisation",
-    "Support value-based education and cultural preservation",
-    "Build long-term devotional and social goodwill",
+    {
+      text: "Expand seva impact through a trusted spiritual platform",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/reintagration_auqczv.png",
+    },
+    {
+      text: "Participate in structured social and cultural programs",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/famillyfollowup_azd4ol.png",
+    },
+    {
+      text: "Reach families, youth, communities, and devotees",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/reintagration_auqczv.png",
+    },
+    {
+      text: "Collaborate with a mission-driven organisation",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/planning_lvxbdo.png",
+    },
+    {
+      text: "Support value-based education and cultural preservation",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/coordination_pex250.png",
+    },
+    {
+      text: "Build long-term devotional and social goodwill",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776864448/ChatGPT_Image_Apr_22_2026_06_54_46_PM_e3jpix.png",
+    },
   ];
 
   const collaborationAreas = [
@@ -10541,34 +10588,28 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
     {
       title: "Submit Partnership Request",
       description: "Share organisation profile, purpose, and collaboration intent through the partnership form.",
-      icon: "/assets/icons/partner-with-us/icon-document-review.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_35_PM_vpi1qj.png",
     },
     {
       title: "Review by Trust Team",
       description: "Trust representatives evaluate mission alignment, scope, and practical feasibility.",
-      icon: "/assets/icons/partner-with-us/icon-ethical-collaboration.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png",
     },
     {
       title: "Discussion and Planning",
       description: "A focused dialogue defines responsibilities, expected outcomes, and execution pathway.",
-      icon: "/assets/icons/partner-with-us/icon-handshake.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/planning_lvxbdo.png",
     },
     {
       title: "Formal Partnership Understanding",
       description: "Agreed terms, governance expectations, and implementation milestones are finalized.",
-      icon: "/assets/icons/partner-with-us/icon-document-review.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_12_PM_ark4ok.png",
     },
     {
       title: "Collaboration Implementation",
       description: "Programs are executed with periodic reviews for transparent, mission-aligned impact.",
-      icon: "/assets/icons/partner-with-us/icon-seva-network.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/coordination_pex250.png",
     },
-  ];
-
-  const testimonials = [
-    "The Trust offered a clear structure, measurable seva outcomes, and a spiritually grounded partnership process that made collaboration meaningful.",
-    "Our joint outreach felt disciplined from planning to execution. The Trust combines devotional purpose with strong program ownership.",
-    "The collaboration was thoughtful and well organised, especially for youth values, cultural learning, and community engagement.",
   ];
 
   const faqs = [
@@ -10688,44 +10729,34 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
     `${inputBaseClass} ${formErrors[fieldName] ? "border-[#B42318]" : "border-[#E3CDA7]"}`;
 
   return (
-    <div className="bg-[#FFF9ED] pb-16 text-[#3E2A16]">
+    <div className="bg-[#FFF9ED] pb-16 font-['Poppins'] text-[#3E2A16]">
       <section className="relative overflow-hidden">
         <img
-          src="/assets/images/partner-with-us/partner-with-us-hero.jpg"
+          src="https://res.cloudinary.com/der8zinu8/image/upload/v1777461512/ChatGPT_Image_Apr_29_2026_04_46_26_PM_jtyw8e.png"
           alt="Bhagwat Heritage partnership hero visual"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(38,22,12,0.82),rgba(126,70,17,0.72),rgba(8,71,80,0.62))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,236,199,0.22),rgba(255,214,140,0.18),rgba(177,233,241,0.14))]" />
         <div className="absolute -right-28 top-12 h-72 w-72 rounded-full bg-[#F8CF82]/20 blur-3xl" />
-        <div className="relative py-20 md:py-24">
-          <div className={pageContainerClass}>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#FCE3AF]">Collaborate for Seva, Sanskar &amp; Society</p>
-            <h1 className="mt-4 max-w-3xl text-4xl font-black tracking-tight text-white md:text-5xl">Partner With Bhagwat Heritage</h1>
-            <p className="mt-5 max-w-3xl text-base leading-7 text-[#F9EED5] md:text-lg">
-              Join hands with Bhagwat Heritage Service Foundation Trust to expand spiritual education, seva initiatives,
-              cultural programs, and community upliftment through purposeful collaboration.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+        <div className="relative flex h-[430px] items-end md:h-[560px]">
+          <div className={`${pageContainerClass} pb-10 md:pb-14`}>
+            <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+              <h1 className="text-4xl font-black leading-tight tracking-tight text-white md:text-5xl">Collaborate for Seva, Sanskar &amp; Society</h1>
+              <p className="mt-4 text-base font-semibold text-[#FCE3AF] md:text-lg">Partner With Bhagwat Heritage</p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
                 href="#partnership-form"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-gradient-to-r from-[#C56E1F] to-[#E19A35] px-6 py-3 text-sm font-bold text-white shadow-[0_14px_30px_rgba(143,80,22,0.38)] transition hover:-translate-y-0.5"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-gradient-to-r from-[#C56E1F] to-[#E19A35] px-5 py-2.5 text-sm font-bold text-white shadow-[0_14px_30px_rgba(143,80,22,0.38)] transition hover:-translate-y-0.5"
               >
                 Become a Partner
               </a>
               <a
                 href="#partnership-contact"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#F6D4A2] bg-white/10 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/20"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#F6D4A2] bg-white/10 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-white/20"
               >
                 Discuss Collaboration
               </a>
             </div>
-            <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {heroHighlights.map((item) => (
-                <article key={item.title} className="rounded-2xl border border-[#F4D7AF]/50 bg-[#FFF8EA]/90 p-4 backdrop-blur-sm">
-                  <h3 className="text-sm font-bold text-[#794B16]">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#4E3A24]">{item.text}</p>
-                </article>
-              ))}
             </div>
           </div>
         </div>
@@ -10733,19 +10764,43 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
 
       <section className={`${pageContainerClass} mt-10`}>
         <div className={sectionClass}>
-          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Partnerships That Multiply Real Impact</h2>
-          <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-            <p className="text-[15px] leading-7 text-[#5A442C]">
+          <p className={GI_BODY_CLASS}>
+            Join hands with Bhagwat Heritage Service Foundation Trust to expand spiritual education, seva initiatives,
+            cultural programs, and community upliftment through purposeful collaboration.
+          </p>
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {heroHighlights.map((item) => (
+              <article key={item.title} className="rounded-2xl border border-[#E7D3AE] bg-white p-4 shadow-[0_10px_22px_rgba(145,95,37,0.10)]">
+                <h3 className={GI_CARD_TITLE_CLASS}>{item.title}</h3>
+                <p className={`mt-2 ${GI_BODY_CLASS}`}>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`${pageContainerClass} mt-10`}>
+        <div className={sectionClass}>
+          <h2 className={GI_HEADING_CLASS}>Partnerships That Multiply Real Impact</h2>
+          <div className="mt-6">
+            <p className={GI_BODY_CLASS}>
               Bhagwat Heritage Service Foundation Trust welcomes meaningful partnerships with institutions, organisations,
               community groups, corporates, temples, educational bodies, and seva-oriented teams that wish to contribute
               to spiritual awakening, social welfare, cultural preservation, and value-based development.
             </p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {introductionCards.map((item) => (
-                <article key={item.title} className="rounded-2xl border border-[#ECDAB7] bg-white p-4 shadow-[0_10px_22px_rgba(145,95,37,0.10)]">
-                  <img src={item.icon} alt={`${item.title} icon`} className="h-11 w-11" loading="lazy" />
-                  <h3 className="mt-3 text-base font-bold text-[#72471A]">{item.title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-[#5E4831]">{item.description}</p>
+                <article key={item.title} className="flex h-full flex-col rounded-2xl border border-[#ECDAB7] bg-white p-4 shadow-[0_10px_22px_rgba(145,95,37,0.10)]">
+                  <img
+                    src={getPartnerCloudinaryIconUrl(item.icon)}
+                    onError={(e) => (e.currentTarget.src = item.icon)}
+                    alt={`${item.title} icon`}
+                    className="h-[86px] w-[86px] rounded-full object-cover"
+                    loading="lazy"
+                  />
+                  <h3 className={`mt-3 ${GI_CARD_TITLE_CLASS}`}>{item.title}</h3>
+                  <p className={`mt-1 ${GI_BODY_CLASS}`}>{item.description}</p>
+                  <p className="mt-auto pt-3 text-sm font-semibold text-[#8A5B22]">{item.bottomText}</p>
                 </article>
               ))}
             </div>
@@ -10755,16 +10810,15 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
 
       <section className={`${pageContainerClass} mt-10`}>
         <div className={sectionClass}>
-          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Types of Partnerships</h2>
-          <p className="mt-2 text-sm font-medium uppercase tracking-[0.08em] text-[#0E7A7C]">Choose the right collaboration path</p>
+          <h2 className={GI_HEADING_CLASS}>Types of Partnerships</h2>
+          <p className={`mt-2 ${GI_LABEL_CLASS}`}>Choose the right collaboration path</p>
           <div className="mt-7 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
             {partnershipTypes.map((item) => (
               <article key={item.title} className="overflow-hidden rounded-2xl border border-[#E8D5B3] bg-white shadow-[0_12px_24px_rgba(146,95,30,0.10)]">
                 <img src={item.image} alt={item.title} className="h-40 w-full object-cover" loading="lazy" />
                 <div className="p-5">
-                  <img src={item.icon} alt={`${item.title} icon`} className="h-11 w-11" loading="lazy" />
-                  <h3 className="mt-3 text-lg font-black text-[#6C4215]">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#5A442C]">{item.description}</p>
+                  <h3 className={`mt-3 ${GI_CARD_TITLE_CLASS}`}>{item.title}</h3>
+                  <p className={`mt-2 ${GI_BODY_CLASS}`}>{item.description}</p>
                   <a
                     href="#partnership-form"
                     className="mt-4 inline-flex items-center rounded-full border border-[#DFAF66] bg-[#FFF3DF] px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-[#9A601E] transition hover:bg-[#FFE9C8]"
@@ -10780,19 +10834,18 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
 
       <section className={`${pageContainerClass} mt-10`}>
         <div className={sectionClass}>
-          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Why Partner With Bhagwat Heritage?</h2>
+          <h2 className={GI_HEADING_CLASS}>Why Partner With Bhagwat Heritage?</h2>
           <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {partnershipBenefits.map((benefit, index) => (
-              <article key={benefit} className="rounded-2xl border border-[#F0DFC1] bg-[#FFF8EC] p-5">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFE8C2]">
-                  <img
-                    src={index % 2 === 0 ? "/assets/icons/partner-with-us/icon-handshake.svg" : "/assets/icons/partner-with-us/icon-youth-development.svg"}
-                    alt="Benefit icon"
-                    className="h-6 w-6"
-                    loading="lazy"
-                  />
-                </div>
-                <h3 className="mt-3 text-base font-bold text-[#754A1C]">{benefit}</h3>
+            {partnershipBenefits.map((benefit) => (
+              <article key={benefit.text} className="rounded-2xl border border-[#F0DFC1] bg-[#FFF8EC] p-5">
+                <img
+                  src={benefit.icon}
+                  onError={(e) => (e.currentTarget.src = "/assets/icons/partner-with-us/icon-handshake.svg")}
+                  alt="Benefit icon"
+                  className="h-[86px] w-[86px] rounded-full object-cover"
+                  loading="lazy"
+                />
+                <h3 className={`mt-3 ${GI_CARD_TITLE_CLASS}`}>{benefit.text}</h3>
               </article>
             ))}
           </div>
@@ -10801,11 +10854,11 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
 
       <section className={`${pageContainerClass} mt-10`}>
         <div className={sectionClass}>
-          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Core Areas for Collaboration</h2>
+          <h2 className={GI_HEADING_CLASS}>Core Areas for Collaboration</h2>
           <div className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="overflow-hidden rounded-2xl border border-[#E9D6B5]">
               <img
-                src="/assets/images/partner-with-us/partnership-collaboration.jpg"
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777461510/ChatGPT_Image_Apr_29_2026_04_47_38_PM_y7pdnh.png"
                 alt="Community collaboration in spiritual and seva activities"
                 className="h-full min-h-[300px] w-full object-cover"
                 loading="lazy"
@@ -10814,7 +10867,7 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
             <div className="space-y-3">
               {collaborationAreas.map((item) => (
                 <article key={item} className="rounded-2xl border border-[#EFDDBE] bg-white px-4 py-3">
-                  <h3 className="text-sm font-bold text-[#6E4517]">{item}</h3>
+                  <h3 className={GI_CARD_TITLE_CLASS}>{item}</h3>
                 </article>
               ))}
             </div>
@@ -10822,33 +10875,10 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
         </div>
       </section>
 
-      <section className={`${pageContainerClass} mt-10`}>
-        <div className={sectionClass}>
-          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Partner Showcase</h2>
-          <p className="mt-2 text-sm font-medium text-[#6E5A3E]">Existing supporters and collaboration circles</p>
-          <div className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-            {showcasePartners.map((partner, index) => (
-              <article key={partner} className="rounded-2xl border border-[#EBD8B7] bg-white p-4 text-center shadow-[0_12px_22px_rgba(137,93,35,0.10)]">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF0D7]">
-                  <img
-                    src={index % 2 === 0 ? "/assets/icons/partner-with-us/icon-seva-network.svg" : "/assets/icons/partner-with-us/icon-cultural-program.svg"}
-                    alt={`${partner} symbol`}
-                    className="h-7 w-7"
-                    loading="lazy"
-                  />
-                </div>
-                <h3 className="mt-3 text-sm font-bold text-[#72481B]">{partner}</h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.08em] text-[#0F7F82]">Collaboration Circle</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section id="partnership-form" className={`${pageContainerClass} mt-10`}>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <div className={sectionClass}>
-            <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Partnership Application Form</h2>
+            <h2 className={GI_HEADING_CLASS}>Partnership Application Form</h2>
             <form className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2" onSubmit={handlePartnerSubmit} noValidate>
               <div>
                 <label className={labelClass} htmlFor="organizationName">Organization / Institution Name</label>
@@ -11053,7 +11083,7 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
 
           <div className="space-y-6">
             <aside className={sectionClass}>
-              <h3 className="text-xl font-black text-[#633E14]">Collaboration Process Snapshot</h3>
+              <h3 className={GI_CARD_TITLE_CLASS}>Collaboration Process Snapshot</h3>
               <div className="mt-4 space-y-3">
                 {processPreview.map((item) => (
                   <p key={item} className="rounded-xl border border-[#EDD9B6] bg-white px-4 py-3 text-sm font-semibold text-[#64411D]">{item}</p>
@@ -11061,7 +11091,7 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
               </div>
             </aside>
             <aside id="partnership-contact" className={sectionClass}>
-              <h3 className="text-xl font-black text-[#633E14]">Partnership Help Desk</h3>
+              <h3 className={GI_CARD_TITLE_CLASS}>Partnership Help Desk</h3>
               <div className="mt-4 space-y-2 text-sm leading-7 text-[#5C452E]">
                 <p><span className="font-bold text-[#7A4A17]">Email:</span> join@bhagwatheritage.org</p>
                 <p><span className="font-bold text-[#7A4A17]">Phone:</span> +91-866-889-7445</p>
@@ -11102,13 +11132,13 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
 
       <section id="partnership-process" className={`${pageContainerClass} mt-10`}>
         <div className={sectionClass}>
-          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">How Collaboration Moves Forward</h2>
+          <h2 className={GI_HEADING_CLASS}>How Collaboration Moves Forward</h2>
           <div className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="overflow-hidden rounded-2xl border border-[#E8D3B0]">
+            <div className="overflow-hidden rounded-2xl border border-[#E8D3B0] self-start">
               <img
-                src="/assets/images/partner-with-us/partnership-process.jpg"
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777461509/ChatGPT_Image_Apr_29_2026_04_47_50_PM_esiiwf.png"
                 alt="Partnership process and planning"
-                className="h-full min-h-[300px] w-full object-cover"
+                className="h-auto w-full object-contain object-center"
                 loading="lazy"
               />
             </div>
@@ -11122,10 +11152,16 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <img src={step.icon} alt={`${step.title} icon`} className="h-6 w-6" loading="lazy" />
-                        <h3 className="text-base font-black text-[#6C4317]">{step.title}</h3>
+                        <img
+                          src={getPartnerCloudinaryIconUrl(step.icon)}
+                          onError={(e) => (e.currentTarget.src = step.icon)}
+                          alt={`${step.title} icon`}
+                          className="h-[56px] w-[56px] rounded-full object-cover"
+                          loading="lazy"
+                        />
+                        <h3 className={GI_CARD_TITLE_CLASS}>{step.title}</h3>
                       </div>
-                      <p className="mt-2 text-sm leading-6 text-[#5A442C]">{step.description}</p>
+                      <p className={`mt-2 ${GI_BODY_CLASS}`}>{step.description}</p>
                     </div>
                   </div>
                 </article>
@@ -11138,10 +11174,16 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
       <section className={`${pageContainerClass} mt-10`}>
         <div className="rounded-2xl border border-[#E7C58E] bg-[#FFF3DB] p-6 shadow-[0_10px_22px_rgba(156,102,32,0.12)]">
           <div className="flex items-start gap-3">
-            <img src="/assets/icons/partner-with-us/icon-ethical-collaboration.svg" alt="Ethical collaboration icon" className="h-11 w-11" loading="lazy" />
+            <img
+              src="https://res.cloudinary.com/der8zinu8/image/upload/v1777193608/ChatGPT_Image_Apr_26_2026_01_45_08_PM_v3dyke.png"
+              onError={(e) => (e.currentTarget.src = "/assets/icons/partner-with-us/icon-ethical-collaboration.svg")}
+              alt="Ethical collaboration icon"
+              className="h-[86px] w-[86px] rounded-full object-cover"
+              loading="lazy"
+            />
             <div>
-              <h2 className="text-2xl font-black text-[#6A3F12]">Ethical &amp; Mission-Aligned Collaboration</h2>
-              <p className="mt-3 text-sm leading-7 text-[#5A432A]">
+              <h2 className={GI_HEADING_CLASS}>Ethical &amp; Mission-Aligned Collaboration</h2>
+              <p className={`mt-3 ${GI_BODY_CLASS}`}>
                 Bhagwat Heritage Service Foundation Trust accepts partnerships that are aligned with seva, spirituality,
                 cultural dignity, education, social upliftment, and ethical community development. The Trust reserves the
                 right to review, approve, or decline collaboration proposals based on mission alignment, documentation, and
@@ -11154,21 +11196,7 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
 
       <section className={`${pageContainerClass} mt-10`}>
         <div className={sectionClass}>
-          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">What Existing Partners Say</h2>
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {testimonials.map((item) => (
-              <article key={item} className="rounded-2xl border border-[#EBD8B8] bg-white p-5">
-                <img src="/assets/icons/partner-with-us/icon-handshake.svg" alt="Testimonial icon" className="h-9 w-9" loading="lazy" />
-                <p className="mt-3 text-sm leading-7 text-[#56422A]">&quot;{item}&quot;</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className={`${pageContainerClass} mt-10`}>
-        <div className={sectionClass}>
-          <h2 className="text-2xl font-black text-[#603913] md:text-3xl">Common Partnership Questions</h2>
+          <h2 className={GI_HEADING_CLASS}>Common Partnership Questions</h2>
           <div className="mt-6 space-y-3">
             {faqs.map((item, index) => {
               const isOpen = openFaqIndex === index;
@@ -11181,10 +11209,10 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
                     onClick={() => setOpenFaqIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
                   >
-                    <h3 className="text-base font-bold text-[#6E4519]">{item.question}</h3>
+                    <h3 className={GI_CARD_TITLE_CLASS}>{item.question}</h3>
                     <span className="text-xl font-black text-[#A56721]">{isOpen ? "-" : "+"}</span>
                   </button>
-                  {isOpen ? <p className="px-5 pb-5 text-sm leading-7 text-[#5A432B]">{item.answer}</p> : null}
+                  {isOpen ? <p className={`px-5 pb-5 ${GI_BODY_CLASS}`}>{item.answer}</p> : null}
                 </article>
               );
             })}
@@ -11193,17 +11221,10 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
       </section>
 
       <section className={`${pageContainerClass} mt-10`}>
-        <div className="relative overflow-hidden rounded-[30px] border border-[#E3C28D] p-8 md:p-12">
-          <img
-            src="/assets/images/partner-with-us/partnership-cta-banner.jpg"
-            alt="Partnership call to action background"
-            className="absolute inset-0 h-full w-full object-cover"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(49,27,10,0.82),rgba(142,82,23,0.75),rgba(9,92,98,0.60))]" />
-          <div className="relative">
-            <h2 className="max-w-3xl text-3xl font-black text-white md:text-4xl">Let Us Join Hands for Dharma, Seva and Society</h2>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-[#F8ECD3]">
+        <div className="overflow-hidden rounded-[30px] border border-[#E3C28D] bg-[linear-gradient(120deg,#FFE8B8_0%,#FFD57A_45%,#F4BE57_100%)] p-8 md:p-12">
+          <div>
+            <h2 className="max-w-3xl text-3xl font-black text-[#6F4212] md:text-4xl">Let Us Join Hands for Dharma, Seva and Society</h2>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-[#6C4A1E]">
               Your organisation can become a meaningful force in expanding spiritual education, seva, culture, and community welfare.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
@@ -11215,7 +11236,7 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
               </a>
               <a
                 href="#partnership-contact"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#F4D7AA] bg-white/10 px-6 py-3 text-sm font-bold text-white"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#C58C3B] bg-[#FFF3DA] px-6 py-3 text-sm font-bold text-[#7A4A12]"
               >
                 Contact Partnership Desk
               </a>
