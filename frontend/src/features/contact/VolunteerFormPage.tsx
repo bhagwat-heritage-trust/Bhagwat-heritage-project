@@ -94,6 +94,16 @@ const FAQS = [
   },
 ] as const;
 
+const getCloudinaryIconUrl = (localIconPath: string) => {
+  const iconFile = localIconPath.split("/").pop() ?? "";
+  return `https://res.cloudinary.com/der8zinu8/image/upload/volunteer-icons/${iconFile}`;
+};
+
+const GI_LABEL_CLASS = "text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]";
+const GI_HEADING_CLASS = "mt-2 text-3xl font-black text-[#1f3550] md:text-4xl";
+const GI_CARD_TITLE_CLASS = "text-2xl font-black text-[#1f3550]";
+const GI_BODY_CLASS = "text-base leading-7 text-[#5e5247] md:text-lg";
+
 export default memo(function VolunteerFormPage() {
   usePageMeta(
     "Volunteer Registration",
@@ -199,7 +209,7 @@ export default memo(function VolunteerFormPage() {
   };
 
   return (
-    <div className="bg-[#fcf8ef] text-[#1f2937]">
+    <div className="bg-[#fcf8ef] font-['Poppins'] text-[#1f2937]">
       <style>{`
         .volunteer-temple-bg { background-image: radial-gradient(circle at 15% 20%, rgba(212,141,20,0.08), transparent 36%), radial-gradient(circle at 90% 6%, rgba(15,82,102,0.10), transparent 32%), linear-gradient(120deg, #fffdf7 0%, #fcf8ef 45%, #fff6e7 100%); }
         .volunteer-pattern { background-image: radial-gradient(circle at 1px 1px, rgba(176,125,34,0.15) 1px, transparent 0); background-size: 16px 16px; }
@@ -208,16 +218,16 @@ export default memo(function VolunteerFormPage() {
       <section className="volunteer-temple-bg">
         <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-10 md:grid-cols-2 md:items-center md:py-14">
           <div>
-            <p className="inline-flex rounded-full bg-[#fdf1db] px-4 py-1 text-xs font-semibold tracking-wide text-[#b7671f]">Bhagwat Heritage Seva</p>
+            <p className={GI_LABEL_CLASS}>Bhagwat Heritage Seva</p>
             <h1 className="mt-4 text-4xl font-black leading-tight text-[#1d3550] md:text-5xl">Volunteer Registration</h1>
-            <p className="mt-4 text-base leading-7 text-[#374151] md:text-lg">Offer your time, skills, and devotion in the service of society, culture, and Sanatan values.</p>
+            <p className={`mt-4 ${GI_BODY_CLASS} text-[#374151]`}>Offer your time, skills, and devotion in the service of society, culture, and Sanatan values.</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a href="#volunteer-form" className="rounded-full bg-[#ce7a1a] px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-[#b26614]">Register as Volunteer</a>
               <a href="#seva-areas" className="rounded-full border border-[#1f6078] bg-white px-6 py-3 text-sm font-bold text-[#1f6078] transition hover:bg-[#e6f5fa]">Explore Seva Areas</a>
             </div>
           </div>
           <div className="overflow-hidden rounded-3xl border border-[#f2d8ad] bg-white shadow-xl">
-            <img src="/assets/images/volunteer-registration/volunteer-hero.jpg" alt="Volunteers serving with devotion in a temple community seva setting" className="h-full min-h-[280px] w-full object-cover" loading="eager" />
+            <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777459099/ChatGPT_Image_Apr_29_2026_04_07_51_PM_vegbl7.png" alt="Volunteers serving with devotion in a temple community seva setting" className="h-full min-h-[280px] w-full object-cover brightness-110" loading="eager" />
           </div>
         </div>
       </section>
@@ -225,9 +235,9 @@ export default memo(function VolunteerFormPage() {
       <section className="mx-auto -mt-2 w-full max-w-6xl px-4 pb-8">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {QUICK_TRUST_ITEMS.map((item) => (
-            <article key={item.title} className="rounded-2xl border border-[#f2ddb5] bg-white p-4 shadow-sm">
-              <img src={item.icon} alt={`${item.title} icon`} className="h-10 w-10" loading="lazy" />
-              <h2 className="mt-3 text-base font-bold text-[#1d3550]">{item.title}</h2>
+            <article key={item.title} className="rounded-2xl border border-[#f2ddb5] bg-white p-4 text-center shadow-sm">
+              <img src={getCloudinaryIconUrl(item.icon)} onError={(e) => (e.currentTarget.src = item.icon)} alt={`${item.title} icon`} className="mx-auto h-[92px] w-[92px] rounded-full object-cover" loading="lazy" />
+              <h2 className={`mt-3 ${GI_CARD_TITLE_CLASS}`}>{item.title}</h2>
             </article>
           ))}
         </div>
@@ -235,15 +245,15 @@ export default memo(function VolunteerFormPage() {
 
       <section className="mx-auto w-full max-w-6xl px-4 py-8">
         <div className="rounded-3xl border border-[#e8d5ac] bg-white p-6 shadow-md md:p-8">
-          <h2 className="text-2xl font-black text-[#1d3550]">Volunteer Onboarding Journey</h2>
-          <p className="mt-2 text-[#4b5563]">Register, Screen, Orient, and Start Seva</p>
+          <h2 className={GI_HEADING_CLASS}>Volunteer Onboarding Journey</h2>
+          <p className={`mt-2 ${GI_BODY_CLASS}`}>Register, Screen, Orient, and Start Seva</p>
           <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {JOURNEY_STEPS.map((step, idx) => (
-              <article key={step.title} className="rounded-2xl border border-[#f4e8cd] bg-[#fffaf0] p-4">
-                <img src={step.icon} alt={`${step.title} icon`} className="h-10 w-10" loading="lazy" />
+              <article key={step.title} className="rounded-2xl border border-[#f4e8cd] bg-[#fffaf0] p-4 text-center">
+                <img src={getCloudinaryIconUrl(step.icon)} onError={(e) => (e.currentTarget.src = step.icon)} alt={`${step.title} icon`} className="mx-auto h-[86px] w-[86px] rounded-full object-cover" loading="lazy" />
                 <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[#b26d1d]">Step {idx + 1}</p>
-                <h3 className="mt-1 text-lg font-bold text-[#1d3550]">{step.title}</h3>
-                <p className="mt-1 text-sm leading-6 text-[#4b5563]">{step.text}</p>
+                <h3 className={`mt-1 ${GI_CARD_TITLE_CLASS}`}>{step.title}</h3>
+                <p className={`mt-1 ${GI_BODY_CLASS}`}>{step.text}</p>
               </article>
             ))}
           </div>
@@ -252,34 +262,34 @@ export default memo(function VolunteerFormPage() {
 
       <section className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-8 md:grid-cols-2 md:items-center">
         <div>
-          <h2 className="text-2xl font-black text-[#1d3550]">Why Volunteer With Bhagwat Heritage?</h2>
+          <h2 className={GI_HEADING_CLASS}>Why Volunteer With Bhagwat Heritage?</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {WHY_VOLUNTEER.map((item) => (
               <article key={item.title} className="rounded-2xl border border-[#efdfbf] bg-white p-4 shadow-sm">
-                <h3 className="text-lg font-bold text-[#8c4f17]">{item.title}</h3>
-                <p className="mt-1 text-sm leading-6 text-[#4b5563]">{item.text}</p>
+                <h3 className={`${GI_CARD_TITLE_CLASS} text-[#8c4f17]`}>{item.title}</h3>
+                <p className={`mt-1 ${GI_BODY_CLASS}`}>{item.text}</p>
               </article>
             ))}
           </div>
         </div>
         <div className="overflow-hidden rounded-3xl border border-[#f2d8ad] bg-white shadow-md">
-          <img src="/assets/images/volunteer-registration/volunteer-purpose.jpg" alt="Volunteers participating in spiritual and community seva" className="h-full min-h-[320px] w-full object-cover" loading="lazy" />
+          <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777458890/ChatGPT_Image_Apr_29_2026_04_03_55_PM_gpqt0a.png" alt="Volunteers participating in spiritual and community seva" className="h-full min-h-[320px] w-full object-cover brightness-110" loading="lazy" />
         </div>
       </section>
 
       <section id="seva-areas" className="volunteer-pattern mx-auto w-full max-w-6xl rounded-3xl px-4 py-10">
-        <h2 className="text-center text-2xl font-black text-[#1d3550]">Choose Your Seva Area</h2>
+        <h2 className={`text-center ${GI_HEADING_CLASS}`}>Choose Your Seva Area</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SEVA_AREAS.map((area) => (
-            <article key={area.title} className="group rounded-2xl border border-[#eddcb7] bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
-              <img src={area.icon} alt={`${area.title} icon`} className="h-11 w-11" loading="lazy" />
-              <h3 className="mt-3 text-lg font-bold text-[#1d3550]">{area.title}</h3>
-              <p className="mt-1 text-sm text-[#4b5563]">{area.desc}</p>
+            <article key={area.title} className="group rounded-2xl border border-[#eddcb7] bg-white p-4 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+              <img src={getCloudinaryIconUrl(area.icon)} onError={(e) => (e.currentTarget.src = area.icon)} alt={`${area.title} icon`} className="mx-auto h-[92px] w-[92px] rounded-full object-cover" loading="lazy" />
+              <h3 className={`mt-3 ${GI_CARD_TITLE_CLASS}`}>{area.title}</h3>
+              <p className={`mt-1 ${GI_BODY_CLASS}`}>{area.desc}</p>
             </article>
           ))}
         </div>
         <div className="mt-6 overflow-hidden rounded-3xl border border-[#f2d8ad] bg-white shadow-md">
-          <img src="/assets/images/volunteer-registration/volunteer-seva-areas.jpg" alt="Different volunteer seva activities including social and cultural support" className="h-56 w-full object-cover md:h-72" loading="lazy" />
+          <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777458891/ChatGPT_Image_Apr_29_2026_04_04_04_PM_ui0s1p.png" alt="Different volunteer seva activities including social and cultural support" className="h-auto w-full object-contain object-center brightness-110" loading="lazy" />
         </div>
       </section>
 
@@ -287,8 +297,8 @@ export default memo(function VolunteerFormPage() {
         <form onSubmit={handleSubmit} className="rounded-3xl border border-[#e9d6ad] bg-white p-6 shadow-md md:p-8" noValidate>
           <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <h2 className="text-2xl font-black text-[#1d3550]">Advanced Volunteer Application</h2>
-              <p className="mt-1 text-[#4b5563]">Fill details for better role matching.</p>
+              <h2 className={GI_HEADING_CLASS}>Advanced Volunteer Application</h2>
+              <p className={`mt-1 ${GI_BODY_CLASS}`}>Fill details for better role matching.</p>
             </div>
             <div className="w-full max-w-[240px]">
               <p className="text-xs font-semibold uppercase tracking-wide text-[#a05d18]">Completion</p>
@@ -345,18 +355,18 @@ export default memo(function VolunteerFormPage() {
         </form>
 
         <article className="mt-6 rounded-2xl border border-[#e2d1ae] bg-[#fffbf2] p-5">
-          <h2 className="text-xl font-black text-[#1d3550]">Privacy & Seva Coordination Note</h2>
-          <p className="mt-2 text-sm leading-6 text-[#4b5563]">Your details will only be used for volunteer coordination, seva communication, and trust-related participation. We do not misuse or publicly share volunteer information.</p>
+          <h2 className={GI_CARD_TITLE_CLASS}>Privacy & Seva Coordination Note</h2>
+          <p className={`mt-2 ${GI_BODY_CLASS}`}>Your details will only be used for volunteer coordination, seva communication, and trust-related participation. We do not misuse or publicly share volunteer information.</p>
         </article>
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-4 pb-10">
-        <h2 className="text-2xl font-black text-[#1d3550]">Volunteer Registration FAQs</h2>
+        <h2 className={GI_HEADING_CLASS}>Volunteer Registration FAQs</h2>
         <div className="mt-4 space-y-3">
           {FAQS.map((item) => (
             <details key={item.q} className="rounded-2xl border border-[#e7d7b6] bg-white p-4">
-              <summary className="cursor-pointer text-base font-bold text-[#1d3550]">{item.q}</summary>
-              <p className="mt-2 text-sm leading-6 text-[#4b5563]">{item.a}</p>
+              <summary className={`cursor-pointer ${GI_CARD_TITLE_CLASS}`}>{item.q}</summary>
+              <p className={`mt-2 ${GI_BODY_CLASS}`}>{item.a}</p>
             </details>
           ))}
         </div>
@@ -364,13 +374,12 @@ export default memo(function VolunteerFormPage() {
 
       <section className="mx-auto w-full max-w-6xl px-4 pb-12">
         <div className="relative overflow-hidden rounded-3xl border border-[#efd9b1]">
-          <img src="/assets/images/volunteer-registration/volunteer-cta-banner.jpg" alt="Devotional volunteer community gathered for seva" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-          <div className="relative bg-[#103a56]/70 p-8 text-white md:p-10">
-            <h2 className="text-3xl font-black">Begin Your Seva Journey</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 md:text-base">Your time, skill, and devotion can become a meaningful contribution to society and dharma.</p>
+          <div className="relative bg-gradient-to-r from-[#ffe7a1] via-[#ffd26c] to-[#ffbb42] p-8 text-[#4a2a10] md:p-10">
+            <h2 className="text-4xl font-black">Begin Your Seva Journey</h2>
+            <p className={`mt-2 max-w-2xl ${GI_BODY_CLASS} text-[#5d3413]`}>Your time, skill, and devotion can become a meaningful contribution to society and dharma.</p>
             <div className="mt-5 flex flex-wrap gap-3">
               <a href="#volunteer-form" className="rounded-full bg-[#d5851f] px-6 py-3 text-sm font-bold text-white">Register Now</a>
-              <Link to={ROUTES.involved.contactUs} className="rounded-full border border-white/80 bg-white/10 px-6 py-3 text-sm font-bold text-white">Contact Seva Coordinator</Link>
+              <Link to={ROUTES.involved.contactUs} className="rounded-full border border-[#7a4a18]/35 bg-white/55 px-6 py-3 text-sm font-bold text-[#5b3212]">Contact Seva Coordinator</Link>
             </div>
           </div>
         </div>
