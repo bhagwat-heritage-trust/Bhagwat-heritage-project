@@ -9091,7 +9091,7 @@ export const MediaPublicationsPage = memo(function MediaPublicationsPage() {
                 <img src={item.icon} alt={`${item.title} icon`} className="h-20 w-20 rounded-full object-cover" loading="lazy" />
               </div>
               <h3 className="mt-4 text-xl font-black text-[#2A2018]">{item.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{item.description}</p>
+              <p className="mt-2 text-center text-sm leading-6 text-[#5F4A37]">{item.description}</p>
               <p className="mt-3 text-xs font-bold uppercase tracking-[0.08em] text-[#8A5A1B]">{item.bestUse}</p>
             </article>
           ))}
@@ -9302,25 +9302,25 @@ type SocialChannelCardV4 = {
 const SOCIAL_CHANNEL_CARDS_V4: SocialChannelCardV4[] = [
   {
     platform: "Instagram",
-    icon: "/assets/images/media-gallery/icons/icon-instagram.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475468/ChatGPT_Image_Apr_29_2026_08_39_42_PM_iwkx07.png",
     description: "Reels, festival glimpses, and seva moments from trust activities.",
     link: "#",
   },
   {
     platform: "YouTube",
-    icon: "/assets/images/media-gallery/icons/icon-youtube.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475468/ChatGPT_Image_Apr_29_2026_08_39_17_PM_nsv1tc.png",
     description: "Katha videos, pravachan clips, and event highlights.",
     link: "#",
   },
   {
     platform: "Facebook",
-    icon: "/assets/images/media-gallery/icons/icon-facebook.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475467/ChatGPT_Image_Apr_29_2026_08_39_35_PM_ciaazz.png",
     description: "Official updates and public announcements from Bhagwat Heritage.",
     link: "#",
   },
   {
     platform: "WhatsApp",
-    icon: "/assets/images/media-gallery/icons/icon-whatsapp.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475467/ChatGPT_Image_Apr_29_2026_08_40_26_PM_m6gqwl.png",
     description: "Fast seva coordination and community alerts.",
     link: "#",
   },
@@ -9408,22 +9408,22 @@ export const MediaSocialFeedPage = memo(function MediaSocialFeedPage() {
   return (
     <div className="space-y-0 pb-14">
       <section className="relative overflow-hidden rounded-[34px] border border-[#E6D0AF] bg-[linear-gradient(140deg,#FFF5DE_0%,#FFFDF8_50%,#F6E8CB_100%)] shadow-[0_24px_52px_rgba(95,62,26,0.16)]">
-        <img src="/assets/images/media-gallery/social-feed-hero.jpg" alt="Devotional social media hero with temple glow and community atmosphere" className="absolute inset-0 h-full w-full object-cover opacity-45" loading="lazy" />
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,245,221,0.88),rgba(255,252,245,0.82),rgba(230,196,138,0.72))]" />
-        <div className="relative z-10 px-6 py-14 md:px-10 md:py-20">
+        <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777490319/ChatGPT_Image_Apr_30_2026_12_47_38_AM_b8xbeg.png" alt="Devotional social media hero with temple glow and community atmosphere" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,245,221,0.10),rgba(255,252,245,0.12),rgba(230,196,138,0.08))]" />
+        <div className="relative z-10 mx-auto flex min-h-[420px] max-w-6xl flex-col items-center justify-end px-6 pb-10 pt-14 text-center md:min-h-[560px] md:px-10 md:pb-12 md:pt-20">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#B97615]">Media Gallery</p>
           <h1 className="mt-3 text-4xl font-black tracking-tight text-[#1D342C] md:text-6xl">Social Feed</h1>
           <p className="mt-4 max-w-4xl text-base leading-7 text-[#5F4A37] md:text-lg">
             Official updates, seva moments, festival highlights, youth participation, and community voices from Bhagwat Heritage Service Foundation Trust.
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
             {["Instagram", "YouTube", "Facebook", "WhatsApp"].map((badge) => (
               <span key={badge} className="rounded-full border border-[#E2C48D] bg-white/90 px-4 py-1.5 text-xs font-black uppercase tracking-[0.08em] text-[#7D5119]">
                 {badge}
               </span>
             ))}
           </div>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             <button type="button" className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#BD7A14]">
               Follow Official Channels
             </button>
@@ -9438,14 +9438,18 @@ export const MediaSocialFeedPage = memo(function MediaSocialFeedPage() {
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {SOCIAL_CHANNEL_CARDS_V4.map((item) => (
             <article key={item.platform} className="rounded-[20px] border border-[#E6D4B5] bg-white p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)] transition hover:-translate-y-1 hover:shadow-[0_16px_28px_rgba(104,75,38,0.12)]">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2DC]">
-                <img src={item.icon} alt={`${item.platform} icon`} className="h-7 w-7 object-contain" loading="lazy" />
+              <div className="flex w-full justify-center">
+                <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FFF2DC]">
+                  <img src={item.icon} alt={`${item.platform} icon`} className="h-[48px] w-[48px] rounded-full object-cover" loading="lazy" />
+                </span>
               </div>
-              <h2 className="mt-4 text-2xl font-black text-[#1D342C]">{item.platform}</h2>
+              <h2 className="mt-4 text-center text-2xl font-black text-[#1D342C]">{item.platform}</h2>
               <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{item.description}</p>
-              <a href={item.link} className="mt-4 inline-flex rounded-full bg-[#0F6B6B] px-4 py-2 text-xs font-black text-white" aria-label={`Open ${item.platform} channel`}>
-                Open Channel
-              </a>
+              <div className="mt-4 flex justify-center">
+                <a href={item.link} className="inline-flex rounded-full bg-[#0F6B6B] px-4 py-2 text-xs font-black text-white" aria-label={`Open ${item.platform} channel`}>
+                  Open Channel
+                </a>
+              </div>
             </article>
           ))}
         </div>
@@ -9566,12 +9570,10 @@ export const MediaSocialFeedPage = memo(function MediaSocialFeedPage() {
         </div>
       </section>
 
-      <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
-        <img src="/assets/images/media-gallery/social-feed-cta.jpg" alt="Devotional community and seva volunteers with temple light ambience" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(37,24,13,0.84),rgba(88,24,18,0.68),rgba(15,107,107,0.62))]" />
-        <div className="relative z-10 text-white">
+      <section className="mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] bg-[linear-gradient(120deg,#F8D271_0%,#F5C35E_52%,#EFB54A_100%)] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+        <div className="text-[#1D342C]">
           <h2 className="text-3xl font-black md:text-4xl">Share Your Seva Story With Us</h2>
-          <p className="mt-3 max-w-4xl text-base leading-7 text-white/90">
+          <p className="mt-3 max-w-4xl text-base leading-7 text-[#2E3F35]/90">
             If you participated in seva, festivals, satsang, youth programs or cultural activities, share your experience and selected moments may be featured on our official channels.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">

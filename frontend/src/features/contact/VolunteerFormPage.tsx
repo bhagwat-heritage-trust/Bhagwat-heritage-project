@@ -10,32 +10,32 @@ type HoursPerWeek = "2" | "4" | "6" | "8" | "10+";
 type PreferredMode = "On-site" | "Remote" | "Hybrid";
 
 const QUICK_TRUST_ITEMS = [
-  { title: "Temple Seva", icon: "/assets/images/volunteer-registration/icon-temple-seva.svg" },
-  { title: "Gau Seva", icon: "/assets/images/volunteer-registration/icon-gau-seva.svg" },
-  { title: "Ann Seva", icon: "/assets/images/volunteer-registration/icon-ann-seva.svg" },
-  { title: "Youth & Cultural Seva", icon: "/assets/images/volunteer-registration/icon-youth-seva.svg" },
+  { title: "Temple Seva", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032974/ChatGPT_Image_Apr_24_2026_05_42_39_PM_hoklrs.png" },
+  { title: "Gau Seva", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776880621/ChatGPT_Image_Apr_22_2026_11_25_30_PM_i6q6qj.png" },
+  { title: "Ann Seva", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193608/ChatGPT_Image_Apr_26_2026_01_44_55_PM_jzfpur.png" },
+  { title: "Youth & Cultural Seva", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_12_PM_ark4ok.png" },
 ] as const;
 
 const JOURNEY_STEPS = [
   {
     title: "Register",
     text: "Submit your basic details, skills, interest, and availability.",
-    icon: "/assets/images/volunteer-registration/icon-register.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777050390/icon-digital-notes.svg",
   },
   {
     title: "Screening",
     text: "Our coordinator reviews your application and maps you to the right seva area.",
-    icon: "/assets/images/volunteer-registration/icon-screening.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777050696/icon-parent-dashboard.svg",
   },
   {
     title: "Orientation",
     text: "Attend a short orientation session to understand values, roles, and process.",
-    icon: "/assets/images/volunteer-registration/icon-orientation.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777050237/icon-character-building.svg",
   },
   {
     title: "Start Seva",
     text: "Begin seva activities with guidance from the trust team.",
-    icon: "/assets/images/volunteer-registration/icon-start-seva.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777050845/icon-service-orientation.svg",
   },
 ] as const;
 
@@ -59,16 +59,16 @@ const WHY_VOLUNTEER = [
 ] as const;
 
 const SEVA_AREAS = [
-  { title: "Event Seva", desc: "Festival management, hospitality, stage and logistics support.", icon: "/assets/images/volunteer-registration/icon-event-seva.svg" },
-  { title: "Ann Seva", desc: "Meal preparation, packaging, distribution and service discipline.", icon: "/assets/images/volunteer-registration/icon-ann-seva.svg" },
-  { title: "Gau Seva", desc: "Support feeding, care, shelter hygiene and gaushala coordination.", icon: "/assets/images/volunteer-registration/icon-gau-seva.svg" },
-  { title: "Digital Seva", desc: "Content, design, livestream, social, and digital outreach seva.", icon: "/assets/images/volunteer-registration/icon-digital-seva.svg" },
-  { title: "Youth Programs", desc: "Mentorship, youth activities, engagement and values initiatives.", icon: "/assets/images/volunteer-registration/icon-youth-seva.svg" },
-  { title: "Education Support", desc: "Teaching support, study guidance and spiritual learning activities.", icon: "/assets/images/volunteer-registration/icon-education-seva.svg" },
-  { title: "Medical Seva", desc: "Health camp support, patient assistance and medical logistics seva.", icon: "/assets/images/volunteer-registration/icon-medical-seva.svg" },
-  { title: "Cultural Programs", desc: "Cultural events, bhajan gatherings and devotional program support.", icon: "/assets/images/volunteer-registration/icon-youth-seva.svg" },
-  { title: "Admin & Coordination", desc: "Volunteer desk, planning, records and coordination workflows.", icon: "/assets/images/volunteer-registration/icon-admin-seva.svg" },
-  { title: "Media & Photography", desc: "Seva stories, photography, archiving and media communication.", icon: "/assets/images/volunteer-registration/icon-media-seva.svg" },
+  { title: "Event Seva", desc: "Festival management, hospitality, stage and logistics support.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193609/ChatGPT_Image_Apr_26_2026_01_44_39_PM_tm24fo.png" },
+  { title: "Ann Seva", desc: "Meal preparation, packaging, distribution and service discipline.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193608/ChatGPT_Image_Apr_26_2026_01_44_55_PM_jzfpur.png" },
+  { title: "Gau Seva", desc: "Support feeding, care, shelter hygiene and gaushala coordination.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776880621/ChatGPT_Image_Apr_22_2026_11_25_30_PM_i6q6qj.png" },
+  { title: "Digital Seva", desc: "Content, design, livestream, social, and digital outreach seva.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967401/g7_kplr1h.png" },
+  { title: "Youth Programs", desc: "Mentorship, youth activities, engagement and values initiatives.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967403/g3_ugmfqm.png" },
+  { title: "Education Support", desc: "Teaching support, study guidance and spiritual learning activities.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777228826/ChatGPT_Image_Apr_27_2026_12_08_01_AM_w3dmqh.png" },
+  { title: "Medical Seva", desc: "Health camp support, patient assistance and medical logistics seva.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776973581/ChatGPT_Image_Apr_24_2026_01_06_36_AM_j1fxyl.png" },
+  { title: "Cultural Programs", desc: "Cultural events, bhajan gatherings and devotional program support.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_12_PM_ark4ok.png" },
+  { title: "Admin & Coordination", desc: "Volunteer desk, planning, records and coordination workflows.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097561/ChatGPT_Image_Apr_25_2026_11_42_05_AM_bij6a0.png" },
+  { title: "Media & Photography", desc: "Seva stories, photography, archiving and media communication.", icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029119/ChatGPT_Image_Apr_24_2026_04_39_27_PM_e5yys0.png" },
 ] as const;
 
 const FAQS = [
@@ -95,6 +95,9 @@ const FAQS = [
 ] as const;
 
 const getCloudinaryIconUrl = (localIconPath: string) => {
+  if (localIconPath.startsWith("http://") || localIconPath.startsWith("https://")) {
+    return localIconPath;
+  }
   const iconFile = localIconPath.split("/").pop() ?? "";
   return `https://res.cloudinary.com/der8zinu8/image/upload/volunteer-icons/${iconFile}`;
 };
