@@ -34,6 +34,9 @@ import libraryDonationRoutes from "./routes/libraryDonationRoutes";
 import libraryStatsRoutes from "./routes/libraryStatsRoutes";
 import quoteRoutes from "./routes/quoteRoutes";
 import mandirSevaBookingRoutes from "./routes/mandirSevaBookingRoutes";
+import onlineSatsangRoutes from "./routes/onlineSatsangRoutes";
+import membershipRoutes from "./routes/membershipRoutes";
+import uploadRoutes from "./routes/uploadRoutes";
 
 const app = express();
 
@@ -108,6 +111,9 @@ app.use("/api/library-donations", libraryDonationRoutes);
 app.use("/api/library-stats", libraryStatsRoutes);
 app.use("/api", quoteRoutes);
 app.use("/api/mandir-seva", mandirSevaBookingRoutes);
+app.use("/api", onlineSatsangRoutes);
+app.use("/api", membershipRoutes);
+app.use("/api", uploadRoutes);
 
 app.use(errorHandler);
 

@@ -2,7 +2,35 @@ import { apiClient } from "./client";
 import type { Donation, Member, MandirContent } from "../../types";
 
 export const contactApi = {
-  send: (payload: { name: string; email: string; subject?: string; message: string }) =>
+  send: (
+    payload:
+      | {
+          fullName: string;
+          phone: string;
+          email: string;
+          city: string;
+          inquiryType:
+            | "General Inquiry"
+            | "Seva / Volunteer"
+            | "Donation Support"
+            | "Event Collaboration"
+            | "Temple Visit"
+            | "Guidance Request"
+            | "Media / Partnership";
+          preferredContactMethod: "Phone Call" | "WhatsApp" | "Email";
+          urgency: "Normal" | "Important" | "Emergency Seva Support";
+          subject: string;
+          message: string;
+          consent: boolean;
+          createdAt: string;
+        }
+      | {
+          name: string;
+          email: string;
+          subject?: string;
+          message: string;
+        }
+  ) =>
     apiClient.post<{ message: string }>("/api/contact", payload),
 };
 
@@ -61,7 +89,13 @@ export const involvedApi = {
     city?: string;
     age?: number;
     interest?: string;
+    preferredSevaArea?: string;
+    availability?: string;
+    skills?: string;
     message?: string;
+    contributionMode?: string;
+    joinTimeline?: string;
+    helpType?: string;
   }) => apiClient.post<{ success: boolean; message: string }>("/api/involved/join", payload),
   getAll: () => apiClient.get("/api/involved"),
   delete: (id: string) => apiClient.delete(`/api/involved/${id}`),

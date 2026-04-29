@@ -8,6 +8,11 @@ export interface IJoin extends Document {
   age?: number;
   interest?: string;
   helpType?: string;
+  preferredSevaArea?: string;
+  availability?: string;
+  skills?: string;
+  contributionMode?: string;
+  joinTimeline?: string;
   message?: string;
   createdAt: Date;
 }
@@ -20,6 +25,11 @@ const joinSchema = new Schema<IJoin>({
   age: { type: Number },
   interest: { type: String },
   helpType: { type: String },
+  preferredSevaArea: { type: String },
+  availability: { type: String },
+  skills: { type: String },
+  contributionMode: { type: String },
+  joinTimeline: { type: String },
   message: { type: String },
   createdAt: { type: Date, default: Date.now },
 });

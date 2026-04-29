@@ -1,420 +1,164 @@
 import { memo, useMemo, useState } from "react";
-import { useCart } from "../../app/providers/CartProvider";
 import { Link } from "react-router-dom";
+import { useCart } from "../../app/providers/CartProvider";
 import { ROUTES } from "../../app/routes/routes";
-import { HeroSection } from "../../components/ui/HeroSection";
 import { usePageMeta } from "../../hooks/usePageMeta";
-import {
-  SEVA_BODY_TEXT_CLASS,
-  SEVA_CARD_TITLE_CLASS,
-  SEVA_HERO_SUBTITLE_CLASS,
-  SEVA_HIGHLIGHT_TITLE_CLASS,
-  SEVA_HIGHLIGHT_VALUE_CLASS,
-  SEVA_SECTION_HEADING_CLASS,
-  SEVA_SECTION_LABEL_CLASS,
-} from "../seva/sevaTypography";
+
+type StoreCategory = "Books" | "Puja Items" | "Temple Supply" | "Wellness" | "Idols" | "Accessories" | "Prasad" | "Digital Seva";
+type SortType = "featured" | "price-low" | "price-high" | "newest";
+type Availability = "all" | "in" | "low";
 
 interface Product {
   id: string;
   name: string;
+  category: StoreCategory;
   price: number;
-  category: string;
-  description: string;
-  image: string;
   stock: number;
+  image: string;
+  description: string;
   featured?: boolean;
-  tag?: string;
+  featureCategory?: string;
+  order: number;
 }
 
 const PRODUCTS: Product[] = [
-  {
-    id: "13",
-    name: "Rudraksha",
-    price: 299,
-    category: "Spiritual Remedies",
-    description: "Sacred mala for japa, meditation, and daily mantra practice.",
-    image: "/images/maharaj ji/faith.png",
-    stock: 18,
-    featured: true,
-    tag: "Guidance",
-  },
-  {
-    id: "14",
-    name: "Yantra",
-    price: 499,
-    category: "Spiritual Remedies",
-    description: "Devotional yantra item for puja, focus, and blessings.",
-    image: "/images/maharaj ji/store.avif",
-    stock: 12,
-    featured: true,
-    tag: "Temple Supply",
-  },
-  {
-    id: "15",
-    name: "Puja Samagri",
-    price: 199,
-    category: "Spiritual Remedies",
-    description: "Essential puja pack for daily worship and home rituals.",
-    image: "/images/maharaj ji/vastu.jpg",
-    stock: 24,
-    featured: true,
-    tag: "Daily Use",
-  },
-  {
-    id: "1",
-    name: "Bhagwat Gita Deluxe",
-    price: 499,
-    category: "Books",
-    description: "Hardcover edition for daily reading and study.",
-    image: "/images/books/bhagwat geeta.png",
-    stock: 14,
-    featured: true,
-    tag: "Best Seller",
-  },
-  {
-    id: "2",
-    name: "Ramayan Classic",
-    price: 459,
-    category: "Books",
-    description: "Readable spiritual edition with clear typography.",
-    image: "/images/books/ramayan.png",
-    stock: 11,
-  },
-  {
-    id: "3",
-    name: "Mahabharata Set",
-    price: 999,
-    category: "Books",
-    description: "Multi-volume set for scripture enthusiasts.",
-    image: "/images/books/MahabharataSet.png",
-    stock: 8,
-    featured: true,
-    tag: "Premium",
-  },
-  {
-    id: "4",
-    name: "Temple Bell Brass",
-    price: 799,
-    category: "Puja Items",
-    description: "Traditional brass bell with balanced tone.",
-    image: "/images/books/Temple Bell Brass.png",
-    stock: 6,
-  },
-  {
-    id: "5",
-    name: "Shivling Marble",
-    price: 1299,
-    category: "Puja Items",
-    description: "Hand-finished marble Shivling for mandir setup.",
-    image: "/images/books/Shivling Marble.png",
-    stock: 5,
-    tag: "New",
-  },
-  {
-    id: "6",
-    name: "Tulsi Mala",
-    price: 249,
-    category: "Accessories",
-    description: "Pure Tulsi jap mala for mantra practice.",
-    image: "/images/kathapravachan.png",
-    stock: 20,
-  },
-  {
-    id: "7",
-    name: "Krishna Idol",
-    price: 1599,
-    category: "Idols",
-    description: "Decorative Krishna murti for home altar.",
-    image: "/images/books/Krishna Idol.png",
-    stock: 4,
-    featured: true,
-  },
-  {
-    id: "8",
-    name: "Hanuman Idol",
-    price: 1499,
-    category: "Idols",
-    description: "Strong resin finish with devotional detailing.",
-    image: "/images/books/Hanuman Idol.png",
-    stock: 7,
-  },
-  {
-    id: "9",
-    name: "Vedic Chant Audio Pack",
-    price: 299,
-    category: "Media",
-    description: "Devotional audio collection for morning routine.",
-    image: "/images/books/Vedic Chant Audio.png",
-    stock: 16,
-  },
-  {
-    id: "10",
-    name: "Yoga Mat Premium",
-    price: 899,
-    category: "Wellness",
-    description: "Comfort mat for yoga, pranayama, and meditation.",
-    image: "/images/books/Yoga Mat Premium.png",
-    stock: 10,
-  },
-  {
-    id: "11",
-    name: "Sanskrit Dictionary",
-    price: 699,
-    category: "Books",
-    description: "Useful reference for Sanskrit study and chanting.",
-    image: "/images/books/Sanskrit Dictionary.png",
-    stock: 9,
-  },
-  {
-    id: "12",
-    name: "Prasad Pack",
-    price: 349,
-    category: "Prasad",
-    description: "Temple-style prasad assortment for families.",
-    image: "/images/annseva.png",
-    stock: 25,
-  },
+  { id: "1", name: "Rudraksha", category: "Temple Supply", price: 299, stock: 16, image: "/assets/images/e-store/product-rudraksha.jpg", description: "Sacred mala for japa, meditation, and daily mantra practice.", featured: true, featureCategory: "Guidance", order: 1 },
+  { id: "2", name: "Yantra", category: "Temple Supply", price: 499, stock: 11, image: "/assets/images/e-store/product-yantra.jpg", description: "Devotional yantra item for puja, focus, and blessings.", featured: true, featureCategory: "Temple Supply", order: 2 },
+  { id: "3", name: "Puja Samagri", category: "Puja Items", price: 199, stock: 22, image: "/assets/images/e-store/product-puja-samagri.jpg", description: "Essential puja pack for daily worship and home rituals.", featured: true, featureCategory: "Daily Use", order: 3 },
+  { id: "4", name: "Bhagwat Gita Deluxe", category: "Books", price: 499, stock: 14, image: "/assets/images/e-store/product-gita-deluxe.jpg", description: "Hardcover edition for daily reading and study.", order: 4 },
+  { id: "5", name: "Mahabharata Set", category: "Books", price: 999, stock: 9, image: "/assets/images/e-store/product-mahabharata-set.jpg", description: "Multi-volume set for scripture enthusiasts.", order: 5 },
+  { id: "6", name: "Krishna Idol", category: "Idols", price: 1599, stock: 4, image: "/assets/images/e-store/product-krishna-idol.jpg", description: "Decorative Krishna murti for home altar.", order: 6 },
+  { id: "7", name: "Ramayan Classic", category: "Books", price: 459, stock: 13, image: "/assets/images/e-store/product-ramayan-classic.jpg", description: "Readable spiritual edition with clear typography.", order: 7 },
+  { id: "8", name: "Temple Bell Brass", category: "Puja Items", price: 799, stock: 8, image: "/assets/images/e-store/product-temple-bell.jpg", description: "Traditional brass bell with balanced tone.", order: 8 },
+  { id: "9", name: "Shivling Marble", category: "Puja Items", price: 1299, stock: 5, image: "/assets/images/e-store/product-shivling-marble.jpg", description: "Hand-finished marble Shivling for mandir setup.", order: 9 },
+  { id: "10", name: "Tulsi Mala", category: "Accessories", price: 249, stock: 20, image: "/assets/images/e-store/product-tulsi-mala.jpg", description: "Pure Tulsi japa mala for mantra practice.", order: 10 },
+  { id: "11", name: "Hanuman Idol", category: "Idols", price: 1499, stock: 7, image: "/assets/images/e-store/product-hanuman-idol.jpg", description: "Strong resin finish with devotional detailing.", order: 11 },
+  { id: "12", name: "Vedic Chant Audio Pack", category: "Digital Seva", price: 299, stock: 15, image: "/assets/images/e-store/product-vedic-audio.jpg", description: "Download audio collection for morning routine.", order: 12 },
+  { id: "13", name: "Yoga Mat Premium", category: "Wellness", price: 899, stock: 10, image: "/assets/images/e-store/product-yoga-mat.jpg", description: "Comfort mat for yoga, pranayama, and meditation.", order: 13 },
+  { id: "14", name: "Sanskrit Dictionary", category: "Books", price: 699, stock: 12, image: "/assets/images/e-store/product-sanskrit-dictionary.jpg", description: "Useful reference for Sanskrit study and chanting.", order: 14 },
+  { id: "15", name: "Prasad Pack", category: "Prasad", price: 349, stock: 18, image: "/assets/images/e-store/product-prasad-pack.jpg", description: "Temple-style prasad assortment for families.", order: 15 },
 ];
 
-const STORE_FEATURES = [
-  "Fast add-to-cart checkout flow",
-  "Live stock visibility per product",
-  "Category and price based filtering",
-  "Cart quantity management",
-  "Featured products highlights",
-  "Discount-ready pricing model",
-];
-
-const CATEGORIES = ["All", ...Array.from(new Set(PRODUCTS.map((p) => p.category)))];
-const SORT_OPTIONS = [
-  { value: "featured", label: "Featured First" },
-  { value: "price-asc", label: "Price Low to High" },
-  { value: "price-desc", label: "Price High to Low" },
-  { value: "name-asc", label: "Name A to Z" },
-];
+const CATEGORIES: Array<"All" | StoreCategory> = ["All", "Books", "Puja Items", "Temple Supply", "Wellness", "Idols", "Accessories", "Prasad", "Digital Seva"];
 
 export default memo(function StorePage() {
-  usePageMeta("E-Store", "Bhagwat Heritage digital store for books, puja essentials, devotional goods, and wellness items.");
+  usePageMeta("E-Store", "Digital seva, devotional essentials, and sacred resources delivered with devotion.");
 
-  const { addItem, items, removeItem, updateQty, clearCart, total, count } = useCart();
-  const [cartVisible, setCartVisible] = useState(false);
+  const { items, addItem, removeItem, updateQty, count, total } = useCart();
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
-  const [sortBy, setSortBy] = useState("featured");
-  const [maxPrice, setMaxPrice] = useState(2000);
-  const sectionClass = "max-w-7xl mx-auto px-4 py-8";
-  const panelClass = "rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8";
-  const cardClass = "rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm";
-  const filterInputClass =
-    "w-full rounded-2xl border border-white/10 bg-white px-4 py-3 text-sm text-[#17314a] outline-none transition placeholder:text-[#6b8091] focus:border-[var(--campaign-accent)] focus:ring-2 focus:ring-[#efc06a]";
-  const scrollToProducts = () => document.getElementById("store-products")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const [category, setCategory] = useState<"All" | StoreCategory>("All");
+  const [sortBy, setSortBy] = useState<SortType>("featured");
+  const [availability, setAvailability] = useState<Availability>("all");
+  const [priceLimit, setPriceLimit] = useState(2000);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [checkoutNote, setCheckoutNote] = useState<string | null>(null);
 
-  const filteredProducts = useMemo(() => {
+  const minPrice = 100;
+  const maxPrice = 2000;
+
+  const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    const base = PRODUCTS.filter((p) => {
-      const matchText =
-        q.length === 0 ||
-        p.name.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q);
-      const matchCategory = category === "All" || p.category === category;
-      const matchPrice = p.price <= maxPrice;
-      return matchText && matchCategory && matchPrice;
+    const base = PRODUCTS.filter((product) => {
+      const queryMatch = !q || product.name.toLowerCase().includes(q) || product.description.toLowerCase().includes(q) || product.category.toLowerCase().includes(q);
+      const categoryMatch = category === "All" || product.category === category;
+      const priceMatch = product.price <= priceLimit;
+      const availabilityMatch = availability === "all" || (availability === "in" ? product.stock > 5 : product.stock <= 5);
+      return queryMatch && categoryMatch && priceMatch && availabilityMatch;
     });
 
     return [...base].sort((a, b) => {
-      if (sortBy === "price-asc") return a.price - b.price;
-      if (sortBy === "price-desc") return b.price - a.price;
-      if (sortBy === "name-asc") return a.name.localeCompare(b.name);
-      if (sortBy === "featured") return Number(Boolean(b.featured)) - Number(Boolean(a.featured));
-      return 0;
+      if (sortBy === "price-low") return a.price - b.price;
+      if (sortBy === "price-high") return b.price - a.price;
+      if (sortBy === "newest") return b.order - a.order;
+      return Number(Boolean(b.featured)) - Number(Boolean(a.featured));
     });
-  }, [search, category, sortBy, maxPrice]);
+  }, [availability, category, priceLimit, search, sortBy]);
 
-  const featuredProducts = useMemo(() => PRODUCTS.filter((p) => p.featured).slice(0, 3), []);
-  const cartSubtotal = total;
-  const shipping = cartSubtotal > 0 ? 79 : 0;
-  const grandTotal = cartSubtotal + shipping;
+  const featured = PRODUCTS.filter((item) => item.featured).slice(0, 3);
+
+  const clearFilters = () => {
+    setSearch("");
+    setCategory("All");
+    setSortBy("featured");
+    setAvailability("all");
+    setPriceLimit(maxPrice);
+  };
+
+  const openCheckoutNotice = () => {
+    setCheckoutNote("Checkout integration coming soon. Please contact the trust office for order assistance.");
+  };
 
   return (
-    <div className="min-h-screen bg-[var(--campaign-deep)] pb-16">
-      <HeroSection
-        title="E-Store"
-        subtitle="Digital seva, delivered with devotion"
-        subtitleClassName={SEVA_HERO_SUBTITLE_CLASS}
-        contentClassName="flex h-full flex-col justify-end pb-[22px] md:pb-[30px] [&>h1]:mb-[10px] [&>p]:mb-[10px]"
-        backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1772920428/store_snvng8.avif"
-        boxed
-        heightClass="h-[360px] md:h-[520px]"
-        overlayClass="bg-black/55"
-      >
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <button
-            type="button"
-            onClick={() => setCartVisible(true)}
-            className="inline-flex items-center rounded-lg bg-[var(--campaign-accent)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]"
-          >
-            Open Cart ({count})
-          </button>
-          <button
-            type="button"
-            onClick={scrollToProducts}
-            className="inline-flex items-center rounded-lg bg-[var(--campaign-bg)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--campaign-mid-hover)]"
-          >
-            Browse Products
-          </button>
-          <Link
-            to={ROUTES.digital.index}
-            className="inline-flex items-center rounded-lg border border-white/35 bg-white/8 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/14"
-          >
-            Digital Services
-          </Link>
-        </div>
-      </HeroSection>
-
-      <section className="relative z-20 mt-[10px] pb-6">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              { title: "Store Access", value: "Books and devotional goods", note: "A focused digital storefront for satsang, puja, and home use." },
-              { title: "Shopping Flow", value: "Search, filter, and add", note: "A clean browsing experience for products, pricing, and cart actions." },
-              { title: "Featured Picks", value: "Highlighted daily essentials", note: "Quick access to popular spiritual items and trusted selections." },
-              { title: "User Experience", value: "Fast and functional", note: "Now visually aligned with the Gau Seva banner and typography style." },
-            ].map((item) => (
-              <div key={item.title} className="rounded-2xl border border-white/10 bg-[var(--campaign-bg)] p-4 shadow-[0_12px_24px_rgba(0,0,0,0.20)]">
-                <p className={SEVA_HIGHLIGHT_TITLE_CLASS}>* {item.title}</p>
-                <p className={SEVA_HIGHLIGHT_VALUE_CLASS}>{item.value}</p>
-                <p className={`mt-1 ${SEVA_BODY_TEXT_CLASS}`}>{item.note}</p>
-              </div>
-            ))}
+    <div className="bg-[#fdf9f1] pb-14 text-[#2a3e54]">
+      <section className="mx-auto w-full max-w-[1120px] px-4 pt-8 md:pt-10">
+        <div className="relative overflow-hidden rounded-3xl border border-[#ebdab7] shadow-[0_20px_48px_rgba(30,36,52,0.14)]">
+          <img src="/assets/images/e-store/estore-hero.jpg" alt="Devotional e-store setup with puja items and sacred books" className="h-[340px] w-full object-cover md:h-[440px]" loading="eager" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#21160c]/75 via-[#7b4112]/52 to-[#13445b]/60" />
+          <div className="absolute inset-0 p-6 text-white md:p-10">
+            <h1 className="text-4xl font-black leading-tight md:text-5xl">E-Store</h1>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-[#fff8eb] md:text-base">Digital seva, devotional essentials, and sacred resources delivered with devotion.</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="#store-catalog" className="rounded-full bg-[#d68526] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#b86d17]">Browse Products</a>
+              <button type="button" onClick={() => setCartOpen(true)} className="rounded-full border border-white/70 bg-white/10 px-5 py-2.5 text-sm font-bold text-white hover:bg-white/20">Open Cart</button>
+              <Link to={ROUTES.digital.index} className="rounded-full border border-[#f8dcae] bg-[#f8dcae] px-5 py-2.5 text-sm font-bold text-[#4c2f13] hover:bg-[#f5cf92]">Digital Services</Link>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-[#fbe8c9]">
+              <span className="rounded-full border border-white/35 bg-white/10 px-3 py-1">Authentic devotional selections</span>
+              <span className="rounded-full border border-white/35 bg-white/10 px-3 py-1">Simple cart experience</span>
+              <span className="rounded-full border border-white/35 bg-white/10 px-3 py-1">Seva-supported purchases</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className={sectionClass}>
-        <div className={panelClass}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Store Features</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Simple tools for clean browsing and checkout support</h2>
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {STORE_FEATURES.map((feature) => (
-            <div key={feature} className="rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-4 text-sm font-medium text-[var(--campaign-text)] shadow-sm md:text-[15px]">
-              {feature}
-            </div>
+      <section className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["Store Access", "Books, puja items, digital seva, and devotional essentials in one place.", "/assets/icons/e-store/icon-store-access.svg"],
+            ["Smart Shopping Flow", "Search, filter, sort, add to cart, and continue toward checkout smoothly.", "/assets/icons/e-store/icon-shopping-flow.svg"],
+            ["Featured Picks", "Highlighted daily essentials, scripture resources, and trusted selections.", "/assets/icons/e-store/icon-featured-picks.svg"],
+            ["User Experience", "Clean, fast, mobile-friendly browsing aligned with the website’s devotional design.", "/assets/icons/e-store/icon-user-experience.svg"],
+          ].map(([title, text, icon]) => (
+            <article key={title} className="rounded-[20px] border border-[#ebd9b5] bg-white p-5 shadow-[0_10px_24px_rgba(23,40,66,0.08)]">
+              <img src={icon} alt={`${title} icon`} className="h-10 w-10" loading="lazy" />
+              <h2 className="mt-3 text-lg font-black text-[#1f3550]">{title}</h2>
+              <p className="mt-2 text-sm leading-6 text-[#5b6874]">{text}</p>
+            </article>
           ))}
         </div>
-        </div>
       </section>
 
-      <section className={sectionClass}>
-        <div className={panelClass}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Featured Products</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Popular devotional items and trusted store selections</h2>
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {featuredProducts.map((product) => (
-            <div key={product.id} className="overflow-hidden rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] shadow-sm">
-              <img src={product.image} alt={product.name} className="w-full h-40 object-cover" />
-              <div className="p-4 md:p-5">
-                <p className="mb-2 inline-block rounded-full bg-[var(--campaign-accent)]/15 px-2 py-1 text-[11px] font-bold text-[var(--campaign-accent)]">
-                  {product.tag || "Featured"}
-                </p>
-                <h3 className={`${SEVA_CARD_TITLE_CLASS} text-base md:text-lg`}>{product.name}</h3>
-                <p className={`mt-1 text-xs md:text-sm ${SEVA_BODY_TEXT_CLASS}`}>{product.description}</p>
-                <div className="mt-3 flex items-center justify-between">
-                  <span className="text-base font-bold text-[var(--campaign-accent)] md:text-lg">Rs {product.price}</span>
-                  <button
-                    type="button"
-                    onClick={() => addItem({ id: product.id, name: product.name, price: product.price, quantity: 1 })}
-                    className="rounded-lg bg-[var(--campaign-accent)] px-3 py-1.5 text-xs text-white transition-colors hover:bg-[var(--campaign-accent-hover)] md:text-sm"
-                  >
-                    Add
-                  </button>
-                </div>
-              </div>
-            </div>
+      <section className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c07017]">Store Features</p>
+        <h2 className="mt-2 text-3xl font-black text-[#1f3550]">Simple tools for clean browsing and checkout support.</h2>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            "Fast add-to-cart flow",
+            "Live stock visibility per product",
+            "Category and price-based filtering",
+            "Cart quantity management",
+            "Featured product highlights",
+            "Discount-ready pricing model",
+          ].map((feature) => (
+            <div key={feature} className="rounded-2xl border border-[#efdfc3] bg-[#fffaf2] p-4 text-sm font-semibold text-[#6b4a22]">{feature}</div>
           ))}
-          </div>
         </div>
       </section>
 
-      <section id="store-products" className={sectionClass}>
-        <div className={panelClass}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Store Catalog</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Browse products by category, price, and search</h2>
-          <div className="mt-8 rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-            <input
-              type="text"
-              placeholder="Search products"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className={`md:col-span-2 ${filterInputClass}`}
-            />
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className={filterInputClass}
-            >
-              {CATEGORIES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className={filterInputClass}
-            >
-              {SORT_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="mt-4">
-            <div className="flex items-center justify-between text-sm text-[var(--campaign-text)]">
-              <span>Max Price: Rs {maxPrice}</span>
-              <span>{filteredProducts.length} products</span>
-            </div>
-            <input
-              type="range"
-              min={100}
-              max={2000}
-              step={50}
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="mt-2 w-full accent-[var(--campaign-accent)]"
-            />
-          </div>
-        </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filteredProducts.map((product) => (
-            <article key={product.id} className="overflow-hidden rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] shadow-sm transition-shadow hover:shadow-md">
-              <img src={product.image} alt={product.name} className="w-full h-36 object-cover md:h-40" />
-              <div className="p-4">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="rounded bg-[var(--campaign-accent)]/15 px-2 py-0.5 text-xs text-[var(--campaign-accent)]">{product.category}</span>
-                  {product.stock <= 5 ? (
-                    <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">Low Stock</span>
-                  ) : null}
-                </div>
-                <h3 className={`mt-2 text-base ${SEVA_CARD_TITLE_CLASS}`}>{product.name}</h3>
-                <p className={`mt-1 text-xs md:text-sm ${SEVA_BODY_TEXT_CLASS}`}>{product.description}</p>
-                <div className="mt-3 flex items-center justify-between">
-                  <span className="text-base font-bold text-[var(--campaign-accent)] md:text-lg">Rs {product.price}</span>
-                  <button
-                    type="button"
-                    onClick={() => addItem({ id: product.id, name: product.name, price: product.price, quantity: 1 })}
-                    className="rounded-lg bg-[var(--campaign-accent)] px-3 py-1.5 text-xs text-white transition-colors hover:bg-[var(--campaign-accent-hover)] md:text-sm"
-                  >
-                    Add to Cart
-                  </button>
+      <section className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c07017]">Featured Products</p>
+        <h2 className="mt-2 text-3xl font-black text-[#1f3550]">Popular devotional items and trusted store selections.</h2>
+        <div className="mt-5 grid gap-5 md:grid-cols-3">
+          {featured.map((product) => (
+            <article key={product.id} className="flex h-full flex-col overflow-hidden rounded-[22px] border border-[#ead8b5] bg-white shadow-[0_10px_24px_rgba(23,40,66,0.08)]">
+              <img src={product.image} alt={product.name} className="h-44 w-full object-cover" loading="lazy" />
+              <div className="flex flex-1 flex-col p-5">
+                <span className="w-fit rounded-full bg-[#fbe9cc] px-3 py-1 text-xs font-semibold text-[#a86216]">{product.featureCategory}</span>
+                <h3 className="mt-3 text-xl font-black text-[#1f3550]">{product.name}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#5b6874]">{product.description}</p>
+                <div className="mt-auto flex items-center justify-between pt-4">
+                  <span className="text-lg font-black text-[#bf6b12]">Rs {product.price}</span>
+                  <button type="button" onClick={() => addItem({ id: product.id, name: product.name, price: product.price, quantity: 1, image: product.image })} className="rounded-full bg-[#cb7413] px-4 py-2 text-sm font-bold text-white hover:bg-[#a95f0f]">Add</button>
                 </div>
               </div>
             </article>
@@ -422,101 +166,181 @@ export default memo(function StorePage() {
         </div>
       </section>
 
-      {cartVisible && (
+      <section id="store-catalog" className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c07017]">Store Catalog</p>
+        <h2 className="mt-2 text-3xl font-black text-[#1f3550]">Browse products by category, price, availability, and search.</h2>
+
+        <div className="mt-5 rounded-3xl border border-[#ead8b5] bg-white p-5 shadow-sm">
+          <div className="grid gap-3 lg:grid-cols-5">
+            <input aria-label="Search products" placeholder="Search products" value={search} onChange={(e) => setSearch(e.target.value)} className="rounded-xl border border-[#e7d7b7] px-3 py-2.5 text-sm outline-none focus:border-[#c67718] lg:col-span-2" />
+            <select aria-label="Category filter" value={category} onChange={(e) => setCategory(e.target.value as "All" | StoreCategory)} className="rounded-xl border border-[#e7d7b7] px-3 py-2.5 text-sm outline-none focus:border-[#c67718]">{CATEGORIES.map((item) => <option key={item}>{item}</option>)}</select>
+            <select aria-label="Sort products" value={sortBy} onChange={(e) => setSortBy(e.target.value as SortType)} className="rounded-xl border border-[#e7d7b7] px-3 py-2.5 text-sm outline-none focus:border-[#c67718]"><option value="featured">Featured first</option><option value="price-low">Price low to high</option><option value="price-high">Price high to low</option><option value="newest">Newest</option></select>
+            <select aria-label="Availability filter" value={availability} onChange={(e) => setAvailability(e.target.value as Availability)} className="rounded-xl border border-[#e7d7b7] px-3 py-2.5 text-sm outline-none focus:border-[#c67718]"><option value="all">All</option><option value="in">In stock</option><option value="low">Low stock</option></select>
+          </div>
+          <div className="mt-4">
+            <div className="flex items-center justify-between text-xs font-semibold text-[#5c6b78]"><span>Price up to Rs {priceLimit}</span><span>{filtered.length} products</span></div>
+            <input aria-label="Price range" type="range" min={minPrice} max={maxPrice} step={50} value={priceLimit} onChange={(e) => setPriceLimit(Number(e.target.value))} className="mt-2 w-full accent-[#cb7413]" />
+          </div>
+          <button type="button" onClick={clearFilters} className="mt-4 rounded-full border border-[#d7c39b] px-4 py-2 text-xs font-semibold text-[#6a4a22] hover:bg-[#fff7ea]">Clear Filters</button>
+        </div>
+
+        <div className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          {filtered.map((product) => {
+            const isLow = product.stock <= 5;
+            return (
+              <article key={product.id} className="flex h-full flex-col overflow-hidden rounded-[22px] border border-[#ead8b5] bg-white shadow-[0_10px_24px_rgba(23,40,66,0.08)]">
+                <img src={product.image} alt={product.name} className="h-44 w-full object-cover" loading="lazy" />
+                <div className="flex flex-1 flex-col p-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-[#fbe9cc] px-2.5 py-1 text-[11px] font-semibold text-[#a86216]">{product.category}</span>
+                    <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${isLow ? "bg-[#fff0ee] text-[#b42318]" : "bg-[#edf9f1] text-[#1d7f44]"}`}>{isLow ? "Low Stock" : "In Stock"}</span>
+                  </div>
+                  <h3 className="mt-3 text-lg font-black text-[#1f3550]">{product.name}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#5b6874]">{product.description}</p>
+                  <div className="mt-auto flex items-center justify-between pt-4">
+                    <span className="text-lg font-black text-[#bf6b12]">Rs {product.price}</span>
+                    <div className="flex gap-2">
+                      <button type="button" onClick={() => addItem({ id: product.id, name: product.name, price: product.price, quantity: 1, image: product.image })} className="rounded-full bg-[#cb7413] px-3.5 py-2 text-xs font-bold text-white hover:bg-[#a95f0f]">Add to Cart</button>
+                      <button type="button" className="rounded-full border border-[#d9c7a5] px-3.5 py-2 text-xs font-semibold text-[#5c4a35]">View Details</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c07017]">Digital Seva Services</p>
+        <h2 className="mt-2 text-3xl font-black text-[#1f3550]">Online devotional services and digital support for devotees.</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["Online Puja Booking", "Request puja support and receive confirmation from the seva team.", "/assets/icons/e-store/icon-online-puja.svg"],
+            ["Bhagwat Katha Booking Inquiry", "Submit an inquiry for spiritual events, katha, or satsang guidance.", "/assets/icons/e-store/icon-katha-booking.svg"],
+            ["Digital Donation Receipt", "Receive proper confirmation and record for your seva contribution.", "/assets/icons/e-store/icon-digital-receipt.svg"],
+            ["Spiritual Resource Access", "Access selected digital learning, audio, and study materials.", "/assets/icons/e-store/icon-resource-access.svg"],
+          ].map(([title, text, icon]) => (
+            <article key={title} className="rounded-[20px] border border-[#ead8b5] bg-white p-5 shadow-sm">
+              <img src={icon} alt={`${title} icon`} className="h-10 w-10" loading="lazy" />
+              <h3 className="mt-3 text-lg font-black text-[#1f3550]">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#5b6874]">{text}</p>
+            </article>
+          ))}
+        </div>
+        <Link to={ROUTES.digital.index} className="mt-5 inline-flex rounded-full bg-[#cb7413] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#a95f0f]">Explore Digital Services</Link>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c07017]">Trust, Delivery & Support</p>
+        <h2 className="mt-2 text-3xl font-black text-[#1f3550]">Trust, Delivery & Support</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["Authentic Selection", "Products are selected with devotional purpose and spiritual relevance.", "/assets/icons/e-store/icon-authentic-selection.svg"],
+            ["Secure Order Flow", "Cart and checkout structure should be prepared for future secure payment integration.", "/assets/icons/e-store/icon-secure-order.svg"],
+            ["Seva-Supported Purchase", "Your purchase helps support spiritual, cultural, and service initiatives.", "/assets/icons/e-store/icon-seva-purchase.svg"],
+            ["Support Assistance", "For order help, devotees can contact the Bhagwat Heritage support team.", "/assets/icons/e-store/icon-support-help.svg"],
+          ].map(([title, text, icon]) => (
+            <article key={title} className="rounded-[20px] border border-[#ead8b5] bg-white p-5 shadow-sm">
+              <img src={icon} alt={`${title} icon`} className="h-10 w-10" loading="lazy" />
+              <h3 className="mt-3 text-lg font-black text-[#1f3550]">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#5b6874]">{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">
+        <h2 className="text-3xl font-black text-[#1f3550]">Store FAQs</h2>
+        <div className="mt-4 space-y-3">
+          {[
+            ["Are all products available for delivery?", "Availability may depend on stock and location. The team can confirm before dispatch."],
+            ["Can I order puja items and books together?", "Yes, products can be added together in the same cart."],
+            ["Is online payment active?", "If payment integration is not enabled, show contact-based order support."],
+            ["Can digital seva services be booked from this page?", "Yes, digital seva inquiry cards can direct users to the appropriate service form."],
+            ["Who should I contact for order support?", "Contact the Bhagwat Heritage Service Foundation Trust through the contact details provided on the website."],
+          ].map(([q, a]) => (
+            <details key={q} className="rounded-2xl border border-[#ead8b5] bg-white p-4">
+              <summary className="cursor-pointer text-base font-black text-[#1f3550]">{q}</summary>
+              <p className="mt-2 text-sm leading-6 text-[#5b6874]">{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">
+        <div className="relative overflow-hidden rounded-3xl border border-[#ead8b5]">
+          <img src="/assets/images/e-store/estore-cta-banner.jpg" alt="Devotional e-store call-to-action background with scripture and diya glow" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+          <div className="relative bg-[#0f3550]/70 p-8 text-white md:p-10">
+            <h2 className="text-3xl font-black">Support Dharma Seva through every purchase</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-7">Choose devotional resources, puja essentials, and digital seva services with trust, simplicity, and spiritual purpose.</p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a href="#store-catalog" className="rounded-full bg-[#d78728] px-5 py-2.5 text-sm font-bold text-white">Browse Products</a>
+              <Link to={ROUTES.involved.contactUs} className="rounded-full border border-white/70 bg-white/15 px-5 py-2.5 text-sm font-bold text-white">Contact Support</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <button
+        type="button"
+        onClick={() => setCartOpen(true)}
+        className="fixed bottom-6 right-6 z-40 rounded-full bg-[#cb7413] px-5 py-3 text-sm font-bold text-white shadow-[0_10px_24px_rgba(30,30,30,0.28)] hover:bg-[#a95f0f]"
+        aria-label="Open cart"
+      >
+        Cart ({count})
+      </button>
+
+      {cartOpen ? (
         <div className="fixed inset-0 z-50">
-        <div className="absolute inset-0 bg-black/35" onClick={() => setCartVisible(false)} />
-        <aside className="absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto border-l border-white/10 bg-[var(--campaign-deep)] p-5 shadow-2xl">
-          <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold text-white md:text-xl">Your Cart ({count})</h3>
-              <button
-                type="button"
-                onClick={() => setCartVisible(false)}
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-white"
-              >
-                Close
-              </button>
+          <div className="absolute inset-0 bg-black/35" onClick={() => setCartOpen(false)} />
+          <aside className="absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto border-l border-[#e7d7b7] bg-[#fffaf2] p-5 shadow-2xl">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-black text-[#1f3550]">Your Cart ({count})</h3>
+              <button type="button" onClick={() => setCartOpen(false)} className="rounded-lg border border-[#dcc7a4] px-3 py-1.5 text-sm font-semibold text-[#5c4a35]">Close</button>
             </div>
 
             {items.length === 0 ? (
-              <p className="mt-8 text-[var(--campaign-text)]">Your cart is empty.</p>
+              <p className="mt-8 text-sm leading-6 text-[#5b6874]">Your cart is empty. Browse devotional products and add items for seva-supported purchase.</p>
             ) : (
               <>
                 <div className="mt-4 space-y-3">
                   {items.map((item) => (
-                    <div key={item.id} className="rounded-xl border border-white/10 bg-[var(--campaign-surface)] p-3">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <p className="font-semibold text-white">{item.name}</p>
-                          <p className="text-sm text-[var(--campaign-text)]">Rs {item.price} each</p>
+                    <article key={item.id} className="rounded-2xl border border-[#ead8b5] bg-white p-3">
+                      <div className="flex gap-3">
+                        <img src={item.image || "/assets/images/e-store/product-rudraksha.jpg"} alt={item.name} className="h-14 w-14 rounded-lg object-cover" />
+                        <div className="flex-1">
+                          <p className="font-bold text-[#1f3550]">{item.name}</p>
+                          <p className="text-sm text-[#5b6874]">Rs {item.price}</p>
+                          <div className="mt-2 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <button type="button" onClick={() => updateQty(item.id, Math.max(1, item.quantity - 1))} className="h-7 w-7 rounded-md border border-[#dcc7a4]">-</button>
+                              <span className="w-4 text-center text-sm font-semibold">{item.quantity}</span>
+                              <button type="button" onClick={() => updateQty(item.id, item.quantity + 1)} className="h-7 w-7 rounded-md border border-[#dcc7a4]">+</button>
+                            </div>
+                            <button type="button" onClick={() => removeItem(item.id)} className="text-xs font-semibold text-[#b42318]">Remove</button>
+                          </div>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => removeItem(item.id)}
-                          className="text-sm text-[var(--campaign-accent)]"
-                        >
-                          Remove
-                        </button>
                       </div>
-                      <div className="mt-3 flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <button
-                            type="button"
-                            onClick={() => updateQty(item.id, Math.max(1, item.quantity - 1))}
-                            className="h-8 w-8 rounded-md border border-white/10 text-white"
-                          >
-                            -
-                          </button>
-                          <span className="w-6 text-center font-semibold text-white">{item.quantity}</span>
-                          <button
-                            type="button"
-                            onClick={() => updateQty(item.id, item.quantity + 1)}
-                            className="h-8 w-8 rounded-md border border-white/10 text-white"
-                          >
-                            +
-                          </button>
-                        </div>
-                        <p className="font-bold text-white">Rs {item.price * item.quantity}</p>
-                      </div>
-                    </div>
+                    </article>
                   ))}
                 </div>
 
-                <div className="mt-6 space-y-2 rounded-xl border border-white/10 bg-[var(--campaign-surface)] p-4 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[var(--campaign-text)]">Subtotal</span>
-                    <span className="font-semibold text-white">Rs {cartSubtotal}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[var(--campaign-text)]">Shipping</span>
-                    <span className="font-semibold text-white">Rs {shipping}</span>
-                  </div>
-                  <div className="flex items-center justify-between border-t border-white/10 pt-2">
-                    <span className="font-bold text-white">Total</span>
-                    <span className="font-bold text-white">Rs {grandTotal}</span>
-                  </div>
+                <div className="mt-5 rounded-2xl border border-[#ead8b5] bg-white p-4">
+                  <div className="flex items-center justify-between text-sm"><span className="text-[#5b6874]">Subtotal</span><span className="font-bold text-[#1f3550]">Rs {total}</span></div>
                 </div>
 
+                {checkoutNote ? <p className="mt-3 rounded-xl border border-[#f4d7af] bg-[#fff2dd] p-3 text-xs font-semibold text-[#8a5419]">{checkoutNote}</p> : null}
+
                 <div className="mt-4 grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={clearCart}
-                    className="rounded-xl border border-white/10 py-2.5 font-semibold text-white"
-                  >
-                    Clear Cart
-                  </button>
-                  <button
-                    type="button"
-                    className="rounded-xl bg-[var(--campaign-accent)] py-2.5 font-semibold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]"
-                  >
-                    Checkout
-                  </button>
+                  <button type="button" onClick={() => setCartOpen(false)} className="rounded-full border border-[#dcc7a4] py-2.5 text-sm font-semibold text-[#5c4a35]">Continue Shopping</button>
+                  <button type="button" onClick={openCheckoutNotice} className="rounded-full bg-[#cb7413] py-2.5 text-sm font-bold text-white hover:bg-[#a95f0f]">Proceed to Checkout</button>
                 </div>
               </>
             )}
           </aside>
         </div>
-      )}
+      ) : null}
     </div>
   );
 });
-

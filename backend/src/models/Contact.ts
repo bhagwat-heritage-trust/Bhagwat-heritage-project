@@ -1,19 +1,31 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IContact extends Document {
-  name: string;
+  fullName: string;
+  phone: string;
   email: string;
-  subject?: string;
+  city: string;
+  inquiryType: string;
+  preferredContactMethod: "Phone Call" | "WhatsApp" | "Email";
+  urgency: "Normal" | "Important" | "Emergency Seva Support";
+  subject: string;
   message: string;
-  date: Date;
+  consent: boolean;
+  createdAt: Date;
 }
 
 const contactSchema = new Schema<IContact>({
-  name: { type: String, required: true },
+  fullName: { type: String, required: true, trim: true },
+  phone: { type: String, required: true, trim: true },
   email: { type: String, required: true },
-  subject: { type: String },
+  city: { type: String, required: true, trim: true },
+  inquiryType: { type: String, required: true, trim: true },
+  preferredContactMethod: { type: String, required: true, enum: ["Phone Call", "WhatsApp", "Email"] },
+  urgency: { type: String, required: true, enum: ["Normal", "Important", "Emergency Seva Support"] },
+  subject: { type: String, required: true, trim: true },
   message: { type: String, required: true },
-  date: { type: Date, default: Date.now },
+  consent: { type: Boolean, required: true },
+  createdAt: { type: Date, default: Date.now },
 });
 
 export default mongoose.model<IContact>("Contact", contactSchema);

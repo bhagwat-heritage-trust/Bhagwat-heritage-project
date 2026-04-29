@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createVolunteer,
+  registerVolunteerApplication,
   exportVolunteersCsv,
   getAllVolunteers,
   getVolunteerAnalytics,
@@ -15,6 +16,7 @@ const router = Router();
 
 router.post("/create", createVolunteer);
 router.post("/join", createVolunteer);
+router.post("/register", registerVolunteerApplication);
 router.get("/analytics", protect, requireRole("admin"), getVolunteerAnalytics);
 router.get("/export", protect, requireRole("admin"), exportVolunteersCsv);
 router.get("/all", getAllVolunteers);

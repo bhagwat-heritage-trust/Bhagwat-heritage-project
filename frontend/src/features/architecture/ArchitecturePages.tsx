@@ -8,6 +8,8 @@ import { usePageMeta } from "../../hooks/usePageMeta";
 import { ROUTES } from "../../app/routes/routes";
 import { quotesApi } from "../../services/api/quotes";
 import { eventInvitationsApi } from "../../services/api/eventInvitations";
+import { onlineSatsangApi } from "../../services/api/onlineSatsang";
+import { membershipApi } from "../../services/api/membership";
 import { BhagwatKathaMahotsavPremiumPage } from "../events/BhagwatKathaMahotsavPremiumPage";
 import FestivalsCelebrationsPremiumPage from "../events/FestivalsCelebrationsPremiumPage";
 import { MISSION_BODY_TEXT_CLASS, MISSION_SECTION_HEADING_CLASS, MISSION_SECTION_LABEL_CLASS } from "../mission/missionTypography";
@@ -9595,311 +9597,365 @@ export const MediaSocialFeedPage = memo(function MediaSocialFeedPage() {
 
 
 export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
-  const [activeMode, setActiveMode] = useState<"All" | "Live Audio" | "Live Video" | "Booking" | "Platforms">("All");
-
-  const satsangModes = [
-    {
-      category: "Live Audio" as const,
-      title: "Listen to Satsang in Audio Mode",
-      desc: "Devotees can stay connected through audio-first satsang access for prayerful listening during travel, work breaks, or home routine.",
-      support: "Useful for low-bandwidth listening, recurring shravan, and daily spiritual discipline.",
-    },
-    {
-      category: "Live Video" as const,
-      title: "Watch Satsang in Video Mode",
-      desc: "Video satsang helps devotees experience discourse, darshan, stage atmosphere, and visual participation from any location.",
-      support: "Best for live pravachan, festival broadcast, and family group viewing.",
-    },
-    {
-      category: "Booking" as const,
-      title: "Book or Request Online Satsang",
-      desc: "This page now supports the idea of booking satsang access, requesting a digital session, or joining scheduled virtual programs.",
-      support: "Useful for special satsang events, private digital requests, and group coordination.",
-    },
-    {
-      category: "Platforms" as const,
-      title: "Join Through Multiple Platforms",
-      desc: "A proper digital satsang page should show where devotees can join, follow, replay, and stay connected through social and streaming channels.",
-      support: "Supports reach across YouTube, Facebook, Instagram, WhatsApp, and future streaming channels.",
-    },
-  ];
-
-  const visibleModes = activeMode === "All" ? satsangModes : satsangModes.filter((item) => item.category === activeMode);
-
-  const platformCards = [
-    {
-      name: "YouTube Satsang",
-      type: "Video Streaming",
-      desc: "Full pravachan, replay archive, long-form satsang, and live-stream events.",
-      accent: "from-[#ff0000] to-[#b31217]",
-      satsangHref: "https://youtube.com/@bhagwatheritage",
-      kathaHref: "https://youtube.com/@bhagwatheritage",
-      eventsHref: "https://youtube.com/@bhagwatheritage",
-    },
-    {
-      name: "Facebook Satsang Updates",
-      type: "Community Broadcast",
-      desc: "Announcements, event live notices, highlights, and digital satsang updates.",
-      accent: "from-[#1877f2] to-[#0a4cb5]",
-      satsangHref: "https://www.facebook.com/share/1AtpQtn1SL/",
-      kathaHref: "https://www.facebook.com/share/1AtpQtn1SL/",
-      eventsHref: "https://www.facebook.com/share/1AtpQtn1SL/",
-    },
-    {
-      name: "Instagram Devotional Feed",
-      type: "Short Video and Reels",
-      desc: "Short clips, moments from discourse, devotional visuals, and story-based satsang updates.",
-      accent: "from-[#f58529] via-[#dd2a7b] to-[#8134af]",
-      satsangHref: "https://www.instagram.com/bhagwat.heritage",
-      kathaHref: "https://www.instagram.com/bhagwat.heritage",
-      eventsHref: "https://www.instagram.com/bhagwat.heritage",
-    },
-    {
-      name: "WhatsApp Satsang Groups",
-      type: "Fast Communication",
-      desc: "Quick join links, reminders, seva notices, and same-day satsang coordination.",
-      accent: "from-[#25d366] to-[#128c7e]",
-      satsangHref: "https://wa.me/918668897445",
-      kathaHref: "https://wa.me/918668897445",
-      eventsHref: "https://wa.me/918668897445",
-    },
-    {
-      name: "Website Live Join Page",
-      type: "Direct Access",
-      desc: "A future-ready trust-controlled route for joining and tracking official satsang sessions.",
-      accent: "from-[#0f5a98] to-[#0d8f91]",
-      satsangHref: ROUTES.media.videos,
-      kathaHref: ROUTES.eventsKatha.bhagwatKatha,
-      eventsHref: ROUTES.eventsKatha.index,
-    },
-    {
-      name: "Multi-Platform Replay Access",
-      type: "Archive Layer",
-      desc: "Replay satsang sessions across linked digital surfaces so devotees never miss spiritual continuity.",
-      accent: "from-[#8c52ff] to-[#4f46e5]",
-      satsangHref: ROUTES.media.videos,
-      kathaHref: ROUTES.media.videos,
-      eventsHref: ROUTES.media.highlights,
-    },
-  ];
-
   usePageMeta(
-    "Online Satsang",
-    "Digital satsang page for live listening, video satsang, booking requests, and joining across YouTube, Facebook, Instagram, WhatsApp, and more.",
+    "Online Satsang | Bhagwat Heritage Service Foundation Trust",
+    "Join Online Satsang, live pravachan, Bhagwat Katha, bhajan, replay sessions, and digital satsang services by Bhagwat Heritage Service Foundation Trust.",
   );
 
+  const satsangEvents = [
+    {
+      title: "Weekly Gita Pravachan",
+      date: "Every Sunday",
+      time: "07:00 PM IST",
+      speaker: "Bhagwat Heritage Satsang Team",
+      mode: "Live Video",
+      joinLink: "https://youtube.com/@bhagwatheritage",
+    },
+  ];
+
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const [form, setForm] = useState({
+    fullName: "",
+    mobileNumber: "",
+    email: "",
+    cityCountry: "",
+    satsangType: "Family" as "Family" | "Group" | "Community" | "Institution" | "Festival" | "Special Occasion",
+    preferredMode: "Audio" as "Audio" | "Video" | "Zoom" | "YouTube" | "WhatsApp" | "Website Live",
+    preferredDate: "",
+    preferredTime: "",
+    messagePurpose: "",
+  });
+
+  const [formErrors, setFormErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
+
+  const quickCards = [
+    { icon: "/assets/icons/online-satsang/icon-live-audio.svg", title: "Live Audio", text: "Listen to pravachan, bhajan, and satsang through audio-friendly access." },
+    { icon: "/assets/icons/online-satsang/icon-live-video.svg", title: "Live Video", text: "Watch satsang, katha, and spiritual programs through digital broadcast." },
+    { icon: "/assets/icons/online-satsang/icon-replay-access.svg", title: "Replay Access", text: "Revisit selected satsang sessions for peaceful listening and reflection." },
+    { icon: "/assets/icons/online-satsang/icon-digital-booking.svg", title: "Book Satsang", text: "Request a special online satsang session for family, group, or community." },
+  ];
+
+  const modes = [
+    {
+      badge: "Live Audio",
+      title: "Listen to Satsang in Audio Mode",
+      text: "Best for devotees who want peaceful listening during travel, home routine, or low-bandwidth situations.",
+      cta: "Listen Now",
+      href: "https://youtube.com/@bhagwatheritage",
+      image: "/assets/images/online-satsang/online-satsang-audio.jpg",
+    },
+    {
+      badge: "Live Video",
+      title: "Watch Satsang in Video Mode",
+      text: "Best for devotees who want darshan, pravachan, bhajan, festival broadcast, and visual participation.",
+      cta: "Watch Now",
+      href: "https://youtube.com/@bhagwatheritage",
+      image: "/assets/images/online-satsang/online-satsang-video.jpg",
+    },
+    {
+      badge: "Replay",
+      title: "Access Replay Satsang",
+      text: "Selected satsang sessions may be made available for later listening and spiritual reflection.",
+      cta: "View Replay",
+      href: ROUTES.media.videos,
+      image: "/assets/images/online-satsang/online-satsang-replay.jpg",
+    },
+    {
+      badge: "Booking",
+      title: "Book or Request Online Satsang",
+      text: "Families, groups, communities, and institutions can request special digital satsang sessions.",
+      cta: "Request Satsang",
+      href: "#satsang-request-form",
+      image: "/assets/images/online-satsang/online-satsang-booking.jpg",
+    },
+  ];
+
+  const steps = [
+    { icon: "/assets/icons/online-satsang/icon-select-mode.svg", title: "Step 1", text: "Choose your mode - Audio, Video, Replay, or Booking." },
+    { icon: "/assets/icons/online-satsang/icon-platform-link.svg", title: "Step 2", text: "Select the official platform link or request form." },
+    { icon: "/assets/icons/online-satsang/icon-join-live.svg", title: "Step 3", text: "Join the live session or submit your satsang request." },
+    { icon: "/assets/icons/online-satsang/icon-confirmation.svg", title: "Step 4", text: "Receive confirmation, link, timing, or replay support." },
+  ];
+
+  const platforms = [
+    { icon: "/assets/icons/online-satsang/icon-youtube-satsang.svg", name: "YouTube Satsang", desc: "Watch live pravachan, katha, bhajan, event broadcast, and replay videos.", actions: [{ label: "Watch Live", href: "https://youtube.com/@bhagwatheritage" }, { label: "Join Channel", href: "https://youtube.com/@bhagwatheritage" }] },
+    { icon: "/assets/icons/online-satsang/icon-facebook-updates.svg", name: "Facebook Satsang Updates", desc: "Receive announcements, event updates, live posts, and community satsang highlights.", actions: [{ label: "Follow Page", href: "https://www.facebook.com/share/1AtpQtn1SL/" }, { label: "View Updates", href: "https://www.facebook.com/share/1AtpQtn1SL/" }] },
+    { icon: "/assets/icons/online-satsang/icon-instagram-feed.svg", name: "Instagram Devotional Feed", desc: "Short clips, spiritual moments, quotes, reels, and devotional highlights.", actions: [{ label: "Follow Instagram", href: "https://www.instagram.com/bhagwat.heritage" }, { label: "View Reels", href: "https://www.instagram.com/bhagwat.heritage" }] },
+    { icon: "/assets/icons/online-satsang/icon-whatsapp-group.svg", name: "WhatsApp Satsang Groups", desc: "Receive satsang links, reminders, seva notices, and important announcements.", actions: [{ label: "Join WhatsApp", href: "https://wa.me/918668897445" }, { label: "Get Updates", href: "https://wa.me/918668897445" }] },
+    { icon: "/assets/icons/online-satsang/icon-website-live.svg", name: "Website Live Join Page", desc: "Central website-based joining area for live, replay, and digital satsang access.", actions: [{ label: "Open Live Page", href: ROUTES.media.videos }, { label: "View Schedule", href: ROUTES.eventsKatha.index }] },
+    { icon: "/assets/icons/online-satsang/icon-replay-archive.svg", name: "Replay Archive", desc: "Access selected satsang sessions and spiritual discourses for later reflection.", actions: [{ label: "View Replay", href: ROUTES.media.videos }, { label: "Request Recording", href: "#satsang-request-form" }] },
+  ];
+
+  const faqs = [
+    { q: "Can I join Online Satsang from outside India?", a: "Yes, devotees from any location can join through available digital platforms." },
+    { q: "Is Online Satsang free?", a: "Regular digital satsang access may be free. Special family, group, or institutional sessions can be requested through the booking form." },
+    { q: "Can we request a special online satsang?", a: "Yes, families, groups, and institutions can submit a request with preferred date, time, and purpose." },
+    { q: "Will replay be available?", a: "Replay access depends on the type of satsang and availability of recordings." },
+    { q: "Which platforms are used?", a: "YouTube, Facebook, Instagram, WhatsApp, website live page, and other suitable digital platforms may be used." },
+  ];
+
+  const handleInput = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setFormErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const validateForm = () => {
+    const nextErrors: Partial<Record<keyof typeof form, string>> = {};
+    if (!form.fullName.trim()) nextErrors.fullName = "Full name is required.";
+    if (!/^\d{10}$/.test(form.mobileNumber.trim())) nextErrors.mobileNumber = "Enter a valid 10-digit mobile number.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) nextErrors.email = "Enter a valid email address.";
+    if (!form.cityCountry.trim()) nextErrors.cityCountry = "City / Country is required.";
+    if (!form.preferredDate) nextErrors.preferredDate = "Preferred date is required.";
+    if (!form.preferredTime) nextErrors.preferredTime = "Preferred time is required.";
+    setFormErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
+  const submitRequest = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSuccessMsg("");
+    setErrorMsg("");
+    if (!validateForm()) return;
+
+    try {
+      setLoading(true);
+      await onlineSatsangApi.request(form);
+      setSuccessMsg("Your online satsang request has been received. Our team will contact you soon.");
+      setForm({
+        fullName: "",
+        mobileNumber: "",
+        email: "",
+        cityCountry: "",
+        satsangType: "Family",
+        preferredMode: "Audio",
+        preferredDate: "",
+        preferredTime: "",
+        messagePurpose: "",
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unable to submit request right now. Please try again.";
+      setErrorMsg(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const sectionCard = "rounded-[22px] border border-[#f4dcb4] bg-[#fffdf8] p-6 shadow-[0_16px_35px_rgba(120,81,16,0.08)]";
+
   return (
-    <div className="min-h-screen bg-[var(--campaign-deep)] pb-16">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#fff9ee_0%,#fffdf8_100%)] pb-16 text-[#3b2b1f]">
       <HeroSection
         title="Online Satsang"
-        subtitle="Digital darshan, real devotion"
-        subtitleClassName={SEVA_HERO_SUBTITLE_CLASS}
-        contentClassName={EVENT_SEVA_HERO_CONTENT_CLASS}
-        backgroundImage="/images/kathapravachan.png"
+        subtitle="Digital darshan, real devotion - connect with pravachan, bhajan, katha, and spiritual guidance from anywhere."
+        subtitleClassName="mx-auto mt-4 max-w-3xl text-base font-medium text-[#f5ead7] md:text-lg"
+        contentClassName="mx-auto max-w-5xl px-4 text-center"
+        backgroundImage="/assets/images/online-satsang/online-satsang-hero.jpg"
         boxed
-        heightClass="h-[360px] md:h-[520px]"
-        overlayClass="bg-black/55"
+        heightClass="h-[380px] md:h-[520px]"
+        overlayClass="bg-[linear-gradient(120deg,rgba(27,21,18,0.78),rgba(110,66,16,0.62))]"
       >
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Link to={ROUTES.media.videos} className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>
-            Watch Satsang
-          </Link>
-          <Link to={ROUTES.contact} className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>
-            Book Digital Satsang
-          </Link>
+          <a href="https://youtube.com/@bhagwatheritage" target="_blank" rel="noreferrer" className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>Watch Live Satsang</a>
+          <a href="https://youtube.com/@bhagwatheritage" target="_blank" rel="noreferrer" className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>Listen Audio Satsang</a>
+          <a href="#satsang-request-form" className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>Book Digital Satsang</a>
         </div>
       </HeroSection>
 
-      <section className="relative z-20 mt-[10px] pb-6">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              { title: "Access Modes", value: "Audio, video, and booking", note: "Flexible online access for daily listening and live participation." },
-              { title: "Platform Reach", value: "Multiple digital channels", note: "YouTube, Facebook, Instagram, WhatsApp, and future trust-controlled routes." },
-              { title: "Join Style", value: "Live and replay", note: "Stay connected in real time or return later for peaceful listening." },
-              { title: "Devotee Experience", value: "Simple and clear", note: "A cleaner layout inspired by the Gau Seva page style." },
-            ].map((item) => (
-              <div key={item.title} className={EVENT_SEVA_HIGHLIGHT_CARD_CLASS}>
-                <p className={SEVA_HIGHLIGHT_TITLE_CLASS}>* {item.title}</p>
-                <p className={SEVA_HIGHLIGHT_VALUE_CLASS}>{item.value}</p>
-                <p className={`mt-1 ${SEVA_BODY_TEXT_CLASS}`}>{item.note}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-4 px-4 md:grid-cols-2 xl:grid-cols-4">
+        {quickCards.map((item) => (
+          <article key={item.title} className={sectionCard}>
+            <img src={item.icon} alt={item.title} className="h-12 w-12" loading="lazy" />
+            <h2 className="mt-4 text-lg font-semibold text-[#8a4b08]">{item.title}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-[#5a4a3e]">{item.text}</p>
+          </article>
+        ))}
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className={EVENT_SEVA_SECTION_CLASS}>
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className={SEVA_SECTION_LABEL_CLASS}>Digital Satsang Explorer</p>
-              <h2 className={SEVA_SECTION_HEADING_CLASS}>Choose the right way to join satsang online</h2>
-              <p className={`mt-4 max-w-3xl ${SEVA_BODY_TEXT_CLASS}`}>
-                Filter by access mode to quickly find whether you want to listen, watch, request, or join through a platform.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {(["All", "Live Audio", "Live Video", "Booking", "Platforms"] as const).map((mode) => {
-                const active = mode === activeMode;
-                return (
-                  <button
-                    key={mode}
-                    type="button"
-                    onClick={() => setActiveMode(mode)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                      active
-                        ? "bg-[var(--campaign-accent)] text-white shadow-[0_10px_24px_rgba(239,154,30,0.24)]"
-                        : "border border-white/10 bg-[var(--campaign-surface)] text-[var(--campaign-text)] hover:border-[var(--campaign-accent)]"
-                    }`}
-                  >
-                    {mode}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
-            {visibleModes.map((item) => (
-              <div key={item.title} className={`${EVENT_SEVA_DETAIL_CARD_CLASS} flex h-full flex-col`}>
-                <div className="flex flex-wrap gap-2">
-                  <span className="rounded-full bg-[var(--campaign-accent)] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white">
-                    {item.category}
-                  </span>
-                  <span className="rounded-full border border-white/10 bg-[var(--campaign-bg)] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[var(--campaign-text)]">
-                    Digital Satsang
-                  </span>
-                </div>
-                <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
-                <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-                <div className="mt-4 rounded-2xl border border-white/10 bg-[var(--campaign-bg)] p-4">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Why It Matters</p>
-                  <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.support}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-6 px-4 lg:grid-cols-[1.1fr_0.9fr]">
+        <article className={sectionCard}>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b66d0d]">About Online Satsang</p>
+          <h2 className="mt-3 text-2xl font-semibold text-[#4d2d12] md:text-3xl">What is Online Satsang?</h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-[#5a4a3e]">
+            Online Satsang is a digital seva initiative by Bhagwat Heritage Service Foundation Trust to help devotees remain connected with spiritual learning, Bhagwat Katha, bhajan, pravachan, and guidance even when they are unable to attend physically. Through live audio, video, replay, and digital booking support, devotees can participate in satsang from home, workplace, travel, or community spaces.
+          </p>
+        </article>
+        <article className={`${sectionCard} overflow-hidden p-0`}>
+          <img src="/assets/images/online-satsang/online-satsang-about.jpg" alt="Devotees joining online satsang from home" className="h-full min-h-[260px] w-full object-cover" loading="lazy" />
+        </article>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className={`${EVENT_SEVA_SECTION_CLASS} grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_0.95fr]`}>
-          <div className={`${EVENT_SEVA_DETAIL_CARD_CLASS} flex h-full flex-col`}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>How Devotees Join</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Listen, watch, request, and revisit satsang with ease</h2>
-            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-              {[
-                {
-                  title: "Live Audio Satsang",
-                  desc: "A simple listening route for devotees who want shravan-focused access throughout the day.",
-                },
-                {
-                  title: "Live Video Darshan",
-                  desc: "A visual satsang route for pravachan, mandir atmosphere, and family participation.",
-                },
-                {
-                  title: "Digital Satsang Booking",
-                  desc: "A clear path for requesting scheduled satsang access or future digital sessions.",
-                },
-                {
-                  title: "Replay Support",
-                  desc: "A useful archive option for devotees in different time zones or daily routines.",
-                },
-              ].map((item) => (
-                <div key={item.title} className="rounded-2xl border border-white/10 bg-[var(--campaign-bg)] p-5">
-                  <h3 className={SEVA_CARD_TITLE_CLASS}>{item.title}</h3>
-                  <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={`${EVENT_SEVA_DETAIL_CARD_CLASS} flex h-full flex-col`}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Join Satsang Actions</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Quick steps for today&apos;s digital participation</h2>
-            <div className="mt-6 space-y-4">
-              {[
-                "Open the current satsang or replay link.",
-                "Choose audio or video based on your situation.",
-                "Contact the trust for special digital satsang requests.",
-                "Return later for archive-based listening and reflection.",
-              ].map((line, index) => (
-                <div key={line} className="rounded-2xl border border-white/10 bg-[var(--campaign-bg)] p-4">
-                  <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--campaign-accent)]">Step {index + 1}</p>
-                  <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{line}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to={ROUTES.contact} className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>
-                Book Satsang
-              </Link>
-              <Link to={ROUTES.media.videos} className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>
-                Watch Video Satsang
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className={EVENT_SEVA_SECTION_CLASS}>
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className={SEVA_SECTION_LABEL_CLASS}>Platform Section</p>
-              <h2 className={SEVA_SECTION_HEADING_CLASS}>Available platforms for online satsang</h2>
-            </div>
-            <p className={SEVA_BODY_TEXT_CLASS}>YouTube, Facebook, Instagram, WhatsApp, and more</p>
-          </div>
-
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {platformCards.map((item) => (
-              <article key={item.name} className="flex h-full flex-col overflow-hidden rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] shadow-sm">
-                <div className={`bg-gradient-to-r ${item.accent} px-5 py-4`}>
-                  <p className="text-sm font-bold uppercase tracking-[0.18em] text-white">{item.type}</p>
-                  <h3 className="mt-2 text-xl font-black text-white">{item.name}</h3>
-                </div>
-                <div className="flex h-full flex-col p-5">
-                  <p className={`${SEVA_BODY_TEXT_CLASS} flex-1`}>{item.desc}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    <a
-                      href={item.satsangHref}
-                      target={item.satsangHref.startsWith("http") ? "_blank" : undefined}
-                      rel={item.satsangHref.startsWith("http") ? "noreferrer" : undefined}
-                      className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}
-                    >
-                      Join Satsang
-                    </a>
-                    <a
-                      href={item.kathaHref}
-                      target={item.kathaHref.startsWith("http") ? "_blank" : undefined}
-                      rel={item.kathaHref.startsWith("http") ? "noreferrer" : undefined}
-                      className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}
-                    >
-                      Join Katha
-                    </a>
-                    <a
-                      href={item.eventsHref}
-                      target={item.eventsHref.startsWith("http") ? "_blank" : undefined}
-                      rel={item.eventsHref.startsWith("http") ? "noreferrer" : undefined}
-                      className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}
-                    >
-                      Join Events
-                    </a>
-                  </div>
+      <section className="mx-auto mt-10 max-w-7xl px-4">
+        <div className={sectionCard}>
+          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">Choose the Right Way to Join Satsang</h2>
+          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+            {modes.map((item) => (
+              <article key={item.title} className="overflow-hidden rounded-[20px] border border-[#f2d8ad] bg-white shadow-[0_10px_28px_rgba(120,81,16,0.08)]">
+                <img src={item.image} alt={item.title} className="h-40 w-full object-cover" loading="lazy" />
+                <div className="p-5">
+                  <span className="rounded-full bg-[#fde7c6] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#8a4b08]">{item.badge}</span>
+                  <h3 className="mt-3 text-lg font-semibold text-[#4d2d12]">{item.title}</h3>
+                  <p className="mt-2 text-sm text-[#5a4a3e]">{item.text}</p>
+                  <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer" : undefined} className="mt-4 inline-flex rounded-full bg-[#c87515] px-4 py-2 text-sm font-semibold text-white hover:bg-[#a8600f]">{item.cta}</a>
                 </div>
               </article>
             ))}
           </div>
         </div>
       </section>
+
+      <section className="mx-auto mt-10 max-w-7xl px-4">
+        <div className={sectionCard}>
+          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">How Devotees Can Join</h2>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {steps.map((step) => (
+              <article key={step.title} className="rounded-2xl border border-[#f2d8ad] bg-white p-5">
+                <img src={step.icon} alt={step.title} className="h-10 w-10" loading="lazy" />
+                <h3 className="mt-3 text-sm font-bold uppercase tracking-[0.16em] text-[#8a4b08]">{step.title}</h3>
+                <p className="mt-2 text-sm text-[#5a4a3e]">{step.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto mt-10 max-w-7xl px-4">
+        <div className={sectionCard}>
+          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">Official Digital Platforms</h2>
+          <p className="mt-2 text-sm text-[#5a4a3e]">Connect through verified Bhagwat Heritage digital channels.</p>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {platforms.map((platform) => (
+              <article key={platform.name} className="rounded-2xl border border-[#f2d8ad] bg-white p-5">
+                <div className="flex items-start gap-3">
+                  <img src={platform.icon} alt={platform.name} className="h-10 w-10" loading="lazy" />
+                  <div>
+                    <h3 className="text-lg font-semibold text-[#4d2d12]">{platform.name}</h3>
+                    <p className="mt-2 text-sm text-[#5a4a3e]">{platform.desc}</p>
+                  </div>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {platform.actions.map((action) => (
+                    <a key={action.label} href={action.href} target={action.href.startsWith("http") ? "_blank" : undefined} rel={action.href.startsWith("http") ? "noreferrer" : undefined} className="rounded-full border border-[#dfb26a] px-3 py-2 text-xs font-semibold text-[#7a4309] hover:bg-[#fff1d9]">{action.label}</a>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto mt-10 max-w-7xl px-4">
+        <div className={sectionCard}>
+          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">Current & Upcoming Online Satsang</h2>
+          {satsangEvents.length ? (
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {satsangEvents.map((eventItem) => (
+                <article key={eventItem.title} className="rounded-2xl border border-[#f2d8ad] bg-white p-5">
+                  <h3 className="text-lg font-semibold text-[#4d2d12]">{eventItem.title}</h3>
+                  <p className="mt-2 text-sm text-[#5a4a3e]">Date: {eventItem.date}</p>
+                  <p className="text-sm text-[#5a4a3e]">Time: {eventItem.time}</p>
+                  <p className="text-sm text-[#5a4a3e]">Speaker / Guide: {eventItem.speaker}</p>
+                  <p className="text-sm text-[#5a4a3e]">Mode: {eventItem.mode}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <a href={eventItem.joinLink} target="_blank" rel="noreferrer" className="rounded-full bg-[#c87515] px-4 py-2 text-sm font-semibold text-white">Join</a>
+                    <button type="button" className="rounded-full border border-[#dfb26a] px-4 py-2 text-sm font-semibold text-[#7a4309]">Add to Calendar</button>
+                    <a href="https://wa.me/918668897445" target="_blank" rel="noreferrer" className="rounded-full border border-[#dfb26a] px-4 py-2 text-sm font-semibold text-[#7a4309]">WhatsApp Reminder</a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-4 text-sm text-[#5a4a3e]">Upcoming online satsang details will be announced soon. Please join our official channels for updates.</p>
+          )}
+        </div>
+      </section>
+
+      <section id="satsang-request-form" className="mx-auto mt-10 max-w-7xl px-4">
+        <div className={sectionCard}>
+          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">Request a Digital Satsang Session</h2>
+          <form className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2" onSubmit={submitRequest} noValidate>
+            <label className="text-sm font-medium text-[#4d2d12]">Full Name
+              <input name="fullName" value={form.fullName} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
+              {formErrors.fullName && <span className="mt-1 block text-xs text-red-700">{formErrors.fullName}</span>}
+            </label>
+            <label className="text-sm font-medium text-[#4d2d12]">Mobile Number
+              <input name="mobileNumber" value={form.mobileNumber} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
+              {formErrors.mobileNumber && <span className="mt-1 block text-xs text-red-700">{formErrors.mobileNumber}</span>}
+            </label>
+            <label className="text-sm font-medium text-[#4d2d12]">Email
+              <input name="email" type="email" value={form.email} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
+              {formErrors.email && <span className="mt-1 block text-xs text-red-700">{formErrors.email}</span>}
+            </label>
+            <label className="text-sm font-medium text-[#4d2d12]">City / Country
+              <input name="cityCountry" value={form.cityCountry} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
+              {formErrors.cityCountry && <span className="mt-1 block text-xs text-red-700">{formErrors.cityCountry}</span>}
+            </label>
+            <label className="text-sm font-medium text-[#4d2d12]">Satsang Type
+              <select name="satsangType" value={form.satsangType} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm">
+                {['Family','Group','Community','Institution','Festival','Special Occasion'].map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+              </select>
+            </label>
+            <label className="text-sm font-medium text-[#4d2d12]">Preferred Mode
+              <select name="preferredMode" value={form.preferredMode} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm">
+                {['Audio','Video','Zoom','YouTube','WhatsApp','Website Live'].map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+              </select>
+            </label>
+            <label className="text-sm font-medium text-[#4d2d12]">Preferred Date
+              <input name="preferredDate" type="date" value={form.preferredDate} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
+              {formErrors.preferredDate && <span className="mt-1 block text-xs text-red-700">{formErrors.preferredDate}</span>}
+            </label>
+            <label className="text-sm font-medium text-[#4d2d12]">Preferred Time
+              <input name="preferredTime" type="time" value={form.preferredTime} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
+              {formErrors.preferredTime && <span className="mt-1 block text-xs text-red-700">{formErrors.preferredTime}</span>}
+            </label>
+            <label className="md:col-span-2 text-sm font-medium text-[#4d2d12]">Message / Purpose
+              <textarea name="messagePurpose" rows={4} value={form.messagePurpose} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
+            </label>
+            <div className="md:col-span-2 flex flex-wrap items-center gap-3">
+              <button type="submit" disabled={loading} className="rounded-full bg-[#c87515] px-6 py-3 text-sm font-semibold text-white disabled:opacity-60">{loading ? 'Submitting...' : 'Submit Request'}</button>
+              <a href="https://wa.me/918668897445" target="_blank" rel="noreferrer" className="rounded-full border border-[#dfb26a] px-6 py-3 text-sm font-semibold text-[#7a4309]">WhatsApp Support</a>
+            </div>
+            {successMsg ? <p className="md:col-span-2 text-sm text-green-700">{successMsg}</p> : null}
+            {errorMsg ? <p className="md:col-span-2 text-sm text-red-700">{errorMsg}</p> : null}
+          </form>
+        </div>
+      </section>
+
+      <section className="mx-auto mt-10 max-w-7xl px-4">
+        <div className={sectionCard}>
+          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">FAQ</h2>
+          <div className="mt-6 space-y-3">
+            {faqs.map((item, index) => (
+              <details key={item.q} className="rounded-2xl border border-[#f2d8ad] bg-white p-4" open={index === 0}>
+                <summary className="cursor-pointer list-none text-sm font-semibold text-[#4d2d12]">{item.q}</summary>
+                <p className="mt-2 text-sm text-[#5a4a3e]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto mt-10 max-w-7xl px-4">
+        <div className="relative overflow-hidden rounded-[24px] border border-[#f2d8ad] p-6 text-white shadow-[0_20px_45px_rgba(84,52,14,0.24)] md:p-10">
+          <img src="/assets/images/online-satsang/online-satsang-cta-banner.jpg" alt="Devotional online satsang banner" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(33,24,20,0.8),rgba(112,72,23,0.6))]" />
+          <div className="relative z-10 max-w-3xl">
+            <h2 className="text-2xl font-semibold md:text-3xl">Stay Connected with Satsang</h2>
+            <p className="mt-3 text-sm leading-relaxed text-[#f3e7d4] md:text-base">Join Bhagwat Heritage's digital satsang initiative and remain connected with devotion, knowledge, and spiritual inspiration wherever you are.</p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a href="https://youtube.com/@bhagwatheritage" target="_blank" rel="noreferrer" className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>Join Online Satsang</a>
+              <a href="#satsang-request-form" className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>Request Digital Satsang</a>
+              <Link to={ROUTES.contact} className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>Contact Team</Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 });
-
 export const DigitalMembershipPage = memo(function DigitalMembershipPage() {
   const membershipPlans = [
     {
@@ -11766,6 +11822,9 @@ export const NotFoundPage = memo(function NotFoundPage() {
     </div>
   );
 });
+
+
+
 
 
 

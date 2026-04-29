@@ -1,8 +1,11 @@
 import type { Request, Response } from "express";
 import Volunteer from "../models/Volunteer";
+import VolunteerApplication from "../models/VolunteerApplication";
 import { asyncHandler } from "../utils/asyncHandler";
 import { volunteerCreateSchema, volunteerStatusSchema } from "../schemas/volunteer.schemas";
+import { volunteerApplicationCreateSchema } from "../schemas/volunteerApplication.schemas";
 import { buildCsv } from "../utils/csv";
+import { sendVolunteerApplicationMail } from "../utils/sendVolunteerApplicationMail";
 
 export const createVolunteer = asyncHandler(async (req: Request, res: Response) => {
   const data = volunteerCreateSchema.parse(req.body);
@@ -31,6 +34,23 @@ export const createVolunteer = asyncHandler(async (req: Request, res: Response) 
 export const getAllVolunteers = asyncHandler(async (_req: Request, res: Response) => {
   const volunteers = await Volunteer.find({ isDeleted: false }).sort({ createdAt: -1 });
   res.json(volunteers);
+});
+
+export const registerVolunteerApplication = asyncHandler(async (req: Request, res: Response) => {
+  const data = volunteerApplicationCreateSchema.parse(req.body);
+
+  const application = await VolunteerApplication.create({
+    ...data,
+    status: "pending",
+  });
+
+  await sendVolunteerApplicationMail(application);
+
+  res.status(201).json({
+    message: "Volunteer application submitted",
+    applicationId: application._id,
+    status: application.status,
+  });
 });
 
 export const getVolunteerById = asyncHandler(async (req: Request, res: Response) => {
