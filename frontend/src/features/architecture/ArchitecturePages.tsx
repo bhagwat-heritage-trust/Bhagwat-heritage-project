@@ -9632,10 +9632,10 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
   const [formErrors, setFormErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
 
   const quickCards = [
-    { icon: "/assets/icons/online-satsang/icon-live-audio.svg", title: "Live Audio", text: "Listen to pravachan, bhajan, and satsang through audio-friendly access." },
-    { icon: "/assets/icons/online-satsang/icon-live-video.svg", title: "Live Video", text: "Watch satsang, katha, and spiritual programs through digital broadcast." },
-    { icon: "/assets/icons/online-satsang/icon-replay-access.svg", title: "Replay Access", text: "Revisit selected satsang sessions for peaceful listening and reflection." },
-    { icon: "/assets/icons/online-satsang/icon-digital-booking.svg", title: "Book Satsang", text: "Request a special online satsang session for family, group, or community." },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777476352/ChatGPT_Image_Apr_29_2026_08_55_30_PM_rie5ot.png", title: "Live Audio", text: "Listen to pravachan, bhajan, and satsang through audio-friendly access." },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475728/ChatGPT_Image_Apr_29_2026_08_45_03_PM_rtydpk.png", title: "Live Video", text: "Watch satsang, katha, and spiritual programs through digital broadcast." },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475728/ChatGPT_Image_Apr_29_2026_08_44_57_PM_mekevl.png", title: "Replay Access", text: "Revisit selected satsang sessions for peaceful listening and reflection." },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777476352/ChatGPT_Image_Apr_29_2026_08_55_23_PM_wquhoi.png", title: "Book Satsang", text: "Request a special online satsang session for family, group, or community." },
   ];
 
   const modes = [
@@ -9645,7 +9645,7 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
       text: "Best for devotees who want peaceful listening during travel, home routine, or low-bandwidth situations.",
       cta: "Listen Now",
       href: "https://youtube.com/@bhagwatheritage",
-      image: "/assets/images/online-satsang/online-satsang-audio.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475471/ChatGPT_Image_Apr_29_2026_08_38_44_PM_qttdci.png",
     },
     {
       badge: "Live Video",
@@ -9653,7 +9653,7 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
       text: "Best for devotees who want darshan, pravachan, bhajan, festival broadcast, and visual participation.",
       cta: "Watch Now",
       href: "https://youtube.com/@bhagwatheritage",
-      image: "/assets/images/online-satsang/online-satsang-video.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475470/ChatGPT_Image_Apr_29_2026_08_38_50_PM_ivoqbr.png",
     },
     {
       badge: "Replay",
@@ -9661,7 +9661,7 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
       text: "Selected satsang sessions may be made available for later listening and spiritual reflection.",
       cta: "View Replay",
       href: ROUTES.media.videos,
-      image: "/assets/images/online-satsang/online-satsang-replay.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475469/ChatGPT_Image_Apr_29_2026_08_39_05_PM_ttcowc.png",
     },
     {
       badge: "Booking",
@@ -9669,7 +9669,7 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
       text: "Families, groups, communities, and institutions can request special digital satsang sessions.",
       cta: "Request Satsang",
       href: "#satsang-request-form",
-      image: "/assets/images/online-satsang/online-satsang-booking.jpg",
+      image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475469/ChatGPT_Image_Apr_29_2026_08_39_10_PM_jwofut.png",
     },
   ];
 
@@ -9681,12 +9681,12 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
   ];
 
   const platforms = [
-    { icon: "/assets/icons/online-satsang/icon-youtube-satsang.svg", name: "YouTube Satsang", desc: "Watch live pravachan, katha, bhajan, event broadcast, and replay videos.", actions: [{ label: "Watch Live", href: "https://youtube.com/@bhagwatheritage" }, { label: "Join Channel", href: "https://youtube.com/@bhagwatheritage" }] },
-    { icon: "/assets/icons/online-satsang/icon-facebook-updates.svg", name: "Facebook Satsang Updates", desc: "Receive announcements, event updates, live posts, and community satsang highlights.", actions: [{ label: "Follow Page", href: "https://www.facebook.com/share/1AtpQtn1SL/" }, { label: "View Updates", href: "https://www.facebook.com/share/1AtpQtn1SL/" }] },
-    { icon: "/assets/icons/online-satsang/icon-instagram-feed.svg", name: "Instagram Devotional Feed", desc: "Short clips, spiritual moments, quotes, reels, and devotional highlights.", actions: [{ label: "Follow Instagram", href: "https://www.instagram.com/bhagwat.heritage" }, { label: "View Reels", href: "https://www.instagram.com/bhagwat.heritage" }] },
-    { icon: "/assets/icons/online-satsang/icon-whatsapp-group.svg", name: "WhatsApp Satsang Groups", desc: "Receive satsang links, reminders, seva notices, and important announcements.", actions: [{ label: "Join WhatsApp", href: "https://wa.me/918668897445" }, { label: "Get Updates", href: "https://wa.me/918668897445" }] },
-    { icon: "/assets/icons/online-satsang/icon-website-live.svg", name: "Website Live Join Page", desc: "Central website-based joining area for live, replay, and digital satsang access.", actions: [{ label: "Open Live Page", href: ROUTES.media.videos }, { label: "View Schedule", href: ROUTES.eventsKatha.index }] },
-    { icon: "/assets/icons/online-satsang/icon-replay-archive.svg", name: "Replay Archive", desc: "Access selected satsang sessions and spiritual discourses for later reflection.", actions: [{ label: "View Replay", href: ROUTES.media.videos }, { label: "Request Recording", href: "#satsang-request-form" }] },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475468/ChatGPT_Image_Apr_29_2026_08_39_17_PM_nsv1tc.png", name: "YouTube Satsang", desc: "Watch live pravachan, katha, bhajan, event broadcast, and replay videos.", actions: [{ label: "Watch Live", href: "https://youtube.com/@bhagwatheritage" }, { label: "Join Channel", href: "https://youtube.com/@bhagwatheritage" }] },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475467/ChatGPT_Image_Apr_29_2026_08_39_35_PM_ciaazz.png", name: "Facebook Satsang Updates", desc: "Receive announcements, event updates, live posts, and community satsang highlights.", actions: [{ label: "Follow Page", href: "https://www.facebook.com/share/1AtpQtn1SL/" }, { label: "View Updates", href: "https://www.facebook.com/share/1AtpQtn1SL/" }] },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475468/ChatGPT_Image_Apr_29_2026_08_39_42_PM_iwkx07.png", name: "Instagram Devotional Feed", desc: "Short clips, spiritual moments, quotes, reels, and devotional highlights.", actions: [{ label: "Follow Instagram", href: "https://www.instagram.com/bhagwat.heritage" }, { label: "View Reels", href: "https://www.instagram.com/bhagwat.heritage" }] },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475728/ChatGPT_Image_Apr_29_2026_08_40_26_PM_dehfbt.png", name: "WhatsApp Satsang Groups", desc: "Receive satsang links, reminders, seva notices, and important announcements.", actions: [{ label: "Join WhatsApp", href: "https://wa.me/918668897445" }, { label: "Get Updates", href: "https://wa.me/918668897445" }] },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475728/ChatGPT_Image_Apr_29_2026_08_45_03_PM_rtydpk.png", name: "Website Live Join Page", desc: "Central website-based joining area for live, replay, and digital satsang access.", actions: [{ label: "Open Live Page", href: ROUTES.media.videos }, { label: "View Schedule", href: ROUTES.eventsKatha.index }] },
+    { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475728/ChatGPT_Image_Apr_29_2026_08_44_57_PM_mekevl.png", name: "Replay Archive", desc: "Access selected satsang sessions and spiritual discourses for later reflection.", actions: [{ label: "View Replay", href: ROUTES.media.videos }, { label: "Request Recording", href: "#satsang-request-form" }] },
   ];
 
   const faqs = [
@@ -9747,16 +9747,16 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
   const sectionCard = "rounded-[22px] border border-[#f4dcb4] bg-[#fffdf8] p-6 shadow-[0_16px_35px_rgba(120,81,16,0.08)]";
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#fff9ee_0%,#fffdf8_100%)] pb-16 text-[#3b2b1f]">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#fff9ee_0%,#fffdf8_100%)] pb-16 font-['Poppins'] text-[#2e4356]">
       <HeroSection
         title="Online Satsang"
         subtitle="Digital darshan, real devotion - connect with pravachan, bhajan, katha, and spiritual guidance from anywhere."
         subtitleClassName="mx-auto mt-4 max-w-3xl text-base font-medium text-[#f5ead7] md:text-lg"
-        contentClassName="mx-auto max-w-5xl px-4 text-center"
-        backgroundImage="/assets/images/online-satsang/online-satsang-hero.jpg"
+        contentClassName="mx-auto flex h-full max-w-5xl flex-col items-center justify-end px-4 pb-8 text-center md:pb-10"
+        backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1777477647/ChatGPT_Image_Apr_29_2026_09_16_48_PM_meyuwm.png"
         boxed
         heightClass="h-[380px] md:h-[520px]"
-        overlayClass="bg-[linear-gradient(120deg,rgba(27,21,18,0.78),rgba(110,66,16,0.62))]"
+        overlayClass="bg-[linear-gradient(120deg,rgba(27,21,18,0.42),rgba(110,66,16,0.28))]"
       >
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <a href="https://youtube.com/@bhagwatheritage" target="_blank" rel="noreferrer" className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>Watch Live Satsang</a>
@@ -9767,39 +9767,39 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
 
       <section className="mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-4 px-4 md:grid-cols-2 xl:grid-cols-4">
         {quickCards.map((item) => (
-          <article key={item.title} className={sectionCard}>
-            <img src={item.icon} alt={item.title} className="h-12 w-12" loading="lazy" />
-            <h2 className="mt-4 text-lg font-semibold text-[#8a4b08]">{item.title}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[#5a4a3e]">{item.text}</p>
+          <article key={item.title} className={`${sectionCard} text-center`}>
+            <img src={item.icon} alt={item.title} className="mx-auto h-[70px] w-[70px] rounded-full object-cover" loading="lazy" />
+            <h2 className="mt-4 text-2xl font-black text-[#1f3550]">{item.title}</h2>
+            <p className="mt-2 text-base leading-7 text-[#5e5247] md:text-lg">{item.text}</p>
           </article>
         ))}
       </section>
 
       <section className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-6 px-4 lg:grid-cols-[1.1fr_0.9fr]">
         <article className={sectionCard}>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b66d0d]">About Online Satsang</p>
-          <h2 className="mt-3 text-2xl font-semibold text-[#4d2d12] md:text-3xl">What is Online Satsang?</h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-[#5a4a3e]">
+          <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]">About Online Satsang</p>
+          <h2 className="mt-3 text-3xl font-black text-[#1f3550] md:text-4xl">What is Online Satsang?</h2>
+          <p className="mt-4 text-base leading-7 text-[#5e5247] md:text-lg">
             Online Satsang is a digital seva initiative by Bhagwat Heritage Service Foundation Trust to help devotees remain connected with spiritual learning, Bhagwat Katha, bhajan, pravachan, and guidance even when they are unable to attend physically. Through live audio, video, replay, and digital booking support, devotees can participate in satsang from home, workplace, travel, or community spaces.
           </p>
         </article>
-        <article className={`${sectionCard} overflow-hidden p-0`}>
-          <img src="/assets/images/online-satsang/online-satsang-about.jpg" alt="Devotees joining online satsang from home" className="h-full min-h-[260px] w-full object-cover" loading="lazy" />
+        <article className={`${sectionCard} min-h-[360px] overflow-hidden p-0 md:min-h-[420px]`}>
+          <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777475471/ChatGPT_Image_Apr_29_2026_08_38_35_PM_awb8uq.png" alt="Devotees joining online satsang from home" className="h-full w-full object-cover object-center" loading="lazy" />
         </article>
       </section>
 
       <section className="mx-auto mt-10 max-w-7xl px-4">
         <div className={sectionCard}>
-          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">Choose the Right Way to Join Satsang</h2>
-          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+          <h2 className="text-3xl font-black text-[#1f3550] md:text-4xl">Choose the Right Way to Join Satsang</h2>
+          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
             {modes.map((item) => (
-              <article key={item.title} className="overflow-hidden rounded-[20px] border border-[#f2d8ad] bg-white shadow-[0_10px_28px_rgba(120,81,16,0.08)]">
-                <img src={item.image} alt={item.title} className="h-40 w-full object-cover" loading="lazy" />
-                <div className="p-5">
+              <article key={item.title} className="flex h-full flex-col overflow-hidden rounded-[24px] border border-[#f2d8ad] bg-white shadow-[0_14px_32px_rgba(120,81,16,0.10)]">
+                <img src={item.image} alt={item.title} className="h-[260px] w-full object-cover object-center md:h-[300px]" loading="lazy" />
+                <div className="flex flex-1 flex-col p-6">
                   <span className="rounded-full bg-[#fde7c6] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#8a4b08]">{item.badge}</span>
-                  <h3 className="mt-3 text-lg font-semibold text-[#4d2d12]">{item.title}</h3>
-                  <p className="mt-2 text-sm text-[#5a4a3e]">{item.text}</p>
-                  <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer" : undefined} className="mt-4 inline-flex rounded-full bg-[#c87515] px-4 py-2 text-sm font-semibold text-white hover:bg-[#a8600f]">{item.cta}</a>
+                  <h3 className="mt-3 text-2xl font-black text-[#1f3550]">{item.title}</h3>
+                  <p className="mt-2 text-base leading-7 text-[#5e5247] md:text-lg">{item.text}</p>
+                  <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer" : undefined} className="mt-4 inline-flex w-fit rounded-full bg-[#c87515] px-4 py-2 text-sm font-semibold text-white hover:bg-[#a8600f]">{item.cta}</a>
                 </div>
               </article>
             ))}
@@ -9809,31 +9809,16 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
 
       <section className="mx-auto mt-10 max-w-7xl px-4">
         <div className={sectionCard}>
-          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">How Devotees Can Join</h2>
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {steps.map((step) => (
-              <article key={step.title} className="rounded-2xl border border-[#f2d8ad] bg-white p-5">
-                <img src={step.icon} alt={step.title} className="h-10 w-10" loading="lazy" />
-                <h3 className="mt-3 text-sm font-bold uppercase tracking-[0.16em] text-[#8a4b08]">{step.title}</h3>
-                <p className="mt-2 text-sm text-[#5a4a3e]">{step.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto mt-10 max-w-7xl px-4">
-        <div className={sectionCard}>
-          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">Official Digital Platforms</h2>
-          <p className="mt-2 text-sm text-[#5a4a3e]">Connect through verified Bhagwat Heritage digital channels.</p>
+          <h2 className="text-3xl font-black text-[#1f3550] md:text-4xl">Official Digital Platforms</h2>
+          <p className="mt-2 text-base leading-7 text-[#5e5247] md:text-lg">Connect through verified Bhagwat Heritage digital channels.</p>
           <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {platforms.map((platform) => (
-              <article key={platform.name} className="rounded-2xl border border-[#f2d8ad] bg-white p-5">
-                <div className="flex items-start gap-3">
-                  <img src={platform.icon} alt={platform.name} className="h-10 w-10" loading="lazy" />
+              <article key={platform.name} className="rounded-2xl border border-[#f2d8ad] bg-white p-5 text-center">
+                <div className="flex flex-col items-center gap-3">
+                  <img src={platform.icon} alt={platform.name} className="h-[70px] w-[70px] rounded-full object-cover" loading="lazy" />
                   <div>
-                    <h3 className="text-lg font-semibold text-[#4d2d12]">{platform.name}</h3>
-                    <p className="mt-2 text-sm text-[#5a4a3e]">{platform.desc}</p>
+                    <h3 className="text-2xl font-black text-[#1f3550]">{platform.name}</h3>
+                    <p className="mt-2 text-base leading-7 text-[#5e5247] md:text-lg">{platform.desc}</p>
                   </div>
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -9849,16 +9834,16 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
 
       <section className="mx-auto mt-10 max-w-7xl px-4">
         <div className={sectionCard}>
-          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">Current & Upcoming Online Satsang</h2>
+          <h2 className="text-3xl font-black text-[#1f3550] md:text-4xl">Current & Upcoming Online Satsang</h2>
           {satsangEvents.length ? (
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {satsangEvents.map((eventItem) => (
                 <article key={eventItem.title} className="rounded-2xl border border-[#f2d8ad] bg-white p-5">
-                  <h3 className="text-lg font-semibold text-[#4d2d12]">{eventItem.title}</h3>
-                  <p className="mt-2 text-sm text-[#5a4a3e]">Date: {eventItem.date}</p>
-                  <p className="text-sm text-[#5a4a3e]">Time: {eventItem.time}</p>
-                  <p className="text-sm text-[#5a4a3e]">Speaker / Guide: {eventItem.speaker}</p>
-                  <p className="text-sm text-[#5a4a3e]">Mode: {eventItem.mode}</p>
+                  <h3 className="text-2xl font-black text-[#1f3550]">{eventItem.title}</h3>
+                  <p className="mt-2 text-base leading-7 text-[#5e5247] md:text-lg">Date: {eventItem.date}</p>
+                  <p className="text-base leading-7 text-[#5e5247] md:text-lg">Time: {eventItem.time}</p>
+                  <p className="text-base leading-7 text-[#5e5247] md:text-lg">Speaker / Guide: {eventItem.speaker}</p>
+                  <p className="text-base leading-7 text-[#5e5247] md:text-lg">Mode: {eventItem.mode}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     <a href={eventItem.joinLink} target="_blank" rel="noreferrer" className="rounded-full bg-[#c87515] px-4 py-2 text-sm font-semibold text-white">Join</a>
                     <button type="button" className="rounded-full border border-[#dfb26a] px-4 py-2 text-sm font-semibold text-[#7a4309]">Add to Calendar</button>
@@ -9868,50 +9853,50 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
               ))}
             </div>
           ) : (
-            <p className="mt-4 text-sm text-[#5a4a3e]">Upcoming online satsang details will be announced soon. Please join our official channels for updates.</p>
+            <p className="mt-4 text-base leading-7 text-[#5e5247] md:text-lg">Upcoming online satsang details will be announced soon. Please join our official channels for updates.</p>
           )}
         </div>
       </section>
 
       <section id="satsang-request-form" className="mx-auto mt-10 max-w-7xl px-4">
         <div className={sectionCard}>
-          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">Request a Digital Satsang Session</h2>
+          <h2 className="text-3xl font-black text-[#1f3550] md:text-4xl">Request a Digital Satsang Session</h2>
           <form className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2" onSubmit={submitRequest} noValidate>
-            <label className="text-sm font-medium text-[#4d2d12]">Full Name
+            <label className="text-sm font-semibold text-[#2e4356]">Full Name
               <input name="fullName" value={form.fullName} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
               {formErrors.fullName && <span className="mt-1 block text-xs text-red-700">{formErrors.fullName}</span>}
             </label>
-            <label className="text-sm font-medium text-[#4d2d12]">Mobile Number
+            <label className="text-sm font-semibold text-[#2e4356]">Mobile Number
               <input name="mobileNumber" value={form.mobileNumber} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
               {formErrors.mobileNumber && <span className="mt-1 block text-xs text-red-700">{formErrors.mobileNumber}</span>}
             </label>
-            <label className="text-sm font-medium text-[#4d2d12]">Email
+            <label className="text-sm font-semibold text-[#2e4356]">Email
               <input name="email" type="email" value={form.email} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
               {formErrors.email && <span className="mt-1 block text-xs text-red-700">{formErrors.email}</span>}
             </label>
-            <label className="text-sm font-medium text-[#4d2d12]">City / Country
+            <label className="text-sm font-semibold text-[#2e4356]">City / Country
               <input name="cityCountry" value={form.cityCountry} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
               {formErrors.cityCountry && <span className="mt-1 block text-xs text-red-700">{formErrors.cityCountry}</span>}
             </label>
-            <label className="text-sm font-medium text-[#4d2d12]">Satsang Type
+            <label className="text-sm font-semibold text-[#2e4356]">Satsang Type
               <select name="satsangType" value={form.satsangType} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm">
                 {['Family','Group','Community','Institution','Festival','Special Occasion'].map((opt) => <option key={opt} value={opt}>{opt}</option>)}
               </select>
             </label>
-            <label className="text-sm font-medium text-[#4d2d12]">Preferred Mode
+            <label className="text-sm font-semibold text-[#2e4356]">Preferred Mode
               <select name="preferredMode" value={form.preferredMode} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm">
                 {['Audio','Video','Zoom','YouTube','WhatsApp','Website Live'].map((opt) => <option key={opt} value={opt}>{opt}</option>)}
               </select>
             </label>
-            <label className="text-sm font-medium text-[#4d2d12]">Preferred Date
+            <label className="text-sm font-semibold text-[#2e4356]">Preferred Date
               <input name="preferredDate" type="date" value={form.preferredDate} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
               {formErrors.preferredDate && <span className="mt-1 block text-xs text-red-700">{formErrors.preferredDate}</span>}
             </label>
-            <label className="text-sm font-medium text-[#4d2d12]">Preferred Time
+            <label className="text-sm font-semibold text-[#2e4356]">Preferred Time
               <input name="preferredTime" type="time" value={form.preferredTime} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
               {formErrors.preferredTime && <span className="mt-1 block text-xs text-red-700">{formErrors.preferredTime}</span>}
             </label>
-            <label className="md:col-span-2 text-sm font-medium text-[#4d2d12]">Message / Purpose
+            <label className="md:col-span-2 text-sm font-semibold text-[#2e4356]">Message / Purpose
               <textarea name="messagePurpose" rows={4} value={form.messagePurpose} onChange={handleInput} className="mt-1 w-full rounded-xl border border-[#dfc49c] bg-white px-3 py-2 text-sm" />
             </label>
             <div className="md:col-span-2 flex flex-wrap items-center gap-3">
@@ -9926,12 +9911,12 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
 
       <section className="mx-auto mt-10 max-w-7xl px-4">
         <div className={sectionCard}>
-          <h2 className="text-2xl font-semibold text-[#4d2d12] md:text-3xl">FAQ</h2>
+          <h2 className="text-3xl font-black text-[#1f3550] md:text-4xl">FAQ</h2>
           <div className="mt-6 space-y-3">
             {faqs.map((item, index) => (
               <details key={item.q} className="rounded-2xl border border-[#f2d8ad] bg-white p-4" open={index === 0}>
-                <summary className="cursor-pointer list-none text-sm font-semibold text-[#4d2d12]">{item.q}</summary>
-                <p className="mt-2 text-sm text-[#5a4a3e]">{item.a}</p>
+                <summary className="cursor-pointer list-none text-base font-black text-[#1f3550]">{item.q}</summary>
+                <p className="mt-2 text-base leading-7 text-[#5e5247] md:text-lg">{item.a}</p>
               </details>
             ))}
           </div>
@@ -9939,12 +9924,10 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
       </section>
 
       <section className="mx-auto mt-10 max-w-7xl px-4">
-        <div className="relative overflow-hidden rounded-[24px] border border-[#f2d8ad] p-6 text-white shadow-[0_20px_45px_rgba(84,52,14,0.24)] md:p-10">
-          <img src="/assets/images/online-satsang/online-satsang-cta-banner.jpg" alt="Devotional online satsang banner" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(33,24,20,0.8),rgba(112,72,23,0.6))]" />
+        <div className="relative overflow-hidden rounded-[24px] border border-[#f2d8ad] bg-gradient-to-r from-[#f8cf5a] via-[#f6dc87] to-[#f1b83e] p-6 text-[#1f3550] shadow-[0_20px_45px_rgba(162,109,20,0.24)] md:p-10">
           <div className="relative z-10 max-w-3xl">
-            <h2 className="text-2xl font-semibold md:text-3xl">Stay Connected with Satsang</h2>
-            <p className="mt-3 text-sm leading-relaxed text-[#f3e7d4] md:text-base">Join Bhagwat Heritage's digital satsang initiative and remain connected with devotion, knowledge, and spiritual inspiration wherever you are.</p>
+            <h2 className="text-3xl font-black text-[#1f3550] md:text-4xl">Stay Connected with Satsang</h2>
+            <p className="mt-3 text-base leading-7 text-[#5e5247] md:text-lg">Join Bhagwat Heritage's digital satsang initiative and remain connected with devotion, knowledge, and spiritual inspiration wherever you are.</p>
             <div className="mt-5 flex flex-wrap gap-3">
               <a href="https://youtube.com/@bhagwatheritage" target="_blank" rel="noreferrer" className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>Join Online Satsang</a>
               <a href="#satsang-request-form" className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>Request Digital Satsang</a>
@@ -11173,7 +11156,7 @@ export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
 
       <section className={`${pageContainerClass} mt-10`}>
         <div className="rounded-2xl border border-[#E7C58E] bg-[#FFF3DB] p-6 shadow-[0_10px_22px_rgba(156,102,32,0.12)]">
-          <div className="flex items-start gap-3">
+          <div className="flex flex-col items-center gap-3">
             <img
               src="https://res.cloudinary.com/der8zinu8/image/upload/v1777193608/ChatGPT_Image_Apr_26_2026_01_45_08_PM_v3dyke.png"
               onError={(e) => (e.currentTarget.src = "/assets/icons/partner-with-us/icon-ethical-collaboration.svg")}
@@ -11838,6 +11821,11 @@ export const NotFoundPage = memo(function NotFoundPage() {
     </div>
   );
 });
+
+
+
+
+
 
 
 
