@@ -11274,7 +11274,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
         "Support major spiritual programs, festival celebrations, stage arrangements, prasad, hospitality, and devotee experience.",
       impact: "Creates devotional impact during high-footfall events and temple celebrations.",
       supports: "Event setup, katha logistics, decor, sound, seating, prasad, and spiritual hospitality.",
-      icon: "/assets/icons/sponsor-programs/icon-katha-sponsorship.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193608/ChatGPT_Image_Apr_26_2026_01_45_08_PM_v3dyke.png",
     },
     {
       category: "Seva" as const,
@@ -11282,7 +11282,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
       description: "Sponsor grass, fodder, medical care, shelter support, and daily gau-shala seva continuity.",
       impact: "Provides disciplined care support for cows through recurring and need-based seva.",
       supports: "Fodder, green grass, emergency care, routine nourishment, and gaushala operations.",
-      icon: "/assets/icons/sponsor-programs/icon-gau-seva-sponsor.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776880621/ChatGPT_Image_Apr_22_2026_11_25_30_PM_i6q6qj.png",
     },
     {
       category: "Emergency" as const,
@@ -11290,7 +11290,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
       description: "Fund emergency kits, food distribution, blankets, temporary essentials, and field response support.",
       impact: "Helps the trust respond quickly when families need urgent practical support.",
       supports: "Relief kits, transport, volunteer deployment, and rapid-response coordination.",
-      icon: "/assets/icons/sponsor-programs/icon-disaster-relief-sponsor.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776834110/ri2_zdo8gr.png",
     },
     {
       category: "Education" as const,
@@ -11299,7 +11299,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
         "Support students through scholarship assistance, books, learning tools, and value-based educational guidance.",
       impact: "Creates measurable long-term upliftment through education and character support.",
       supports: "Fees, study materials, mentoring, and structured student support routes.",
-      icon: "/assets/icons/sponsor-programs/icon-education-sponsor.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776788578/1_pqp7q9.png",
     },
     {
       category: "Education" as const,
@@ -11308,7 +11308,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
         "Enable Bal Sanskar programs, digital Pathshala support, child learning modules, and family spiritual education initiatives.",
       impact: "Builds the next generation through dharmic learning and disciplined spiritual formation.",
       supports: "Class material, mentor support, event days, learning resources, and children’s workshops.",
-      icon: "/assets/icons/sponsor-programs/icon-education-sponsor.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776788577/5_ulkrty.png",
     },
     {
       category: "Mandir" as const,
@@ -11317,7 +11317,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
         "Support temple construction-linked features, sacred installations, devotional infrastructure, and visitor experience planning.",
       impact: "Strengthens long-term mandir vision and the spiritual environment for devotees.",
       supports: "Murti support, installation, visitor pathways, decor, lighting, and sacred-space readiness.",
-      icon: "/assets/icons/sponsor-programs/icon-mandir-sponsor.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967403/g12_jtim6v.png",
     },
     {
       category: "Seva" as const,
@@ -11326,7 +11326,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
         "Fund medicine kits, recurring patient support, health camps, and essential care outreach for vulnerable families.",
       impact: "Converts sponsor contribution into direct healthcare relief for beneficiaries.",
       supports: "Medicine supply, camp support, distribution logistics, and chronic care assistance.",
-      icon: "/assets/icons/sponsor-programs/icon-medical-sponsor.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776884757/medical_fa6kuy.png",
     },
     {
       category: "Spiritual" as const,
@@ -11334,7 +11334,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
       description: "Sponsor offering arrangements, prasad preparation, festival hospitality, and temple celebration support.",
       impact: "Creates direct devotional participation through large-scale offering and guest care.",
       supports: "Bhog, prasad seva, utensils, serving support, and festival hospitality infrastructure.",
-      icon: "/assets/icons/sponsor-programs/icon-prasad-sponsor.svg",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776973582/ChatGPT_Image_Apr_24_2026_01_06_42_AM_g0usha.png",
     },
   ];
 
@@ -11348,22 +11348,16 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[var(--campaign-deep)] pb-16">
+    <div className="min-h-screen bg-[var(--campaign-deep)] pb-16 font-['Poppins'] text-base">
       <HeroSection
         title="Sponsor Programs"
         subtitle="Sponsor meaningful seva, education, mandir development, and spiritual initiatives through structured contribution paths."
-        backgroundImage="/assets/images/sponsor-programs/sponsor-programs-hero.jpg"
+        backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1777465339/ChatGPT_Image_Apr_29_2026_05_50_23_PM_txe1nb.png"
         subtitleClassName={EVENT_SEVA_HERO_SUBTITLE_WRAP_CLASS}
         contentClassName={EVENT_SEVA_HERO_CONTENT_CLASS}
-        boxed
-        heightClass="h-[460px] md:h-[600px]"
-        overlayClass="bg-[linear-gradient(120deg,rgba(57,26,0,0.84),rgba(119,53,4,0.66),rgba(12,57,67,0.35))]"
+        heightClass="h-[430px] md:h-[560px]"
+        overlayClass="bg-[linear-gradient(120deg,rgba(255,236,199,0.22),rgba(255,214,140,0.18),rgba(177,233,241,0.14))]"
       >
-        <p className="mx-auto mt-2 max-w-4xl text-sm leading-7 text-white/90 md:text-base">
-          Your support can become a living form of seva by helping Bhagwat Katha, Gau Seva, Ann Seva, Education
-          Support, Mandir Development, Medical Seva, Disaster Relief, Pathshala, and Prasad Seva reach more families,
-          devotees, students, and communities.
-        </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link to={ROUTES.donate} className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>
             Sponsor Now
@@ -11490,9 +11484,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
             {visiblePrograms.map((item) => (
               <article key={item.title} className={`${EVENT_SEVA_DETAIL_CARD_CLASS} flex h-full flex-col`}>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className={iconBadgeClass}>
-                    <img src={item.icon} alt="" loading="lazy" className={iconImageClass} />
-                  </span>
+                  <img src={item.icon} alt={`${item.title} icon`} loading="lazy" className="h-[86px] w-[86px] rounded-full object-cover" />
                   <span className="rounded-full bg-[#E8A03A] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#31210D]">
                     {item.category}
                   </span>
@@ -11538,38 +11530,46 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
               {
                 title: "Monthly Gau Grass Seva",
                 text: "Recurring support for daily grass and nourishment in gaushala.",
-                icon: "/assets/icons/sponsor-programs/icon-gau-seva-sponsor.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776880621/ChatGPT_Image_Apr_22_2026_11_25_30_PM_i6q6qj.png",
               },
               {
                 title: "Festival Decoration and Puja Seva",
                 text: "Support mandap decor, flowers, lighting, and puja-related arrangements.",
-                icon: "/assets/icons/sponsor-programs/icon-katha-sponsorship.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193608/ChatGPT_Image_Apr_26_2026_01_45_08_PM_v3dyke.png",
               },
               {
                 title: "Child Sanskar Kit Sponsorship",
                 text: "Support books, activity material, and learning kits for children and Pathshala batches.",
-                icon: "/assets/icons/sponsor-programs/icon-education-sponsor.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776788577/5_ulkrty.png",
               },
               {
                 title: "Medical Camp Support",
                 text: "Fund health camps, medicine distribution days, and practical wellness support.",
-                icon: "/assets/icons/sponsor-programs/icon-medical-sponsor.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776884757/medical_fa6kuy.png",
               },
               {
                 title: "Prasad Distribution Seva",
                 text: "Support prasad preparation, packing, serving, and distribution.",
-                icon: "/assets/icons/sponsor-programs/icon-ann-seva-sponsor.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776973582/ChatGPT_Image_Apr_24_2026_01_06_42_AM_g0usha.png",
               },
               {
                 title: "Scholarship Support",
                 text: "Support fee assistance, books, uniforms, and guidance for deserving students.",
-                icon: "/assets/icons/sponsor-programs/icon-education-sponsor.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776788578/1_pqp7q9.png",
+              },
+              {
+                title: "Disaster Relief Seva Support",
+                text: "Support emergency kits, food distribution, and relief logistics during urgent situations.",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776834110/ri2_zdo8gr.png",
+              },
+              {
+                title: "Mandir & Installation Seva",
+                text: "Support temple infrastructure, sacred installation, and devotional space readiness.",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967403/g12_jtim6v.png",
               },
             ].map((item) => (
               <article key={item.title} className={`${surfaceCardClass} flex h-full flex-col`}>
-                <span className={iconBadgeClass}>
-                  <img src={item.icon} alt="" loading="lazy" className={iconImageClass} />
-                </span>
+                <img src={item.icon} alt={`${item.title} icon`} loading="lazy" className="h-[86px] w-[86px] rounded-full object-cover" />
                 <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
                 <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.text}</p>
               </article>
@@ -11598,15 +11598,11 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
                 </article>
               ))}
             </div>
-            <p className="mt-6 rounded-xl border border-[#D9BC8F]/40 bg-[#FFF4DF]/10 p-4 text-sm leading-7 text-[#F7E5C8]">
-              All sponsorships should be routed through official trust channels only. Program execution depends on
-              current need, feasibility, event calendar, and trust approval.
-            </p>
           </div>
 
           <aside className={`${EVENT_SEVA_SECTION_CLASS} overflow-hidden p-0`}>
             <img
-              src="/assets/images/sponsor-programs/sponsor-transparency.jpg"
+              src="https://res.cloudinary.com/der8zinu8/image/upload/v1777465339/ChatGPT_Image_Apr_29_2026_05_50_55_PM_rooblb.png"
               alt="Donation receipt and seva reporting documents arranged for transparency"
               className="h-[300px] w-full object-cover md:h-[360px]"
               loading="lazy"
@@ -11638,29 +11634,36 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
           <h2 className={SEVA_SECTION_HEADING_CLASS}>How sponsorship can work</h2>
           <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
             {[
-              "Choose the trust program or seva area you want to support.",
-              "Connect with the sponsor desk for scope, amount, and sponsorship type.",
-              "Complete contribution through the donation route or guided sponsor coordination.",
-              "Receive acknowledgement, receipt, and program communication.",
-              "Stay connected with the purpose and continuity of the supported trust work.",
+              {
+                text: "Choose the trust program or seva area you want to support.",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193608/ChatGPT_Image_Apr_26_2026_01_45_08_PM_v3dyke.png",
+              },
+              {
+                text: "Connect with the sponsor desk for scope, amount, and sponsorship type.",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/coordination_pex250.png",
+              },
+              {
+                text: "Complete contribution through the donation route or guided sponsor coordination.",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/ass3_lficum.png",
+              },
+              {
+                text: "Receive acknowledgement, receipt, and program communication.",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/assessment_cdbpcf.png",
+              },
+              {
+                text: "Stay connected with the purpose and continuity of the supported trust work.",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967401/g7_kplr1h.png",
+              },
             ].map((step, index) => (
-              <article key={step} className={`${surfaceCardClass} h-full p-4`}>
-                <span className={iconBadgeClass}>
-                  <img
-                    src={
-                      index === 3
-                        ? "/assets/icons/sponsor-programs/icon-receipt.svg"
-                        : index === 4
-                          ? "/assets/icons/sponsor-programs/icon-recognition.svg"
-                          : "/assets/icons/sponsor-programs/icon-sponsor-journey.svg"
-                    }
-                    alt=""
-                    loading="lazy"
-                    className={iconImageClass}
-                  />
-                </span>
+              <article key={step.text} className={`${surfaceCardClass} h-full p-4`}>
+                <img
+                  src={step.icon}
+                  alt={`Sponsor journey step ${index + 1} icon`}
+                  loading="lazy"
+                  className="h-[86px] w-[86px] rounded-full object-cover"
+                />
                 <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-[#D8A244]">Step {index + 1}</p>
-                <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{step}</p>
+                <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{step.text}</p>
               </article>
             ))}
           </div>
@@ -11676,33 +11679,31 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
               {
                 title: "Official Receipt",
                 text: "Sponsors receive appropriate official donation receipt as per trust process.",
-                icon: "/assets/icons/sponsor-programs/icon-receipt.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/ass3_lficum.png",
               },
               {
                 title: "Seva Acknowledgement",
                 text: "The trust may acknowledge sponsorship through certificate, event mention, or appreciation note.",
-                icon: "/assets/icons/sponsor-programs/icon-recognition.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776866706/assessment_cdbpcf.png",
               },
               {
                 title: "Program Update",
                 text: "Where possible, sponsors may receive photos, summary updates, or impact notes.",
-                icon: "/assets/icons/sponsor-programs/icon-transparency-report.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967401/g7_kplr1h.png",
               },
               {
                 title: "Annual Impact Summary",
                 text: "Regular sponsors can be included in broader impact reporting and seva summaries.",
-                icon: "/assets/icons/sponsor-programs/icon-transparency-report.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967401/g9_vdlu1r.png",
               },
               {
                 title: "Donor Wall / Website Mention",
                 text: "Selected sponsors may be recognized on the website or trust publications where appropriate.",
-                icon: "/assets/icons/sponsor-programs/icon-recognition.svg",
+                icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967400/g8_cw3tcs.png",
               },
             ].map((item) => (
               <article key={item.title} className={`${surfaceCardClass} h-full`}>
-                <span className={iconBadgeClass}>
-                  <img src={item.icon} alt="" loading="lazy" className={iconImageClass} />
-                </span>
+                <img src={item.icon} alt={`${item.title} icon`} loading="lazy" className="h-[86px] w-[86px] rounded-full object-cover" />
                 <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
                 <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.text}</p>
               </article>
@@ -11796,18 +11797,12 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
 
       <section className="mx-auto max-w-7xl px-4 pt-8">
         <div
-          className="relative overflow-hidden rounded-[30px] border border-[#E7C794]/40 p-7 md:p-10"
-          style={{
-            backgroundImage:
-              "linear-gradient(120deg, rgba(51, 23, 1, 0.76), rgba(103, 50, 7, 0.58), rgba(13, 54, 56, 0.42)), url('/assets/images/sponsor-programs/sponsor-cta-banner.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          className="relative overflow-hidden rounded-[30px] border border-[#E7C794] bg-[linear-gradient(120deg,#FFE7B4_0%,#FFD57C_48%,#F0B84F_100%)] p-7 md:p-10"
         >
           <div className="max-w-3xl">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-[#F9D38C]">Final CTA</p>
-            <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">Start Sponsoring Trust Work</h2>
-            <p className="mt-3 text-sm leading-7 text-white/90 md:text-base">
+            <h2 className="mt-3 text-3xl font-black text-[#6E4212] md:text-4xl">Start Sponsoring Trust Work</h2>
+            <p className="mt-3 text-sm leading-7 text-[#6A4A1F] md:text-base">
               Choose a purposeful seva route and support spiritual, cultural, educational, and humanitarian work through
               Bhagwat Heritage Service Foundation Trust.
             </p>
