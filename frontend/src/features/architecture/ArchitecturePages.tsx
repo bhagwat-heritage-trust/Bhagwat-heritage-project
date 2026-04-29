@@ -8535,7 +8535,7 @@ export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage()
   const activeImage = lightboxIndex !== null ? EVENT_MOMENT_IMAGES_V2[lightboxIndex] : null;
 
   return (
-    <div className="space-y-0 pb-14">
+    <div className="space-y-0 pb-14 font-['Poppins'] text-[#5F4A37] [&_h1]:font-black [&_h1]:leading-tight [&_h2]:font-black [&_h3]:font-black [&_h1]:text-[#1D342C] [&_h2]:text-[#1D342C] [&_h3]:text-[#1D342C] [&_p]:text-[#5F4A37]">
       <section className="relative overflow-hidden rounded-[34px] border border-[#E6D0AF] shadow-[0_24px_52px_rgba(95,62,26,0.18)]">
         <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777486100/ChatGPT_Image_Apr_29_2026_11_38_01_PM_bl96ar.png" alt="Large spiritual event gathering with devotees and warm lights" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
         <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(54,20,10,0.38),rgba(88,24,18,0.24),rgba(15,107,107,0.16))]" />
@@ -8866,25 +8866,25 @@ type PublicationOverviewCardV3 = {
 const PUBLICATION_OVERVIEW_CARDS_V3: PublicationOverviewCardV3[] = [
   {
     title: "Annual & Impact Reports",
-    icon: "/assets/icons/publications/icon-annual-report.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png",
     description: "Formal reporting documents covering seva outcomes, accountability, and annual trust progress.",
     bestUse: "Best Use: Donors, institutions, compliance, and long-term understanding.",
   },
   {
     title: "Trust & Mandir Brochures",
-    icon: "/assets/icons/publications/icon-brochure.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032974/ChatGPT_Image_Apr_24_2026_05_42_39_PM_hoklrs.png",
     description: "Public-facing brochure materials for trust mission, mandir identity, and support directions.",
     bestUse: "Best Use: First-time visitors, outreach teams, and partner introductions.",
   },
   {
     title: "Bhagwat Study Resources",
-    icon: "/assets/icons/publications/icon-study-booklet.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029120/ChatGPT_Image_Apr_24_2026_04_38_51_PM_nywxnm.png",
     description: "Spiritual study notes and devotional learning companions for satsang and Pathshala use.",
     bestUse: "Best Use: Satsang circles, youth groups, and family devotional study.",
   },
   {
     title: "Festival & Event Notes",
-    icon: "/assets/icons/publications/icon-festival-notes.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_12_PM_ark4ok.png",
     description: "Seasonal publication notes, utsav guides, and event-linked devotional participation materials.",
     bestUse: "Best Use: Festival planning, volunteer teams, and public event support.",
   },
@@ -8927,7 +8927,7 @@ const PUBLICATION_ARCHIVE_V3: PublicationItemV3[] = [
     type: "PDF",
     description: "Progress, seva reach, and annual trust summary.",
     fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    thumbnail: "/assets/images/publications/annual-report-2026.jpg",
+    thumbnail: "https://res.cloudinary.com/der8zinu8/image/upload/v1777488732/ChatGPT_Image_Apr_30_2026_12_20_25_AM_q5modx.png",
     featured: true,
     pageCount: 46,
     fileSize: "5.2 MB",
@@ -8944,7 +8944,7 @@ const PUBLICATION_ARCHIVE_V3: PublicationItemV3[] = [
     type: "PDF",
     description: "Mandir vision, visitor appeal, and support direction.",
     fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    thumbnail: "/assets/images/publications/bhagwat-dham-brochure.jpg",
+    thumbnail: "https://res.cloudinary.com/der8zinu8/image/upload/v1777489277/ChatGPT_Image_Apr_30_2026_12_29_37_AM_re5jje.png",
     featured: true,
     pageCount: 18,
     fileSize: "2.1 MB",
@@ -8961,7 +8961,7 @@ const PUBLICATION_ARCHIVE_V3: PublicationItemV3[] = [
     type: "PDF",
     description: "Learning aid for satsang and study circles.",
     fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    thumbnail: "/assets/images/publications/study-companion-notes.jpg",
+    thumbnail: "https://res.cloudinary.com/der8zinu8/image/upload/v1777488732/ChatGPT_Image_Apr_30_2026_12_20_41_AM_bgjcos.png",
     featured: true,
     pageCount: 62,
     fileSize: "6.4 MB",
@@ -8978,7 +8978,7 @@ const PUBLICATION_ARCHIVE_V3: PublicationItemV3[] = [
     type: "PDF",
     description: "Annual celebration guide and participation structure.",
     fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    thumbnail: "/assets/images/publications/festival-calendar-guide.jpg",
+    thumbnail: "https://res.cloudinary.com/der8zinu8/image/upload/v1777488731/ChatGPT_Image_Apr_30_2026_12_20_52_AM_yjuo6x.png",
     featured: false,
     pageCount: 28,
     fileSize: "3.0 MB",
@@ -8995,7 +8995,7 @@ const PUBLICATION_ARCHIVE_V3: PublicationItemV3[] = [
     type: "PDF",
     description: "Overview of seva, education, and outreach routes.",
     fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    thumbnail: "/assets/images/publications/program-introduction-deck.jpg",
+    thumbnail: "https://res.cloudinary.com/der8zinu8/image/upload/v1777488732/ChatGPT_Image_Apr_30_2026_12_20_30_AM_dwwd33.png",
     featured: true,
     pageCount: 24,
     fileSize: "2.7 MB",
@@ -9012,7 +9012,7 @@ const PUBLICATION_ARCHIVE_V3: PublicationItemV3[] = [
     type: "PDF",
     description: "Short-form donor and public-facing trust impact review.",
     fileUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    thumbnail: "/assets/images/publications/impact-snapshot.jpg",
+    thumbnail: "https://res.cloudinary.com/der8zinu8/image/upload/v1777489277/ChatGPT_Image_Apr_30_2026_12_30_59_AM_qykqw1.png",
     featured: false,
     pageCount: 14,
     fileSize: "1.6 MB",
@@ -9063,15 +9063,16 @@ export const MediaPublicationsPage = memo(function MediaPublicationsPage() {
 
   return (
     <div className="space-y-0 pb-14">
-      <section className="relative overflow-hidden rounded-[34px] border border-[#E6D0AF] bg-[linear-gradient(140deg,#FFF5DE_0%,#FFFDF8_50%,#F6E8CB_100%)] p-6 shadow-[0_22px_48px_rgba(95,62,26,0.14)] md:p-10">
-        <img src="/assets/images/publications/publication-hero.jpg" alt="Devotional publication desk with booklet, diya, and temple silhouette" className="absolute inset-0 h-full w-full object-cover opacity-20" loading="lazy" />
-        <div className="relative z-10">
+      <section className="relative overflow-hidden rounded-[34px] border border-[#E6D0AF] bg-[linear-gradient(140deg,#FFF5DE_0%,#FFFDF8_50%,#F6E8CB_100%)] shadow-[0_22px_48px_rgba(95,62,26,0.14)]">
+        <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777488733/ChatGPT_Image_Apr_30_2026_12_20_20_AM_a94l5f.png" alt="Devotional publication desk with booklet, diya, and temple silhouette" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(255,250,240,0.12),rgba(255,253,248,0.14),rgba(248,232,203,0.10))]" />
+        <div className="relative z-10 flex min-h-[420px] flex-col items-center justify-end px-6 pb-10 pt-10 text-center md:min-h-[560px] md:px-10 md:pb-12">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#B97615]">Media Gallery</p>
           <h1 className="mt-3 text-4xl font-black tracking-tight text-[#1D342C] md:text-6xl">Publications</h1>
           <p className="mt-4 max-w-4xl text-base leading-7 text-[#5F4A37] md:text-lg">
             Reports, brochures, study notes, festival documents, and trust publications arranged for devotees, donors, visitors, and well-wishers.
           </p>
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
             {["Annual Reports", "Brochures", "Study Notes", "Festival Guides"].map((badge) => (
               <span key={badge} className="rounded-full border border-[#E2C48D] bg-white/85 px-4 py-1.5 text-xs font-black uppercase tracking-[0.08em] text-[#7D5119]">
                 {badge}
@@ -9086,8 +9087,8 @@ export const MediaPublicationsPage = memo(function MediaPublicationsPage() {
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {PUBLICATION_OVERVIEW_CARDS_V3.map((item) => (
             <article key={item.title} className="rounded-[20px] border border-[#E6D4B5] bg-white p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)]">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2DC]">
-                <img src={item.icon} alt={`${item.title} icon`} className="h-7 w-7 object-contain" loading="lazy" />
+              <div className="flex justify-center">
+                <img src={item.icon} alt={`${item.title} icon`} className="h-20 w-20 rounded-full object-cover" loading="lazy" />
               </div>
               <h3 className="mt-4 text-xl font-black text-[#2A2018]">{item.title}</h3>
               <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{item.description}</p>
@@ -9260,12 +9261,10 @@ export const MediaPublicationsPage = memo(function MediaPublicationsPage() {
         </article>
       </section>
 
-      <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
-        <img src="/assets/images/publications/publication-cta-banner.jpg" alt="Spiritual document table with diya and brochure in golden atmosphere" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(37,24,13,0.84),rgba(88,24,18,0.70),rgba(15,107,107,0.62))]" />
-        <div className="relative z-10 text-white">
+      <section className="mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] bg-[linear-gradient(120deg,#F8D271_0%,#F5C35E_52%,#EFB54A_100%)] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+        <div className="text-[#1D342C]">
           <h2 className="text-3xl font-black md:text-4xl">Need a Publication or Trust Document?</h2>
-          <p className="mt-3 max-w-4xl text-base leading-7 text-white/90">
+          <p className="mt-3 max-w-4xl text-base leading-7 text-[#2E3F35]/90">
             For official reports, brochures, event notes, or institutional sharing material, please contact the Bhagwat Heritage team.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
