@@ -1,7 +1,7 @@
 import { memo, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import { ROUTES } from "../../app/routes/routes";
 import { HeroSection, type HeroSlide } from "../../components/ui/HeroSection";
 import { usePageMeta } from "../../hooks/usePageMeta"; 
