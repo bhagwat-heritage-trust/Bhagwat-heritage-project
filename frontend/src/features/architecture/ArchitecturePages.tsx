@@ -1285,6 +1285,7 @@ function EventShowcasePage({
           </Link>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className={`${gauSevaStyle ? "relative z-20 mt-[10px]" : "-mt-10 relative z-20"} pb-6`}>
         <div className="max-w-7xl mx-auto px-4">
@@ -1851,6 +1852,7 @@ export const DigitalServicesHubPage = memo(function DigitalServicesHubPage() {
           </Link>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className="relative z-20 mt-[10px] pb-6">
         <div className="max-w-7xl mx-auto px-4">
@@ -2831,6 +2833,7 @@ export const SevaGauSevaPage = memo(function SevaGauSevaPage() {
           </Link>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className="-mt-10 relative z-20 pb-6">
         <div className="max-w-7xl mx-auto px-4">
@@ -3474,6 +3477,7 @@ export const EventsBhagwatKathaPageLegacy = memo(function EventsBhagwatKathaPage
           </Link>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className="relative z-20 mt-[10px] pb-6">
         <div className="max-w-7xl mx-auto px-4">
@@ -5459,6 +5463,7 @@ export const KnowledgeChildrenPage = memo(function KnowledgeChildrenPage() {
           </Link>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className="relative z-20 mt-[10px] pb-6">
         <div className="max-w-7xl mx-auto px-4">
@@ -6202,6 +6207,7 @@ export const MandirAvatarsPage = memo(function MandirAvatarsPage() {
           </Link>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className="-mt-10 relative z-20 pb-6">
         <div className="max-w-7xl mx-auto px-4">
@@ -6492,6 +6498,7 @@ export const MandirConstructionPage = memo(function MandirConstructionPage() {
           </Link>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className="-mt-10 relative z-20 pb-6">
         <div className="max-w-7xl mx-auto px-4">
@@ -6738,6 +6745,7 @@ export const MandirPilgrimagePage = memo(function MandirPilgrimagePage() {
           </Link>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className="-mt-10 relative z-20 pb-6">
         <div className="max-w-7xl mx-auto px-4">
@@ -7525,7 +7533,7 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
   const VideoHero = () => (
     <section className="relative overflow-hidden rounded-[34px] border border-[#EAD8BC] bg-[#1D1A17] shadow-[0_24px_54px_rgba(83,57,24,0.22)]">
       <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777267204/ChatGPT_Image_Apr_27_2026_09_51_10_AM_hlbplt.png" alt="Bhagwat Heritage video gallery hero" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-      <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(36,24,12,0.88),rgba(18,41,51,0.76),rgba(200,146,46,0.52))]" />
+      <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(36,24,12,0.48),rgba(18,41,51,0.34),rgba(230,180,84,0.28))]" />
       <div className="relative z-10 px-6 py-14 text-white md:px-10 md:py-20">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-[#F8DDA9]">Home / Media Gallery / Video Gallery</p>
         <h1 className="mt-4 text-4xl font-black leading-tight md:text-6xl">Video Gallery</h1>
@@ -7533,9 +7541,9 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
           Watch Bhagwat Katha, pravachan, bhajan, live darshan, and spiritual event videos from Bhagwat Heritage.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
-          <button type="button" onClick={() => setSelectedVideo(featuredVideo)} className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#BE7D17]">Watch Latest Video</button>
-          <a href="#video-playlists" className="rounded-full border border-white/60 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white hover:text-[#3A2A1B]">Explore Playlists</a>
-          <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" className="rounded-full border border-white/60 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white hover:text-[#3A2A1B]">Subscribe Channel</a>
+          <button type="button" onClick={() => setSelectedVideo(featuredVideo)} className="rounded-full bg-[#E08214] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#C56F0F]">Watch Latest Video</button>
+          <a href="#video-playlists" className="rounded-full bg-[#C4382F] px-6 py-3 text-sm font-black text-white transition hover:bg-[#A92D25]">Explore Playlists</a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" className="rounded-full bg-[#2F67C4] px-6 py-3 text-sm font-black text-white transition hover:bg-[#2757A6]">Subscribe Channel</a>
         </div>
       </div>
     </section>
@@ -7660,8 +7668,8 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
 
   const PlaylistCard = ({ item }: { item: PlaylistCardItemV2 }) => (
     <article className="rounded-[20px] border border-[#E7D5B5] bg-white p-5 shadow-[0_12px_28px_rgba(104,75,38,0.09)]">
-      <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF1D8]">
-        <img src={item.icon} alt={`${item.title} icon`} className="h-7 w-7 object-contain" loading="lazy" />
+      <div className="flex justify-center">
+        <img src={item.icon} alt={`${item.title} icon`} className="h-[58px] w-[58px] object-contain" loading="lazy" />
       </div>
       <h3 className="mt-4 text-xl font-black text-[#2A2118]">{item.title}</h3>
       <p className="mt-2 text-sm leading-6 text-[#5F4B38]">{item.description}</p>
@@ -7722,16 +7730,14 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
   );
 
   const YoutubeCTA = () => (
-    <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E5C88E] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
-      <img src="/assets/images/media-gallery/youtube-cta-bg.jpg" alt="YouTube CTA background" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-      <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(180,117,24,0.86),rgba(216,155,43,0.84),rgba(15,107,107,0.74))]" />
-      <div className="relative z-10 text-white">
+    <section className="mt-12 overflow-hidden rounded-[28px] border border-[#E5C88E] bg-[linear-gradient(120deg,#F8D271_0%,#F5C35E_52%,#EFB54A_100%)] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+      <div className="text-[#1D342C]">
         <h2 className="text-3xl font-black md:text-4xl">Stay Connected with Bhagwat Heritage</h2>
-        <p className="mt-3 max-w-4xl text-base leading-7 text-white/90">Subscribe to receive latest Bhagwat Katha, pravachan, bhajan, live darshan, and spiritual event videos.</p>
+        <p className="mt-3 max-w-4xl text-base leading-7 text-[#2E3F35]/90">Subscribe to receive latest Bhagwat Katha, pravachan, bhajan, live darshan, and spiritual event videos.</p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" className="rounded-full bg-white px-6 py-3 text-sm font-black text-[#8A5515]">Subscribe on YouTube</a>
-          <button type="button" className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Share Video Gallery</button>
-          <Link to={`${ROUTES.contact}?subject=media-team`} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Contact Media Team</Link>
+          <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" className="rounded-full bg-[#E08214] px-6 py-3 text-sm font-black text-white">Subscribe on YouTube</a>
+          <button type="button" className="rounded-full bg-[#C4382F] px-6 py-3 text-sm font-black text-white">Share Video Gallery</button>
+          <Link to={`${ROUTES.contact}?subject=media-team`} className="rounded-full bg-[#2F67C4] px-6 py-3 text-sm font-black text-white">Contact Media Team</Link>
         </div>
       </div>
     </section>
@@ -7795,7 +7801,7 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
   };
 
   return (
-    <div className="space-y-0 pb-14">
+    <div className="min-h-screen space-y-0 bg-[linear-gradient(180deg,#fffaf0_0%,#fffdf8_100%)] pb-16 font-['Poppins'] text-[#2e4356] [&_h1]:font-black [&_h1]:text-[#1f3550] [&_h2]:font-black [&_h2]:text-[#1f3550] [&_h3]:font-black [&_h3]:text-[#1f3550] [&_p]:text-[#5e5247]">
       <VideoHero />
       <VideoFilterBar />
       <FeaturedVideo />
@@ -7860,16 +7866,14 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
       <YoutubeCTA />
       <FAQAccordion />
 
-      <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
-        <img src="/assets/images/media-gallery/final-video-gallery-cta.jpg" alt="Final video gallery call to action" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(37,24,13,0.84),rgba(15,107,107,0.74),rgba(216,155,43,0.70))]" />
-        <div className="relative z-10 text-white">
+      <section className="mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] bg-[linear-gradient(120deg,#F8D271_0%,#F5C35E_52%,#EFB54A_100%)] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+        <div className="text-[#1D342C]">
           <h2 className="text-3xl font-black md:text-4xl">Let Divine Knowledge Reach Every Home</h2>
-          <p className="mt-3 max-w-3xl text-base leading-7 text-white/90">Share Bhagwat Heritage videos with your family, friends, and community.</p>
+          <p className="mt-3 max-w-3xl text-base leading-7 text-[#2E3F35]/90">Share Bhagwat Heritage videos with your family, friends, and community.</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <button type="button" onClick={() => setSelectedVideo(featuredVideo)} className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white">Watch Latest Videos</button>
-            <a href="https://wa.me/" target="_blank" rel="noreferrer" className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Join WhatsApp Updates</a>
-            <Link to={ROUTES.donate} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Support Digital Seva</Link>
+            <button type="button" onClick={() => setSelectedVideo(featuredVideo)} className="rounded-full bg-[#E08214] px-6 py-3 text-sm font-black text-white">Watch Latest Videos</button>
+            <a href="https://wa.me/" target="_blank" rel="noreferrer" className="rounded-full bg-[#C4382F] px-6 py-3 text-sm font-black text-white">Join WhatsApp Updates</a>
+            <Link to={ROUTES.donate} className="rounded-full bg-[#2F67C4] px-6 py-3 text-sm font-black text-white">Support Digital Seva</Link>
           </div>
         </div>
       </section>
@@ -8108,32 +8112,32 @@ const EVENT_HIGHLIGHT_CATEGORY_FILTERS_V2: ActiveEventHighlightCategoryV2[] = [
 const EVENT_CATEGORY_CARDS_V2: EventCategoryCardV2[] = [
   {
     title: "Bhagwat Katha Mahotsav",
-    icon: "/assets/images/media-gallery/icons/icon-bhagwat-katha.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193608/ChatGPT_Image_Apr_26_2026_01_45_08_PM_v3dyke.png",
     text: "Sacred discourses, devotional gatherings, satsang and spiritual awakening through Shrimad Bhagwat Katha.",
   },
   {
     title: "Festival Celebrations",
-    icon: "/assets/images/media-gallery/icons/icon-festival-celebration.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032975/ChatGPT_Image_Apr_24_2026_05_42_29_PM_yfto9m.png",
     text: "Divine celebrations of traditional festivals with puja, bhajan, aarti, prasad and family participation.",
   },
   {
     title: "Guru Purnima",
-    icon: "/assets/images/media-gallery/icons/icon-guru-purnima.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032971/ChatGPT_Image_Apr_24_2026_05_42_57_PM_f81lk3.png",
     text: "Moments of guru bhakti, samarpan, gurupujan, blessings and spiritual gratitude.",
   },
   {
     title: "Annakut Mahotsav",
-    icon: "/assets/images/media-gallery/icons/icon-annakut.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_42_51_PM_rxxuvx.png",
     text: "Grand devotional offerings, 56 bhog, aarti, mahaprasad and community participation.",
   },
   {
     title: "Youth & Cultural Programs",
-    icon: "/assets/images/media-gallery/icons/icon-youth-cultural.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_12_PM_ark4ok.png",
     text: "Programs for youth inspiration, sanskar education, cultural performance and values-based leadership.",
   },
   {
     title: "Seva Events",
-    icon: "/assets/images/media-gallery/icons/icon-seva-event.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_24_PM_tyq4ni.png",
     text: "Food seva, education support, medical assistance, gau seva, disaster relief and social welfare activities.",
   },
 ];
@@ -8407,32 +8411,32 @@ const EVENT_MOMENT_IMAGES_V2 = [
 const EVENT_JOURNEY_STEPS_V2: EventJourneyStepV2[] = [
   {
     title: "Planning with Purpose",
-    icon: "/assets/images/media-gallery/icons/icon-event-planning.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029121/ChatGPT_Image_Apr_24_2026_04_38_32_PM_df6qd9.png",
     text: "Each event begins with a clear spiritual, cultural or seva-based purpose.",
   },
   {
     title: "Community Invitation",
-    icon: "/assets/images/media-gallery/icons/icon-community-invitation.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029120/ChatGPT_Image_Apr_24_2026_04_38_38_PM_osc8vl.png",
     text: "Families, devotees, youth, volunteers and community members are invited with respect.",
   },
   {
     title: "Devotional Participation",
-    icon: "/assets/images/media-gallery/icons/icon-devotional-participation.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776973582/ChatGPT_Image_Apr_24_2026_01_06_28_AM_imnh91.png",
     text: "The event becomes alive through satsang, puja, katha, seva, bhajan and collective prayer.",
   },
   {
     title: "Volunteer Seva",
-    icon: "/assets/images/media-gallery/icons/icon-volunteer-seva.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097561/ChatGPT_Image_Apr_25_2026_11_42_05_AM_bij6a0.png",
     text: "Dedicated volunteers support arrangements, discipline, hospitality and seva.",
   },
   {
     title: "Prasad & Blessings",
-    icon: "/assets/images/media-gallery/icons/icon-prasad-blessings.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777191414/ChatGPT_Image_Apr_26_2026_01_44_55_PM_mzcl2w.png",
     text: "Participants receive spiritual inspiration, mahaprasad and divine blessings.",
   },
   {
     title: "Impact Archive",
-    icon: "/assets/images/media-gallery/icons/icon-impact-archive.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777191419/ChatGPT_Image_Apr_26_2026_01_44_31_PM_tmftmk.png",
     text: "Photos, videos and reports are preserved as a meaningful media archive.",
   },
 ];
@@ -8533,19 +8537,14 @@ export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage()
   return (
     <div className="space-y-0 pb-14">
       <section className="relative overflow-hidden rounded-[34px] border border-[#E6D0AF] shadow-[0_24px_52px_rgba(95,62,26,0.18)]">
-        <img src="/assets/images/media-gallery/event-highlights-hero.jpg" alt="Large spiritual event gathering with devotees and warm lights" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(54,20,10,0.78),rgba(88,24,18,0.60),rgba(15,107,107,0.45))]" />
-        <div className="relative z-10 px-6 py-14 text-white md:px-10 md:py-20">
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#F3D8A5]">Home / Media Gallery / Event Highlights</p>
-          <p className="mt-5 inline-flex rounded-full bg-white/12 px-4 py-1 text-xs font-black uppercase tracking-[0.14em] text-white">Media Gallery</p>
+        <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777486100/ChatGPT_Image_Apr_29_2026_11_38_01_PM_bl96ar.png" alt="Large spiritual event gathering with devotees and warm lights" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(54,20,10,0.38),rgba(88,24,18,0.24),rgba(15,107,107,0.16))]" />
+        <div className="relative z-10 mx-auto flex min-h-[420px] max-w-6xl flex-col items-center justify-end px-6 pb-10 pt-14 text-center text-white md:min-h-[560px] md:px-10 md:pb-12 md:pt-20">
           <h1 className="mt-4 text-4xl font-black leading-tight md:text-6xl">Event Highlights</h1>
           <h2 className="mt-4 text-xl font-black text-[#FFE9C3] md:text-3xl">Moments of Seva, Sanskar, Bhakti &amp; Cultural Awakening</h2>
-          <p className="mt-4 max-w-4xl text-base leading-7 text-white/90 md:text-lg">
-            Explore the inspiring moments from Bhagwat Heritage events where devotion, service, culture, family values, youth participation, and community awakening come together as a living celebration of Dharma.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a href="#latest-event-highlights" className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#BD7A14]">View Latest Highlights</a>
-            <Link to={ROUTES.media.photos} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white hover:text-[#3A2416]">Explore Photo Gallery</Link>
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <a href="#latest-event-highlights" className="rounded-full bg-[#E08214] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#C56F0F]">View Latest Highlights</a>
+            <Link to={ROUTES.media.photos} className="rounded-full bg-[#2F67C4] px-6 py-3 text-sm font-black text-white transition hover:bg-[#2757A6]">Explore Photo Gallery</Link>
           </div>
         </div>
       </section>
@@ -8556,8 +8555,8 @@ export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage()
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {EVENT_CATEGORY_CARDS_V2.map((card) => (
             <article key={card.title} className="rounded-[20px] border border-[#E6D4B5] bg-white p-5 shadow-[0_10px_24px_rgba(104,75,38,0.08)] transition hover:-translate-y-1 hover:border-[#D6A34F]">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF2DC]">
-                <img src={card.icon} alt={`${card.title} icon`} className="h-7 w-7 object-contain" loading="lazy" />
+              <div className="flex justify-center">
+                <img src={card.icon} alt={`${card.title} icon`} className="h-[68px] w-[68px] rounded-full object-cover" loading="lazy" />
               </div>
               <h3 className="mt-4 text-xl font-black text-[#2A2018]">{card.title}</h3>
               <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{card.text}</p>
@@ -8743,8 +8742,8 @@ export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage()
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {EVENT_JOURNEY_STEPS_V2.map((step) => (
             <article key={step.title} className="rounded-[18px] border border-[#E7D5B6] bg-white p-5">
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#FFF2DC]">
-                <img src={step.icon} alt={`${step.title} icon`} className="h-6 w-6 object-contain" loading="lazy" />
+              <div className="flex justify-center">
+                <img src={step.icon} alt={`${step.title} icon`} className="h-[64px] w-[64px] rounded-full object-cover" loading="lazy" />
               </div>
               <h3 className="mt-4 text-xl font-black text-[#2A2118]">{step.title}</h3>
               <p className="mt-2 text-sm leading-6 text-[#5F4A37]">{step.text}</p>
@@ -8765,18 +8764,16 @@ export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage()
         </div>
       </section>
 
-      <section className="relative mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
-        <img src="/assets/images/media-gallery/event-highlights-cta.jpg" alt="Golden devotional event ambience with diya and temple lights" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(37,24,13,0.84),rgba(88,24,18,0.70),rgba(15,107,107,0.68))]" />
-        <div className="relative z-10 text-white">
+      <section className="mt-12 overflow-hidden rounded-[28px] border border-[#E2C68D] bg-[linear-gradient(120deg,#F8D271_0%,#F5C35E_52%,#EFB54A_100%)] p-6 shadow-[0_20px_38px_rgba(95,67,30,0.16)] md:p-8">
+        <div className="text-[#1D342C]">
           <h2 className="text-3xl font-black md:text-4xl">Be Part of Our Upcoming Divine Events</h2>
-          <p className="mt-3 max-w-4xl text-base leading-7 text-white/90">
+          <p className="mt-3 max-w-4xl text-base leading-7 text-[#2E3F35]/90">
             Join Bhagwat Heritage Service Foundation Trust as a devotee, volunteer, supporter or well-wisher and become part of events that spread bhakti, seva, sanskar and cultural awakening.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link to={ROUTES.involved.volunteer} className="rounded-full bg-[#D89B2B] px-6 py-3 text-sm font-black text-white">Join as Volunteer</Link>
-            <Link to={ROUTES.donate} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Support Event Seva</Link>
-            <Link to={`${ROUTES.contact}?subject=invite-event`} className="rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-black text-white">Invite for Event</Link>
+            <Link to={ROUTES.involved.volunteer} className="rounded-full bg-[#E08214] px-6 py-3 text-sm font-black text-white">Join as Volunteer</Link>
+            <Link to={ROUTES.donate} className="rounded-full bg-[#C4382F] px-6 py-3 text-sm font-black text-white">Support Event Seva</Link>
+            <Link to={`${ROUTES.contact}?subject=invite-event`} className="rounded-full bg-[#2F67C4] px-6 py-3 text-sm font-black text-white">Invite for Event</Link>
           </div>
         </div>
       </section>
@@ -9764,6 +9761,7 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
           <a href="#satsang-request-form" className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}>Book Digital Satsang</a>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className="mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-4 px-4 md:grid-cols-2 xl:grid-cols-4">
         {quickCards.map((item) => (
@@ -9940,71 +9938,252 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
   );
 });
 export const DigitalMembershipPage = memo(function DigitalMembershipPage() {
-  const membershipPlans = [
-    {
-      name: "Basic Member",
-      price: "Rs 499 / year",
-      benefits: [
-        "Access to spiritual programs",
-        "Festival and satsang notices",
-        "Basic membership ID",
-      ],
-    },
-    {
-      name: "Premium Member",
-      price: "Rs 1,999 / year",
-      benefits: [
-        "Priority participation in Bhagwat events",
-        "Digital certificate and membership card",
-        "Volunteer and workshop preference",
-      ],
-    },
-    {
-      name: "Lifetime Member",
-      price: "Rs 11,000 one-time",
-      benefits: [
-        "Lifetime spiritual community membership",
-        "Priority devotional event access",
-        "Recognition, certificate, and long-term portal identity",
-      ],
-    },
+  usePageMeta(
+    "Membership Portal",
+    "Membership portal for community joining, membership plans, registration, digital membership card, payments, activities, and admin management concepts.",
+  );
+
+  type MembershipPlanName = "Basic Member" | "Premium Member" | "Lifetime Member";
+  type MembershipStatus = "pending" | "approved" | "rejected";
+
+  type MembershipFormState = {
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    dob: string;
+    gender: string;
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    membershipPlan: MembershipPlanName;
+    sevaInterest: string;
+    acceptedTerms: boolean;
+  };
+
+  const PLAN_DETAILS: Array<{ name: MembershipPlanName; price: string; validTill: string; features: string[]; button: string }> = [
+    { name: "Basic Member", price: "?499 / year", validTill: "1 Year", features: ["Access to spiritual programs", "Festival and satsang updates", "Basic membership ID", "General seva participation"], button: "Join Basic Member" },
+    { name: "Premium Member", price: "?1,999 / year", validTill: "1 Year", features: ["Priority participation in Bhagwat events", "Digital certificate and membership card", "Volunteer and workshop preference", "Event invitation priority"], button: "Join Premium Member" },
+    { name: "Lifetime Member", price: "?11,000 one-time", validTill: "Lifetime", features: ["Lifetime spiritual community membership", "Priority devotional event access", "Recognition and certificate", "Long-term portal identity"], button: "Join Lifetime Member" },
   ];
 
-  const [membershipForm, setMembershipForm] = useState({
+  const SEVA_INTEREST_OPTIONS = ["Temple Seva", "Event Seva", "Digital Support", "Education Support", "Volunteer Programs", "Cultural Activities"];
+
+  const INITIAL_FORM: MembershipFormState = {
     fullName: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
+    dob: "",
+    gender: "",
     address: "",
     city: "",
     state: "",
     country: "India",
-    plan: membershipPlans[0].name,
-  });
+    membershipPlan: "Basic Member",
+    sevaInterest: "",
+    acceptedTerms: false,
+  };
+
+  const [form, setForm] = useState<MembershipFormState>(INITIAL_FORM);
+  const [errors, setErrors] = useState<Partial<Record<keyof MembershipFormState, string>>>({});
+  const [profileFile, setProfileFile] = useState<File | null>(null);
+  const [idProofFile, setIdProofFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState("");
-  const [idProofName, setIdProofName] = useState("");
+  const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSavingDraft, setIsSavingDraft] = useState(false);
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
+  const [isVerifyingPayment, setIsVerifyingPayment] = useState(false);
+  const [membershipId, setMembershipId] = useState("");
+  const [membershipStatus, setMembershipStatus] = useState<MembershipStatus>("pending");
+  const [paymentStatus, setPaymentStatus] = useState("pending");
+  const [paymentId, setPaymentId] = useState("");
+  const [orderId, setOrderId] = useState("");
 
-  const selectedPlan = membershipPlans.find((plan) => plan.name === membershipForm.plan) ?? membershipPlans[0];
-  const memberId =
-    membershipForm.fullName.trim().length > 0
-      ? `BHSF-${membershipForm.fullName.trim().replace(/\s+/g, "").slice(0, 6).toUpperCase()}-2026`
-      : "BHSF-MEMBER-2026";
-  const joinDate = "March 8, 2026";
+  const selectedPlan = PLAN_DETAILS.find((plan) => plan.name === form.membershipPlan) ?? PLAN_DETAILS[0];
+  const generatedMemberId = membershipId ? `BHSF-${membershipId.slice(-6).toUpperCase()}` : `BHSF-${form.fullName.trim().replace(/\s+/g, "").slice(0, 6).toUpperCase() || "MEMBER"}-PENDING`;
+  const joinDate = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  const qrVerificationUrl = `/verify-member/${generatedMemberId}`;
 
-  const handlePhotoChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const loadRazorpayScript = () =>
+    new Promise<boolean>((resolve) => {
+      if (window.Razorpay) return resolve(true);
+      const existing = document.querySelector<HTMLScriptElement>('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+      if (existing) {
+        existing.addEventListener("load", () => resolve(true), { once: true });
+        existing.addEventListener("error", () => resolve(false), { once: true });
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.async = true;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+
+  const handleFieldChange =
+    (field: keyof MembershipFormState) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      const value = event.target.type === "checkbox" ? (event.target as HTMLInputElement).checked : event.target.value;
+      setForm((current) => ({ ...current, [field]: field === "phoneNumber" ? String(value).replace(/\D/g, "").slice(0, 10) : value }));
+      setErrors((current) => ({ ...current, [field]: undefined }));
+    };
+
+  const handleProfilePhoto = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] ?? null;
+    setProfileFile(file);
     if (!file) return;
-
-    const previewUrl = URL.createObjectURL(file);
+    const preview = URL.createObjectURL(file);
     setPhotoPreview((current) => {
       if (current) URL.revokeObjectURL(current);
-      return previewUrl;
+      return preview;
     });
   };
 
-  const handleIdProofChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setIdProofName(file?.name ?? "");
+  const handleIdProof = (event: ChangeEvent<HTMLInputElement>) => setIdProofFile(event.target.files?.[0] ?? null);
+
+  const validateForm = () => {
+    const nextErrors: Partial<Record<keyof MembershipFormState, string>> = {};
+    if (!form.fullName.trim()) nextErrors.fullName = "Full Name is required.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) nextErrors.email = "Enter a valid email.";
+    if (!/^[6-9]\d{9}$/.test(form.phoneNumber)) nextErrors.phoneNumber = "Enter a valid 10-digit phone number.";
+    if (!form.dob) nextErrors.dob = "Date of Birth is required.";
+    if (!form.gender) nextErrors.gender = "Gender is required.";
+    if (!form.address.trim()) nextErrors.address = "Address is required.";
+    if (!form.city.trim()) nextErrors.city = "City is required.";
+    if (!form.state.trim()) nextErrors.state = "State is required.";
+    if (!form.country.trim()) nextErrors.country = "Country is required.";
+    if (!form.sevaInterest) nextErrors.sevaInterest = "Select a seva interest.";
+    if (!form.acceptedTerms) nextErrors.acceptedTerms = "Please accept Terms & Privacy.";
+    if (!profileFile) nextErrors.fullName = nextErrors.fullName ?? "Profile photo is required.";
+    if (!idProofFile) nextErrors.address = nextErrors.address ?? "ID proof is required.";
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
   };
+
+  const saveDraft = async () => {
+    setIsSavingDraft(true);
+    try {
+      localStorage.setItem("membership_portal_draft", JSON.stringify(form));
+      setStatusMessage({ type: "success", text: "Draft saved locally." });
+    } finally {
+      setIsSavingDraft(false);
+    }
+  };
+
+  const submitRegistration = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatusMessage(null);
+    if (!validateForm()) {
+      setStatusMessage({ type: "error", text: "Please correct highlighted fields before submission." });
+      return;
+    }
+    try {
+      setIsSubmitting(true);
+      const payload = new FormData();
+      payload.append("fullName", form.fullName.trim());
+      payload.append("email", form.email.trim());
+      payload.append("phone", form.phoneNumber.trim());
+      payload.append("dob", form.dob);
+      payload.append("gender", form.gender);
+      payload.append("address", form.address.trim());
+      payload.append("city", form.city.trim());
+      payload.append("state", form.state.trim());
+      payload.append("country", form.country.trim());
+      payload.append("plan", form.membershipPlan);
+      payload.append("sevaInterest", form.sevaInterest);
+      payload.append("membershipStatus", "pending");
+      payload.append("paymentStatus", "pending");
+      if (profileFile) payload.append("profilePhoto", profileFile);
+      if (idProofFile) payload.append("idProof", idProofFile);
+      const response = await membershipApi.register(payload);
+      const created = response.data.membership;
+      setMembershipId(created._id);
+      setMembershipStatus((created.membershipStatus as MembershipStatus) || "pending");
+      setPaymentStatus(created.paymentStatus || "pending");
+      setStatusMessage({ type: "success", text: "Registration submitted. Status: Pending Approval by default." });
+    } catch {
+      setStatusMessage({ type: "error", text: "Unable to submit registration right now. Please try again." });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const startPayment = async () => {
+    if (!membershipId) {
+      setStatusMessage({ type: "info", text: "Please submit registration first to create payment order." });
+      return;
+    }
+    try {
+      setIsCreatingOrder(true);
+      const ready = await loadRazorpayScript();
+      if (!ready || !window.Razorpay) {
+        setStatusMessage({ type: "error", text: "Razorpay checkout unavailable. Please try again." });
+        return;
+      }
+      const order = (await membershipApi.createOrder(membershipId)).data;
+      setOrderId(order.orderId);
+      const key = order.keyId ?? import.meta.env.VITE_RAZORPAY_KEY_ID;
+      if (!key) {
+        setStatusMessage({ type: "error", text: "Payment key missing. Please configure Razorpay key." });
+        return;
+      }
+      const razorpay = new window.Razorpay({
+        key,
+        order_id: order.orderId,
+        amount: order.amount,
+        currency: order.currency,
+        name: "Bhagwat Heritage Membership",
+        description: `${form.membershipPlan} Contribution`,
+        prefill: { name: form.fullName, email: form.email, contact: form.phoneNumber },
+        theme: { color: "#C87515" },
+        handler: async (response) => {
+          try {
+            setIsVerifyingPayment(true);
+            await membershipApi.verifyPayment({ membershipId, razorpay_order_id: response.razorpay_order_id, razorpay_payment_id: response.razorpay_payment_id, razorpay_signature: response.razorpay_signature });
+            setPaymentStatus("paid");
+            setPaymentId(response.razorpay_payment_id);
+            setStatusMessage({ type: "success", text: "Payment successful. Membership still requires admin approval." });
+          } catch {
+            setStatusMessage({ type: "error", text: "Payment verification failed. Please retry." });
+          } finally {
+            setIsVerifyingPayment(false);
+          }
+        },
+      });
+      razorpay.open();
+    } catch {
+      setStatusMessage({ type: "error", text: "Unable to initialize payment. Please try again." });
+    } finally {
+      setIsCreatingOrder(false);
+    }
+  };
+
+  const handleShareCard = async () => {
+    const text = `Bhagwat Heritage Membership | ${generatedMemberId} | Verify: ${qrVerificationUrl}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "Bhagwat Heritage Member Card", text });
+        return;
+      } catch {
+        // ignore
+      }
+    }
+    await navigator.clipboard.writeText(text);
+    setStatusMessage({ type: "info", text: "Card details copied for sharing." });
+  };
+
+  useEffect(() => {
+    const raw = localStorage.getItem("membership_portal_draft");
+    if (!raw) return;
+    try {
+      const draft = JSON.parse(raw) as MembershipFormState;
+      setForm((current) => ({ ...current, ...draft }));
+    } catch {
+      // ignore
+    }
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -10012,344 +10191,66 @@ export const DigitalMembershipPage = memo(function DigitalMembershipPage() {
     };
   }, [photoPreview]);
 
-  const handleShareCard = async () => {
-    if (!navigator.share) return;
-
-    try {
-      await navigator.share({
-        title: "Bhagwat Heritage Membership Card",
-        text: `${membershipForm.fullName || "Member"} - ${selectedPlan.name} - ${memberId}`,
-      });
-    } catch {
-      // Ignore cancelled share actions.
-    }
-  };
-
-  usePageMeta(
-    "Membership Portal",
-    "Membership portal for community joining, membership plans, registration, digital membership card, payments, activities, and admin management concepts.",
-  );
-
-  const membershipSectionClass = "rounded-[30px] border border-white/10 bg-[var(--campaign-bg)] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8";
-  const membershipCardClass = "rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5 shadow-sm";
-  const membershipInputClass =
-    "rounded-2xl border border-white/10 bg-[var(--campaign-surface)] px-4 py-3 text-white outline-none placeholder:text-[#aac0ca] focus:border-[var(--campaign-accent)]";
-  const membershipButtonClass =
-    "rounded-xl bg-[var(--campaign-accent)] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[var(--campaign-accent-hover)]";
-  const membershipSecondaryButtonClass =
-    "rounded-xl border border-white/10 bg-[var(--campaign-surface)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-[var(--campaign-accent)]";
+  const sectionShell = "rounded-[30px] border border-[#ead7b4] bg-[#fffdf8] p-6 shadow-[0_14px_34px_rgba(132,90,27,0.10)] md:p-8";
+  const softCard = "rounded-[22px] border border-[#efdcb8] bg-white p-5 shadow-[0_10px_24px_rgba(120,81,16,0.08)]";
+  const inputClass = "mt-1 w-full rounded-xl border border-[#e6d2ad] bg-white px-3 py-2.5 text-sm text-[#2e4356] outline-none focus:border-[#c87515] focus:ring-2 focus:ring-[#f3d39b]";
+  const primaryBtn = "inline-flex items-center justify-center rounded-full bg-[#c87515] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#a8600f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c87515]";
+  const secondaryBtn = "inline-flex items-center justify-center rounded-full border border-[#d9b87f] bg-white px-5 py-2.5 text-sm font-semibold text-[#7a4309] transition hover:bg-[#fff2dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9b87f]";
+  const trustBadgeItems = [
+    {
+      label: "Verified Membership",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777483223/ChatGPT_Image_Apr_29_2026_10_48_59_PM_y0pfyc.png",
+    },
+    {
+      label: "Digital ID Card",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777483222/ChatGPT_Image_Apr_29_2026_10_49_07_PM_q0lfp1.png",
+    },
+    {
+      label: "Secure Payment",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777483221/ChatGPT_Image_Apr_29_2026_10_49_15_PM_hxn1ht.png",
+    },
+    {
+      label: "Seva Participation",
+      icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777483222/ChatGPT_Image_Apr_29_2026_10_49_49_PM_f6hqjr.png",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-[var(--campaign-deep)] pb-16">
-      <HeroSection
-        title="Membership Portal"
-        subtitle="Join the Bhagwat Heritage community"
-        subtitleClassName={SEVA_HERO_SUBTITLE_CLASS}
-        contentClassName={EVENT_SEVA_HERO_CONTENT_CLASS}
-        backgroundImage="/images/spiritual1.png"
-        boxed
-        heightClass="h-[360px] md:h-[520px]"
-        overlayClass="bg-black/55"
-      >
+    <div className="min-h-screen bg-[linear-gradient(180deg,#fffaf0_0%,#fffdf8_100%)] pb-16 font-['Poppins'] text-[#2e4356]">
+      <HeroSection title="Membership Portal" subtitle="Join the Bhagwat Heritage community and participate in spiritual, cultural, and seva-based initiatives with a verified digital membership identity." subtitleClassName="mx-auto mt-3 max-w-3xl text-base font-semibold text-[#fff3de] md:text-lg" contentClassName="mx-auto flex h-full max-w-6xl flex-col items-center justify-end px-4 pb-8 text-center md:pb-12" backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1777477647/ChatGPT_Image_Apr_29_2026_09_16_48_PM_meyuwm.png" boxed heightClass="h-[420px] md:h-[560px]" overlayClass="bg-[linear-gradient(120deg,rgba(31,17,10,0.32),rgba(13,79,89,0.12))]">
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <a href="#member-registration" className={EVENT_SEVA_PRIMARY_BUTTON_CLASS}>
-            Join Now
-          </a>
-          <Link
-            to={ROUTES.login}
-            className={EVENT_SEVA_SECONDARY_BUTTON_CLASS}
-          >
-            Login
-          </Link>
+          <a href="#member-registration" className="inline-flex items-center justify-center rounded-full bg-[#e08214] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#c56f0f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e08214]">Join Now</a>
+          <Link to={ROUTES.login} className="inline-flex items-center justify-center rounded-full bg-[#c4382f] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#a92d25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c4382f]">Login</Link>
+          <a href="#membership-plans" className="inline-flex items-center justify-center rounded-full bg-[#2f67c4] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#2757a6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f67c4]">View Plans</a>
         </div>
+        
       </HeroSection>
-
-      <section className="relative z-20 mt-[10px] pb-6">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              { title: "Membership Plans", value: "Basic, Premium, and Lifetime", note: "Flexible ways to stay connected with the trust community." },
-              { title: "Member Benefits", value: "Programs, seva, and events", note: "A clean route to participation, updates, and devotional connection." },
-              { title: "Digital Access", value: "Profile, card, and certificate", note: "Useful member tools presented with a clearer visual layout." },
-              { title: "Payment Support", value: "Online contribution ready", note: "Payment-friendly membership flow with simple action points." },
-            ].map((item) => (
-              <div key={item.title} className={EVENT_SEVA_HIGHLIGHT_CARD_CLASS}>
-                <p className={SEVA_HIGHLIGHT_TITLE_CLASS}>* {item.title}</p>
-                <p className={SEVA_HIGHLIGHT_VALUE_CLASS}>{item.value}</p>
-                <p className={`mt-1 ${SEVA_BODY_TEXT_CLASS}`}>{item.note}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className={membershipSectionClass}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Membership Benefits</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Why become a member</h2>
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-5">
-            {[
-              { icon: "SP", title: "Spiritual Programs", desc: "Regular access to satsang, discourse, and devotional learning paths." },
-              { icon: "ME", title: "Member-Only Events", desc: "Special member access to selected spiritual and community gatherings." },
-              { icon: "VO", title: "Volunteer Opportunities", desc: "Priority connection to seva, event support, and service roles." },
-              { icon: "DC", title: "Digital Certificates", desc: "Receive member documentation and recognition in digital format." },
-              { icon: "PP", title: "Priority Participation", desc: "Get preference in Bhagwat events, workshops, and major trust activities." },
-            ].map((item) => (
-              <div key={item.title} className={membershipCardClass}>
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--campaign-accent)]/15 text-sm font-black text-[var(--campaign-accent)]">
-                  {item.icon}
-                </div>
-                <h3 className={`mt-4 ${SEVA_CARD_TITLE_CLASS}`}>{item.title}</h3>
-                <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className={membershipSectionClass}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Membership Plans</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Choose your plan</h2>
-
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
-            {membershipPlans.map((plan) => (
-              <div key={plan.name} className={membershipCardClass}>
-                <p className={SEVA_SECTION_LABEL_CLASS}>{plan.name}</p>
-                <p className={`mt-3 ${SEVA_CARD_TITLE_CLASS}`}>{plan.price}</p>
-                <ul className={`mt-5 space-y-3 ${SEVA_BODY_TEXT_CLASS}`}>
-                  {plan.benefits.map((benefit) => (
-                    <li key={benefit} className="flex gap-3">
-                      <span className="mt-2 h-2.5 w-2.5 rounded-full bg-[var(--campaign-accent)]" />
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  type="button"
-                  onClick={() => setMembershipForm((current) => ({ ...current, plan: plan.name }))}
-                  className={`mt-6 inline-flex ${membershipButtonClass}`}
-                >
-                  Join {plan.name}
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="member-registration" className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className={membershipSectionClass}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Member Registration</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Join the community</h2>
-
-            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-              <input
-                value={membershipForm.fullName}
-                onChange={(event) => setMembershipForm((current) => ({ ...current, fullName: event.target.value }))}
-                placeholder="Full Name"
-                className={membershipInputClass}
-              />
-              <input
-                value={membershipForm.email}
-                onChange={(event) => setMembershipForm((current) => ({ ...current, email: event.target.value }))}
-                placeholder="Email"
-                className={membershipInputClass}
-              />
-              <input
-                value={membershipForm.phone}
-                onChange={(event) => setMembershipForm((current) => ({ ...current, phone: event.target.value }))}
-                placeholder="Phone Number"
-                className={membershipInputClass}
-              />
-              <select
-                value={membershipForm.plan}
-                onChange={(event) => setMembershipForm((current) => ({ ...current, plan: event.target.value }))}
-                className={membershipInputClass}
+      <section className="mx-auto mt-6 max-w-7xl px-4">
+        <div className={sectionShell}>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {trustBadgeItems.map((badge) => (
+              <article
+                key={badge.label}
+                className="flex min-h-[220px] flex-col items-center justify-start rounded-[24px] border border-[#e3c792] bg-[#fffdf7] px-5 py-6 text-center"
+                tabIndex={0}
               >
-                {membershipPlans.map((plan) => (
-                  <option key={plan.name} value={plan.name}>
-                    {plan.name}
-                  </option>
-                ))}
-              </select>
-              <input
-                value={membershipForm.address}
-                onChange={(event) => setMembershipForm((current) => ({ ...current, address: event.target.value }))}
-                placeholder="Address"
-                className={`${membershipInputClass} md:col-span-2`}
-              />
-              <input
-                value={membershipForm.city}
-                onChange={(event) => setMembershipForm((current) => ({ ...current, city: event.target.value }))}
-                placeholder="City"
-                className={membershipInputClass}
-              />
-              <input
-                value={membershipForm.state}
-                onChange={(event) => setMembershipForm((current) => ({ ...current, state: event.target.value }))}
-                placeholder="State"
-                className={membershipInputClass}
-              />
-              <input
-                value={membershipForm.country}
-                onChange={(event) => setMembershipForm((current) => ({ ...current, country: event.target.value }))}
-                placeholder="Country"
-                className={`${membershipInputClass} md:col-span-2`}
-              />
-            </div>
-
-            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-              <label className="rounded-2xl border border-dashed border-[var(--campaign-accent)]/50 bg-[var(--campaign-surface)] px-4 py-5 text-sm font-semibold text-white">
-                Profile Photo Upload
-                <input type="file" accept="image/*" onChange={handlePhotoChange} className="mt-3 block w-full text-sm text-[#d9e6ec]" />
-              </label>
-              <label className="rounded-2xl border border-dashed border-[var(--campaign-accent)]/50 bg-[var(--campaign-surface)] px-4 py-5 text-sm font-semibold text-white">
-                ID Proof Upload
-                <input type="file" onChange={handleIdProofChange} className="mt-3 block w-full text-sm text-[#d9e6ec]" />
-              </label>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button type="button" className={membershipButtonClass}>
-                Submit Registration
-              </button>
-              <button type="button" className={membershipSecondaryButtonClass}>
-                Save Form Draft
-              </button>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className={membershipSectionClass}>
-              <p className={SEVA_SECTION_LABEL_CLASS}>Digital Membership Card</p>
-              <div className="mt-5 rounded-[24px] border border-white/10 bg-[var(--campaign-surface)] p-5">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl bg-[var(--campaign-bg)]">
-                    {photoPreview ? (
-                      <img src={photoPreview} alt="Member" className="h-full w-full object-cover" />
-                    ) : (
-                      <span className="text-sm font-black text-[var(--campaign-accent)]">PHOTO</span>
-                    )}
-                  </div>
-                  <div>
-                    <p className={SEVA_SECTION_LABEL_CLASS}>Bhagwat Heritage Member ID</p>
-                    <h3 className={`mt-2 ${SEVA_CARD_TITLE_CLASS}`}>{membershipForm.fullName || "Member Name"}</h3>
-                    <p className="mt-1 text-sm text-[#d9e6ec]">{memberId}</p>
-                  </div>
-                </div>
-                <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
-                  <div className="rounded-2xl bg-[var(--campaign-bg)] p-3">
-                    <p className="text-xs uppercase tracking-wide text-[var(--campaign-accent)]">Membership Type</p>
-                    <p className="mt-1 font-semibold text-white">{selectedPlan.name}</p>
-                  </div>
-                  <div className="rounded-2xl bg-[var(--campaign-bg)] p-3">
-                    <p className="text-xs uppercase tracking-wide text-[var(--campaign-accent)]">Join Date</p>
-                    <p className="mt-1 font-semibold text-white">{joinDate}</p>
-                  </div>
-                  <div className="rounded-2xl bg-[var(--campaign-bg)] p-3">
-                    <p className="text-xs uppercase tracking-wide text-[var(--campaign-accent)]">Status</p>
-                    <p className="mt-1 font-semibold text-white">Pending Approval</p>
-                  </div>
-                  <div className="rounded-2xl bg-[var(--campaign-bg)] p-3">
-                    <p className="text-xs uppercase tracking-wide text-[var(--campaign-accent)]">ID Proof</p>
-                    <p className="mt-1 font-semibold text-white">{idProofName || "Not uploaded"}</p>
-                  </div>
-                </div>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <button type="button" onClick={() => window.print()} className={membershipButtonClass}>
-                    Download Card
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      void handleShareCard();
-                    }}
-                    className={membershipSecondaryButtonClass}
-                  >
-                    Share Card
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className={membershipSectionClass}>
-              <p className={SEVA_SECTION_LABEL_CLASS}>Payment Integration</p>
-              <h3 className={SEVA_SECTION_HEADING_CLASS}>Online payment methods</h3>
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                {["UPI", "Credit Card", "Debit Card", "Net Banking"].map((method) => (
-                  <div key={method} className="rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-4 text-center text-white font-semibold">
-                    {method}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1fr]">
-          <div className={membershipSectionClass}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Member Dashboard</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Dashboard preview after login</h2>
-            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-              {[
-                "View profile and edit personal details",
-                "Download membership certificate",
-                "See membership ID and status",
-                "Track event participation and activity",
-              ].map((item) => (
-                <div key={item} className="rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-5 text-white">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={membershipSectionClass}>
-            <p className={SEVA_SECTION_LABEL_CLASS}>Member Activity</p>
-            <h2 className={SEVA_SECTION_HEADING_CLASS}>Upcoming activities</h2>
-            <div className="mt-8 grid grid-cols-1 gap-4">
-              {[
-                { title: "Bhagwat Event Participation", desc: "Priority member invitations for key satsang and festival gatherings." },
-                { title: "Volunteer Programs", desc: "Join seva teams, digital support, and trust-led service activities." },
-                { title: "Spiritual Workshops", desc: "Take part in guided learning, chanting, and dharmic growth sessions." },
-              ].map((item) => (
-                <div key={item.title} className="rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-5">
-                  <h3 className={SEVA_CARD_TITLE_CLASS}>{item.title}</h3>
-                  <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className={membershipSectionClass}>
-          <p className={SEVA_SECTION_LABEL_CLASS}>Admin Features Concept</p>
-          <h2 className={SEVA_SECTION_HEADING_CLASS}>Admin management layer</h2>
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              { title: "Approve or Reject Memberships", desc: "Admin review flow for incoming member registrations." },
-              { title: "Manage Member Database", desc: "Searchable records for profiles, plans, and statuses." },
-              { title: "Export Member List", desc: "Admin-ready export for reporting and communication workflows." },
-              { title: "Send Announcements", desc: "Push notices to members for events, updates, and digital programs." },
-            ].map((item) => (
-              <div key={item.title} className="rounded-2xl border border-white/10 bg-[var(--campaign-surface)] p-5">
-                <h3 className={SEVA_CARD_TITLE_CLASS}>{item.title}</h3>
-                <p className={`mt-2 ${SEVA_BODY_TEXT_CLASS}`}>{item.desc}</p>
-              </div>
+                <span className="inline-flex h-24 w-24 items-center justify-center overflow-hidden">
+                  <img src={badge.icon} alt={badge.label} className="h-[88px] w-[88px] rounded-full object-contain" loading="lazy" />
+                </span>
+                <h3 className="mt-5 text-3xl font-black uppercase leading-tight tracking-[0.04em] text-[#7b4a17]">
+                  {badge.label}
+                </h3>
+              </article>
             ))}
           </div>
         </div>
       </section>
+      <section className="mx-auto mt-10 max-w-7xl px-4"><div className={sectionShell}><p className="inline-flex items-center gap-2 text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]"><span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#deb77a] bg-[#fff6e7] text-[14px] text-[#b26c15]">★</span><span>Membership Plans</span></p><h2 className="mt-2 text-3xl font-black text-[#1f3550] md:text-4xl">Choose Your Plan</h2><div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">{PLAN_DETAILS.map((plan) => <article key={plan.name} className={`${softCard} flex h-full flex-col`} tabIndex={0}><h3 className="text-2xl font-black text-[#1f3550]">{plan.name}</h3><p className="mt-2 text-3xl font-black text-[#b86410]">{plan.price}</p><ul className="mt-4 space-y-2 text-base leading-7 text-[#5e5247]">{plan.features.map((feature) => <li key={feature} className="flex gap-2"><span className="mt-2 h-2.5 w-2.5 rounded-full bg-[#c87515]" /><span>{feature}</span></li>)}</ul><button type="button" onClick={() => setForm((current) => ({ ...current, membershipPlan: plan.name }))} className={`${primaryBtn} mt-6 w-fit`}>{plan.button}</button></article>)}</div></div></section>
+      <section id="member-registration" className="mx-auto mt-10 max-w-7xl px-4"><div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_0.95fr]"><form onSubmit={submitRegistration} noValidate className={sectionShell}><p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]">Member Registration Form</p><h2 className="mt-2 text-3xl font-black text-[#1f3550] md:text-4xl">Register for Verified Membership</h2><div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2"><label className="text-sm font-semibold text-[#2e4356]">Full Name<input value={form.fullName} onChange={handleFieldChange("fullName")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Email<input value={form.email} onChange={handleFieldChange("email")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Phone Number<input value={form.phoneNumber} onChange={handleFieldChange("phoneNumber")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Date of Birth<input type="date" value={form.dob} onChange={handleFieldChange("dob")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Gender<select value={form.gender} onChange={handleFieldChange("gender")} className={inputClass}><option value="">Select Gender</option><option>Male</option><option>Female</option><option>Other</option></select></label><label className="text-sm font-semibold text-[#2e4356]">Membership Plan<select value={form.membershipPlan} onChange={handleFieldChange("membershipPlan")} className={inputClass}>{PLAN_DETAILS.map((plan) => <option key={plan.name} value={plan.name}>{plan.name}</option>)}</select></label><label className="md:col-span-2 text-sm font-semibold text-[#2e4356]">Address<textarea rows={3} value={form.address} onChange={handleFieldChange("address")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">City<input value={form.city} onChange={handleFieldChange("city")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">State<input value={form.state} onChange={handleFieldChange("state")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Country<input value={form.country} onChange={handleFieldChange("country")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Seva Interest<select value={form.sevaInterest} onChange={handleFieldChange("sevaInterest")} className={inputClass}><option value="">Select Seva Interest</option>{SEVA_INTEREST_OPTIONS.map((o) => <option key={o}>{o}</option>)}</select></label></div><div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2"><label className="rounded-2xl border border-dashed border-[#d9b87f] bg-[#fffaf1] p-4 text-sm font-semibold text-[#6f491c]">Upload Profile Photo<input type="file" accept="image/*" onChange={handleProfilePhoto} className="mt-2 block w-full text-sm text-[#6f491c]" /></label><label className="rounded-2xl border border-dashed border-[#d9b87f] bg-[#fffaf1] p-4 text-sm font-semibold text-[#6f491c]">Upload ID Proof<input type="file" onChange={handleIdProof} className="mt-2 block w-full text-sm text-[#6f491c]" /></label></div><label className="mt-4 flex items-start gap-2 text-sm font-semibold text-[#2e4356]"><input type="checkbox" checked={form.acceptedTerms} onChange={handleFieldChange("acceptedTerms")} className="mt-1" /><span>I agree to Terms & Privacy. Membership is activated only after admin approval.</span></label>{Object.values(errors).some(Boolean) ? <p className="mt-3 text-sm font-semibold text-[#b42318]">Please fill all required fields correctly and upload documents.</p> : null}<div className="mt-5 flex flex-wrap gap-3"><button type="submit" disabled={isSubmitting} className={primaryBtn}>{isSubmitting ? "Submitting..." : "Submit Registration"}</button><button type="button" disabled={isSavingDraft} onClick={() => void saveDraft()} className={secondaryBtn}>{isSavingDraft ? "Saving..." : "Save Form Draft"}</button></div>{statusMessage ? <p className={`mt-4 text-sm font-semibold ${statusMessage.type === "error" ? "text-[#b42318]" : statusMessage.type === "success" ? "text-[#1b6f44]" : "text-[#6f491c]"}`}>{statusMessage.text}</p> : null}</form><div className="space-y-6"><article className={sectionShell}><p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]">Digital Membership Card Preview</p><div className="mt-5 overflow-hidden rounded-[24px] border border-[#ead7b4] bg-[linear-gradient(135deg,#fff7e7,#fffdf9)] p-5"><div className="flex items-start gap-4"><div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border border-[#ead7b4] bg-white">{photoPreview ? <img src={photoPreview} alt="Member Preview" className="h-full w-full object-cover" /> : <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777483222/ChatGPT_Image_Apr_29_2026_10_49_07_PM_q0lfp1.png" alt="Digital membership card icon" className="h-full w-full object-cover" loading="lazy" />}</div><div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#c07017]">Bhagwat Heritage Member ID</p><h3 className="mt-1 text-xl font-black text-[#1f3550]">{form.fullName || "Member Name"}</h3><p className="mt-1 text-sm font-semibold text-[#5e5247]">{generatedMemberId}</p></div></div><div className="mt-5 grid grid-cols-2 gap-3"><div className="rounded-xl border border-[#f0ddb8] bg-white p-3"><p className="text-xs text-[#b96b1f]">Membership Type</p><p className="font-semibold text-[#1f3550]">{form.membershipPlan}</p></div><div className="rounded-xl border border-[#f0ddb8] bg-white p-3"><p className="text-xs text-[#b96b1f]">Status</p><p className="font-semibold text-[#1f3550]">{membershipStatus.toUpperCase()}</p></div><div className="rounded-xl border border-[#f0ddb8] bg-white p-3"><p className="text-xs text-[#b96b1f]">Join Date</p><p className="font-semibold text-[#1f3550]">{joinDate}</p></div><div className="rounded-xl border border-[#f0ddb8] bg-white p-3"><p className="text-xs text-[#b96b1f]">Valid Till</p><p className="font-semibold text-[#1f3550]">{selectedPlan.validTill}</p></div></div><div className="mt-4 rounded-xl border border-dashed border-[#d9b87f] bg-[#fff9ee] p-3 text-sm font-semibold text-[#6f491c]">QR Placeholder: <span className="font-black">{qrVerificationUrl}</span></div><div className="mt-4 flex flex-wrap gap-3"><button type="button" disabled={membershipStatus !== "approved"} onClick={() => window.print()} className={primaryBtn}>Download Card</button><button type="button" onClick={() => void handleShareCard()} className={secondaryBtn}>Share Card</button></div></div></article><article className={sectionShell}><p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]">Payment Integration</p><h3 className="mt-2 text-3xl font-black text-[#1f3550] md:text-4xl">Secure Payment Methods</h3><div className="mt-4 grid grid-cols-2 gap-3">{["UPI", "Credit Card", "Debit Card", "Net Banking"].map((m) => <div key={m} className="rounded-xl border border-[#efdcb8] bg-white p-3 text-center text-sm font-semibold text-[#35536b]">{m}</div>)}</div><div className="mt-5 flex flex-wrap gap-3"><button type="button" onClick={() => void startPayment()} disabled={isCreatingOrder || isVerifyingPayment} className={primaryBtn}>{isCreatingOrder ? "Creating Order..." : isVerifyingPayment ? "Verifying..." : "Pay Securely"}</button><button type="button" className={secondaryBtn}>Retry Payment</button></div><div className="mt-3 text-sm font-semibold text-[#6f491c]">Payment Status: {paymentStatus} {paymentId ? `| Payment ID: ${paymentId}` : ""} {orderId ? `| Order ID: ${orderId}` : ""}</div></article></div></div></section>
+      <section className="mx-auto mt-10 max-w-7xl px-4"><div className={`${sectionShell} bg-gradient-to-r from-[#fff7e7] to-[#fffdf9]`}><h2 className="text-3xl font-black text-[#1f3550] md:text-4xl">Secure, Verified & Trust-Governed Membership</h2><p className="mt-3 text-base leading-7 text-[#5e5247] md:text-lg">All membership requests are reviewed by the Trust administration. Uploaded documents are used only for verification purposes. Membership activation, digital card generation, and portal access are confirmed only after successful verification and approval.</p></div></section>
     </div>
   );
 });
-
 export const InvolvedPartnerPage = memo(function InvolvedPartnerPage() {
   type PartnerFormState = {
     organizationName: string;
@@ -11353,6 +11254,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
           </a>
         </div>
       </HeroSection>
+      <section className="mx-auto mt-4 max-w-7xl px-4"><div className="flex flex-wrap justify-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#6f491c]">{["Verified Membership", "Digital ID Card", "Secure Payment", "Seva Participation"].map((badge) => <span key={badge} className="rounded-full border border-[#e0c28d] bg-[#fff6e7] px-3 py-1">{badge}</span>)}</div></section>
 
       <section className="relative z-20 mt-2 pb-6">
         <div className="mx-auto max-w-7xl px-4">
@@ -11821,6 +11723,10 @@ export const NotFoundPage = memo(function NotFoundPage() {
     </div>
   );
 });
+
+
+
+
 
 
 
