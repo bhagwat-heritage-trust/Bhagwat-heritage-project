@@ -288,6 +288,7 @@ const MEDIA_VIDEO_GALLERY_ITEMS: VideoGalleryItem[] = [
     views: "11.6K",
   },
   {
+    
     slug: "discovering-dwarka-ancient-ruins",
     category: "Festival",
     theme: "Sacred Places",
