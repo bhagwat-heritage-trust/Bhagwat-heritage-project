@@ -10136,12 +10136,16 @@ export const DigitalMembershipPage = memo(function DigitalMembershipPage() {
         amount: order.amount,
         currency: order.currency,
         name: "Bhagwat Heritage Membership",
-        description: `${form.membershipPlan} Contribution`,
+        description: `${form.membershipPlan ?? "Membership"} Contribution`,
         prefill: { name: form.fullName, email: form.email, contact: form.phoneNumber },
         theme: { color: "#C87515" },
         handler: async (response) => {
           try {
             setIsVerifyingPayment(true);
+            if (!response.razorpay_order_id || !response.razorpay_payment_id || !response.razorpay_signature) {
+              setStatusMessage({ type: "error", text: "Payment verification data missing. Please retry." });
+              return;
+            }
             await membershipApi.verifyPayment({ membershipId, razorpay_order_id: response.razorpay_order_id, razorpay_payment_id: response.razorpay_payment_id, razorpay_signature: response.razorpay_signature });
             setPaymentStatus("paid");
             setPaymentId(response.razorpay_payment_id);
