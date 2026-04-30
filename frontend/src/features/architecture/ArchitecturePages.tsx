@@ -300,6 +300,7 @@ const MEDIA_VIDEO_GALLERY_ITEMS: VideoGalleryItem[] = [
     videoUrl: "https://www.youtube.com/watch?v=ZYX6zpiY-6w",
     views: "9.4K",
   },
+  
   { 
     slug: "vedic-chants-and-stotras",
     category: "Katha", 
