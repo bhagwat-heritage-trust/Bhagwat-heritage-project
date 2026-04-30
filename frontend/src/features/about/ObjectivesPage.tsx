@@ -1,375 +1,285 @@
-import { memo } from "react";
+﻿import { memo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
-import {
-  ABOUT_BODY_CLASS,
-  ABOUT_CARD_TITLE_CLASS,
-  ABOUT_SECTION_HEADING_CLASS,
-  ABOUT_SECTION_LABEL_CLASS,
-} from "./aboutTypography";
 
-type ObjectiveSection = {
-  eyebrow: string;
+type ObjectiveCard = {
+  icon: string;
   title: string;
-  tagline: string;
-  items: Array<{
-    title: string;
-    description: string;
-  }>;
-  shellClassName: string;
+  description: string;
+  checklist: string[];
 };
 
-const SECTION_LABEL = `${ABOUT_SECTION_LABEL_CLASS} text-[#C46D1A]`;
-const SECTION_HEADING = `${ABOUT_SECTION_HEADING_CLASS} text-[#1D4F63]`;
-const SECTION_BODY = `mt-4 ${ABOUT_BODY_CLASS} text-[#5E5247]`;
-const CARD_TITLE = `${ABOUT_CARD_TITLE_CLASS} text-[#27657A]`;
-const CARD_BODY = `${ABOUT_BODY_CLASS} text-[#51463C]`;
-const SECTION_SHELL =
-  "rounded-[30px] border border-[#E7D3B5] bg-[linear-gradient(180deg,rgba(255,245,225,0.92)_0%,rgba(255,252,247,0.98)_48%,rgba(245,232,204,0.95)_100%)] p-6 shadow-[0_22px_52px_rgba(101,71,35,0.09)] md:p-8";
-const SOFT_SECTION_SHELL =
-  "rounded-[30px] border border-[#D8E4E5] bg-[linear-gradient(180deg,rgba(230,241,240,0.85)_0%,rgba(255,252,247,0.98)_56%,rgba(250,241,225,0.9)_100%)] p-6 shadow-[0_22px_52px_rgba(29,79,99,0.08)] md:p-8";
-const BUTTON_CLASS =
-  "inline-flex items-center justify-center rounded-xl bg-[#F0AE57] px-5 py-3 text-[15px] font-semibold text-[#FFFDF8] shadow-[0_14px_28px_rgba(233,147,45,0.20)] transition-all hover:-translate-y-0.5 hover:bg-[#E9932D]";
-const GHOST_BUTTON =
-  "inline-flex items-center justify-center rounded-xl border border-[#D8C3A2] bg-[rgba(255,255,255,0.72)] px-5 py-3 text-[15px] font-semibold text-[#1D4F63] transition-all hover:-translate-y-0.5 hover:bg-[#F6EAD4]";
-const LIST_ITEM_SHELL =
-  "group flex gap-4 border-b border-[#D8C3A2]/70 py-5 last:border-b-0 transition-all duration-300 hover:translate-x-1";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+type PathwayStep = {
+  icon: string;
+  title: string;
 };
 
-const stagger = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const objectiveSections: ObjectiveSection[] = [
+const objectiveCards: ObjectiveCard[] = [
   {
-    eyebrow: "Spiritual Objectives",
+    icon: "/icons/icon-spiritual-objectives.svg",
     title: "Spiritual Objectives",
-    tagline: "Deepening devotion through Bhagwat-centered spiritual learning",
-    items: [
-      {
-        title: "Spread teachings of Shrimad Bhagavat",
-        description: "Share divine knowledge in a simple and practical way for all.",
-      },
-      {
-        title: "Organize Bhagwat Katha & Satsang",
-        description: "Create spiritual gatherings that inspire devotion and wisdom.",
-      },
-      {
-        title: "Guide individuals spiritually",
-        description: "Help people lead a balanced and purposeful life.",
-      },
-      {
-        title: "Promote Bhakti (devotion)",
-        description: "Encourage connection with divine consciousness.",
-      },
-      {
-        title: "Create spiritual learning platforms",
-        description: "Build spaces for continuous spiritual growth.",
-      },
+    description: "Deepening devotion through Bhagwat-centered spiritual learning.",
+    checklist: [
+      "Spread teachings of Shrimad Bhagwat in a simple and practical way for all.",
+      "Organize Bhagwat Katha and satsang for spiritual education.",
+      "Guide individuals spiritually through hope, clarity, and purposeful living.",
+      "Promote bhakti and connection with divine consciousness.",
+      "Create spiritual learning platforms for continuous growth.",
     ],
-    shellClassName: SOFT_SECTION_SHELL,
   },
   {
-    eyebrow: "Service Objectives",
+    icon: "/icons/icon-service-objectives.svg",
     title: "Service Objectives",
-    tagline: "Turning compassion into seva for those in need",
-    items: [
-      {
-        title: "Annadaan (food donation)",
-        description: "Provide food support to the needy with dignity.",
-      },
-      {
-        title: "Gau Seva initiatives",
-        description: "Protect and serve cows as a sacred responsibility.",
-      },
-      {
-        title: "Emergency & disaster help",
-        description: "Support communities during critical situations.",
-      },
-      {
-        title: "Social welfare programs",
-        description: "Uplift underprivileged sections of society.",
-      },
-      {
-        title: "Community service activities",
-        description: "Encourage collective participation in seva.",
-      },
+    description: "Turning compassion into seva for those in need.",
+    checklist: [
+      "Annadaan and food donation for people in need.",
+      "Gau Seva initiatives to protect and serve cows as a sacred responsibility.",
+      "Emergency and disaster relief support during critical situations.",
+      "Social welfare programs for deprived sections of society.",
+      "Community service activities that encourage participation in seva.",
     ],
-    shellClassName: SECTION_SHELL,
   },
   {
-    eyebrow: "Youth & Education Objectives",
+    icon: "/icons/icon-youth-education.svg",
     title: "Youth & Education Objectives",
-    tagline: "Guiding the next generation with values and vision",
-    items: [
-      {
-        title: "Value-based youth guidance",
-        description: "Help young minds grow with discipline, integrity, and purpose.",
-      },
-      {
-        title: "Educational programs & workshops",
-        description: "Create practical learning spaces that nurture knowledge and character.",
-      },
-      {
-        title: "Moral & leadership development",
-        description: "Prepare youth to lead with responsibility, empathy, and courage.",
-      },
-      {
-        title: "Cultural education",
-        description: "Introduce dharmic traditions in ways that feel relevant and alive.",
-      },
-      {
-        title: "Heritage awareness",
-        description: "Connect the next generation with the wisdom of Indian heritage.",
-      },
+    description: "Guiding the next generation with values, knowledge, discipline, and vision.",
+    checklist: [
+      "Value-based youth guidance and character building.",
+      "Educational programs, workshops, and learning support.",
+      "Moral and leadership development through responsibility, empathy, and courage.",
+      "Cultural education in a modern and relatable way.",
+      "Heritage awareness among children and youth.",
     ],
-    shellClassName: SOFT_SECTION_SHELL,
   },
   {
-    eyebrow: "Cultural Objectives",
+    icon: "/icons/icon-cultural-objectives.svg",
     title: "Cultural Objectives",
-    tagline: "Preserving dharmic identity through culture",
-    items: [
-      {
-        title: "Preserve Indian culture",
-        description: "Protect timeless values, customs, and sacred cultural expressions.",
-      },
-      {
-        title: "Celebrate festivals spiritually",
-        description: "Honor festivals with devotion, understanding, and community participation.",
-      },
-      {
-        title: "Organize cultural events",
-        description: "Create meaningful platforms for devotional and cultural celebration.",
-      },
-      {
-        title: "Pass traditions to next generation",
-        description: "Ensure living traditions remain rooted in family and community life.",
-      },
-      {
-        title: "Strengthen cultural identity",
-        description: "Build confidence in dharmic heritage through awareness and practice.",
-      },
+    description: "Preserving dharmic identity through culture, traditions, and festivals.",
+    checklist: [
+      "Preserve Indian culture, values, customs, and sacred expressions.",
+      "Celebrate festivals spiritually with devotion and understanding.",
+      "Organize cultural events for devotional and community participation.",
+      "Pass traditions to the next generation in family and community life.",
+      "Strengthen cultural identity through awareness and practice.",
     ],
-    shellClassName: SECTION_SHELL,
   },
   {
-    eyebrow: "Long-Term Goals",
-    title: "Long-Term Goals",
-    tagline: "Building a sustainable future of seva and spirituality",
-    items: [
-      {
-        title: "Expand activities",
-        description: "Reach more individuals and communities through wider seva programs.",
-      },
-      {
-        title: "Build spiritual centers",
-        description: "Create sacred spaces for worship, learning, and guidance.",
-      },
-      {
-        title: "Global devotee network",
-        description: "Connect seekers across regions through a shared spiritual mission.",
-      },
-      {
-        title: "Structured long-term programs",
-        description: "Develop sustainable initiatives with clear long-term social impact.",
-      },
+    icon: "/icons/icon-community-objectives.svg",
+    title: "Community Objectives",
+    description: "Building value-driven communities with unity and responsibility.",
+    checklist: [
+      "Promote unity among individuals, families, and communities.",
+      "Encourage seva participation across age groups.",
+      "Build responsible individuals and collective growth.",
+      "Support community development through spiritual and social programs.",
+      "Strengthen harmony through shared cultural and devotional platforms.",
     ],
-    shellClassName: SOFT_SECTION_SHELL,
+  },
+  {
+    icon: "/icons/icon-long-term-goals.svg",
+    title: "Long-Term Goals",
+    description: "Building a sustainable future of seva, spirituality, and cultural preservation.",
+    checklist: [
+      "Expand activities through wider seva programs.",
+      "Build spiritual centers for worship, learning, and guidance.",
+      "Create a global devotee network connected by a shared spiritual mission.",
+      "Develop structured long-term programs for social impact.",
+      "Establish scalable platforms for education, seva, culture, and digital outreach.",
+    ],
   },
 ];
 
+const pathwaySteps: PathwayStep[] = [
+  { icon: "/icons/icon-inspiration.svg", title: "Spiritual Inspiration" },
+  { icon: "/icons/icon-planning.svg", title: "Structured Seva Planning" },
+  { icon: "/icons/icon-participation.svg", title: "Community Participation" },
+  { icon: "/icons/icon-impact.svg", title: "Measurable Social Impact" },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+};
+
 export default memo(function ObjectivesPage() {
   usePageMeta(
-    "Our Objectives",
-    "Explore the spiritual, service, youth, cultural, community, and long-term objectives of Shri Bhagwat Heritage Service Foundation Trust.",
+    "Objectives | Bhagwat Heritage Service Foundation Trust",
+    "Explore the spiritual, social, educational, cultural, and community objectives of Bhagwat Heritage Service Foundation Trust.",
   );
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_right,_rgba(228,180,94,0.22)_0%,_rgba(228,180,94,0)_30%),radial-gradient(circle_at_left_center,_rgba(39,101,122,0.12)_0%,_rgba(39,101,122,0)_28%),linear-gradient(180deg,_#FFF9F1_0%,_#FFFDF8_44%,_#F6EAD4_100%)] pb-16 text-[#1D4F63]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[620px] bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.18),transparent_44%)]" />
-      <div className="pointer-events-none absolute right-0 top-[180px] h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgba(39,101,122,0.12),transparent_62%)] blur-3xl" />
+    <div className="min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff8ef_0%,#fffdf8_50%,#f7ede0_100%)] pb-16 text-[#1f4d5a]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-[radial-gradient(circle_at_top,rgba(237,162,67,0.18),transparent_48%)]" />
 
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        className="mx-auto max-w-6xl px-4 pt-8 md:pt-10"
-      >
+      <motion.section variants={fadeUp} initial="hidden" animate="visible" className="mx-auto max-w-[1180px] px-4 pt-8">
         <div
-          className="relative overflow-hidden rounded-[34px] border border-[#D8C3A2] shadow-[0_24px_60px_rgba(101,71,35,0.18)]"
+          className="relative overflow-hidden rounded-[28px] border border-[#e3cda9]"
           style={{
             backgroundImage:
-              "linear-gradient(180deg, rgba(11,34,48,0.08) 0%, rgba(11,34,48,0.34) 42%, rgba(11,34,48,0.92) 100%), url('https://res.cloudinary.com/der8zinu8/image/upload/v1774439060/objectives_bj9uay.jpg')",
+              "linear-gradient(180deg, rgba(8,25,33,0.12) 0%, rgba(8,25,33,0.58) 55%, rgba(8,25,33,0.84) 100%), url('/images/objectives-hero.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div
-            className="absolute inset-0 opacity-16"
-            style={{
-              backgroundImage: "linear-gradient(135deg, rgba(245,158,11,0.22) 0%, transparent 36%)",
-            }}
-          />
-          <div className="relative flex min-h-[420px] flex-col justify-end px-5 py-[22px] md:min-h-[540px] md:px-8 md:py-[30px]">
-            <div className="mx-auto max-w-4xl text-center">
-              <h1 className="mb-[10px] text-4xl font-bold leading-tight text-white md:text-5xl">
-                Our Objectives
-              </h1>
-              <p className="mx-auto max-w-3xl text-[18px] font-semibold leading-7 text-white/90 md:text-[24px]">
-                Guided by Faith • Driven by Service • Focused on Impact
+          <div className="relative mx-auto flex h-[280px] max-w-[1180px] flex-col items-center justify-center px-5 text-center sm:h-[340px] lg:h-[420px]">
+            <p className="rounded-full border border-[#f1d39f] bg-[rgba(255,224,170,0.18)] px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#ffe8c1]">
+              Our Objectives
+            </p>
+            <h1 className="mt-4 max-w-3xl text-3xl font-black leading-tight text-white sm:text-4xl lg:text-5xl">
+              Guided by Faith. Driven by Service. Focused on Impact.
+            </h1>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-[#f8efdf] sm:text-base">
+              The objectives of Bhagwat Heritage Service Foundation Trust are rooted in devotion, service, cultural preservation, education, and social upliftment.
+            </p>
+          </div>
+        </div>
+      </motion.section>
+
+      <main className="mx-auto max-w-[1180px] px-4 py-10 sm:py-14">
+        <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="mb-12 sm:mb-16">
+          <div className="rounded-[24px] border border-[#e7d3b4] bg-[linear-gradient(120deg,#fff4df_0%,#fffdf8_66%,#f4ead8_100%)] p-6 shadow-[0_16px_32px_rgba(100,73,38,0.08)] sm:p-8">
+            <div className="border-l-4 border-[#d9892f] pl-5">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c8771e]">Our Purpose</p>
+              <h2 className="mt-3 text-2xl font-black text-[#1f4d5a] sm:text-3xl">Transforming values into spiritual and social action</h2>
+              <p className="mt-4 text-[0.98rem] leading-8 text-[#544a3f]">
+                The Trust exists to bridge spirituality with real-life action by transforming values into service. It aims to create a balanced society where inner peace, moral strength, cultural awareness, and social responsibility go hand in hand.
+              </p>
+              <p className="mt-4 text-[0.98rem] leading-8 text-[#544a3f]">
+                Our purpose is not only to inspire devotion, but also to bring positive change through structured initiatives that uplift individuals, families, and communities.
               </p>
             </div>
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
 
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mx-auto max-w-6xl px-4 py-10 md:py-14"
-      >
-        <div className={SECTION_SHELL}>
-          <p className={SECTION_LABEL}>Our Purpose</p>
-          <h2 className={SECTION_HEADING}>Transforming values into spiritual and social action</h2>
-          <p className={SECTION_BODY}>
-            The Trust exists to bridge spirituality with real-life action by transforming values into service. It aims to create a balanced society where inner peace, moral strength, and social responsibility go hand in hand.
-          </p>
-          <p className={SECTION_BODY}>
-            Our purpose is not only to inspire devotion but also to bring positive change through structured initiatives that uplift individuals, families, and communities.
-          </p>
-        </div>
-      </motion.section>
-
-      {objectiveSections.map((section) => (
-        <motion.section
-          key={section.eyebrow}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.18 }}
-          className="mx-auto max-w-6xl px-4 pb-10"
-        >
-          <div className={section.shellClassName}>
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-12">
-              <div className="lg:pr-10">
-                <p className={SECTION_LABEL}>{section.eyebrow}</p>
-                <h2 className={SECTION_HEADING}>{section.title}</h2>
-                <p className={`${SECTION_BODY} max-w-md`}>{section.tagline}</p>
-              </div>
-
-              <motion.div
-                variants={stagger}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.18 }}
-                className="relative lg:border-l lg:border-[#D8C3A2] lg:pl-10"
+        <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="mb-12 sm:mb-16">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {objectiveCards.map((card) => (
+              <article
+                key={card.title}
+                className="group rounded-[26px] border border-[#ead7b9] bg-[linear-gradient(180deg,#fffdf9_0%,#fff8ef_100%)] p-6 shadow-[0_12px_26px_rgba(89,64,34,0.08)] transition-all duration-300 hover:-translate-y-1"
               >
-                {section.items.map((item) => (
-                  <motion.div key={item.title} variants={fadeUp} className={LIST_ITEM_SHELL}>
-                    <span className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F6EAD4] text-[#C46D1A] shadow-[inset_0_0_0_1px_rgba(196,109,26,0.12)] transition-all duration-300 group-hover:bg-[#F0AE57] group-hover:text-[#FFFDF8]">
-                      ✓
-                    </span>
-                    <div>
-                      <h3 className={`${CARD_TITLE} transition-colors duration-300 group-hover:text-[#1D5B72]`}>
-                        {item.title}
-                      </h3>
-                      <p className={`mt-2 ${CARD_BODY}`}>{item.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[linear-gradient(180deg,#f4b158_0%,#de8c31_100%)] shadow-[0_8px_18px_rgba(209,128,37,0.24)]">
+                  <img src={card.icon} alt="" aria-hidden="true" className="h-8 w-8" />
+                </div>
+                <h2 className="mt-4 text-2xl font-black text-[#1f4d5a]">{card.title}</h2>
+                <p className="mt-3 text-[0.97rem] leading-7 text-[#564c42]">{card.description}</p>
+                <ul className="mt-5 space-y-3">
+                  {card.checklist.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f7e6ca] text-[#c8771e]">
+                        <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="none" aria-hidden="true">
+                          <path d="M4 10.5L8 14.5L16 6.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                      <span className="text-[0.93rem] leading-7 text-[#51463b]">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
           </div>
         </motion.section>
-      ))}
 
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.18 }}
-        className="mx-auto max-w-6xl px-4 pb-10"
-      >
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.08fr_0.92fr]">
-          <div className={SECTION_SHELL}>
-            <p className={SECTION_LABEL}>Community Objectives</p>
-            <h2 className={SECTION_HEADING}>Building value-driven communities with unity and responsibility</h2>
-            <p className={SECTION_BODY}>
-              The Trust aims to build strong, value-driven communities by encouraging unity, cooperation, and collective growth.
-            </p>
-          </div>
-
-          <div className={SOFT_SECTION_SHELL}>
-            <p className={SECTION_LABEL}>Community Focus</p>
-            <h2 className={SECTION_HEADING}>How this mission reaches society</h2>
-            <div className="mt-6 space-y-3">
-              {[
-                "Promote unity",
-                "Encourage seva participation",
-                "Build responsible individuals",
-                "Support community growth",
-              ].map((item) => (
-                <motion.div
-                  key={item}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  className="flex items-start gap-3 rounded-[22px] border border-[#D8C3A2] bg-[rgba(255,255,255,0.72)] px-4 py-3"
-                >
-                  <span className="mt-2 h-2.5 w-2.5 rounded-full bg-[#E4B45E]" />
-                  <span className={`${ABOUT_BODY_CLASS} text-[#51463C]`}>{item}</span>
-                </motion.div>
+        <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="mb-12 sm:mb-16">
+          <div className="rounded-[26px] border border-[#cfe2df] bg-[linear-gradient(180deg,#eaf5f4_0%,#fffdf8_100%)] p-6 shadow-[0_12px_28px_rgba(37,86,94,0.10)] sm:p-8">
+            <h2 className="text-center text-2xl font-black text-[#1f4d5a] sm:text-3xl">How Our Objectives Become Action</h2>
+            <div className="relative mt-8 grid grid-cols-1 gap-4 md:grid-cols-4">
+              <div className="pointer-events-none absolute left-0 right-0 top-[35px] hidden border-t-2 border-dotted border-[#b7d3cf] md:block" />
+              {pathwaySteps.map((step) => (
+                <article key={step.title} className="relative rounded-2xl border border-[#d5e6e4] bg-white p-5 text-center shadow-[0_8px_20px_rgba(30,75,82,0.08)]">
+                  <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#e4f0ee]">
+                    <img src={step.icon} alt="" aria-hidden="true" className="h-7 w-7" />
+                  </span>
+                  <h3 className="mt-3 text-lg font-bold text-[#1f4d5a]">{step.title}</h3>
+                </article>
               ))}
             </div>
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
 
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mx-auto max-w-6xl px-4 pb-10"
-      >
-        <div className="rounded-[30px] border border-[#E7D3B5] bg-[linear-gradient(180deg,rgba(255,245,225,0.92)_0%,rgba(255,252,247,0.98)_48%,rgba(245,232,204,0.95)_100%)] p-6 text-[#1D4F63] shadow-[0_22px_52px_rgba(101,71,35,0.09)] md:p-8">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div>
-              <p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[#C46D1A]">Join Our Mission</p>
-              <h2 className="mt-2 text-[14px] font-black text-[#1D4F63] md:text-[20px]">
-                Be a part of our mission to transform lives through devotion, service, and culture.
-              </h2>
-            </div>
+        <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="mb-12 sm:mb-16">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <article className="rounded-[24px] border border-[#ead7b9] bg-white p-6 shadow-[0_10px_22px_rgba(89,64,34,0.08)]">
+              <h2 className="text-2xl font-black text-[#1f4d5a]">Community Objectives</h2>
+              <p className="mt-3 text-[0.97rem] leading-8 text-[#544a3f]">
+                The Trust aims to build strong, value-driven communities by encouraging unity, cooperation, service, and collective growth.
+              </p>
+            </article>
+            <article className="rounded-[24px] border border-[#d3e4e3] bg-[linear-gradient(180deg,#edf7f6_0%,#fffdf9_100%)] p-6 shadow-[0_10px_22px_rgba(34,84,92,0.09)]">
+              <h2 className="text-2xl font-black text-[#1f4d5a]">Community Focus</h2>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {["Promote unity", "Encourage seva participation", "Build responsible individuals", "Support community growth"].map((pill) => (
+                  <span key={pill} className="rounded-full border border-[#c8dfdc] bg-white px-3 py-1.5 text-sm font-semibold text-[#245f71]">
+                    {pill}
+                  </span>
+                ))}
+              </div>
+            </article>
+          </div>
+        </motion.section>
 
-            <div className="flex flex-wrap gap-3 lg:justify-end">
-              <Link to={ROUTES.seva.index} className={GHOST_BUTTON}>
-                Participate in Seva
-              </Link>
-              <Link to={ROUTES.donate} className={BUTTON_CLASS}>
-                Support Our Initiatives
-              </Link>
-              <Link to={ROUTES.contact} className={GHOST_BUTTON}>
-                Contact Us
-              </Link>
+        <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+          <div className="rounded-[28px] border border-[#e8ceaa] bg-[linear-gradient(135deg,#fff3df_0%,#fffdf8_58%,#f4e7d1_100%)] p-6 shadow-[0_14px_30px_rgba(118,82,39,0.11)] sm:p-8">
+            <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+              <div>
+                <h2 className="text-3xl font-black text-[#1f4d5a]">Join Our Mission</h2>
+                <p className="mt-3 text-[0.98rem] leading-8 text-[#544a3f]">
+                  Be a part of our mission to transform lives through devotion, service, education, and culture.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 md:items-end">
+                <Link to={ROUTES.involved.volunteer} aria-label="Participate in Seva" className="objective-btn-primary w-full text-center md:w-auto">
+                  Participate in Seva
+                </Link>
+                <Link to={ROUTES.donate} aria-label="Support Our Initiatives" className="objective-btn-outline w-full text-center md:w-auto">
+                  Support Our Initiatives
+                </Link>
+                <Link to={ROUTES.involved.contactUs} aria-label="Contact Us" className="objective-btn-outline w-full text-center md:w-auto">
+                  Contact Us
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
+      </main>
+
+      <style>{`
+        .objective-btn-primary {
+          background: linear-gradient(180deg, #f0ae57 0%, #de8d31 100%);
+          border: 1px solid #da872f;
+          border-radius: 0.8rem;
+          color: #fffdf8;
+          font-size: 0.94rem;
+          font-weight: 700;
+          padding: 0.72rem 1.1rem;
+          box-shadow: 0 12px 24px rgba(181, 111, 26, 0.2);
+          transition: transform 220ms ease, filter 220ms ease;
+        }
+        .objective-btn-outline {
+          background: #fffdf8;
+          border: 1px solid #dfc39a;
+          border-radius: 0.8rem;
+          color: #1f4d5a;
+          font-size: 0.94rem;
+          font-weight: 700;
+          padding: 0.72rem 1.1rem;
+          transition: transform 220ms ease, background-color 220ms ease;
+        }
+        .objective-btn-primary:hover,
+        .objective-btn-outline:hover {
+          transform: translateY(-2px);
+        }
+        .objective-btn-outline:hover {
+          background: #fff2dc;
+        }
+        .objective-btn-primary:focus-visible,
+        .objective-btn-outline:focus-visible {
+          outline: 3px solid #1f4d5a;
+          outline-offset: 2px;
+        }
+      `}</style>
     </div>
   );
 });

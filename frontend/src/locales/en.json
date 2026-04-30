@@ -21,7 +21,7 @@
     "ariaLabel": "Select language"
   },
   "marquee": {
-    "message": "Bhagwat Heritage Service Foundation Trust | join@bhagwatheritage.org | +91-866-889-7445 | Preserving Faith • Culture • Humanity"
+    "message": "Bhagwat Heritage Service Foundation Trust | join@bhagwatheritage.org | +91-866-889-7445 | Preserving Faith Ã¢â‚¬Â¢ Culture Ã¢â‚¬Â¢ Humanity"
   },
   "navbar": {
     "toggleMenu": "Toggle menu",
@@ -202,15 +202,15 @@
     "upcomingLiveIframeTitle": "Hanuman Jayanti Janmotsav YouTube live",
     "openOnYouTube": "Open on YouTube",
     "openLiveOnYouTube": "Open live on YouTube",
-    "bloodDonationTitle": "🩸 Blood Donation Camp – Join Now 🚩",
+    "bloodDonationTitle": "Ã°Å¸Â©Â¸ Blood Donation Camp Ã¢â‚¬â€œ Join Now Ã°Å¸Å¡Â©",
     "bloodDonationIntro": "On the auspicious occasion of Hanuman Janmotsav",
     "bloodDonationInspired": "Inspired by Sant Shri Manish Bhaiji Maharaj",
-    "bloodDonationLocation": "📍 Venue: Bhagwat Niketan Ashram (Hanuman Ji Campus)",
-    "bloodDonationOccasion": "📅 Occasion: 2 April 2026 – Hanuman Janmotsav",
-    "bloodDonationBullet1": "✔ Save Lives",
-    "bloodDonationBullet2": "✔ Be a Real Sevak",
-    "bloodDonationBullet3": "✔ Participate in Divine Seva",
-    "bloodDonationClosing": "🙏 One step from you can save someone's life.",
+    "bloodDonationLocation": "Ã°Å¸â€œÂ Venue: Bhagwat Niketan Ashram (Hanuman Ji Campus)",
+    "bloodDonationOccasion": "Ã°Å¸â€œâ€¦ Occasion: 2 April 2026 Ã¢â‚¬â€œ Hanuman Janmotsav",
+    "bloodDonationBullet1": "Ã¢Å“â€ Save Lives",
+    "bloodDonationBullet2": "Ã¢Å“â€ Be a Real Sevak",
+    "bloodDonationBullet3": "Ã¢Å“â€ Participate in Divine Seva",
+    "bloodDonationClosing": "Ã°Å¸â„¢Â One step from you can save someone's life.",
     "bloodDonationRegister": "Register",
     "bloodDonationDonate": "Donate",
     "bloodDonationWhatsappPrefill": "Hello, I would like to register for the Blood Donation Camp on Hanuman Janmotsav."
@@ -222,7 +222,7 @@
     },
     "heroBadge": "Bhagwat Heritage Service Foundation Trust",
     "heroTitle": "Bhagwat Heritage Service Foundation Trust",
-    "heroSubtitle": "Seva • Sanskriti • Sanskar",
+    "heroSubtitle": "Seva Ã¢â‚¬Â¢ Sanskriti Ã¢â‚¬Â¢ Sanskar",
     "highlights": [
       {
         "label": "Lives Served Annually",
@@ -587,7 +587,7 @@
   "aboutPage": {
     "heroTitle": "About",
     "heroTagline": "Bhagwat Heritage Service Foundation Trust",
-    "heroSubtagline": "Preserving Faith • Serving Humanity • Reviving Culture",
+    "heroSubtagline": "Preserving Faith Ã¢â‚¬Â¢ Serving Humanity Ã¢â‚¬Â¢ Reviving Culture",
     "supportMission": "Support the Mission",
     "becomeVolunteer": "Become a Volunteer",
     "introEyebrow": "Introduction",
@@ -598,7 +598,7 @@
     "viewObjectives": "View Our Objectives",
     "whatWeAreEyebrow": "The Sacred Inspiration",
     "whatWeAreHeading": "The Inspiration Behind the Mission",
-    "whatWeArePara1": "The guiding inspiration of Shri Bhagwat Heritage Service Foundation is the divine wisdom contained in Shrimad Bhagwat Mahapuran — one of the most revered scriptures of Sanatan tradition.",
+    "whatWeArePara1": "The guiding inspiration of Shri Bhagwat Heritage Service Foundation is the divine wisdom contained in Shrimad Bhagwat Mahapuran Ã¢â‚¬â€ one of the most revered scriptures of Sanatan tradition.",
     "whatWeArePara2": "Shrimad Bhagwat teaches the path of devotion, righteousness, humility, compassion, and divine love. It presents spiritual knowledge in a way that inspires individuals to purify their hearts, cultivate devotion toward the Divine, and live a life dedicated to service and dharma.",
     "whatWeArePara3": "The foundation considers this scripture not only a sacred text but also a living guide for building a spiritually awakened society. By sharing the teachings of Bhagwat in a modern and accessible way, the foundation seeks to inspire individuals to bring spiritual values into their personal lives, families, and communities.",
     "inspirationEyebrow": "Our Mission",
@@ -618,7 +618,7 @@
     "santRoleHeading": "The Role of Sant Shri Manish Bhaiji Maharaj",
     "santRolePara1": "Sant Shri Manish Bhaiji Maharaj",
     "santRolePara2": "Through spiritual discourses, satsang gatherings, and social initiatives, Sant Shri Manish Bhaiji Maharaj continues to inspire individuals toward a life of devotion, discipline, humility, and service.",
-    "santRolePara3": "His teachings emphasize that true spirituality is not limited to rituals or philosophical study — it should transform the individual's character and inspire compassionate action for the welfare of society.",
+    "santRolePara3": "His teachings emphasize that true spirituality is not limited to rituals or philosophical study Ã¢â‚¬â€ it should transform the individual's character and inspire compassionate action for the welfare of society.",
     "learnAboutFounder": "View Full Profile",
     "watchPravachan": "Watch Pravachan",
     "seekGuidance": "Seek Guidance",
@@ -630,7 +630,7 @@
     "whoWeArePara3": "Through initiatives such as Bhagwat Katha, spiritual education, Gau Seva, Annadaan, youth guidance, and humanitarian service programs, the Trust continuously works to uplift society at both inner and outer levels.",
     "coreAreas": [
       { "title": "Spiritual Education", "desc": "Bhagwat Katha programs, satsang gatherings, spiritual discourses, and study initiatives that help individuals understand the teachings of Shrimad Bhagwat and other sacred scriptures.", "linkLabel": "Explore" },
-      { "title": "Humanitarian Service", "desc": "Service to humanity as an expression of devotion — Gau Seva, Ann Seva food distribution, medicine distribution, educational support, scholarship assistance, and disaster relief.", "linkLabel": "Explore" },
+      { "title": "Humanitarian Service", "desc": "Service to humanity as an expression of devotion Ã¢â‚¬â€ Gau Seva, Ann Seva food distribution, medicine distribution, educational support, scholarship assistance, and disaster relief.", "linkLabel": "Explore" },
       { "title": "Cultural Preservation", "desc": "Preserving and promoting India's spiritual heritage through cultural programs, festivals, devotional practices, and educational initiatives for all generations.", "linkLabel": "Explore" },
       { "title": "Spiritual Learning Platforms", "desc": "E-Pathshala, digital learning resources, and spiritual study materials making sacred knowledge accessible to people of all ages and backgrounds.", "linkLabel": "Explore" }
     ],
@@ -680,10 +680,10 @@
     "invitationEyebrow": "Open to All",
     "invitationHeading": "Invitation to Participate",
     "invitationPara1": "The mission of Shri Bhagwat Heritage Service Foundation grows through the participation of sincere individuals who wish to contribute toward spiritual awareness and humanitarian service.",
-    "invitationPara2": "Whether through volunteering, supporting service initiatives, participating in spiritual programs, or simply sharing the message of Bhagwat — every individual can become part of this collective journey.",
+    "invitationPara2": "Whether through volunteering, supporting service initiatives, participating in spiritual programs, or simply sharing the message of Bhagwat Ã¢â‚¬â€ every individual can become part of this collective journey.",
     "invitationQuote": "Together, with devotion in the heart and service in action, we move forward in the light of Shrimad Bhagwat.",
     "ctaTitle": "Join the Mission of Devotion, Service & Spiritual Awakening",
-    "ctaDesc": "Every contribution — through time, resources, or participation — helps carry forward the sacred work of Shrimad Bhagwat Heritage.",
+    "ctaDesc": "Every contribution Ã¢â‚¬â€ through time, resources, or participation Ã¢â‚¬â€ helps carry forward the sacred work of Shrimad Bhagwat Heritage.",
     "ctaVolunteer": "Become a Volunteer",
     "ctaSupport": "Support the Mission",
     "ctaPrograms": "Participate in Spiritual Programs"
@@ -692,7 +692,7 @@
   "founderPage": {
     "badge": "Bhagwat Heritage Service Foundation Trust",
     "name": "Sant Shri Manish Bhaiji Maharaj",
-    "subtitle": "Spiritual Guide · Bhagwat Scholar · Social Reformer",
+    "subtitle": "Spiritual Guide Ã‚Â· Bhagwat Scholar Ã‚Â· Social Reformer",
     "introPara1": "Sant Shri Manish Bhaiji Maharaj is a respected spiritual guide, Bhagwat scholar, and the inspirational force behind the mission of Shri Bhagwat Heritage Service Foundation. Through his teachings, discourses, and service initiatives, he continues to inspire individuals to live a life rooted in devotion, discipline, compassion, and cultural responsibility.",
     "introPara2": "His spiritual journey reflects a deep commitment to spreading the sacred wisdom of Shrimad Bhagwat Mahapuran while guiding society toward moral strength, spiritual awareness, and service to humanity.",
     "contactSeva": "Contact for Seva",
@@ -704,19 +704,19 @@
     "inspirationPara3": "His teachings emphasize that spiritual wisdom should guide individuals toward inner purity, moral clarity, and compassionate service.",
     "kathaEyebrow": "Spiritual Discourse",
     "kathaHeading": "Bhagwat Katha & Spiritual Teaching",
-    "kathaPara1": "One of the central aspects of his mission is the presentation of Bhagwat Katha — a sacred spiritual discourse that explains the teachings of Shrimad Bhagwat Mahapuran in a meaningful and inspiring manner.",
+    "kathaPara1": "One of the central aspects of his mission is the presentation of Bhagwat Katha Ã¢â‚¬â€ a sacred spiritual discourse that explains the teachings of Shrimad Bhagwat Mahapuran in a meaningful and inspiring manner.",
     "kathaPara2": "Through Bhagwat Katha programs, he shares the message of devotion, spiritual wisdom, and ethical living with large audiences. His discourses help listeners understand the deeper spiritual meaning of scriptures while encouraging them to apply those teachings in daily life.",
     "kathaPara3": "His teachings emphasize that spiritual knowledge should inspire humility, devotion, self-discipline, and service to others.",
     "attendKatha": "Attend Bhagwat Katha",
     "principlesEyebrow": "Core Principles",
     "principlesHeading": "Guiding Philosophy",
     "principles": [
-      { "icon": "🙏", "title": "Devotion (Bhakti)", "desc": "Devotion toward the Divine purifies the heart and brings inner peace. Bhakti connects the individual with divine grace and inspires righteous living." },
-      { "icon": "📖", "title": "Wisdom (Jnana)", "desc": "True knowledge helps individuals understand the purpose of life and develop clarity of thought and conduct." },
-      { "icon": "🤲", "title": "Service (Seva)", "desc": "Service to humanity is a sacred duty. Helping others with compassion and sincerity reflects the true spirit of spirituality." },
-      { "icon": "🕉️", "title": "Discipline (Sadhana)", "desc": "Spiritual growth requires discipline, reflection, and dedication to spiritual practice." },
-      { "icon": "🎭", "title": "Cultural Responsibility", "desc": "Preserving and honoring cultural heritage strengthens identity and inspires future generations." },
-      { "icon": "💛", "title": "Compassion (Karuna)", "desc": "Compassion softens the heart, deepens human connection, and turns spiritual values into loving action for all." }
+      { "icon": "Ã°Å¸â„¢Â", "title": "Devotion (Bhakti)", "desc": "Devotion toward the Divine purifies the heart and brings inner peace. Bhakti connects the individual with divine grace and inspires righteous living." },
+      { "icon": "Ã°Å¸â€œâ€“", "title": "Wisdom (Jnana)", "desc": "True knowledge helps individuals understand the purpose of life and develop clarity of thought and conduct." },
+      { "icon": "Ã°Å¸Â¤Â²", "title": "Service (Seva)", "desc": "Service to humanity is a sacred duty. Helping others with compassion and sincerity reflects the true spirit of spirituality." },
+      { "icon": "Ã°Å¸â€¢â€°Ã¯Â¸Â", "title": "Discipline (Sadhana)", "desc": "Spiritual growth requires discipline, reflection, and dedication to spiritual practice." },
+      { "icon": "Ã°Å¸Å½Â­", "title": "Cultural Responsibility", "desc": "Preserving and honoring cultural heritage strengthens identity and inspires future generations." },
+      { "icon": "Ã°Å¸â€™â€º", "title": "Compassion (Karuna)", "desc": "Compassion softens the heart, deepens human connection, and turns spiritual values into loving action for all." }
     ],
     "foundationEyebrow": "The Vision",
     "foundationHeading": "Inspiration Behind the Foundation",
@@ -740,7 +740,7 @@
     "exploreSevaBtn": "Explore Seva Programs",
     "youthEyebrow": "Future Generation",
     "youthHeading": "Inspiration for the Younger Generation",
-    "youthPara1": "A key focus of his mission is guiding the younger generation toward positive values and responsible living. Modern society presents many challenges for youth — confusion about values, cultural disconnection, and lack of spiritual guidance.",
+    "youthPara1": "A key focus of his mission is guiding the younger generation toward positive values and responsible living. Modern society presents many challenges for youth Ã¢â‚¬â€ confusion about values, cultural disconnection, and lack of spiritual guidance.",
     "youthPara2": "Through his teachings and programs, he encourages young individuals to develop discipline, confidence, moral clarity, and spiritual awareness.",
     "youthPara3": "Youth who grow with strong values become capable of contributing meaningfully to society while maintaining cultural and spiritual roots.",
     "culturalEyebrow": "Heritage & Tradition",
@@ -768,10 +768,10 @@
     "journeyPara2": "The journey ahead includes expanding spiritual education initiatives, strengthening service activities, preserving cultural traditions, and sharing the message of Bhagwat with wider audiences.",
     "journeyPara3": "Through collective dedication and sincere devotion, the foundation seeks to move forward toward a future guided by spiritual wisdom and compassionate service.",
     "futureFocusItems": [
-      { "icon": "📖", "label": "Spiritual Education" },
-      { "icon": "🤲", "label": "Service Initiatives" },
-      { "icon": "🎭", "label": "Cultural Preservation" },
-      { "icon": "🌏", "label": "Global Outreach" }
+      { "icon": "Ã°Å¸â€œâ€“", "label": "Spiritual Education" },
+      { "icon": "Ã°Å¸Â¤Â²", "label": "Service Initiatives" },
+      { "icon": "Ã°Å¸Å½Â­", "label": "Cultural Preservation" },
+      { "icon": "Ã°Å¸Å’Â", "label": "Global Outreach" }
     ],
     "devotionTitle": "Moments of Devotion",
     "ctaTitle": "Learn More About the Mission & Join the Spiritual Journey",

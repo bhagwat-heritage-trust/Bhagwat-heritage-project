@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent, type MouseEvent, type ReactNode } from "react";
+﻿import { memo, useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent, type MouseEvent, type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { PageSectionShell } from "../../components/sections/PageSectionShell";
@@ -1077,7 +1077,7 @@ function SevaInitiativesSection() {
         className="relative mt-5 flex items-center justify-end gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#9c6f3f]"
       >
         <span>Scroll to explore</span>
-        <span aria-hidden="true">→</span>
+        <span aria-hidden="true">â†’</span>
       </motion.div>
 
       <div className="relative mt-8 overflow-hidden">
@@ -1115,7 +1115,7 @@ function SevaInitiativesSection() {
                       <h3 className="max-w-[12rem] text-2xl font-black leading-tight text-white">{item.title}</h3>
                       <span className="inline-flex items-center gap-1 text-sm font-semibold text-white/90">
                         Explore
-                        <span aria-hidden="true">→</span>
+                        <span aria-hidden="true">â†’</span>
                       </span>
                     </motion.div>
                   </div>
@@ -1629,7 +1629,7 @@ export const EventsKathaHubPage = memo(function EventsKathaHubPage() {
                     <p className="mt-3 max-w-2xl text-sm leading-7 text-white/88 md:text-base">{featuredItem.description}</p>
                   </div>
                   <motion.span whileHover={{ x: 4 }} className="text-sm font-semibold text-white/92">
-                    Open Section →
+                    Open Section â†’
                   </motion.span>
                 </div>
               </motion.article>
@@ -1674,7 +1674,7 @@ export const EventsKathaHubPage = memo(function EventsKathaHubPage() {
                         <p className="mt-2 text-sm leading-6 text-white/88">{item.description}</p>
                       </div>
                       <motion.span whileHover={{ x: 4 }} className="text-sm font-semibold text-white/92">
-                        Open →
+                        Open â†’
                       </motion.span>
                     </div>
                   </motion.article>
@@ -1719,7 +1719,7 @@ export const EventsKathaHubPage = memo(function EventsKathaHubPage() {
                       <p className="mt-2 text-sm leading-6 text-white/88">{item.description}</p>
                     </div>
                     <motion.span whileHover={{ x: 4 }} className="text-sm font-semibold text-white/92">
-                      →
+                      â†’
                     </motion.span>
                   </div>
                 </motion.article>
@@ -1740,7 +1740,7 @@ export const EventsKathaHubPage = memo(function EventsKathaHubPage() {
             to={ROUTES.eventsKatha.festivals}
             className="mt-6 inline-flex items-center justify-center rounded-full bg-[#E4B45E] px-8 py-3 text-sm font-semibold text-[#33210F] shadow-[0_16px_32px_rgba(228,180,94,0.26)] transition duration-300 hover:scale-[1.04] hover:bg-[#D08A32] hover:shadow-[0_20px_38px_rgba(208,138,50,0.28)]"
           >
-            View Full Calendar →
+            View Full Calendar â†’
           </Link>
         </motion.div>
       </section>
@@ -3017,7 +3017,7 @@ export const SevaGauSevaPage = memo(function SevaGauSevaPage() {
             <div className="rounded-[30px] border border-white/10 bg-[#12394A] p-6 shadow-[0_16px_34px_rgba(0,0,0,0.22)] md:p-8">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#F59E0B]">Spiritual Message</p>
               <blockquote className="mt-4 text-3xl font-black leading-tight text-white">
-                "Î±Ã±Ã¹Î±Ã±â•›Î±Ã±â•¡Î±Ã‘Ã¯ Î±Ã±â•¡Î±Ã±â”Î±Ã±â•¢Î±Ã‘Ã¬Î±Ã±â•¡Î±Ã±â••Î±Ã‘Ã¬Î±Ã±Â» Î±Ã±Â«Î±Ã±â•›Î±Ã±Ã±Î±Ã±â–‘Î±Ã±Ã¢"
+              <blockquote className="mt-4 text-3xl font-black leading-tight text-white">"गावो विश्वस्य मातरः"</blockquote>
               </blockquote>
               <p className="mt-3 text-lg text-[#F59E0B]">The cows are the mothers of the universe.</p>
               <p className="mt-4 text-base leading-7 text-[var(--campaign-text)]">
@@ -4452,7 +4452,7 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(255,247,224,0.34),transparent_44%)]" />
           <div className="absolute inset-0 z-10 mx-auto flex max-w-5xl flex-col items-center justify-end px-4 pb-10 text-center text-white sm:px-6 sm:pb-14 md:pb-16">
             <h1 className={heroTitleClass}>Socio-Cultural Events</h1>
-          <p className={`mt-2 ${SEVA_HERO_SUBTITLE_CLASS} !text-[#FFEAC4]`}>सामाजिक एवं सांस्कृतिक आयोजन</p>
+          <p className={`mt-2 ${SEVA_HERO_SUBTITLE_CLASS} !text-[#FFEAC4]`}>à¤¸à¤¾à¤®à¤¾à¤œà¤¿à¤• à¤à¤µà¤‚ à¤¸à¤¾à¤‚à¤¸à¥à¤•à¥ƒà¤¤à¤¿à¤• à¤†à¤¯à¥‹à¤œà¤¨</p>
           <p className={`mt-3 max-w-4xl uppercase tracking-[0.08em] ${heroBodyClass}`}>
             A living movement of culture, unity, sanskar, and spiritual awakening across India and the world.
           </p>
@@ -4716,7 +4716,7 @@ export const EventsSocioCulturalEventsPage = memo(function EventsSocioCulturalEv
                 className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#D9C5A7] bg-white text-lg font-bold text-[#8B5A21] transition hover:bg-[#FFF2DC]"
                 aria-label="Close invitation form"
               >
-                ×
+                x
               </button>
             </div>
             <form className="space-y-4" onSubmit={handleInviteSubmit}>
@@ -5835,8 +5835,8 @@ export const KnowledgeDailyQuotesPage = memo(function KnowledgeDailyQuotesPage()
           {[
             {
               icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png",
-              title: "Today’s Reflection",
-              desc: "Read today’s highlighted Bhagwat quote with source, date, and devotional context.",
+              title: "Todayâ€™s Reflection",
+              desc: "Read todayâ€™s highlighted Bhagwat quote with source, date, and devotional context.",
             },
             {
               icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032974/ChatGPT_Image_Apr_24_2026_05_42_39_PM_hoklrs.png",
@@ -5874,7 +5874,7 @@ export const KnowledgeDailyQuotesPage = memo(function KnowledgeDailyQuotesPage()
 
         <section id="todays-quote" className="mt-10 rounded-[30px] border border-[#ecd7b2] bg-[#fff9ef] p-6 shadow-[0_16px_30px_rgba(88,56,24,0.12)] md:p-8">
           <p className={sectionLabelClass}>Featured Daily Reflection</p>
-          <h2 className={`${sectionHeadingClass} mt-2`}>Today’s Spiritual Quote</h2>
+          <h2 className={`${sectionHeadingClass} mt-2`}>Todayâ€™s Spiritual Quote</h2>
           <p className={`${sectionBodyClass} mt-5 !text-lg !leading-8 md:!text-xl`}>
             &quot;{todayQuote?.quoteText || "Where remembrance of Bhagwan becomes steady, the mind slowly becomes peaceful and the heart becomes gentle."}&quot;
           </p>
@@ -6004,7 +6004,7 @@ export const KnowledgeDailyQuotesPage = memo(function KnowledgeDailyQuotesPage()
             {[
               "Admins can publish daily quotes from admin dashboard.",
               "Quotes can be categorized by theme for easy public filtering.",
-              "Published quotes appear automatically in today’s section and archive.",
+              "Published quotes appear automatically in todayâ€™s section and archive.",
               "Old quotes remain safely available in public archive.",
             ].map((line) => (
               <div key={line} className="rounded-2xl bg-white/80 p-4 text-sm font-semibold text-[#5e3f24]">
@@ -6035,7 +6035,7 @@ export const KnowledgeDailyQuotesPage = memo(function KnowledgeDailyQuotesPage()
             </p>
             <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link to={ROUTES.knowledge.dailyQuotesToday} className="inline-flex min-w-[210px] items-center justify-center rounded-full bg-[#dc8d20] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#c17a18]">
-                Read Today’s Quote
+                Read Todayâ€™s Quote
               </Link>
               <button type="button" onClick={() => todayQuote && shareQuote(todayQuote)} className="inline-flex min-w-[210px] items-center justify-center rounded-full bg-[#0f7b80] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#0d696d]">
                 Share with Devotees
@@ -6097,7 +6097,7 @@ export const KnowledgeTodayQuotePage = memo(function KnowledgeTodayQuotePage() {
             <h1 className="mt-2 text-[14px] font-black text-white md:text-[20px]">Today Quote</h1>
 
             <p className="mx-auto mt-8 max-w-4xl text-3xl font-semibold leading-[1.6] text-white md:text-5xl md:leading-[1.45]">
-              {loading ? "Loading today’s reflection..." : `“${featuredQuote?.quoteText || "A new spiritual quote will appear here soon."}”`}
+              {loading ? "Loading todayâ€™s reflection..." : `â€œ${featuredQuote?.quoteText || "A new spiritual quote will appear here soon."}â€`}
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -7106,7 +7106,7 @@ const MediaVideoFilterBar = memo(function MediaVideoFilterBar({
       </div>
 
       <label className="relative block w-full lg:max-w-[320px]">
-        <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-lg text-[#529CB0]">⌕</span>
+        <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-lg text-[#529CB0]">âŒ•</span>
         <input
           value={searchQuery}
           onChange={(event) => onSearchChange(event.target.value)}
@@ -7151,7 +7151,7 @@ const MediaVideoCard = memo(function MediaVideoCard({ item, index, onOpen }: Med
             transition={{ duration: 2.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           >
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[rgba(24,31,39,0.54)] text-xl font-semibold text-white shadow-[0_0_0_10px_rgba(255,255,255,0.10)]">
-              ▶
+              â–¶
             </div>
           </motion.div>
           <span className="absolute left-4 top-4 rounded-full bg-white/92 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#1F73A0]">
@@ -7553,7 +7553,7 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
     <section className="relative z-20 -mt-5 rounded-[24px] border border-[#E6D3B1] bg-[#FFF9EB]/95 p-4 shadow-[0_16px_30px_rgba(92,64,28,0.15)] backdrop-blur md:p-5">
       <div className="grid gap-3 lg:grid-cols-[1.1fr_0.55fr_0.35fr]">
         <div className="relative">
-          <span aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#B87918]">⌕</span>
+          <span aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#B87918]">âŒ•</span>
           <input
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
@@ -7628,7 +7628,7 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
             aria-label={`Play ${featuredVideo.title}`}
             className="absolute left-1/2 top-1/2 inline-flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-3xl text-white shadow-[0_0_0_10px_rgba(255,255,255,0.16)] transition hover:scale-105"
           >
-            ▶
+            â–¶
           </button>
         </div>
       </div>
@@ -7647,7 +7647,7 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
           aria-label={`Play ${video.title}`}
           className="absolute left-1/2 top-1/2 inline-flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-lg text-white shadow-[0_0_0_7px_rgba(255,255,255,0.16)]"
         >
-          ▶
+          â–¶
         </button>
       </div>
       <div className="space-y-2 p-5">
@@ -7655,7 +7655,7 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
         <p className="line-clamp-2 text-sm leading-6 text-[#5F4B38]">{video.description}</p>
         <div className="flex flex-wrap gap-3 text-sm font-semibold text-[#775839]">
           <span>{new Date(video.date).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}</span>
-          <span>•</span>
+          <span>â€¢</span>
           <span>{formatViewCountV2(video.views)} views</span>
         </div>
         <div className="pt-2 flex gap-3">
@@ -7689,8 +7689,8 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
         </div>
         {showPopularArrows ? (
           <div className="hidden items-center gap-2 md:flex">
-            <button type="button" onClick={() => scrollPopularBy("left")} aria-label="Scroll popular videos left" className="rounded-full border border-[#E2CCA6] bg-white px-3 py-2 text-[#916022] hover:bg-[#FFF2D8]">←</button>
-            <button type="button" onClick={() => scrollPopularBy("right")} aria-label="Scroll popular videos right" className="rounded-full border border-[#E2CCA6] bg-white px-3 py-2 text-[#916022] hover:bg-[#FFF2D8]">→</button>
+            <button type="button" onClick={() => scrollPopularBy("left")} aria-label="Scroll popular videos left" className="rounded-full border border-[#E2CCA6] bg-white px-3 py-2 text-[#916022] hover:bg-[#FFF2D8]">â†</button>
+            <button type="button" onClick={() => scrollPopularBy("right")} aria-label="Scroll popular videos right" className="rounded-full border border-[#E2CCA6] bg-white px-3 py-2 text-[#916022] hover:bg-[#FFF2D8]">â†’</button>
           </div>
         ) : null}
       </div>
@@ -7702,7 +7702,7 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
             </div>
             <div className="p-4">
               <h3 className="line-clamp-2 text-lg font-black text-[#2A2118]">{video.title}</h3>
-              <p className="mt-2 text-sm text-[#6D5030]">{formatViewCountV2(video.views)} views • {video.category}</p>
+              <p className="mt-2 text-sm text-[#6D5030]">{formatViewCountV2(video.views)} views â€¢ {video.category}</p>
               <button type="button" onClick={() => setSelectedVideo(video)} className="mt-3 rounded-full bg-[#D89B2B] px-4 py-2 text-xs font-black text-white">Watch</button>
             </div>
           </article>
@@ -7716,7 +7716,7 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
       <div className="grid gap-6 md:grid-cols-[1fr_320px] md:items-center">
         <div>
           <h2 className="text-3xl font-black text-[#1D342C] md:text-4xl">Live Darshan &amp; Upcoming Broadcasts</h2>
-          <p className="mt-4 text-base leading-7 text-[#5F4B38]">Next Live Satsang: Sunday, 7:00 PM IST • Platform: YouTube / Website Live</p>
+          <p className="mt-4 text-base leading-7 text-[#5F4B38]">Next Live Satsang: Sunday, 7:00 PM IST â€¢ Platform: YouTube / Website Live</p>
           <div className="mt-5 flex flex-wrap gap-3">
             <button type="button" className="rounded-full bg-[#0F6B6B] px-5 py-3 text-sm font-black text-white">Join Live</button>
             <button type="button" className="rounded-full border border-[#0F6B6B] bg-white px-5 py-3 text-sm font-black text-[#0F6B6B]">Set Reminder</button>
@@ -7781,7 +7781,7 @@ export const MediaVideoGalleryPage = memo(function MediaVideoGalleryPage() {
           aria-label="Close video modal"
           className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]"
         >
-          ×
+          x
         </button>
         <div className="w-full max-w-5xl overflow-hidden rounded-[20px] border border-white/20 bg-[#120F0D]" onClick={(event) => event.stopPropagation()}>
           <div className="aspect-video bg-black">
@@ -8648,13 +8648,13 @@ export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage()
                     <img src={item.coverImage} alt={`${item.title} event highlight`} className="h-full w-full object-cover" loading="lazy" />
                     <span className="absolute left-3 top-3 rounded-full bg-[#D89B2B] px-3 py-1 text-[11px] font-black text-white">{item.category}</span>
                     <span className="absolute right-3 top-3 rounded-full bg-black/70 px-3 py-1 text-[11px] font-black text-white">
-                      {item.photoCount} Photos • {item.videoCount} Videos
+                      {item.photoCount} Photos â€¢ {item.videoCount} Videos
                     </span>
                   </div>
                   <div className="space-y-2 p-5">
                     <h3 className="line-clamp-2 text-xl font-black leading-tight text-[#2A2118]">{item.title}</h3>
                     <p className="text-sm font-semibold text-[#0F6B6B]">
-                      {new Date(item.eventDate).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })} • {item.location}
+                      {new Date(item.eventDate).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })} â€¢ {item.location}
                     </p>
                     <p className="line-clamp-3 text-sm leading-6 text-[#5F4A37]">{item.shortDescription}</p>
                     <button type="button" className="mt-2 rounded-full bg-[#FFF1D5] px-4 py-2 text-sm font-black text-[#8A5617] transition hover:bg-[#FFE6B9]">
@@ -8701,7 +8701,7 @@ export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage()
                   aria-label={`Watch ${video.title}`}
                   className="absolute left-1/2 top-1/2 inline-flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-xl text-white shadow-[0_0_0_8px_rgba(255,255,255,0.14)]"
                 >
-                  ▶
+                  â–¶
                 </button>
                 <span className="absolute right-3 top-3 rounded-full bg-black/70 px-3 py-1 text-[11px] font-black text-white">{video.duration}</span>
               </div>
@@ -8781,7 +8781,7 @@ export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage()
       {activeVideo ? (
         <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-3 md:p-6" role="dialog" aria-modal="true" aria-label={`Video modal for ${activeVideo.title}`} onClick={() => setVideoModalIndex(null)}>
           <button type="button" aria-label="Close video modal" onClick={() => setVideoModalIndex(null)} className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]">
-            ×
+            x
           </button>
           <div className="w-full max-w-5xl overflow-hidden rounded-[20px] border border-white/20 bg-[#120F0D]" onClick={(event) => event.stopPropagation()}>
             <div className="aspect-video bg-black">
@@ -8794,17 +8794,17 @@ export const MediaEventHighlightsPage = memo(function MediaEventHighlightsPage()
       {activeImage ? (
         <div className="fixed inset-0 z-[91] flex items-center justify-center bg-black/85 p-3 md:p-6" role="dialog" aria-modal="true" aria-label={activeImage.caption} onClick={() => setLightboxIndex(null)}>
           <button type="button" aria-label="Close image lightbox" onClick={() => setLightboxIndex(null)} className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]">
-            ×
+            x
           </button>
           <button type="button" aria-label="Previous image" onClick={(event) => { event.stopPropagation(); setLightboxIndex((prev) => (prev === null ? null : (prev - 1 + EVENT_MOMENT_IMAGES_V2.length) % EVENT_MOMENT_IMAGES_V2.length)); }} className="absolute left-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]">
-            ‹
+            â€¹
           </button>
           <div className="w-full max-w-4xl overflow-hidden rounded-[20px] border border-white/20 bg-[#120F0D]" onClick={(event) => event.stopPropagation()}>
             <img src={activeImage.src} alt={activeImage.caption} className="max-h-[75vh] w-full object-contain" />
             <p className="p-4 text-sm font-semibold text-white/90">{activeImage.caption}</p>
           </div>
           <button type="button" aria-label="Next image" onClick={(event) => { event.stopPropagation(); setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % EVENT_MOMENT_IMAGES_V2.length)); }} className="absolute right-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-2xl text-white hover:bg-white hover:text-[#2B1E13]">
-            ›
+            â€º
           </button>
         </div>
       ) : null}
@@ -9209,13 +9209,13 @@ export const MediaPublicationsPage = memo(function MediaPublicationsPage() {
                     <p className="line-clamp-2 text-sm leading-6 text-[#5F4A37]">{item.description}</p>
                     <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.06em] text-[#6D5132]">
                       <span>{item.year}</span>
-                      <span>•</span>
+                      <span>â€¢</span>
                       <span>{item.language}</span>
-                      <span>•</span>
+                      <span>â€¢</span>
                       <span>{item.type}</span>
-                      <span>•</span>
+                      <span>â€¢</span>
                       <span>{item.pageCount} Pages</span>
-                      <span>•</span>
+                      <span>â€¢</span>
                       <span>{item.fileSize}</span>
                     </div>
                     <div className="pt-2 flex gap-2">
@@ -9488,7 +9488,7 @@ export const MediaSocialFeedPage = memo(function MediaSocialFeedPage() {
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#6C4F2F]">
                   <img src={`/assets/images/media-gallery/icons/icon-${post.platform.toLowerCase()}.svg`} alt={`${post.platform} icon`} className="h-4 w-4 object-contain" loading="lazy" />
                   <span>{post.platform}</span>
-                  <span>•</span>
+                  <span>â€¢</span>
                   <span>{new Date(post.date).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}</span>
                 </div>
                 <h3 className="text-xl font-black leading-tight text-[#2A2118]">{post.title}</h3>
@@ -9542,7 +9542,7 @@ export const MediaSocialFeedPage = memo(function MediaSocialFeedPage() {
                 <a href="#" className="block">
                   <div className="relative aspect-video overflow-hidden">
                     <img src={video.image} alt={`${video.title} preview`} className="h-full w-full object-cover" loading="lazy" />
-                    <span className="absolute left-1/2 top-1/2 inline-flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white">▶</span>
+                    <span className="absolute left-1/2 top-1/2 inline-flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white">â–¶</span>
                   </div>
                 </a>
                 <div className="p-3">
@@ -9563,7 +9563,7 @@ export const MediaSocialFeedPage = memo(function MediaSocialFeedPage() {
             "Seva updates inspire more people to participate and contribute.",
           ].map((text, idx) => (
             <article key={idx} className="rounded-[18px] border border-[#E6D4B4] bg-white p-5">
-              <p className="text-[#B87415] text-2xl leading-none">“</p>
+              <p className="text-[#B87415] text-2xl leading-none">â€œ</p>
               <p className="mt-2 text-sm leading-7 text-[#5F4A37]">{text}</p>
             </article>
           ))}
@@ -10246,7 +10246,7 @@ export const DigitalMembershipPage = memo(function DigitalMembershipPage() {
           </div>
         </div>
       </section>
-      <section className="mx-auto mt-10 max-w-7xl px-4"><div className={sectionShell}><p className="inline-flex items-center gap-2 text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]"><span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#deb77a] bg-[#fff6e7] text-[14px] text-[#b26c15]">★</span><span>Membership Plans</span></p><h2 className="mt-2 text-3xl font-black text-[#1f3550] md:text-4xl">Choose Your Plan</h2><div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">{PLAN_DETAILS.map((plan) => <article key={plan.name} className={`${softCard} flex h-full flex-col`} tabIndex={0}><h3 className="text-2xl font-black text-[#1f3550]">{plan.name}</h3><p className="mt-2 text-3xl font-black text-[#b86410]">{plan.price}</p><ul className="mt-4 space-y-2 text-base leading-7 text-[#5e5247]">{plan.features.map((feature) => <li key={feature} className="flex gap-2"><span className="mt-2 h-2.5 w-2.5 rounded-full bg-[#c87515]" /><span>{feature}</span></li>)}</ul><button type="button" onClick={() => setForm((current) => ({ ...current, membershipPlan: plan.name }))} className={`${primaryBtn} mt-6 w-fit`}>{plan.button}</button></article>)}</div></div></section>
+      <section className="mx-auto mt-10 max-w-7xl px-4"><div className={sectionShell}><p className="inline-flex items-center gap-2 text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]"><span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#deb77a] bg-[#fff6e7] text-[14px] text-[#b26c15]">â˜…</span><span>Membership Plans</span></p><h2 className="mt-2 text-3xl font-black text-[#1f3550] md:text-4xl">Choose Your Plan</h2><div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">{PLAN_DETAILS.map((plan) => <article key={plan.name} className={`${softCard} flex h-full flex-col`} tabIndex={0}><h3 className="text-2xl font-black text-[#1f3550]">{plan.name}</h3><p className="mt-2 text-3xl font-black text-[#b86410]">{plan.price}</p><ul className="mt-4 space-y-2 text-base leading-7 text-[#5e5247]">{plan.features.map((feature) => <li key={feature} className="flex gap-2"><span className="mt-2 h-2.5 w-2.5 rounded-full bg-[#c87515]" /><span>{feature}</span></li>)}</ul><button type="button" onClick={() => setForm((current) => ({ ...current, membershipPlan: plan.name }))} className={`${primaryBtn} mt-6 w-fit`}>{plan.button}</button></article>)}</div></div></section>
       <section id="member-registration" className="mx-auto mt-10 max-w-7xl px-4"><div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_0.95fr]"><form onSubmit={submitRegistration} noValidate className={sectionShell}><p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]">Member Registration Form</p><h2 className="mt-2 text-3xl font-black text-[#1f3550] md:text-4xl">Register for Verified Membership</h2><div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2"><label className="text-sm font-semibold text-[#2e4356]">Full Name<input value={form.fullName} onChange={handleFieldChange("fullName")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Email<input value={form.email} onChange={handleFieldChange("email")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Phone Number<input value={form.phoneNumber} onChange={handleFieldChange("phoneNumber")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Date of Birth<input type="date" value={form.dob} onChange={handleFieldChange("dob")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Gender<select value={form.gender} onChange={handleFieldChange("gender")} className={inputClass}><option value="">Select Gender</option><option>Male</option><option>Female</option><option>Other</option></select></label><label className="text-sm font-semibold text-[#2e4356]">Membership Plan<select value={form.membershipPlan} onChange={handleFieldChange("membershipPlan")} className={inputClass}>{PLAN_DETAILS.map((plan) => <option key={plan.name} value={plan.name}>{plan.name}</option>)}</select></label><label className="md:col-span-2 text-sm font-semibold text-[#2e4356]">Address<textarea rows={3} value={form.address} onChange={handleFieldChange("address")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">City<input value={form.city} onChange={handleFieldChange("city")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">State<input value={form.state} onChange={handleFieldChange("state")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Country<input value={form.country} onChange={handleFieldChange("country")} className={inputClass} /></label><label className="text-sm font-semibold text-[#2e4356]">Seva Interest<select value={form.sevaInterest} onChange={handleFieldChange("sevaInterest")} className={inputClass}><option value="">Select Seva Interest</option>{SEVA_INTEREST_OPTIONS.map((o) => <option key={o}>{o}</option>)}</select></label></div><div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2"><label className="rounded-2xl border border-dashed border-[#d9b87f] bg-[#fffaf1] p-4 text-sm font-semibold text-[#6f491c]">Upload Profile Photo<input type="file" accept="image/*" onChange={handleProfilePhoto} className="mt-2 block w-full text-sm text-[#6f491c]" /></label><label className="rounded-2xl border border-dashed border-[#d9b87f] bg-[#fffaf1] p-4 text-sm font-semibold text-[#6f491c]">Upload ID Proof<input type="file" onChange={handleIdProof} className="mt-2 block w-full text-sm text-[#6f491c]" /></label></div><label className="mt-4 flex items-start gap-2 text-sm font-semibold text-[#2e4356]"><input type="checkbox" checked={form.acceptedTerms} onChange={handleFieldChange("acceptedTerms")} className="mt-1" /><span>I agree to Terms & Privacy. Membership is activated only after admin approval.</span></label>{Object.values(errors).some(Boolean) ? <p className="mt-3 text-sm font-semibold text-[#b42318]">Please fill all required fields correctly and upload documents.</p> : null}<div className="mt-5 flex flex-wrap gap-3"><button type="submit" disabled={isSubmitting} className={primaryBtn}>{isSubmitting ? "Submitting..." : "Submit Registration"}</button><button type="button" disabled={isSavingDraft} onClick={() => void saveDraft()} className={secondaryBtn}>{isSavingDraft ? "Saving..." : "Save Form Draft"}</button></div>{statusMessage ? <p className={`mt-4 text-sm font-semibold ${statusMessage.type === "error" ? "text-[#b42318]" : statusMessage.type === "success" ? "text-[#1b6f44]" : "text-[#6f491c]"}`}>{statusMessage.text}</p> : null}</form><div className="space-y-6"><article className={sectionShell}><p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]">Digital Membership Card Preview</p><div className="mt-5 overflow-hidden rounded-[24px] border border-[#ead7b4] bg-[linear-gradient(135deg,#fff7e7,#fffdf9)] p-5"><div className="flex items-start gap-4"><div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border border-[#ead7b4] bg-white">{photoPreview ? <img src={photoPreview} alt="Member Preview" className="h-full w-full object-cover" /> : <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777483222/ChatGPT_Image_Apr_29_2026_10_49_07_PM_q0lfp1.png" alt="Digital membership card icon" className="h-full w-full object-cover" loading="lazy" />}</div><div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#c07017]">Bhagwat Heritage Member ID</p><h3 className="mt-1 text-xl font-black text-[#1f3550]">{form.fullName || "Member Name"}</h3><p className="mt-1 text-sm font-semibold text-[#5e5247]">{generatedMemberId}</p></div></div><div className="mt-5 grid grid-cols-2 gap-3"><div className="rounded-xl border border-[#f0ddb8] bg-white p-3"><p className="text-xs text-[#b96b1f]">Membership Type</p><p className="font-semibold text-[#1f3550]">{form.membershipPlan}</p></div><div className="rounded-xl border border-[#f0ddb8] bg-white p-3"><p className="text-xs text-[#b96b1f]">Status</p><p className="font-semibold text-[#1f3550]">{membershipStatus.toUpperCase()}</p></div><div className="rounded-xl border border-[#f0ddb8] bg-white p-3"><p className="text-xs text-[#b96b1f]">Join Date</p><p className="font-semibold text-[#1f3550]">{joinDate}</p></div><div className="rounded-xl border border-[#f0ddb8] bg-white p-3"><p className="text-xs text-[#b96b1f]">Valid Till</p><p className="font-semibold text-[#1f3550]">{selectedPlan.validTill}</p></div></div><div className="mt-4 rounded-xl border border-dashed border-[#d9b87f] bg-[#fff9ee] p-3 text-sm font-semibold text-[#6f491c]">QR Placeholder: <span className="font-black">{qrVerificationUrl}</span></div><div className="mt-4 flex flex-wrap gap-3"><button type="button" disabled={membershipStatus !== "approved"} onClick={() => window.print()} className={primaryBtn}>Download Card</button><button type="button" onClick={() => void handleShareCard()} className={secondaryBtn}>Share Card</button></div></div></article><article className={sectionShell}><p className="text-[24px] font-semibold uppercase tracking-[0.18em] text-[#c07017]">Payment Integration</p><h3 className="mt-2 text-3xl font-black text-[#1f3550] md:text-4xl">Secure Payment Methods</h3><div className="mt-4 grid grid-cols-2 gap-3">{["UPI", "Credit Card", "Debit Card", "Net Banking"].map((m) => <div key={m} className="rounded-xl border border-[#efdcb8] bg-white p-3 text-center text-sm font-semibold text-[#35536b]">{m}</div>)}</div><div className="mt-5 flex flex-wrap gap-3"><button type="button" onClick={() => void startPayment()} disabled={isCreatingOrder || isVerifyingPayment} className={primaryBtn}>{isCreatingOrder ? "Creating Order..." : isVerifyingPayment ? "Verifying..." : "Pay Securely"}</button><button type="button" className={secondaryBtn}>Retry Payment</button></div><div className="mt-3 text-sm font-semibold text-[#6f491c]">Payment Status: {paymentStatus} {paymentId ? `| Payment ID: ${paymentId}` : ""} {orderId ? `| Order ID: ${orderId}` : ""}</div></article></div></div></section>
       <section className="mx-auto mt-10 max-w-7xl px-4"><div className={`${sectionShell} bg-gradient-to-r from-[#fff7e7] to-[#fffdf9]`}><h2 className="text-3xl font-black text-[#1f3550] md:text-4xl">Secure, Verified & Trust-Governed Membership</h2><p className="mt-3 text-base leading-7 text-[#5e5247] md:text-lg">All membership requests are reviewed by the Trust administration. Uploaded documents are used only for verification purposes. Membership activation, digital card generation, and portal access are confirmed only after successful verification and approval.</p></div></section>
     </div>
@@ -11192,7 +11192,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
       description:
         "Enable Bal Sanskar programs, digital Pathshala support, child learning modules, and family spiritual education initiatives.",
       impact: "Builds the next generation through dharmic learning and disciplined spiritual formation.",
-      supports: "Class material, mentor support, event days, learning resources, and children’s workshops.",
+      supports: "Class material, mentor support, event days, learning resources, and childrenâ€™s workshops.",
       icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776788577/5_ulkrty.png",
     },
     {
@@ -11667,7 +11667,7 @@ export const InvolvedSponsorPage = memo(function InvolvedSponsorPage() {
                     >
                       <span className="text-base font-semibold text-white">{item.q}</span>
                       <span className="text-xl font-black text-[#E3A440]" aria-hidden="true">
-                        {isOpen ? "−" : "+"}
+                        {isOpen ? "âˆ’" : "+"}
                       </span>
                     </button>
                   </h3>
