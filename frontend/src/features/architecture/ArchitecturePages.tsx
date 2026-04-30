@@ -9751,7 +9751,7 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
         subtitle="Digital darshan, real devotion - connect with pravachan, bhajan, katha, and spiritual guidance from anywhere."
         subtitleClassName="mx-auto mt-4 max-w-3xl text-base font-medium text-[#f5ead7] md:text-lg"
         contentClassName="mx-auto flex h-full max-w-5xl flex-col items-center justify-end px-4 pb-8 text-center md:pb-10"
-        backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1777477647/ChatGPT_Image_Apr_29_2026_09_16_48_PM_meyuwm.png"
+        backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1777526525/ChatGPT_Image_Apr_30_2026_10_51_50_AM_fcj0is.png"
         boxed
         heightClass="h-[380px] md:h-[520px]"
         overlayClass="bg-[linear-gradient(120deg,rgba(27,21,18,0.42),rgba(110,66,16,0.28))]"
@@ -10218,7 +10218,7 @@ export const DigitalMembershipPage = memo(function DigitalMembershipPage() {
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#fffaf0_0%,#fffdf8_100%)] pb-16 font-['Poppins'] text-[#2e4356]">
-      <HeroSection title="Membership Portal" subtitle="Join the Bhagwat Heritage community and participate in spiritual, cultural, and seva-based initiatives with a verified digital membership identity." subtitleClassName="mx-auto mt-3 max-w-3xl text-base font-semibold text-[#fff3de] md:text-lg" contentClassName="mx-auto flex h-full max-w-6xl flex-col items-center justify-end px-4 pb-8 text-center md:pb-12" backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1777477647/ChatGPT_Image_Apr_29_2026_09_16_48_PM_meyuwm.png" boxed heightClass="h-[420px] md:h-[560px]" overlayClass="bg-[linear-gradient(120deg,rgba(31,17,10,0.32),rgba(13,79,89,0.12))]">
+      <HeroSection title="Membership Portal" subtitle="Join the Bhagwat Heritage community and participate in spiritual, cultural, and seva-based initiatives with a verified digital membership identity." subtitleClassName="mx-auto mt-3 max-w-3xl text-base font-semibold text-[#fff3de] md:text-lg" contentClassName="mx-auto flex h-full max-w-6xl flex-col items-center justify-end px-4 pb-8 text-center md:pb-12" backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1777526525/ChatGPT_Image_Apr_30_2026_10_51_50_AM_fcj0is.png" boxed heightClass="h-[420px] md:h-[560px]" overlayClass="bg-[linear-gradient(120deg,rgba(31,17,10,0.32),rgba(13,79,89,0.12))]">
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <a href="#member-registration" className="inline-flex items-center justify-center rounded-full bg-[#e08214] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#c56f0f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e08214]">Join Now</a>
           <Link to={ROUTES.login} className="inline-flex items-center justify-center rounded-full bg-[#c4382f] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#a92d25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c4382f]">Login</Link>
@@ -11724,6 +11724,7 @@ export const NotFoundPage = memo(function NotFoundPage() {
     </div>
   );
 });
+
 
 
 

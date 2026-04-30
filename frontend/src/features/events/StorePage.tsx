@@ -118,10 +118,10 @@ export default memo(function StorePage() {
       <section className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            ["Store Access", "Books, puja items, digital seva, and devotional essentials in one place.", "/assets/icons/e-store/icon-store-access.svg"],
-            ["Smart Shopping Flow", "Search, filter, sort, add to cart, and continue toward checkout smoothly.", "/assets/icons/e-store/icon-shopping-flow.svg"],
-            ["Featured Picks", "Highlighted daily essentials, scripture resources, and trusted selections.", "/assets/icons/e-store/icon-featured-picks.svg"],
-            ["User Experience", "Clean, fast, mobile-friendly browsing aligned with the website’s devotional design.", "/assets/icons/e-store/icon-user-experience.svg"],
+            ["Store Access", "Books, puja items, digital seva, and devotional essentials in one place.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776878925/ChatGPT_Image_Apr_22_2026_10_57_17_PM_gfz5pg.png"],
+            ["Smart Shopping Flow", "Search, filter, sort, add to cart, and continue toward checkout smoothly.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776967401/g9_vdlu1r.png"],
+            ["Featured Picks", "Highlighted daily essentials, scripture resources, and trusted selections.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776967402/g5_ilegzw.png"],
+            ["User Experience", "Clean, fast, mobile-friendly browsing aligned with the website’s devotional design.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776973581/ChatGPT_Image_Apr_24_2026_01_07_00_AM_eggbt0.png"],
           ].map(([title, text, icon]) => (
             <article key={title} className="rounded-[20px] border border-[#ebd9b5] bg-white p-5 shadow-[0_10px_24px_rgba(23,40,66,0.08)]">
               <img src={getStoreCloudinaryIconUrl(icon)} onError={(event) => { event.currentTarget.src = icon; }} alt={`${title} icon`} className="mx-auto h-[70px] w-[70px] rounded-full object-cover" loading="lazy" />
@@ -220,10 +220,10 @@ export default memo(function StorePage() {
         <h2 className="mt-2 text-3xl font-black text-[#1f3550] md:text-4xl">Online devotional services and digital support for devotees.</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {[
-            ["Online Puja Booking", "Request puja support and receive confirmation from the seva team.", "/assets/icons/e-store/icon-online-puja.svg"],
-            ["Bhagwat Katha Booking Inquiry", "Submit an inquiry for spiritual events, katha, or satsang guidance.", "/assets/icons/e-store/icon-katha-booking.svg"],
-            ["Digital Donation Receipt", "Receive proper confirmation and record for your seva contribution.", "/assets/icons/e-store/icon-digital-receipt.svg"],
-            ["Spiritual Resource Access", "Access selected digital learning, audio, and study materials.", "/assets/icons/e-store/icon-resource-access.svg"],
+            ["Online Puja Booking", "Request puja support and receive confirmation from the seva team.", "https://res.cloudinary.com/der8zinu8/image/upload/v1777029119/ChatGPT_Image_Apr_24_2026_04_39_27_PM_e5yys0.png"],
+            ["Bhagwat Katha Booking Inquiry", "Submit an inquiry for spiritual events, katha, or satsang guidance.", "https://res.cloudinary.com/der8zinu8/image/upload/v1777029120/ChatGPT_Image_Apr_24_2026_04_38_51_PM_nywxnm.png"],
+            ["Digital Donation Receipt", "Receive proper confirmation and record for your seva contribution.", "https://res.cloudinary.com/der8zinu8/image/upload/v1777050390/icon-digital-notes.svg"],
+            ["Spiritual Resource Access", "Access selected digital learning, audio, and study materials.", "https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png"],
           ].map(([title, text, icon]) => (
             <article key={title} className="rounded-[20px] border border-[#ead8b5] bg-white p-5 shadow-sm">
               <img src={getStoreCloudinaryIconUrl(icon)} onError={(event) => { event.currentTarget.src = icon; }} alt={`${title} icon`} className="mx-auto h-[70px] w-[70px] rounded-full object-cover" loading="lazy" />
@@ -240,10 +240,10 @@ export default memo(function StorePage() {
         <h2 className="mt-2 text-3xl font-black text-[#1f3550] md:text-4xl">Trust, Delivery & Support</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {[
-            ["Authentic Selection", "Products are selected with devotional purpose and spiritual relevance.", "/assets/icons/e-store/icon-authentic-selection.svg"],
-            ["Secure Order Flow", "Cart and checkout structure should be prepared for future secure payment integration.", "/assets/icons/e-store/icon-secure-order.svg"],
-            ["Seva-Supported Purchase", "Your purchase helps support spiritual, cultural, and service initiatives.", "/assets/icons/e-store/icon-seva-purchase.svg"],
-            ["Support Assistance", "For order help, devotees can contact the Bhagwat Heritage support team.", "/assets/icons/e-store/icon-support-help.svg"],
+            ["Authentic Selection", "Products are selected with devotional purpose and spiritual relevance.", "https://res.cloudinary.com/der8zinu8/image/upload/v1777050237/icon-character-building.svg"],
+            ["Secure Order Flow", "Cart and checkout structure should be prepared for future secure payment integration.", "https://res.cloudinary.com/der8zinu8/image/upload/v1777483221/ChatGPT_Image_Apr_29_2026_10_49_15_PM_hxn1ht.png"],
+            ["Seva-Supported Purchase", "Your purchase helps support spiritual, cultural, and service initiatives.", "https://res.cloudinary.com/der8zinu8/image/upload/v1777483222/ChatGPT_Image_Apr_29_2026_10_49_49_PM_f6hqjr.png"],
+            ["Support Assistance", "For order help, devotees can contact the Bhagwat Heritage support team.", "https://res.cloudinary.com/der8zinu8/image/upload/v1777191419/ChatGPT_Image_Apr_26_2026_01_44_31_PM_tmftmk.png"],
           ].map(([title, text, icon]) => (
             <article key={title} className="rounded-[20px] border border-[#ead8b5] bg-white p-5 shadow-sm">
               <img src={getStoreCloudinaryIconUrl(icon)} onError={(event) => { event.currentTarget.src = icon; }} alt={`${title} icon`} className="mx-auto h-[70px] w-[70px] rounded-full object-cover" loading="lazy" />
@@ -345,6 +345,9 @@ export default memo(function StorePage() {
     </div>
   );
 });
+
+
+
 
 
 

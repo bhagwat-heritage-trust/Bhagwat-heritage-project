@@ -22,28 +22,28 @@ const QUICK_CONTACT = [
     value: "+91-866-889-7445",
     href: "tel:+918668897445",
     action: "Call Now",
-    icon: "/assets/icons/contact/icon-call.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777524779/ChatGPT_Image_Apr_30_2026_10_22_15_AM_stfwld.png",
   },
   {
     title: "WhatsApp",
     value: "+91-866-889-7445",
     href: "https://wa.me/918668897445",
     action: "Message on WhatsApp",
-    icon: "/assets/icons/contact/icon-whatsapp.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777475728/ChatGPT_Image_Apr_29_2026_08_40_26_PM_dehfbt.png",
   },
   {
     title: "Email",
     value: "join@bhagwatheritage.org",
     href: "mailto:join@bhagwatheritage.org",
     action: "Send Email",
-    icon: "/assets/icons/contact/icon-email.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777524779/ChatGPT_Image_Apr_30_2026_10_22_20_AM_unse1i.png",
   },
   {
     title: "Visit Us",
     value: "Bhagwat Dham - Shree Swaminarayan Mandir, Kasturba Rd, Hospital ward, Chandrapur, Maharashtra 442402",
     href: "https://maps.google.com/?q=Bhagwat+Dham+Shree+Swaminarayan+Mandir+Kasturba+Rd+Hospital+ward+Chandrapur+Maharashtra+442402",
     action: "Get Directions",
-    icon: "/assets/icons/contact/icon-location.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777524779/ChatGPT_Image_Apr_30_2026_10_22_25_AM_wyiqcg.png",
   },
 ] as const;
 
@@ -51,32 +51,32 @@ const HELP_CARDS = [
   {
     title: "Seva & Volunteer Enquiry",
     text: "Join ongoing seva projects, volunteer teams, and community support programs.",
-    icon: "/assets/icons/contact/icon-seva-enquiry.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097560/ChatGPT_Image_Apr_25_2026_11_41_57_AM_wsv00f.png",
   },
   {
     title: "Donation & Receipt Support",
     text: "Get help with donation process, receipt requests, and sponsorship guidance.",
-    icon: "/assets/icons/contact/icon-donation-support.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967400/g8_cw3tcs.png",
   },
   {
     title: "Bhagwat Katha / Event Collaboration",
     text: "Coordinate for katha, satsang, and social-cultural collaboration opportunities.",
-    icon: "/assets/icons/contact/icon-event-collaboration.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967401/g10_db02lr.png",
   },
   {
     title: "Temple Visit & Darshan Information",
     text: "Receive darshan timings, puja support, and temple visit related details.",
-    icon: "/assets/icons/contact/icon-temple-visit.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967403/g12_jtim6v.png",
   },
   {
     title: "Guidance & Spiritual Consultation",
     text: "Reach out for spiritual direction and value-based life guidance support.",
-    icon: "/assets/icons/contact/icon-guidance-request.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776973581/ChatGPT_Image_Apr_24_2026_01_06_53_AM_imueuc.png",
   },
   {
     title: "Media / Publication / Partnership",
     text: "Connect for press, publication, media coordination, and institutional partnerships.",
-    icon: "/assets/icons/contact/icon-media-partnership.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967401/g7_kplr1h.png",
   },
 ] as const;
 
@@ -84,32 +84,32 @@ const DEPARTMENT_CARDS = [
   {
     title: "Donation Support",
     text: "For donation, receipt, sponsorship, and seva contribution queries.",
-    icon: "/assets/icons/contact/icon-donation-support.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967400/g8_cw3tcs.png",
   },
   {
     title: "Volunteer Coordination",
     text: "For joining seva activities and volunteer programs.",
-    icon: "/assets/icons/contact/icon-seva-enquiry.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776973581/ChatGPT_Image_Apr_24_2026_01_07_00_AM_eggbt0.png",
   },
   {
     title: "Event Collaboration",
     text: "For Bhagwat Katha, satsang, cultural events, and institutional collaboration.",
-    icon: "/assets/icons/contact/icon-event-collaboration.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029119/ChatGPT_Image_Apr_24_2026_04_39_58_PM_h8p3fr.png",
   },
   {
     title: "Temple Activities",
     text: "For darshan, puja, prasad, and temple-related information.",
-    icon: "/assets/icons/contact/icon-temple-visit.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032971/ChatGPT_Image_Apr_24_2026_05_42_57_PM_f81lk3.png",
   },
   {
     title: "Guidance Desk",
     text: "For spiritual guidance and value-based life consultation requests.",
-    icon: "/assets/icons/contact/icon-guidance-request.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097561/ChatGPT_Image_Apr_25_2026_11_42_05_AM_bij6a0.png",
   },
   {
     title: "Media & Publications",
     text: "For press, publications, content, and social media coordination.",
-    icon: "/assets/icons/contact/icon-media-partnership.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029119/ChatGPT_Image_Apr_24_2026_04_39_27_PM_e5yys0.png",
   },
 ] as const;
 
@@ -146,6 +146,9 @@ const GI_CARD_TITLE_CLASS = "text-2xl font-black text-[#1f3550]";
 const GI_BODY_CLASS = "text-base leading-7 text-[#5e5247] md:text-lg";
 
 const getCloudinaryIconUrl = (localIconPath: string) => {
+  if (localIconPath.startsWith("http://") || localIconPath.startsWith("https://")) {
+    return localIconPath;
+  }
   const iconFile = localIconPath.split("/").pop() ?? "";
   return `https://res.cloudinary.com/der8zinu8/image/upload/contact-icons/${iconFile}`;
 };
@@ -305,7 +308,7 @@ export default memo(function ContactPage() {
 
           <article className="rounded-3xl border border-[#e6d5b4] bg-white p-6 shadow-[0_14px_32px_rgba(38,40,44,0.09)] md:p-8">
             <h2 className={GI_HEADING_CLASS}>Seva Contact Desk</h2>
-            <img src="/assets/images/contact/contact-seva-desk.jpg" alt="Seva desk volunteers assisting devotees" className="mt-4 h-52 w-full rounded-2xl object-cover" loading="lazy" />
+            <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777443464/ChatGPT_Image_Apr_29_2026_11_46_33_AM_tss5do.png" alt="Seva desk volunteers assisting devotees" className="mt-4 h-52 w-full rounded-2xl object-cover" loading="lazy" />
             <div className={`mt-5 space-y-4 ${GI_BODY_CLASS}`}>
               <p><span className="font-black text-[#1d3550]">Address:</span><br />Bhagwat Dham - Shree Swaminarayan Mandir, Kasturba Rd, Hospital ward, Chandrapur, Maharashtra 442402</p>
               <p><span className="font-black text-[#1d3550]">Email:</span><br /><a href="mailto:join@bhagwatheritage.org" className="text-[#0f6174]">join@bhagwatheritage.org</a></p>
