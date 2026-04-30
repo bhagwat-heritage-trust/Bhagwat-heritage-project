@@ -71,6 +71,7 @@ const FestivalsCelebrationsDetailPage = lazy(() => import("./features/events/Fes
 const MandirGalleryPage = lazy(() => import("./features/mandir/MandirGalleryPage"));
 const GhanshyamPage = lazy(() => import("./features/mandir/GhanshyamPage"));
 const MahamandirPage = lazy(() => import("./features/mandir/MahamandirPage"));
+const HanumanMurtiPage = lazy(() => import("./features/mandir/HanumanMurtiPage"));
 const PilgrimageInfoPage = lazy(() => import("./features/mandir/PilgrimageInfoPage"));
 const CulturalPage = lazy(() => import("./features/mission/CulturalPage"));
 const GlobalOutreachPage = lazy(() => import("./features/mission/GlobalOutreachPage"));
@@ -266,7 +267,7 @@ function AppShell() {
                   <Route path={ROUTES.mandirTeerth.bhagwatDham} element={withInnerPageLayout(<GhanshyamPage />)} />
                   <Route path={ROUTES.mandirTeerth.mahamandir} element={withInnerPageLayout(<MahamandirPage />)} />
                   <Route path={ROUTES.mandirTeerth.avatars} element={withInnerPageLayout(<MandirAvatarsPage />)} />
-                  <Route path={ROUTES.mandirTeerth.hanuman} element={withInnerPageLayout(<MahamandirPage />)} />
+                  <Route path={ROUTES.mandirTeerth.hanuman} element={withInnerPageLayout(<HanumanMurtiPage />)} />
                   <Route path={ROUTES.mandirTeerth.construction} element={withInnerPageLayout(<MandirConstructionPage />)} />
                   <Route path={ROUTES.mandirTeerth.pilgrimage} element={withInnerPageLayout(<PilgrimageInfoPage />)} />
 

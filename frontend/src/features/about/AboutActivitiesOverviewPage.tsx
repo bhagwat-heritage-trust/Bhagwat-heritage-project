@@ -270,9 +270,6 @@ export default memo(function AboutActivitiesOverviewPage() {
             <article key={item.title} className={`${cardClass} overflow-hidden`}>
               <div className="relative h-60 overflow-hidden bg-[#fff2d8]">
                 <img src={item.image} alt={item.title} loading="lazy" className="h-full w-full object-cover" />
-                <div className="absolute left-1/2 top-4 inline-flex h-[68px] w-[68px] -translate-x-1/2 items-center justify-center overflow-hidden rounded-full shadow-[0_8px_18px_rgba(131,83,11,0.18)]">
-                  <img src={item.icon} alt="" aria-hidden="true" className="h-full w-full rounded-full object-cover" loading="lazy" />
-                </div>
               </div>
               <div className="p-5">
                 <h3 className="text-xl font-bold text-[#5d300e]">{item.title}</h3>

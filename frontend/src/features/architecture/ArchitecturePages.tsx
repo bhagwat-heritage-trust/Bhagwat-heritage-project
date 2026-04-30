@@ -288,7 +288,7 @@ const MEDIA_VIDEO_GALLERY_ITEMS: VideoGalleryItem[] = [
     views: "11.6K",
   },
   {
-    
+
     slug: "discovering-dwarka-ancient-ruins",
     category: "Festival",
     theme: "Sacred Places",
@@ -300,9 +300,9 @@ const MEDIA_VIDEO_GALLERY_ITEMS: VideoGalleryItem[] = [
     videoUrl: "https://www.youtube.com/watch?v=ZYX6zpiY-6w",
     views: "9.4K",
   },
-  {
+  { 
     slug: "vedic-chants-and-stotras",
-    category: "Katha",
+    category: "Katha", 
     theme: "Rituals",
     title: "Spiritual Chants, Stotras, and Daily Bhakti",
     duration: "8:15",
