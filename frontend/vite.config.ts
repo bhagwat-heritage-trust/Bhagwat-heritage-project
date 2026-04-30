@@ -10,15 +10,19 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       workbox: {
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
         globPatterns: ["**/*.{js,css,html,ico,svg,woff2}"],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         runtimeCaching: [
           {
             urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
-            handler: "CacheFirst",
+            handler: "NetworkFirst",
             options: {
               cacheName: "images-cache",
-              expiration: { maxEntries: 50 },
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 50, maxAgeSeconds: 24 * 60 * 60 },
             },
           },
         ],
