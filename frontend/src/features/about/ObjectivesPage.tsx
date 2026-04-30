@@ -18,7 +18,7 @@ type PathwayStep = {
 
 const objectiveCards: ObjectiveCard[] = [
   {
-    icon: "/icons/icon-spiritual-objectives.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536354/ChatGPT_Image_Apr_30_2026_01_32_28_PM_akdenf.png",
     title: "Spiritual Objectives",
     description: "Deepening devotion through Bhagwat-centered spiritual learning.",
     checklist: [
@@ -30,7 +30,7 @@ const objectiveCards: ObjectiveCard[] = [
     ],
   },
   {
-    icon: "/icons/icon-service-objectives.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536352/ChatGPT_Image_Apr_30_2026_01_33_24_PM_oothr1.png",
     title: "Service Objectives",
     description: "Turning compassion into seva for those in need.",
     checklist: [
@@ -42,7 +42,7 @@ const objectiveCards: ObjectiveCard[] = [
     ],
   },
   {
-    icon: "/icons/icon-youth-education.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777228826/ChatGPT_Image_Apr_27_2026_12_08_01_AM_w3dmqh.png",
     title: "Youth & Education Objectives",
     description: "Guiding the next generation with values, knowledge, discipline, and vision.",
     checklist: [
@@ -54,7 +54,7 @@ const objectiveCards: ObjectiveCard[] = [
     ],
   },
   {
-    icon: "/icons/icon-cultural-objectives.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_12_PM_ark4ok.png",
     title: "Cultural Objectives",
     description: "Preserving dharmic identity through culture, traditions, and festivals.",
     checklist: [
@@ -66,7 +66,7 @@ const objectiveCards: ObjectiveCard[] = [
     ],
   },
   {
-    icon: "/icons/icon-community-objectives.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032975/ChatGPT_Image_Apr_24_2026_05_42_35_PM_hwotsz.png",
     title: "Community Objectives",
     description: "Building value-driven communities with unity and responsibility.",
     checklist: [
@@ -78,7 +78,7 @@ const objectiveCards: ObjectiveCard[] = [
     ],
   },
   {
-    icon: "/icons/icon-long-term-goals.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536354/ChatGPT_Image_Apr_30_2026_01_32_43_PM_sowddo.png",
     title: "Long-Term Goals",
     description: "Building a sustainable future of seva, spirituality, and cultural preservation.",
     checklist: [
@@ -92,10 +92,22 @@ const objectiveCards: ObjectiveCard[] = [
 ];
 
 const pathwaySteps: PathwayStep[] = [
-  { icon: "/icons/icon-inspiration.svg", title: "Spiritual Inspiration" },
-  { icon: "/icons/icon-planning.svg", title: "Structured Seva Planning" },
-  { icon: "/icons/icon-participation.svg", title: "Community Participation" },
-  { icon: "/icons/icon-impact.svg", title: "Measurable Social Impact" },
+  {
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536354/ChatGPT_Image_Apr_30_2026_01_32_28_PM_akdenf.png",
+    title: "Spiritual Inspiration",
+  },
+  {
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536353/ChatGPT_Image_Apr_30_2026_01_33_30_PM_bcivpo.png",
+    title: "Structured Seva Planning",
+  },
+  {
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536353/ChatGPT_Image_Apr_30_2026_01_33_16_PM_f7vnhz.png",
+    title: "Community Participation",
+  },
+  {
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536352/ChatGPT_Image_Apr_30_2026_01_33_04_PM_auxasy.png",
+    title: "Measurable Social Impact",
+  },
 ];
 
 const fadeUp = {
@@ -118,21 +130,34 @@ export default memo(function ObjectivesPage() {
           className="relative overflow-hidden rounded-[28px] border border-[#e3cda9]"
           style={{
             backgroundImage:
-              "linear-gradient(180deg, rgba(8,25,33,0.12) 0%, rgba(8,25,33,0.58) 55%, rgba(8,25,33,0.84) 100%), url('/images/objectives-hero.jpg')",
+              "linear-gradient(180deg, rgba(255,250,238,0.04) 0%, rgba(255,245,224,0.08) 46%, rgba(24,48,56,0.62) 100%), url('https://res.cloudinary.com/der8zinu8/image/upload/v1777545098/ChatGPT_Image_Apr_30_2026_04_01_28_PM_q5rq4m.png')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="relative mx-auto flex h-[280px] max-w-[1180px] flex-col items-center justify-center px-5 text-center sm:h-[340px] lg:h-[420px]">
-            <p className="rounded-full border border-[#f1d39f] bg-[rgba(255,224,170,0.18)] px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#ffe8c1]">
-              Our Objectives
-            </p>
-            <h1 className="mt-4 max-w-3xl text-3xl font-black leading-tight text-white sm:text-4xl lg:text-5xl">
-              Guided by Faith. Driven by Service. Focused on Impact.
-            </h1>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-[#f8efdf] sm:text-base">
-              The objectives of Bhagwat Heritage Service Foundation Trust are rooted in devotion, service, cultural preservation, education, and social upliftment.
-            </p>
+          <div className="relative mx-auto flex h-[380px] max-w-[1180px] items-end justify-center px-5 pb-8 text-center sm:h-[480px] sm:pb-10 lg:h-[620px] lg:pb-14">
+            <div className="flex max-w-3xl flex-col items-center">
+              <h1 className="text-3xl font-black leading-tight text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.45)] sm:text-5xl lg:text-6xl">
+                Our Objectives
+              </h1>
+              <p className="mt-3 text-base font-semibold leading-7 text-[#fff4df] drop-shadow-[0_2px_8px_rgba(0,0,0,0.42)] sm:text-xl">
+                Guided by faith, driven by service
+              </p>
+              <div className="mt-6 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
+                <Link
+                  to={ROUTES.involved.volunteer}
+                  className="w-full rounded-full bg-[#f28c20] px-7 py-3 text-sm font-bold text-white shadow-[0_12px_24px_rgba(167,82,12,0.30)] transition duration-300 hover:-translate-y-1 hover:bg-[#dd7411] sm:w-auto"
+                >
+                  Participate in Seva
+                </Link>
+                <Link
+                  to={ROUTES.donate}
+                  className="w-full rounded-full bg-[#c83f2d] px-7 py-3 text-sm font-bold text-white shadow-[0_12px_24px_rgba(156,44,30,0.32)] transition duration-300 hover:-translate-y-1 hover:bg-[#aa3022] sm:w-auto"
+                >
+                  Support Our Initiatives
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </motion.section>
@@ -160,8 +185,8 @@ export default memo(function ObjectivesPage() {
                 key={card.title}
                 className="group rounded-[26px] border border-[#ead7b9] bg-[linear-gradient(180deg,#fffdf9_0%,#fff8ef_100%)] p-6 shadow-[0_12px_26px_rgba(89,64,34,0.08)] transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[linear-gradient(180deg,#f4b158_0%,#de8c31_100%)] shadow-[0_8px_18px_rgba(209,128,37,0.24)]">
-                  <img src={card.icon} alt="" aria-hidden="true" className="h-8 w-8" />
+                <div className="inline-flex h-[86px] w-[86px] items-center justify-center overflow-hidden rounded-full shadow-[0_8px_18px_rgba(209,128,37,0.18)]">
+                  <img src={card.icon} alt="" aria-hidden="true" className="h-full w-full rounded-full object-cover" />
                 </div>
                 <h2 className="mt-4 text-2xl font-black text-[#1f4d5a]">{card.title}</h2>
                 <p className="mt-3 text-[0.97rem] leading-7 text-[#564c42]">{card.description}</p>
@@ -189,8 +214,8 @@ export default memo(function ObjectivesPage() {
               <div className="pointer-events-none absolute left-0 right-0 top-[35px] hidden border-t-2 border-dotted border-[#b7d3cf] md:block" />
               {pathwaySteps.map((step) => (
                 <article key={step.title} className="relative rounded-2xl border border-[#d5e6e4] bg-white p-5 text-center shadow-[0_8px_20px_rgba(30,75,82,0.08)]">
-                  <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#e4f0ee]">
-                    <img src={step.icon} alt="" aria-hidden="true" className="h-7 w-7" />
+                  <span className="mx-auto inline-flex h-[78px] w-[78px] items-center justify-center overflow-hidden rounded-full shadow-[0_8px_18px_rgba(30,75,82,0.12)]">
+                    <img src={step.icon} alt="" aria-hidden="true" className="h-full w-full rounded-full object-cover" />
                   </span>
                   <h3 className="mt-3 text-lg font-bold text-[#1f4d5a]">{step.title}</h3>
                 </article>
@@ -221,7 +246,13 @@ export default memo(function ObjectivesPage() {
         </motion.section>
 
         <motion.section variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-          <div className="rounded-[28px] border border-[#e8ceaa] bg-[linear-gradient(135deg,#fff3df_0%,#fffdf8_58%,#f4e7d1_100%)] p-6 shadow-[0_14px_30px_rgba(118,82,39,0.11)] sm:p-8">
+          <div
+            className="overflow-hidden rounded-[28px] border border-[#e8ceaa] bg-cover bg-center p-6 shadow-[0_14px_30px_rgba(118,82,39,0.11)] sm:p-8"
+            style={{
+              backgroundImage:
+                "linear-gradient(115deg, rgba(255,244,211,0.96) 0%, rgba(255,236,169,0.9) 46%, rgba(245,184,73,0.78) 100%), url('https://res.cloudinary.com/der8zinu8/image/upload/v1777536354/ChatGPT_Image_Apr_30_2026_01_32_43_PM_sowddo.png')",
+            }}
+          >
             <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-center">
               <div>
                 <h2 className="text-3xl font-black text-[#1f4d5a]">Join Our Mission</h2>
