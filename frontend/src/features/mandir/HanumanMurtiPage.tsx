@@ -29,6 +29,7 @@ type IconName =
 
 type InfoItem = {
   icon: IconName;
+  imageIcon?: string;
   title: string;
   text: string;
 };
@@ -42,22 +43,256 @@ const MAP_EMBED =
 const CONTACT_PHONE = "+918668897445";
 const CONTACT_DISPLAY = "+91-866-889-7445";
 const CONTACT_EMAIL = "join@bhagwatheritage.org";
+const DARSHAN_TIMING_ICON = "https://res.cloudinary.com/der8zinu8/image/upload/v1777032975/ChatGPT_Image_Apr_24_2026_05_42_35_PM_hwotsz.png";
 
 const quickInfo: InfoItem[] = [
-  { icon: "clock", title: "Darshan Hours", text: "09:00 AM - 12:00 PM | 04:00 PM - 09:00 PM" },
-  { icon: "location", title: "Location", text: "Dham Chandrapur, Maharashtra" },
-  { icon: "diya", title: "Special Days", text: "Tuesday & Saturday" },
-  { icon: "hands", title: "Main Seva", text: "Hanuman Paath, Aarti, Bhajan, Darshan" },
+  {
+    icon: "clock",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777567681/ChatGPT_Image_Apr_30_2026_10_16_04_PM_qssfl8.png",
+    title: "Darshan Hours",
+    text: "09:00 AM - 12:00 PM | 04:00 PM - 09:00 PM",
+  },
+  {
+    icon: "location",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777567675/ChatGPT_Image_Apr_30_2026_10_16_31_PM_gbzhqw.png",
+    title: "Location",
+    text: "Dham Chandrapur, Maharashtra",
+  },
+  {
+    icon: "diya",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777567679/ChatGPT_Image_Apr_30_2026_10_16_00_PM_jgplqt.png",
+    title: "Special Days",
+    text: "Tuesday & Saturday",
+  },
+  {
+    icon: "hands",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536352/ChatGPT_Image_Apr_30_2026_01_33_24_PM_oothr1.png",
+    title: "Main Seva",
+    text: "Hanuman Paath, Aarti, Bhajan, Darshan",
+  },
 ];
 
 const significance: InfoItem[] = [
-  { icon: "strength", title: "Strength and Courage", text: "Inspires fearlessness, discipline, and inner stability." },
-  { icon: "shield", title: "Protection from Negativity", text: "Guides devotees toward faith, clarity, and spiritual protection." },
-  { icon: "temple", title: "Devotion to Shri Ram", text: "Reminds every visitor of Hanuman Ji's complete surrender to Shri Ram." },
-  { icon: "seva", title: "Service and Humility", text: "Encourages seva bhav, humility, and righteous living." },
+  {
+    icon: "strength",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536354/ChatGPT_Image_Apr_30_2026_01_32_28_PM_akdenf.png",
+    title: "Strength and Courage",
+    text: "Inspires fearlessness, discipline, and inner stability.",
+  },
+  {
+    icon: "shield",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777050237/icon-character-building.svg",
+    title: "Protection from Negativity",
+    text: "Guides devotees toward faith, clarity, and spiritual protection.",
+  },
+  {
+    icon: "temple",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536353/ChatGPT_Image_Apr_30_2026_01_33_16_PM_f7vnhz.png",
+    title: "Devotion to Shri Ram",
+    text: "Reminds every visitor of Hanuman Ji's complete surrender to Shri Ram.",
+  },
+  {
+    icon: "seva",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777536353/ChatGPT_Image_Apr_30_2026_01_33_30_PM_bcivpo.png",
+    title: "Service and Humility",
+    text: "Encourages seva bhav, humility, and righteous living.",
+  },
 ];
 
-const paathItems = ["॥ श्री हनुमान चालीसा ॥", "॥ श्री हनुमान अष्टक ॥", "॥ बजरंग बाण ॥", "॥ सुन्दरकाण्ड पाठ ॥"];
+const paathItems = [
+  {
+    title: "॥ श्री हनुमान चालीसा ॥",
+    content:
+      `॥ हनुमान चालीसा ॥
+दोहा
+
+श्रीगुरु चरण सरोज रज, निज मन मुकुर सुधारि।
+बरनऊँ रघुवर बिमल जसु, जो दायक फल चारि॥
+
+बुद्धिहीन तनु जानिके, सुमिरौं पवन कुमार।
+बल बुद्धि विद्या देहु मोहिं, हरहु कलेश विकार॥
+
+जय हनुमान ज्ञान गुण सागर। जय कपीस तिहुँ लोक उजागर॥1॥
+रामदूत अतुलित बल धामा। अंजनि पुत्र पवनसुत नामा॥2॥
+महाबीर विक्रम बजरंगी। कुमति निवार सुमति के संगी॥3॥
+कंचन वरन विराज सुबेसा। कानन कुण्डल कुंचित केसा॥4॥
+हाथ वज्र औ ध्वजा विराजे। काँधे मूँज जनेऊ साजे॥5॥
+शंकर सुवन केसरी नंदन। तेज प्रताप महा जग वंदन॥6॥
+विद्यावान गुणी अति चातुर। राम काज करिबे को आतुर॥7॥
+प्रभु चरित्र सुनिबे को रसिया। राम लखन सीता मन बसिया॥8॥
+सूक्ष्म रूप धरि सियहिं दिखावा। विकट रूप धरि लंक जरावा॥9॥
+भीम रूप धरि असुर संहारे। रामचंद्र के काज संवारे॥10॥
+लाय सजीवन लखन जियाये। श्रीरघुवीर हरषि उर लाये॥11॥
+रघुपति कीन्ही बहुत बड़ाई। तुम मम प्रिय भरतहि सम भाई॥12॥
+सहस बदन तुम्हरो जस गावैं। अस कहि श्रीपति कंठ लगावैं॥13॥
+सनकादिक ब्रह्मादि मुनीसा। नारद सारद सहित अहीसा॥14॥
+यम कुबेर दिगपाल जहाँ ते। कवि कोविद कहि सके कहाँ ते॥15॥
+तुम उपकार सुग्रीवहिं कीन्हा। राम मिलाय राज पद दीन्हा॥16॥
+तुम्हरो मंत्र विभीषण माना। लंकेश्वर भए सब जग जाना॥17॥
+युग सहस्र योजन पर भानू। लील्यो ताहि मधुर फल जानू॥18॥
+प्रभु मुद्रिका मेलि मुख माहीं। जलधि लांघि गए अचरज नाहीं॥19॥
+दुर्गम काज जगत के जेते। सुगम अनुग्रह तुम्हरे तेते॥20॥
+राम दुआरे तुम रखवारे। होत न आज्ञा बिनु पैसारे॥21॥
+सब सुख लहै तुम्हारी सरना। तुम रक्षक काहू को डरना॥22॥
+आपन तेज सम्हारो आपै। तीनों लोक हाँक ते काँपै॥23॥
+भूत पिशाच निकट नहिं आवै। महाबीर जब नाम सुनावै॥24॥
+नासै रोग हरै सब पीरा। जपत निरंतर हनुमत बीरा॥25॥
+संकट ते हनुमान छुड़ावै। मन क्रम वचन ध्यान जो लावै॥26॥
+सब पर राम तपस्वी राजा। तिन के काज सकल तुम साजा॥27॥
+और मनोरथ जो कोई लावै। सोइ अमित जीवन फल पावै॥28॥
+चारों जुग परताप तुम्हारा। है प्रसिद्ध जगत उजियारा॥29॥
+साधु संत के तुम रखवारे। असुर निकंदन राम दुलारे॥30॥
+अष्ट सिद्धि नौ निधि के दाता। अस बर दीन जानकी माता॥31॥
+राम रसायन तुम्हरे पासा। सदा रहो रघुपति के दासा॥32॥
+तुम्हरे भजन राम को पावै। जनम जनम के दुख बिसरावै॥33॥
+अंत काल रघुबर पुर जाई। जहाँ जन्म हरि भक्त कहाई॥34॥
+और देवता चित्त न धरई। हनुमत सेइ सर्व सुख करई॥35॥
+संकट कटै मिटै सब पीरा। जो सुमिरै हनुमत बलबीरा॥36॥
+जय जय जय हनुमान गोसाईं। कृपा करहु गुरुदेव की नाईं॥37॥
+जो सत बार पाठ कर कोई। छूटहि बंदि महा सुख होई॥38॥
+जो यह पढ़ै हनुमान चालीसा। होय सिद्धि साखी गौरीसा॥39॥
+तुलसीदास सदा हरि चेरा। कीजै नाथ हृदय महँ डेरा॥40॥
+
+दोहा\nपवन तनय संकट हरन, मंगल मूरति रूप।\nराम लखन सीता सहित, हृदय बसहु सुर भूप॥`,
+  },
+  {
+    title: "॥ श्री हनुमान आरती ॥",
+    content:
+      `॥ श्री हनुमान आरती ॥
+
+आरती कीजै हनुमान लला की।
+दुष्ट दलन रघुनाथ कला की॥
+
+जाके बल से गिरिवर काँपे।
+रोग दोष जाके निकट न झाँके॥
+
+अंजनि पुत्र महाबलदायी।
+संतन के प्रभु सदा सहायी॥
+
+दे बीरा रघुनाथ पठाए।
+लंका जारि सिया सुधि लाए॥
+
+लंका सो कोट समुद्र सी खाई।
+जात पवनसुत बार न लाई॥
+
+लंका जारि असुर संहारे।
+सियाराम जी के काज संवारे॥
+
+लक्ष्मण मूर्छित पड़े सकारे।
+आनि सजीवन प्राण उबारे॥
+
+पैठि पाताल तोरि जमकारे।
+अहिरावण की भुजा उखारे॥
+
+बाएँ भुजा असुर दल मारे।
+दाहिने भुजा संतजन तारे॥
+
+सुर नर मुनि आरती उतारें।
+जय जय जय हनुमान उचारें॥
+
+कंचन थार कपूर लौ छाई।
+आरती करत अंजना माई॥
+
+जो हनुमान जी की आरती गावे।
+बसि बैकुंठ परम पद पावे॥
+
+लंका विध्वंस किए रघुराई।
+तुलसीदास स्वामी कीर्ति गाई॥`,
+  },
+  {
+    title: "॥ जय कपि बलवंता ॥",
+    content:
+      `॥ जय कपि बलवंता ॥
+
+जय कपि बलवंता,
+प्रभु जय कपि बलवंता,
+सुर नर मुनिजन वंदित,
+सुर नर मुनिजन वंदित,
+पदरज हनुमंता,
+जय कपि बळवंता,
+प्रभु जय कपि बलवंता।।
+
+प्रौढ़ प्रताप पवनसुत,
+त्रिभुवन जयकारी,
+प्रभु त्रिभुवन जयकारी,
+असुर रिपु मद गंजन,
+असुर रिपु मद गंजन,
+भय संकट हारी,
+जय कपि बळवंता,
+प्रभु जय कपि बलवंता।।
+
+भूत पिशाच विकट ग्रह,
+पीड़त नही जम्पे,
+प्रभु पीड़त नही जम्पे,
+हनुमंत हाक सुनीने,
+हनुमंत हाक सुनीने,
+थर थर थर कंपे,
+प्रभु थर थर थर कंपे,
+जय कपि बळवंता,
+प्रभु जय कपि बलवंता।।
+
+रघुवीर सहाय ओढंग्यो,
+सागर आती भारी,
+प्रभु सागर आती भारी,
+सीता सोध ले आए,
+सीता सोध ले आए,
+कपि लंका जारी,
+जय कपि बळवंता,
+प्रभु जय कपि बलवंता।।
+
+राम चरण रतिदायक,
+शरणागत त्राता,
+प्रभु शरणागत त्राता,
+प्रेमानंद कहे हनुमत,
+प्रेमानंद कहे हनुमंत,
+वांछित फल दाता,
+जय कपि बळवंता,
+प्रभु जय कपि बलवंता।।
+
+जय कपि बळवंता,
+प्रभु जय कपि बळवंता,
+सुर नर मुनिजन वंदित,
+सुर नर मुनिजन वंदित,
+पदरज हनुमंता,
+जय कपि बळवंता,
+प्रभु जय कपि बलवंता।।`,
+  },
+  {
+    title: "॥ नीति प्रवीण स्तोत्रम ॥",
+    content:
+      `॥ नीति प्रवीण स्तोत्रम ॥
+
+१.
+नीतिप्रवीण निगमागमशास्त्रबुद्धे राजाधिराज रघुकुंजवराधिराज!
+सिंदूरचर्चितकलेवर केंद्र श्री रामदूत हनुमन हर संकटम में॥
+सीता निमित्त रघुत्तम भूरिकष्ट-प्रोत्सारणैक सहायता निर्दयात पति राधने॥
+श्री रामदूत हनुमन हर संकटम में॥
+
+२.
+दुर्वार्यरावणविसर्जितशक्तिघात-कंठालक्ष्मणसुखातजीववल्ल!
+द्रोणाचलनयननन्दितरामपक्ष! श्री रामदूत हनुमन हर संकटम में॥
+
+३.
+रामागमोक्तितरिताळितबंध्वयोग-दुःखाब्धिमग्नभरतार्पितपारिबर्ह!
+रामांध्रिपद्ममधुपी भवदन्तरात्मन्! श्री रामदूत हनुमन हर संकटम में॥
+
+४.
+वातात्मकेसरिमहाकपिराट्तदीय-भार्यांजनीपुत्रतपःफलपुत्रभाव!
+तार्क्ष्योपमोचितवपुर्बलतीव्रवेग! श्री रामदूत हनुमन हर संकटम में॥
+
+५.
+नानाभिचारिकविसृष्टसवीरकृत्या-विद्रावणारुणसमीक्षणदुष्प्रधर्ष!
+रोगघ्नसत्सुतदवित्तदमन्रत्रजाप! श्री रामदूत हनुमन हर संकटम में॥
+
+६.
+यन्नामधेयपदकश्रुतिमात्रतोपि ये ब्रह्मराक्षसपिशाचगणाश्चभूता!
+ते मारिकाश्चसभयं ह्यपयान्ति सत्वं! श्री रामदूत हनुमन हर संकटम में॥
+
+७.
+त्वं भक्तमानससमीप्सितपूर्तिशक्तो दीनस्य दुर्मदसपत्नभयार्तिभाज!
+इष्टं ममापि परिपूरय पूर्णकाम! श्री रामदूत हनुमन हर संकटम में॥`,
+  },
+];
 
 const blessingCards: InfoItem[] = [
   { icon: "shield", title: "Fearlessness", text: "Removes fear and negativity through devotion." },
@@ -69,44 +304,98 @@ const blessingCards: InfoItem[] = [
 const programs = [
   {
     icon: "temple" as IconName,
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777471880/ChatGPT_Image_Apr_29_2026_07_39_45_PM_lsplqf.png",
     title: "Hanuman Jayanti Mahotsav",
     frequency: "Annual Grand Celebration",
     text: "Special aarti, bhajan, prasad seva and large-scale devotee participation.",
   },
   {
     icon: "book" as IconName,
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032975/ChatGPT_Image_Apr_24_2026_05_42_35_PM_hwotsz.png",
     title: "Sundarkand Paath Sabha",
     frequency: "Every Saturday Evening",
     text: "Collective Sundarkand recitation for peace, courage and spiritual upliftment.",
   },
   {
     icon: "aarti" as IconName,
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032971/ChatGPT_Image_Apr_24_2026_05_43_04_PM_xi8530.png",
     title: "Mangal Aarti Mahaseva",
     frequency: "Every Tuesday Morning",
     text: "Special Tuesday Hanuman aarti and seva participation.",
   },
   {
     icon: "bhajan" as IconName,
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029120/ChatGPT_Image_Apr_24_2026_04_39_35_PM_lyi1ew.png",
     title: "Shri Ram Bhajan Sandhya",
     frequency: "Monthly Devotional Event",
     text: "Bhajan, kirtan and satsang dedicated to Shri Ram and Hanuman Ji.",
   },
 ];
 
-const sadhana = [
-  ["Morning", "Naam Smaran & Hanuman Chalisa"],
-  ["Tuesday", "Mangal Aarti & Seva Sankalp"],
-  ["Saturday", "Sundarkand Paath"],
-  ["Evening", "Deep Daan & Shanti Prarthana"],
+const sadhana: InfoItem[] = [
+  {
+    icon: "diya",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193608/ChatGPT_Image_Apr_26_2026_01_45_08_PM_v3dyke.png",
+    title: "Morning",
+    text: "Naam Smaran & Hanuman Chalisa",
+  },
+  {
+    icon: "diya",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193609/ChatGPT_Image_Apr_26_2026_01_44_39_PM_tm24fo.png",
+    title: "Tuesday",
+    text: "Mangal Aarti & Seva Sankalp",
+  },
+  {
+    icon: "diya",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777567681/ChatGPT_Image_Apr_30_2026_10_16_04_PM_qssfl8.png",
+    title: "Saturday",
+    text: "Sundarkand Paath",
+  },
+  {
+    icon: "diya",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777567680/ChatGPT_Image_Apr_30_2026_10_16_08_PM_uzxkwk.png",
+    title: "Evening",
+    text: "Deep Daan & Shanti Prarthana",
+  },
 ];
 
 const facilities: InfoItem[] = [
-  { icon: "parking", title: "Parking Guidance", text: "Basic guidance for devotee vehicles and arrival flow." },
-  { icon: "prasad", title: "Prasad Seva", text: "Prasad support during scheduled seva and utsav days." },
-  { icon: "help", title: "Senior Citizen Support", text: "Assistance guidance for elders during darshan." },
-  { icon: "volunteer", title: "Group Visit Assistance", text: "Coordination support for group visits and satsang groups." },
-  { icon: "water", title: "Drinking Water", text: "Water facility support for devotees." },
-  { icon: "hands", title: "Volunteer Helpdesk", text: "Sevaks guide devotees for darshan, timing and facilities." },
+  {
+    icon: "parking",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777608795/ChatGPT_Image_May_1_2026_09_42_45_AM_lagebp.png",
+    title: "Parking Guidance",
+    text: "Basic guidance for devotee vehicles and arrival flow.",
+  },
+  {
+    icon: "prasad",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777191414/ChatGPT_Image_Apr_26_2026_01_44_55_PM_mzcl2w.png",
+    title: "Prasad Seva",
+    text: "Prasad support during scheduled seva and utsav days.",
+  },
+  {
+    icon: "help",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776950454/WhatsApp_Image_2026-04-23_at_18.48.24_1_t7lr6r.jpg",
+    title: "Senior Citizen Support",
+    text: "Assistance guidance for elders during darshan.",
+  },
+  {
+    icon: "volunteer",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777097561/ChatGPT_Image_Apr_25_2026_11_42_05_AM_bij6a0.png",
+    title: "Group Visit Assistance",
+    text: "Coordination support for group visits and satsang groups.",
+  },
+  {
+    icon: "water",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776888501/ChatGPT_Image_Apr_23_2026_01_37_00_AM_yvrlwv.png",
+    title: "Drinking Water",
+    text: "Water facility support for devotees.",
+  },
+  {
+    icon: "hands",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967402/g5_ilegzw.png",
+    title: "Volunteer Helpdesk",
+    text: "Sevaks guide devotees for darshan, timing and facilities.",
+  },
 ];
 
 const gallery = [
@@ -116,26 +405,6 @@ const gallery = [
   ["Sundarkand paath", "/images/hanuman4.JPG"],
   ["Festival celebration", "/images/hanuman5.JPG"],
   ["Temple premises", "/images/hanuman-banner-01.jpg"],
-];
-
-const faqs = [
-  [
-    "What are the Hanuman Darshan timings?",
-    "Morning darshan is from 09:00 AM to 12:00 PM and evening darshan is from 04:00 PM to 09:00 PM.",
-  ],
-  [
-    "Which days are special for Hanuman Ji worship?",
-    "Tuesday and Saturday are specially observed for Hanuman Bhakti, Hanuman Chalisa, Sundarkand Paath and aarti.",
-  ],
-  [
-    "Can devotees join Sundarkand Paath?",
-    "Yes, devotees can participate in Sundarkand Paath Sabha and other devotional programs as per mandir schedule.",
-  ],
-  ["Can groups plan a visit?", "Yes, groups may contact the mandir office for guidance and visit coordination."],
-  [
-    "Can devotees support Hanuman Mandir Seva?",
-    "Yes, devotees may support aarti seva, prasad seva, utsav seva, volunteer seva and mandir development.",
-  ],
 ];
 
 const sectionClass = "mx-auto max-w-[1180px] px-4 py-10 sm:py-14";
@@ -200,9 +469,15 @@ function SectionHeader({ title, subtitle, center = false }: { title: string; sub
 function InfoCard({ item }: { item: InfoItem }) {
   return (
     <article className={cardClass}>
-      <IconBadge name={item.icon} />
-      <h3 className="mt-4 text-xl font-black text-[#113f50]">{item.title}</h3>
-      <p className="mt-3 text-base leading-7 text-[#5f5042]">{item.text}</p>
+      {item.imageIcon ? (
+        <span className="mx-auto flex h-[68px] w-[68px] shrink-0 items-center justify-center overflow-hidden rounded-full">
+          <img src={item.imageIcon} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
+        </span>
+      ) : (
+        <IconBadge name={item.icon} />
+      )}
+      <h3 className={`mt-4 text-xl font-black text-[#113f50] ${item.imageIcon ? "text-center" : ""}`}>{item.title}</h3>
+      <p className={`mt-3 text-base leading-7 text-[#5f5042] ${item.imageIcon ? "text-center" : ""}`}>{item.text}</p>
     </article>
   );
 }
@@ -224,7 +499,7 @@ function CtaLink({ to, children, tone = "primary" }: { to: string; children: Rea
 
 export default memo(function HanumanMurtiPage() {
   const [activeImage, setActiveImage] = useState<(typeof gallery)[number] | null>(null);
-  const [openFaq, setOpenFaq] = useState(0);
+  const [openPaath, setOpenPaath] = useState<number | null>(null);
 
   usePageMeta(
     "Jay Shree Maharudra Kashtbhanjan Hanuman Darshan | Bhagwat Heritage",
@@ -235,29 +510,28 @@ export default memo(function HanumanMurtiPage() {
     <div className="min-h-screen scroll-smooth bg-[linear-gradient(180deg,#fff6ea_0%,#fffdf8_45%,#fce6ee_100%)] pb-24 text-[#312214] md:pb-0">
       <section className="px-4 pt-6 sm:pt-8">
         <div className="mx-auto max-w-[1240px] overflow-hidden rounded-[34px] border border-[#eccb95] bg-[#fff0dc] shadow-[0_26px_70px_rgba(111,60,23,0.16)]">
-          <div className="relative grid min-h-[620px] gap-8 lg:grid-cols-[1fr_0.95fr]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(255,213,157,0.75),transparent_34%),radial-gradient(circle_at_85%_22%,rgba(255,192,215,0.5),transparent_38%)]" />
-            <div className="absolute inset-y-0 left-0 hidden w-1/2 bg-[linear-gradient(90deg,rgba(255,247,235,0.96),rgba(255,236,218,0.72),rgba(255,255,255,0))] lg:block" />
-            <div className="relative z-10 flex flex-col justify-center px-6 py-10 sm:px-10 lg:px-12">
-              <span className="inline-flex w-fit rounded-full border border-[#d89a3a] bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#a75a13]">
-                Bhagwat Heritage Service Foundation Trust
-              </span>
-              <h1 className="mt-5 max-w-3xl text-4xl font-black leading-tight text-[#772b18] sm:text-6xl">
-                Jay Shree Maharudra Kashtbhanjan Hanuman Darshan
-              </h1>
-              <p className="mt-4 text-xl font-bold text-[#bb651c] sm:text-2xl">Dham Chandrapur (Chichpalli), Maharashtra</p>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-[#5f5042] sm:text-lg">
-                Experience devotion, strength, protection, courage and spiritual peace through the divine darshan of Hanuman Ji.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <CtaLink to="#plan-visit">Plan Your Visit</CtaLink>
-                <CtaLink to="#gallery" tone="secondary">View Gallery</CtaLink>
-                <CtaLink to={ROUTES.donate} tone="teal">Donate for Mandir Seva</CtaLink>
+          <div className="relative min-h-[520px] sm:min-h-[680px] lg:min-h-[760px]">
+            <img src={HERO_IMAGE} alt="Maharudra Kashtbhanjan Hanuman Ji murti darshan" className="absolute inset-0 h-full w-full object-cover object-center" />
+            <div className="absolute inset-0 flex items-end justify-center bg-[linear-gradient(180deg,rgba(49,34,20,0.04)_0%,rgba(49,34,20,0.12)_46%,rgba(49,34,20,0.38)_100%)] px-5 pb-8 pt-24 sm:px-9 sm:pb-10 lg:px-12 lg:pb-12">
+              <div className="mx-auto max-w-4xl text-center">
+                <h1 className="text-[20px] font-black leading-tight text-[#f8d982] drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)] sm:text-[38px] lg:text-[50px]">
+                  Jay Shree Maharudra Kashtbhanjan Hanuman Darshan
+                </h1>
+                <p className="mx-auto mt-4 max-w-3xl text-base font-semibold leading-7 text-[#fff0d8] drop-shadow-[0_3px_12px_rgba(0,0,0,0.75)] sm:text-xl sm:leading-8">
+                  Experience devotion, strength, protection, courage and spiritual peace through the divine darshan of Hanuman Ji.
+                </p>
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                  <Link to="#plan-visit" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#f39718] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(243,151,24,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#df8410]">
+                    Plan Your Visit
+                  </Link>
+                  <Link to="#gallery" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#1d6fb8] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(29,111,184,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#175c9b]">
+                    View Gallery
+                  </Link>
+                  <Link to={ROUTES.donate} className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#c92f26] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(201,47,38,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#a92821]">
+                    Donate for Mandir Seva
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="relative min-h-[360px] lg:min-h-[620px]">
-              <img src={HERO_IMAGE} alt="Maharudra Kashtbhanjan Hanuman Ji murti darshan" className="absolute inset-0 h-full w-full object-cover object-center" />
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,246,234,0.65)_0%,rgba(255,231,217,0.18)_34%,rgba(67,20,14,0.12)_100%)]" />
             </div>
           </div>
         </div>
@@ -270,50 +544,82 @@ export default memo(function HanumanMurtiPage() {
       </section>
 
       <section className={sectionClass}>
-        <div className="grid gap-7 lg:grid-cols-[1.03fr_0.97fr] lg:items-center">
-          <div className="rounded-[28px] border border-[#ecd0a4] bg-white/95 p-6 shadow-[0_16px_34px_rgba(106,63,25,0.10)] sm:p-8">
+        <div className="grid items-stretch gap-7 lg:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.9fr)]">
+          <div className="flex h-full flex-col justify-between rounded-[28px] border border-[#ecd0a4] bg-white/95 p-6 shadow-[0_16px_34px_rgba(106,63,25,0.10)] sm:p-8">
             <SectionHeader title="63-Foot Hanuman Murti: A Symbol of Strength, Bhakti and Protection" />
             <p className="text-base leading-8 text-[#5f5042] sm:text-lg">
               The Maharudra Kashtbhanjan Hanuman Murti is envisioned as a powerful spiritual landmark where devotees experience courage, devotion, discipline and divine protection. This sacred form of Hanuman Ji inspires every visitor to overcome fear, negativity and weakness through faith, seva and naam-smaran.
             </p>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {significance.map((item) => <InfoCard key={item.title} item={item} />)}
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              {significance.map((item) => (
+                <article key={item.title} className="rounded-[20px] border border-[#ecd0a4] bg-white/95 p-4 text-center shadow-[0_12px_26px_rgba(106,63,25,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(106,63,25,0.14)]">
+                  <span className="mx-auto flex h-[60px] w-[60px] shrink-0 items-center justify-center overflow-hidden rounded-full text-[#c86b17]">
+                    {item.imageIcon ? (
+                      <img src={item.imageIcon} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
+                    ) : (
+                      <Icon name={item.icon} />
+                    )}
+                  </span>
+                  <h3 className="mt-4 text-base font-black leading-snug text-[#113f50]">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#5f5042]">{item.text}</p>
+                </article>
+              ))}
             </div>
           </div>
-          <div className="overflow-hidden rounded-[30px] border border-[#ecd0a4] bg-white shadow-[0_16px_34px_rgba(106,63,25,0.10)]">
+          <div className="h-full overflow-hidden rounded-[30px] border border-[#ecd0a4] bg-white shadow-[0_16px_34px_rgba(106,63,25,0.10)]">
             <img src={CONCEPT_IMAGE} alt="63-foot Maharudra Kashtbhanjan Hanuman Murti concept visual" className="h-full min-h-[420px] w-full object-cover" loading="lazy" />
           </div>
         </div>
       </section>
 
-      <section className={sectionClass}>
-        <SectionHeader center title="Hanuman Paath & Daily Devotional Recitation" subtitle="Devotees may participate in sacred recitations and naam-smaran for inner peace, protection and spiritual discipline." />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {paathItems.map((title) => (
-            <article key={title} className={`${cardClass} text-center hover:shadow-[0_0_34px_rgba(243,151,24,0.20)]`}>
-              <div className="mx-auto flex justify-center"><IconBadge name="book" /></div>
-              <h3 className="mt-4 text-lg font-black text-[#772b18]">{title}</h3>
-              <button className="mt-4 rounded-full border border-[#d8943a] px-4 py-2 text-sm font-bold text-[#7a4212] transition hover:bg-[#fff1da]">
-                Read / Join Paath
-              </button>
+      <section className="px-4 py-12 sm:py-16">
+        <div className="mx-auto max-w-[1330px]">
+          <h2 className="text-center text-4xl font-black leading-tight text-[#631ba4] sm:text-5xl">Hanuman Paath</h2>
+          <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
+            {paathItems.map((item, index) => {
+              const isActive = openPaath === index;
+
+              return (
+                <button
+                  key={item.title}
+                  type="button"
+                  aria-expanded={isActive}
+                  onClick={() => setOpenPaath(isActive ? null : index)}
+                  className={`min-h-14 rounded-full border px-7 py-3 text-base font-black transition duration-300 sm:text-xl ${
+                    isActive
+                      ? "border-transparent bg-[linear-gradient(90deg,#6d21a8,#e22972)] text-white shadow-[0_16px_34px_rgba(143,35,139,0.24)]"
+                      : "border-[#f29ab3] bg-white text-[#6620a2] hover:-translate-y-0.5 hover:bg-[#fff6fa]"
+                  }`}
+                >
+                  {item.title}
+                </button>
+              );
+            })}
+          </div>
+          {openPaath !== null ? (
+            <article className="mt-8 min-h-[520px] rounded-[22px] border border-[#e8c37e] bg-white px-7 py-8 shadow-[0_22px_48px_rgba(97,55,16,0.08)] sm:px-9 lg:px-12">
+              <div key={openPaath} className="animate-[paathFade_420ms_ease-out] whitespace-pre-line text-xl leading-10 text-[#4d2d12]">
+                {paathItems[openPaath].content}
+              </div>
             </article>
-          ))}
+          ) : null}
         </div>
       </section>
 
       <section className={sectionClass}>
         <SectionHeader center title="Darshan Timings" subtitle="Our 63-foot Hanuman idol is a sacred center for thousands of devotees. Plan your visit according to darshan and aarti timings." />
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-4xl gap-5 sm:grid-cols-2">
           {[
             ["Morning Darshan", "09:00 AM - 12:00 PM", ["Morning Aarti"]],
-            ["Afternoon Vishram", "01:00 PM - 03:00 PM", ["Mandir Silence", "Maintenance", "Deep Seva", "Prasad Prep"]],
             ["Evening Darshan", "04:00 PM - 09:00 PM", ["Evening Aarti"]],
           ].map(([title, time, badges]) => (
-            <article key={title as string} className={cardClass}>
-              <IconBadge name="clock" />
+            <article key={title as string} className={`${cardClass} text-center`}>
+              <span className="mx-auto flex h-[84px] w-[84px] shrink-0 items-center justify-center overflow-hidden rounded-full">
+                <img src={DARSHAN_TIMING_ICON} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
+              </span>
               <h3 className="mt-4 text-2xl font-black text-[#113f50]">{title}</h3>
               <p className="mt-3 text-xl font-black text-[#c86b17]">{time}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
                 {(badges as string[]).map((badge) => <span key={badge} className="rounded-full bg-[#fff0d6] px-3 py-1 text-xs font-bold text-[#9b5618]">{badge}</span>)}
               </div>
             </article>
@@ -322,14 +628,13 @@ export default memo(function HanumanMurtiPage() {
       </section>
 
       <section className={sectionClass}>
-        <div className="rounded-[32px] bg-[linear-gradient(120deg,#093b49_0%,#7a2e1c_55%,#c86b17_100%)] p-6 shadow-[0_22px_54px_rgba(40,35,28,0.18)] sm:p-8">
+        <div className="rounded-[32px] border border-[#f3c98b] bg-[linear-gradient(135deg,#fff8df_0%,#ffe8b8_45%,#ffd7e7_100%)] p-6 shadow-[0_22px_54px_rgba(146,91,28,0.14)] sm:p-8">
           <SectionHeader center title="Blessings of Hanuman Bhakti" subtitle="Faith in Hanuman Ji brings strength, focus, humility and protection." />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {blessingCards.map((item) => (
-              <article key={item.title} className="rounded-[22px] border border-white/20 bg-white/12 p-5 text-white shadow-[0_14px_30px_rgba(0,0,0,0.16)] backdrop-blur">
-                <Icon name={item.icon} />
-                <h3 className="mt-4 text-xl font-black">{item.title}</h3>
-                <p className="mt-3 leading-7 text-white/90">{item.text}</p>
+              <article key={item.title} className="rounded-[22px] border border-[#f0c587] bg-white/75 p-5 text-[#113f50] shadow-[0_14px_30px_rgba(146,91,28,0.10)] backdrop-blur">
+                <h3 className="text-xl font-black">{item.title}</h3>
+                <p className="mt-3 leading-7 text-[#5f5042]">{item.text}</p>
               </article>
             ))}
           </div>
@@ -340,11 +645,13 @@ export default memo(function HanumanMurtiPage() {
         <SectionHeader center title="Hanuman Utsav & Programs" />
         <div className="grid gap-5 md:grid-cols-2">
           {programs.map((item) => (
-            <article key={item.title} className={cardClass}>
-              <IconBadge name={item.icon} />
-              <h3 className="mt-4 text-2xl font-black text-[#113f50]">{item.title}</h3>
+            <article key={item.title} className={`${cardClass} text-center`}>
+              <span className="mx-auto flex h-[116px] w-[116px] items-center justify-center overflow-hidden rounded-full">
+                <img src={item.imageIcon} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
+              </span>
+              <h3 className="mt-5 text-2xl font-black text-[#113f50]">{item.title}</h3>
               <span className="mt-3 inline-flex rounded-full bg-[#ffe7bd] px-3 py-1 text-xs font-bold text-[#a75a13]">{item.frequency}</span>
-              <p className="mt-4 text-base leading-7 text-[#5f5042]">{item.text}</p>
+              <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-[#5f5042]">{item.text}</p>
               <button className="mt-5 rounded-full bg-[#f39718] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#df8410]">Participate</button>
             </article>
           ))}
@@ -355,7 +662,15 @@ export default memo(function HanumanMurtiPage() {
         <div className="rounded-[30px] border border-[#ecd0a4] bg-[linear-gradient(135deg,#fff0d2_0%,#fffdf8_58%,#fbe4ee_100%)] p-6 shadow-[0_16px_34px_rgba(106,63,25,0.10)] sm:p-8">
           <SectionHeader title="Daily Hanuman Sadhana" subtitle="Begin your day with 'Om Hanumate Namah', recite Hanuman Chalisa with devotion, and conclude with deep daan, seva sankalp and inner courage." />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {sadhana.map(([title, text]) => <InfoCard key={title} item={{ icon: "diya", title, text }} />)}
+            {sadhana.map((item) => (
+              <article key={item.title} className={`${cardClass} text-center`}>
+                <span className="mx-auto flex h-[116px] w-[116px] items-center justify-center overflow-hidden rounded-full">
+                  <img src={item.imageIcon} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
+                </span>
+                <h3 className="mt-4 text-xl font-black text-[#113f50]">{item.title}</h3>
+                <p className="mt-3 text-base leading-7 text-[#5f5042]">{item.text}</p>
+              </article>
+            ))}
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <CtaLink to={ROUTES.involved.volunteer}>Join Hanuman Sadhana</CtaLink>
@@ -367,7 +682,19 @@ export default memo(function HanumanMurtiPage() {
       <section className={sectionClass}>
         <SectionHeader center title="Facilities for Devotees" />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {facilities.map((item) => <InfoCard key={item.title} item={item} />)}
+          {facilities.map((item) => (
+            <article key={item.title} className={`${cardClass} text-center`}>
+              <span className="mx-auto flex h-[116px] w-[116px] items-center justify-center overflow-hidden rounded-full">
+                {item.imageIcon ? (
+                  <img src={item.imageIcon} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
+                ) : (
+                  <Icon name={item.icon} />
+                )}
+              </span>
+              <h3 className="mt-5 text-xl font-black text-[#113f50]">{item.title}</h3>
+              <p className="mx-auto mt-3 max-w-sm text-base leading-7 text-[#5f5042]">{item.text}</p>
+            </article>
+          ))}
         </div>
         <p className="mt-6 rounded-2xl border border-[#ecd0a4] bg-[#fff3df] p-4 text-center text-sm leading-7 text-[#6f553b]">
           Facilities may vary during large utsav days. Devotees are requested to follow mandir discipline and seva guidelines.
@@ -426,27 +753,7 @@ export default memo(function HanumanMurtiPage() {
       </section>
 
       <section className={sectionClass}>
-        <SectionHeader center title="Frequently Asked Questions" />
-        <div className="mx-auto max-w-4xl space-y-3">
-          {faqs.map(([question, answer], index) => {
-            const isOpen = openFaq === index;
-            return (
-              <article key={question} className="overflow-hidden rounded-[22px] border border-[#ecd0a4] bg-white shadow-[0_12px_26px_rgba(106,63,25,0.08)]">
-                <button type="button" className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left" onClick={() => setOpenFaq(isOpen ? -1 : index)}>
-                  <span className="text-lg font-black text-[#113f50]">{question}</span>
-                  <span className="text-2xl font-black text-[#c86b17]">{isOpen ? "-" : "+"}</span>
-                </button>
-                <div className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                  <p className="overflow-hidden px-5 pb-5 leading-7 text-[#5f5042]">{answer}</p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className={sectionClass}>
-        <div className="rounded-[30px] border border-[#ecd0a4] bg-white/95 p-6 text-center shadow-[0_16px_34px_rgba(106,63,25,0.10)]">
+        <div className="rounded-[30px] border border-[#e5b65d] bg-[linear-gradient(135deg,#fff8dc_0%,#ffe18d_48%,#f8b733_100%)] p-6 text-center shadow-[0_16px_34px_rgba(106,63,25,0.14)]">
           <h2 className="text-3xl font-black text-[#113f50]">Come for Darshan. Return with Courage, Peace and Devotion.</h2>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <CtaLink to="#plan-visit">Plan Your Visit</CtaLink>
