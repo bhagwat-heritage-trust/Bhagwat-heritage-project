@@ -10,11 +10,11 @@ const tempDir = path.join(projectRoot, ".temp");
 const viteBin = path.join(projectRoot, "node_modules", "vite", "bin", "vite.js");
 
 mkdirSync(tempDir, { recursive: true });
-mkdirSync(path.join(tempDir, "yarn-temp"), { recursive: true });
-mkdirSync(path.join(tempDir, "yarn-cache"), { recursive: true });
+mkdirSync(path.join(tempDir, "vite-temp"), { recursive: true });
+mkdirSync(path.join(tempDir, "vite-cache"), { recursive: true });
 
 if (!existsSync(viteBin)) {
-  console.error("Vite is not installed. Run 'npm install' or 'yarn install' in the frontend folder first.");
+  console.error("Vite is not installed. Run 'npm install' in the frontend folder first.");
   process.exit(1);
 }
 
