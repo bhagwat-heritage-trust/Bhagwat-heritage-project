@@ -6,6 +6,7 @@ export interface DonationPayload {
   mobile: string;
   email: string;
   donationType: "Annadaan" | "Jal Seva" | "Both";
+  fund_type?: "general" | "gau-seva" | "annadan" | "bhagwat-dham";
   amount: number;
   occasion?: string;
   message?: string;

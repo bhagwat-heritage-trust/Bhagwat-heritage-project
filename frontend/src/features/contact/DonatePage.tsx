@@ -1,5 +1,5 @@
 import { memo, useState, type ChangeEvent, type FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { EXTERNAL_RAZORPAY_DONATE_URL, ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
 import { donationCheckoutApi, type DonationPayload, type DonationVerifyPayload } from "../../services/api/donations";
@@ -10,6 +10,7 @@ type DonationForOption =
   | "Jal Seva"
   | "Vidya Seva"
   | "Temple Seva"
+  | "Bhagwat Dham Project"
   | "General Donation";
 
 type DonationFrequency = "One Time" | "Monthly" | "Yearly";
@@ -74,6 +75,7 @@ const DONATION_FOR_OPTIONS: DonationForOption[] = [
   "Jal Seva",
   "Vidya Seva",
   "Temple Seva",
+  "Bhagwat Dham Project",
   "General Donation",
 ];
 
@@ -110,6 +112,19 @@ const INITIAL_FORM: DonationFormState = {
   note: "",
   acceptedTerms: false,
 };
+
+function resolveInitialForm(searchParams: URLSearchParams): DonationFormState {
+  const fund = searchParams.get("fund");
+  const amount = searchParams.get("amount");
+  const isBhagwatDham = fund === "bhagwat-dham";
+
+  return {
+    ...INITIAL_FORM,
+    donationFor: isBhagwatDham ? "Bhagwat Dham Project" : INITIAL_FORM.donationFor,
+    amount: amount && /^\d+$/.test(amount) ? amount : INITIAL_FORM.amount,
+    note: isBhagwatDham ? "Bhagwat Dham Project seva sankalp" : INITIAL_FORM.note,
+  };
+}
 
 const panelClass =
   "rounded-[28px] border border-borderCard bg-bgSoft/95 p-6 shadow-[0_14px_30px_rgba(101,71,35,0.08)] md:p-8";
@@ -184,7 +199,8 @@ function loadRazorpayScript() {
 export default memo(function DonatePage() {
   usePageMeta("Donation System", "Support Bhagwat Heritage seva and spiritual initiatives through a trusted donation experience.");
 
-  const [form, setForm] = useState<DonationFormState>(INITIAL_FORM);
+  const [searchParams] = useSearchParams();
+  const [form, setForm] = useState<DonationFormState>(() => resolveInitialForm(searchParams));
   const [errors, setErrors] = useState<DonationErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
@@ -236,6 +252,14 @@ export default memo(function DonatePage() {
       email: form.email.trim(),
       mobile: form.mobile.trim(),
       donationType: mapDonationType(form.donationFor),
+      fund_type:
+        form.donationFor === "Bhagwat Dham Project"
+          ? "bhagwat-dham"
+          : form.donationFor === "Gau Seva"
+            ? "gau-seva"
+            : form.donationFor === "Annadan Seva"
+              ? "annadan"
+              : "general",
       donationMode: mapDonationMode(form.donationFrequency),
       amount: Number(form.amount),
       occasion: form.donationFor,
@@ -252,7 +276,7 @@ export default memo(function DonatePage() {
         .filter(Boolean)
         .join(" | "),
       sponsorLabel: form.donationFor,
-      campaignTitle: `Bhagwat Heritage - ${form.donationFor}`,
+      campaignTitle: form.donationFor === "Bhagwat Dham Project" ? "Bhagwat Dham Project" : `Bhagwat Heritage - ${form.donationFor}`,
     };
 
     try {
@@ -309,6 +333,7 @@ export default memo(function DonatePage() {
           notes: {
             donationFor: form.donationFor,
             donationFrequency: form.donationFrequency,
+            fund_type: payload.fund_type ?? "general",
           },
           theme: {
             color: "#C46D1A",
@@ -367,6 +392,7 @@ export default memo(function DonatePage() {
         notes: {
           donationFor: form.donationFor,
           donationFrequency: form.donationFrequency,
+          fund_type: payload.fund_type ?? "general",
         },
         theme: {
           color: "#C46D1A",

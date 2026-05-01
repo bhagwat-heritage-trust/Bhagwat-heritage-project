@@ -81,7 +81,8 @@ export const getTodayQuote = asyncHandler(async (_req: Request, res: Response) =
 });
 
 export const getQuotesByTheme = asyncHandler(async (req: Request, res: Response) => {
-  const theme = req.params.theme?.trim();
+  const themeParam = req.params.theme;
+  const theme = (Array.isArray(themeParam) ? themeParam[0] : themeParam)?.trim();
 
   if (!theme) {
     res.status(400).json({ message: "Theme is required" });

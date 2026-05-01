@@ -120,6 +120,7 @@ export const createDonationOrder = asyncHandler(async (req: Request, res: Respon
   try {
     const order = await createRazorpayOrder(payload.amount, {
       donationType: payload.donationType,
+      fund_type: payload.fund_type,
       donorName: payload.name,
       donorEmail: payload.email,
       donorMobile: payload.mobile,
@@ -160,6 +161,7 @@ export const createDonationSubscription = asyncHandler(async (req: Request, res:
   try {
     const subscription = await createRazorpaySubscription(planId, {
       donationType: payload.donationType,
+      fund_type: payload.fund_type,
       donorName: payload.name,
       donorEmail: payload.email,
       donorMobile: payload.mobile,
@@ -285,6 +287,7 @@ export const exportDonationsCsv = asyncHandler(async (_req: Request, res: Respon
       "Email",
       "Mobile",
       "Donation Type",
+      "Fund Type",
       "Mode",
       "Amount",
       "Occasion",
@@ -299,6 +302,7 @@ export const exportDonationsCsv = asyncHandler(async (_req: Request, res: Respon
       donation.email,
       donation.mobile ?? "",
       donation.donationType,
+      donation.fund_type,
       donation.donationMode,
       donation.amount,
       donation.occasion ?? "",

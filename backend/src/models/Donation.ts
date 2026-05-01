@@ -2,6 +2,7 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export type DonationType = "Annadaan" | "Jal Seva" | "Both";
 export type DonationMode = "One-Time" | "Monthly";
+export type DonationFundType = "general" | "gau-seva" | "annadan" | "bhagwat-dham";
 export type DonationPaymentFlow = "Order" | "Subscription" | "Manual";
 export type DonationPaymentStatus = "Pending" | "Created" | "Paid" | "Failed";
 export type DonationStatus = "Pending" | "Completed" | "Failed";
@@ -12,6 +13,7 @@ export interface IDonation extends Document {
   email: string;
   mobile?: string;
   donationType: DonationType;
+  fund_type: DonationFundType;
   occasion?: string;
   message?: string;
   sponsorLabel?: string;
@@ -42,6 +44,12 @@ const donationSchema = new Schema<IDonation>(
       type: String,
       enum: ["Annadaan", "Jal Seva", "Both"],
       default: "Both",
+    },
+    fund_type: {
+      type: String,
+      enum: ["general", "gau-seva", "annadan", "bhagwat-dham"],
+      default: "general",
+      index: true,
     },
     occasion: { type: String, trim: true },
     message: { type: String, trim: true },
@@ -81,5 +89,6 @@ const donationSchema = new Schema<IDonation>(
 
 donationSchema.index({ createdAt: -1 });
 donationSchema.index({ paymentStatus: 1, donationType: 1 });
+donationSchema.index({ fund_type: 1, paymentStatus: 1 });
 
 export default mongoose.model<IDonation>("Donation", donationSchema);

@@ -70,6 +70,7 @@ const StorePage = lazy(() => import("./features/events/StorePage"));
 const FestivalsCelebrationsDetailPage = lazy(() => import("./features/events/FestivalsCelebrationsDetailPage"));
 const MandirGalleryPage = lazy(() => import("./features/mandir/MandirGalleryPage"));
 const GhanshyamPage = lazy(() => import("./features/mandir/GhanshyamPage"));
+const BhagwatDhamProjectPage = lazy(() => import("./features/mandir/BhagwatDhamProjectPage"));
 const MahamandirPage = lazy(() => import("./features/mandir/MahamandirPage"));
 const HanumanMurtiPage = lazy(() => import("./features/mandir/HanumanMurtiPage"));
 const PilgrimageInfoPage = lazy(() => import("./features/mandir/PilgrimageInfoPage"));
@@ -264,7 +265,7 @@ function AppShell() {
 
                   <Route path={ROUTES.mandirTeerth.index} element={withInnerPageLayout(<MandirTeerthHubPage />)} />
                   <Route path={ROUTES.mandirTeerth.shreeHariMandir} element={withInnerPageLayout(<GhanshyamPage />)} />
-                  <Route path={ROUTES.mandirTeerth.bhagwatDham} element={withInnerPageLayout(<GhanshyamPage />)} />
+                  <Route path={ROUTES.mandirTeerth.bhagwatDham} element={withInnerPageLayout(<BhagwatDhamProjectPage />)} />
                   <Route path={ROUTES.mandirTeerth.mahamandir} element={withInnerPageLayout(<MahamandirPage />)} />
                   <Route path={ROUTES.mandirTeerth.avatars} element={withInnerPageLayout(<MandirAvatarsPage />)} />
                   <Route path={ROUTES.mandirTeerth.hanuman} element={withInnerPageLayout(<HanumanMurtiPage />)} />

@@ -8,10 +8,11 @@ const optionalTrimmed = (max: number) =>
     .transform((value) => (typeof value === "string" && value.trim().length > 0 ? value.trim() : undefined));
 
 const donationBaseSchema = z.object({
-  amount: z.coerce.number().positive().max(1000000),
+  amount: z.coerce.number().positive().max(5000000),
   name: z.string().trim().min(2).max(120),
   email: z.string().trim().email(),
   donationType: z.enum(["Annadaan", "Jal Seva", "Both"]).default("Both"),
+  fund_type: z.enum(["general", "gau-seva", "annadan", "bhagwat-dham"]).default("general"),
   occasion: optionalTrimmed(120),
   message: optionalTrimmed(600),
   sponsorLabel: optionalTrimmed(160),
@@ -35,6 +36,7 @@ export const donationSubscriptionSchema = z.object({
   email: z.string().trim().email(),
   mobile: indianPhoneSchema,
   donationType: z.enum(["Annadaan", "Jal Seva", "Both"]).default("Both"),
+  fund_type: z.enum(["general", "gau-seva", "annadan", "bhagwat-dham"]).default("general"),
   occasion: optionalTrimmed(120),
   message: optionalTrimmed(600),
   sponsorLabel: optionalTrimmed(160),

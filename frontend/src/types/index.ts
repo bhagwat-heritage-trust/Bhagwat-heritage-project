@@ -149,6 +149,7 @@ export interface Donation {
   email: string;
   mobile?: string;
   donationType?: "Annadaan" | "Jal Seva" | "Both";
+  fund_type?: "general" | "gau-seva" | "annadan" | "bhagwat-dham";
   donationMode?: "One-Time" | "Monthly";
   occasion?: string;
   message?: string;
