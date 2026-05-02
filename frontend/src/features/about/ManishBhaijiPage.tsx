@@ -1,424 +1,495 @@
-import { memo, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
-import { ImpactCounter } from "../../components/ui/ImpactCounter";
-import {
-  ABOUT_BODY_CLASS,
-  ABOUT_CARD_TITLE_CLASS,
-  ABOUT_HERO_SUBTITLE_CLASS,
-  ABOUT_HERO_TITLE_CLASS,
-  ABOUT_SECTION_HEADING_CLASS,
-  ABOUT_SECTION_LABEL_CLASS,
-} from "./aboutTypography";
 
-// Impact labels reuse keys from the home section (already translated in all 4 locales)
-const IMPACT_CONFIG = [
-  { labelKey: "home.impact.yearsOfService", target: 40 },
-  { labelKey: "home.impact.volunteers", target: 100000 },
-  { labelKey: "home.impact.eventsConducted", target: 500 },
-  { labelKey: "home.impact.livesTouched", target: 50000 },
-];
-
-interface Principle { icon: string; title: string; desc: string; }
-interface Service { title: string; desc: string; button: string; }
-interface FocusItem { icon: string; label: string; }
-
-const SERVICE_IMAGES: Record<string, string> = {
-  "Bhagwat Katha": "https://res.cloudinary.com/dalug9cfc/image/upload/v1776429635/bhagwat_uv7p9u.png",
-  "Vastu Guidance": "https://res.cloudinary.com/dalug9cfc/image/upload/v1776429328/vastuimage_kkeny3.jpg",
-  "Astrology Guidance": "https://res.cloudinary.com/dalug9cfc/image/upload/v1776429327/astrologyimage_bxbwbl.webp",
+type IconCard = {
+  title: string;
+  description: string;
+  icon: string;
 };
 
-const divider = (
-  <div className="max-w-6xl mx-auto px-4 pb-4">
-    <div className="bg-gradient-to-r from-[#ff6a00] to-[#fec758] h-1 w-full rounded-full my-4" />
-  </div>
-);
+type FaqItem = {
+  question: string;
+  answer: string;
+};
 
-const FOUNDER_LABEL = `${ABOUT_SECTION_LABEL_CLASS} text-[#f09100]`;
-const FOUNDER_HEADING = `${ABOUT_SECTION_HEADING_CLASS} text-[#b32e22]`;
-const FOUNDER_BODY = `${ABOUT_BODY_CLASS} text-[#4a5964]`;
-const FOUNDER_CARD_TITLE = `${ABOUT_CARD_TITLE_CLASS} text-[#b32e22]`;
-const FOUNDER_ACCENT_BODY = `${ABOUT_BODY_CLASS} font-black text-[#b32e22]`;
+const CONTAINER_CLASS = "mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8";
+const SECTION_CLASS = "py-8 md:py-12 lg:py-[72px]";
+const EYEBROW_CLASS = "text-[24px] font-semibold uppercase tracking-[0.18em] text-[#7A4F16]";
+const HEADING_CLASS = "mt-2 text-[14px] font-black leading-tight text-[#3F3123] md:text-[20px]";
+const BODY_CLASS = "text-base font-medium leading-[1.75] text-[#6B5A48] md:text-lg";
+const CARD_CLASS =
+  "h-full rounded-[8px] border border-[#EBD7B7] bg-white/90 p-6 shadow-[0_18px_42px_rgba(116,73,20,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#D9A84F] hover:shadow-[0_22px_48px_rgba(116,73,20,0.12)]";
+
+const primaryCtaClass =
+  "inline-flex items-center justify-center rounded-[0.8rem] border border-[#DC8A2D] bg-[linear-gradient(180deg,#F0AE57_0%,#DF8E2F_100%)] px-4 py-[0.72rem] text-[0.95rem] font-extrabold text-[#FFFDF8] shadow-[0_12px_24px_rgba(181,111,26,0.22)] transition hover:-translate-y-0.5";
+
+const secondaryCtaClass =
+  "inline-flex items-center justify-center rounded-[0.8rem] border border-[#E4C79F] bg-[#FFFDF8] px-4 py-[0.72rem] text-[0.95rem] font-extrabold text-[#1F4D5A] shadow-[0_10px_22px_rgba(82,61,34,0.1)] transition hover:-translate-y-0.5 hover:bg-[#FFF3DE]";
+
+const lightCtaClass =
+  "inline-flex items-center justify-center rounded-[0.8rem] border border-white/70 bg-white/20 px-4 py-[0.72rem] text-[0.95rem] font-extrabold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/30";
+
+const identityCards: IconCard[] = [
+  {
+    title: "Bhagwat Katha Vakta",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741431/ChatGPT_Image_May_2_2026_10_28_43_PM_hy3fjv.png",
+    description: "Sharing Shrimad Bhagwat wisdom with clarity, devotion, and practical direction for family life.",
+  },
+  {
+    title: "Spiritual Guide",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741433/ChatGPT_Image_May_2_2026_10_28_48_PM_eqazqx.png",
+    description: "Guiding devotees through bhakti, discipline, seva, and value-based living rooted in dharma.",
+  },
+  {
+    title: "Cultural Inspirer",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741429/ChatGPT_Image_May_2_2026_10_28_54_PM_k12h85.png",
+    description: "Awakening pride in Sanatan culture through satsang, sanskar, youth outreach, and public service.",
+  },
+];
+
+const coreValues: IconCard[] = [
+  {
+    title: "Bhakti",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741432/ChatGPT_Image_May_2_2026_10_29_04_PM_twxbxt.png",
+    description: "Devotion that softens the heart and steadies the mind.",
+  },
+  {
+    title: "Seva",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741431/ChatGPT_Image_May_2_2026_10_29_09_PM_evneeu.png",
+    description: "Service offered with humility, responsibility, and compassion.",
+  },
+  {
+    title: "Sanskar",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741428/ChatGPT_Image_May_2_2026_10_29_16_PM_caqyha.png",
+    description: "Values that shape speech, conduct, family, and society.",
+  },
+  {
+    title: "Dharma",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741427/ChatGPT_Image_May_2_2026_10_29_25_PM_o9uxit.png",
+    description: "Righteous living guided by truth, duty, and self-discipline.",
+  },
+  {
+    title: "Harmony",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741425/ChatGPT_Image_May_2_2026_10_29_31_PM_fpfoo0.png",
+    description: "Bringing people together through respect, faith, and shared purpose.",
+  },
+  {
+    title: "Culture",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741422/ChatGPT_Image_May_2_2026_10_29_37_PM_covwam.png",
+    description: "Preserving devotional heritage for children, youth, and families.",
+  },
+];
+
+const trustRoles: IconCard[] = [
+  {
+    title: "Spiritual Direction",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741423/ChatGPT_Image_May_2_2026_10_29_45_PM_cug4db.png",
+    description: "Providing the trust's dharmic vision, spiritual discipline, and devotional direction.",
+  },
+  {
+    title: "Seva Inspiration",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741422/ChatGPT_Image_May_2_2026_10_29_51_PM_us94dj.png",
+    description: "Inspiring volunteers, donors, and devotees to serve with sincerity and care.",
+  },
+  {
+    title: "Cultural Mission",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741422/ChatGPT_Image_May_2_2026_10_30_15_PM_vf7a41.png",
+    description: "Strengthening Sanatan heritage through programs, festivals, Katha, and sanskar work.",
+  },
+  {
+    title: "Public Guidance",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741421/ChatGPT_Image_May_2_2026_10_30_23_PM_h1y7jd.png",
+    description: "Offering guidance to families, youth, seekers, and society through public discourses.",
+  },
+];
+
+const guidanceAreas: IconCard[] = [
+  {
+    title: "Family Guidance",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741421/ChatGPT_Image_May_2_2026_10_30_23_PM_h1y7jd.png",
+    description: "Support for harmony, responsibility, and dharmic family living.",
+  },
+  {
+    title: "Youth Sanskar",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741428/ChatGPT_Image_May_2_2026_10_29_16_PM_caqyha.png",
+    description: "Helping young minds connect with discipline, culture, and purpose.",
+  },
+  {
+    title: "Spiritual Light",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741423/ChatGPT_Image_May_2_2026_10_29_45_PM_cug4db.png",
+    description: "Guidance for seekers walking toward devotion and inner clarity.",
+  },
+  {
+    title: "Addiction-Free Life",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776862945/alchohal_sr2sm9.png",
+    description: "Encouraging self-control, healing, and positive social renewal.",
+  },
+  {
+    title: "Social Harmony",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741425/ChatGPT_Image_May_2_2026_10_29_31_PM_fpfoo0.png",
+    description: "Building unity through satsang, service, and shared values.",
+  },
+  {
+    title: "Education Values",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_16_PM_y3jdht.png",
+    description: "Connecting learning with character, humility, and responsibility.",
+  },
+];
+
+const kathaPoints = ["Shrimad Bhagwat Katha", "Bhakti & Dharma", "Family & Youth Guidance", "Social Harmony"];
+
+const galleryImages = [
+  {
+    src: "https://res.cloudinary.com/der8zinu8/image/upload/v1777746925/ChatGPT_Image_May_3_2026_12_04_43_AM_mkklk0.png",
+    alt: "Devotional Katha gathering with scripture and lamps",
+  },
+  {
+    src: "https://res.cloudinary.com/der8zinu8/image/upload/v1777746926/ChatGPT_Image_May_3_2026_12_04_33_AM_s7cuub.png",
+    alt: "Sacred Bhagwat and Krishna teaching artwork",
+  },
+  {
+    src: "https://res.cloudinary.com/der8zinu8/image/upload/v1777746927/ChatGPT_Image_May_3_2026_12_04_24_AM_h6jjnx.png",
+    alt: "Seva meal distribution inspired by Maharaj Ji",
+  },
+  {
+    src: "https://res.cloudinary.com/der8zinu8/image/upload/v1777746925/ChatGPT_Image_May_3_2026_12_04_53_AM_fv8cnu.png",
+    alt: "Cultural devotional moment from Bhagwat Heritage mission",
+  },
+];
+
+const faqItems: FaqItem[] = [
+  {
+    question: "Who is Sant Shri Manish Bhaiji Maharaj?",
+    answer:
+      "Sant Shri Manish Bhaiji Maharaj is a spiritual guide, Bhagwat scholar, Katha speaker, and the guiding inspiration behind Bhagwat Heritage Service Foundation Trust.",
+  },
+  {
+    question: "Can Maharaj Ji be invited for Bhagwat Katha?",
+    answer:
+      "Yes. Devotees, families, temples, and community groups can contact the trust to request Bhagwat Katha, satsang, or pravachan coordination.",
+  },
+  {
+    question: "What themes are covered in his pravachan?",
+    answer:
+      "His guidance commonly centers on Shrimad Bhagwat, bhakti, dharma, family values, youth sanskar, social harmony, and seva-based living.",
+  },
+  {
+    question: "How is Maharaj Ji connected with the trust?",
+    answer:
+      "He provides spiritual direction, devotional inspiration, cultural vision, and public guidance for the trust's seva and sanskar mission.",
+  },
+  {
+    question: "How can I join the seva mission?",
+    answer:
+      "You can connect with the trust through volunteer, donation, sponsor, or contact routes and participate according to your time, capacity, and sankalp.",
+  },
+];
+
+function SectionHeader({
+  eyebrow,
+  title,
+  intro,
+  align = "center",
+}: {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  align?: "center" | "left";
+}) {
+  return (
+    <div className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
+      <p className={EYEBROW_CLASS}>{eyebrow}</p>
+      <h2 className={HEADING_CLASS}>{title}</h2>
+      {intro ? <p className={`mt-4 ${BODY_CLASS}`}>{intro}</p> : null}
+    </div>
+  );
+}
+
+function IconCard({
+  item,
+  compact = false,
+  circularIcon = false,
+}: {
+  item: IconCard;
+  compact?: boolean;
+  circularIcon?: boolean;
+}) {
+  return (
+    <article className={`${CARD_CLASS} ${compact ? "p-5" : ""} ${circularIcon ? "text-center" : ""}`}>
+      {circularIcon ? (
+        <img
+          src={item.icon}
+          alt=""
+          loading="lazy"
+          className="mx-auto h-[78px] w-[78px] rounded-full object-cover"
+        />
+      ) : (
+        <img src={item.icon} alt="" loading="lazy" className="h-16 w-16 object-contain" />
+      )}
+      <h3 className="mt-5 text-xl font-bold leading-tight text-[#1F4D5A]">{item.title}</h3>
+      <p className="mt-3 text-base font-medium leading-[1.75] text-[#6B5A48] md:text-lg">{item.description}</p>
+    </article>
+  );
+}
 
 export default memo(function ManishBhaijiPage() {
-  const { t } = useTranslation();
-  const servicesRef = useRef<HTMLElement | null>(null);
-  const [servicesVisible, setServicesVisible] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
   useEffect(() => {
-    const target = servicesRef.current;
-    if (!target) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setServicesVisible(true); observer.disconnect(); } },
-      { threshold: 0.2 }
+    document.title = "Sant Shri Manish Bhaiji Maharaj | Bhagwat Heritage";
+
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "description");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute(
+      "content",
+      "Spiritual guide and Bhagwat Katha speaker inspiring seva, sanskar and dharma."
     );
-    observer.observe(target);
-    return () => observer.disconnect();
   }, []);
 
-  const principles = t("founderPage.principles", { returnObjects: true }) as Principle[];
-  const objectives = t("founderPage.objectives", { returnObjects: true }) as string[];
-  const services = t("founderPage.services", { returnObjects: true }) as Service[];
-  const futureFocusItems = t("founderPage.futureFocusItems", { returnObjects: true }) as FocusItem[];
-
-  const impactItems = IMPACT_CONFIG.map((item) => ({
-    label: t(item.labelKey as never),
-    target: item.target,
-  }));
-
   return (
-    <div className="min-h-screen bg-[#fff8f0]">
-
-      {/* â”€â”€ Hero: Photo + Introduction â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="w-full px-4 pt-8 md:pt-10 pb-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <img src="/images/manish2.PNG" alt={t("founderPage.name")} className="w-full object-contain h-[320px] md:h-[520px]" />
-            </div>
-            <div>
-              <p className="inline-flex items-center rounded-full border border-[#8bbbe6] bg-[#ebf5ff] px-4 py-1 text-sm text-[#0d4e85] mb-4">
-                {t("founderPage.badge")}
-              </p>
-              <h1 className={`${ABOUT_HERO_TITLE_CLASS} text-[#b32e22] mb-2`}>{t("founderPage.name")}</h1>
-              <h3 className={`${ABOUT_HERO_SUBTITLE_CLASS} text-[#f09100] mb-5`}>{t("founderPage.subtitle")}</h3>
-              <div className={`space-y-4 ${FOUNDER_BODY} mb-6`}>
-                <p>{t("founderPage.introPara1")}</p>
-                <p>{t("founderPage.introPara2")}</p>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <Link to={ROUTES.contact} className="inline-block bg-gradient-to-r from-[#ff6a00] to-[#ed9b24] hover:from-[#ed9b24] hover:to-[#fec758] text-white font-bold px-6 py-3 rounded-xl transition-all duration-300">
-                  {t("founderPage.contactSeva")}
-                </Link>
-                <Link to={ROUTES.donate} className="inline-block bg-white border border-[#d2deea] text-[#0d4e85] font-bold px-6 py-3 rounded-xl hover:bg-[#f2f6fa] transition-colors">
-                  {t("founderPage.donateNow")}
-                </Link>
-                <Link to="/get-involved/invite-maharaj-ji" className="inline-block bg-[#0d4e85] text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0a3f6b] transition-colors">
-                  Invite Maharaj Ji
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {divider}
-
-      {/* â”€â”€ Impact Stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+    <div className="min-h-screen overflow-hidden bg-[#FFF8EC] font-['Poppins'] text-[#1F4D5A]">
       <section
-        id="guidance-services"
-        ref={servicesRef}
-        className="mx-auto max-w-6xl px-4 py-16"
+        className="relative overflow-hidden bg-[#F8D39A] bg-cover bg-[position:34%_center] md:bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(90deg, rgba(248,211,154,0.08) 0%, rgba(248,211,154,0.08) 42%, rgba(255,247,232,0.72) 60%, rgba(255,252,246,0.94) 100%), url('https://res.cloudinary.com/der8zinu8/image/upload/v1777741439/ChatGPT_Image_May_2_2026_10_28_15_PM_tjfxf2.png')",
+        }}
       >
-        <div className="relative overflow-hidden rounded-[36px] border border-[#f2d7b2] bg-[radial-gradient(circle_at_top,_#fff7ea_0%,_#fff2de_42%,_#ffe7c2_100%)] px-6 py-10 shadow-[0_24px_60px_rgba(179,46,34,0.10)] md:px-10 md:py-14">
-          <div className="pointer-events-none absolute -left-16 top-0 h-40 w-40 rounded-full bg-[#ffd18a]/45 blur-3xl" />
-          <div className="pointer-events-none absolute -right-10 bottom-0 h-48 w-48 rounded-full bg-[#f5b56c]/35 blur-3xl" />
-          <div className="relative text-center mb-10 md:mb-12">
-            <p className={`${FOUNDER_LABEL} mb-3`}>{t("founderPage.servicesEyebrow")}</p>
-            <h2 className={`${FOUNDER_HEADING} mb-4`}>{t("founderPage.servicesHeading")}</h2>
-          </div>
-          <div className="relative grid grid-cols-1 gap-6 md:grid-cols-3">
-          {services.map((item, index) => (
-            <article
-              key={item.title}
-              className={`group relative flex h-full flex-col overflow-hidden rounded-[30px] border border-white/70 bg-[linear-gradient(180deg,_rgba(255,255,255,0.98)_0%,_rgba(255,248,239,0.98)_100%)] p-7 shadow-[0_18px_40px_rgba(13,59,102,0.10)] transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_24px_50px_rgba(179,46,34,0.16)] hover:border-[#f1c07a] ${
-                servicesVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-              }`}
-              style={{ transitionDelay: `${index * 120}ms` }}
-            >
-              <div className="absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,_rgba(255,188,103,0.28)_0%,_rgba(255,255,255,0)_100%)]" />
-              <div className="relative flex justify-center">
-                <div className="rounded-full bg-white/90 p-2 shadow-[0_16px_30px_rgba(13,59,102,0.12)] ring-4 ring-[#fff0d9] transition-transform duration-500 group-hover:scale-105">
-                  <img
-                    src={SERVICE_IMAGES[item.title]}
-                    alt={item.title}
-                    className="h-24 w-24 rounded-full object-cover md:h-28 md:w-28"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-              <h3 className={`mt-6 text-center ${FOUNDER_CARD_TITLE} text-[var(--color-secondary)]`}>{item.title}</h3>
-              {item.desc ? (
-                <p className={`mt-3 flex-1 text-center ${ABOUT_BODY_CLASS} text-[#5a6872]`}>{item.desc}</p>
-              ) : (
-                <div className="flex-1" />
-              )}
-              <Link
-                to={ROUTES.contact}
-                className="mt-6 inline-flex min-h-[54px] w-full items-center justify-center rounded-2xl bg-[linear-gradient(90deg,_#b32e22_0%,_#f07e1f_52%,_#f6b74b_100%)] px-5 py-3 text-center text-sm font-bold text-white shadow-[0_16px_30px_rgba(179,46,34,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_34px_rgba(179,46,34,0.24)]"
-              >
-                {item.button}
-              </Link>
-            </article>
-          ))}
-          </div>
-        </div>
-      </section>
-
-      {divider}
-
-      {/* â”€â”€ Spiritual Inspiration â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div className="rounded-2xl overflow-hidden">
-            <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1771583759/kathapravachan_fp8leo.png" alt={t("founderPage.inspirationHeading")} className="w-full h-[260px] md:h-[320px] object-cover rounded-2xl" loading="lazy" />
-          </div>
-          <div>
-            <p className={`${FOUNDER_LABEL} mb-3`}>{t("founderPage.inspirationEyebrow")}</p>
-            <h2 className={`${FOUNDER_HEADING} mb-5 leading-tight`}>{t("founderPage.inspirationHeading")}</h2>
-            <div className={`space-y-4 ${FOUNDER_BODY}`}>
-              <p>{t("founderPage.inspirationPara1")}</p>
-              <p>{t("founderPage.inspirationPara2")}</p>
-              <p>{t("founderPage.inspirationPara3")}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {divider}
-
-      {/* â”€â”€ Bhagwat Katha and Spiritual Teaching â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 bg-[#fff3e8]">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div>
-              <p className={`${FOUNDER_LABEL} mb-3`}>{t("founderPage.kathaEyebrow")}</p>
-              <h2 className={`${FOUNDER_HEADING} mb-5 leading-tight`}>{t("founderPage.kathaHeading")}</h2>
-              <div className={`space-y-4 ${FOUNDER_BODY}`}>
-                <p>{t("founderPage.kathaPara1")}</p>
-                <p>{t("founderPage.kathaPara2")}</p>
-                <p>{t("founderPage.kathaPara3")}</p>
-              </div>
-              <Link to={ROUTES.eventsKatha.bhagwatKatha} className="inline-block mt-6 bg-gradient-to-r from-[#ff6a00] to-[#ed9b24] hover:from-[#ed9b24] hover:to-[#fec758] text-white font-bold px-6 py-3 rounded-xl transition-all duration-300">
-                {t("founderPage.attendKatha")}
-              </Link>
-            </div>
-            <div className="rounded-2xl overflow-hidden">
-              <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1772944114/bhagwatkatha_lfi5h9.png" alt={t("founderPage.kathaHeading")} className="w-full h-[260px] md:h-[320px] object-cover rounded-2xl" loading="lazy" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {divider}
-
-      {/* â”€â”€ Guiding Philosophy â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 max-w-6xl mx-auto px-4">
-        <div className="text-center mb-10">
-          <p className={`${FOUNDER_LABEL} mb-3`}>{t("founderPage.principlesEyebrow")}</p>
-          <h2 className={`${FOUNDER_HEADING} mb-3`}>{t("founderPage.principlesHeading")}</h2>
-        </div>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {principles.map((p) => (
-            <div
-              key={p.title}
-              className="group flex h-full flex-col rounded-[28px] border border-[#f1dcc0] bg-[linear-gradient(180deg,_#fffefb_0%,_#fff6eb_100%)] p-6 shadow-[0_12px_28px_rgba(13,59,102,0.08)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_34px_rgba(179,46,34,0.12)]"
-            >
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff0da] text-3xl shadow-[inset_0_0_0_1px_rgba(240,145,0,0.12)]">
-                {p.icon}
-              </div>
-              <h3 className={`${FOUNDER_CARD_TITLE} mb-2`}>{p.title}</h3>
-              <p className={`flex-1 ${FOUNDER_BODY}`}>{p.desc}</p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <Link
-                  to={ROUTES.involved.volunteer}
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ff6a00] to-[#ed9b24] px-4 py-2 text-xs font-bold text-white transition-all duration-300 hover:from-[#ed9b24] hover:to-[#fec758]"
-                >
-                  Join
+        <div className={`${CONTAINER_CLASS} relative py-10 md:py-14 lg:py-[92px]`}>
+          <div className="grid min-h-[560px] grid-cols-1 items-center lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="hidden lg:block" aria-hidden="true" />
+            <div className="rounded-[8px] bg-[#FFF7E8]/80 p-5 shadow-[0_22px_55px_rgba(94,50,16,0.12)] backdrop-blur-sm md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-0">
+              <p className="inline-flex rounded-full border border-white/60 bg-white/30 px-4 py-2 text-[24px] font-semibold uppercase tracking-[0.18em] text-[#7A4F16] backdrop-blur">
+                Founder and Spiritual Inspiration
+              </p>
+              <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight text-[#1F4D5A] md:text-5xl">
+                Sant Shri Manish Bhaiji Maharaj
+              </h1>
+              <p className="mt-5 text-[18px] font-semibold leading-tight text-[#7A4F16] sm:text-[24px] md:text-[34px]">
+                Spiritual Guide | Bhagwat Scholar | Katha Speaker | Social Reformer
+              </p>
+              <p className={`mt-5 max-w-2xl ${BODY_CLASS}`}>
+                Sant Shri Manish Bhaiji Maharaj is the spiritual inspiration behind Bhagwat Heritage Service Foundation
+                Trust, guiding society through Bhagwat Katha, seva, sanskar and cultural awakening.
+              </p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link to={ROUTES.contact} className={primaryCtaClass}>
+                  Invite for Bhagwat Katha
                 </Link>
-                <Link
-                  to={ROUTES.contact}
-                  className="inline-flex items-center justify-center rounded-full border border-[#d8c1a2] bg-white px-4 py-2 text-xs font-bold text-[#0d4e85] transition-colors hover:bg-[#f8efe4]"
-                >
-                  Contact
+                <Link to={ROUTES.media.videos} className={secondaryCtaClass}>
+                  Watch Pravachan
+                </Link>
+                <Link to={ROUTES.involved.volunteer} className={secondaryCtaClass}>
+                  Join Seva Mission
                 </Link>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {divider}
+      <section className={SECTION_CLASS}>
+        <div className={CONTAINER_CLASS}>
+          <SectionHeader
+            eyebrow="Spiritual Identity"
+            title="A life dedicated to Katha, guidance, and cultural awakening"
+          />
+          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
+            {identityCards.map((item) => (
+              <IconCard key={item.title} item={item} circularIcon />
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* â”€â”€ Inspiration Behind the Foundation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 bg-[#fff3e8]">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-            <div>
-              <p className={`${FOUNDER_LABEL} mb-3`}>{t("founderPage.foundationEyebrow")}</p>
-              <h2 className={`${FOUNDER_HEADING} mb-5 leading-tight`}>{t("founderPage.foundationHeading")}</h2>
-              <div className={`space-y-4 ${FOUNDER_BODY}`}>
-                <p>{t("founderPage.foundationPara1")}</p>
-                <p>{t("founderPage.foundationPara2")}</p>
-                <p>{t("founderPage.foundationPara3")}</p>
-              </div>
+      <section className={`${SECTION_CLASS} bg-[#FFFDF8]`}>
+        <div className={CONTAINER_CLASS}>
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            <div className="overflow-hidden rounded-[8px] shadow-[0_22px_56px_rgba(93,55,18,0.14)]">
+              <img
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777741439/ChatGPT_Image_May_2_2026_10_28_25_PM_vdt4sk.png"
+                alt="Sant Shri Manish Bhaiji Maharaj addressing a Bhagwat Katha Sabha"
+                className="h-[300px] w-full object-cover md:h-[420px]"
+                loading="lazy"
+              />
             </div>
             <div>
-              <p className={`${FOUNDER_LABEL} mb-4`}>{t("founderPage.objectivesTitle")}</p>
-              <div className="space-y-3">
-                {objectives.map((obj) => (
-                  <div key={obj} className="flex items-start gap-3 bg-white rounded-xl border border-[#f1dcc0] px-4 py-3">
-                    <span className="text-[#ff6a00] font-bold mt-0.5 shrink-0"></span>
-                    <span className={FOUNDER_BODY}>{obj}</span>
-                  </div>
+              <SectionHeader eyebrow="About Maharaj Ji" title="A devotional voice for faith, family, and society" align="left" />
+              <div className={`mt-5 space-y-4 ${BODY_CLASS}`}>
+                <p>
+                  Sant Shri Manish Bhaiji Maharaj has devoted his spiritual journey to bringing the message of Shrimad
+                  Bhagwat into the lives of families, youth, devotees, and seekers. His pravachan style is rooted in
+                  scripture yet deeply connected with everyday life, helping listeners understand bhakti, dharma,
+                  responsibility, and inner transformation.
+                </p>
+                <p>
+                  Through Bhagwat Katha, satsang, social guidance, and seva inspiration, he encourages society to live
+                  with compassion, discipline, cultural pride, and service. His direction continues to shape the trust's
+                  mission of spiritual upliftment, sanskar education, and humanitarian support.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={SECTION_CLASS}>
+        <div className={CONTAINER_CLASS}>
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
+            <div className="lg:order-2">
+              <img
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777741438/ChatGPT_Image_May_2_2026_10_28_33_PM_okkazf.png"
+                alt="Bhagwat Katha discourse with devotees"
+                className="h-[300px] w-full rounded-[8px] object-cover shadow-[0_22px_56px_rgba(93,55,18,0.14)] md:h-[420px]"
+                loading="lazy"
+              />
+            </div>
+            <div className="lg:order-1">
+              <SectionHeader eyebrow="Bhagwat Katha" title="Scripture made living through devotion and clarity" align="left" />
+              <p className={`mt-5 ${BODY_CLASS}`}>
+                Maharaj Ji's Katha connects sacred narration with personal reflection, family values, and social
+                responsibility. Every discourse is designed to awaken devotion while giving practical direction for a
+                balanced and dharmic life.
+              </p>
+              <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {kathaPoints.map((point) => (
+                  <li key={point} className="flex items-center gap-3 rounded-[8px] border border-[#EBD7B7] bg-white px-4 py-3 text-base font-bold leading-[1.75] text-[#1F4D5A]">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#D8A43F]" />
+                    {point}
+                  </li>
                 ))}
-              </div>
-              <Link to={ROUTES.about.index} className="inline-block mt-6 bg-white border border-[#d2deea] text-[#0d4e85] font-semibold px-6 py-3 rounded-xl hover:bg-[#f2f6fa] transition-colors">
-                {t("founderPage.learnFoundation")}
-              </Link>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {divider}
-
-      {/* â”€â”€ Social & Spiritual Service â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div className="rounded-2xl overflow-hidden">
-            <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1771583756/jal_ymllgv.png" alt={t("founderPage.sevaHeading")} className="w-full h-[260px] object-cover rounded-2xl" loading="lazy" />
-          </div>
-          <div>
-            <p className={`${FOUNDER_LABEL} mb-3`}>{t("founderPage.sevaEyebrow")}</p>
-            <h2 className={`${FOUNDER_HEADING} mb-5 leading-tight`}>{t("founderPage.sevaHeading")}</h2>
-            <div className={`space-y-4 ${FOUNDER_BODY}`}>
-              <p>{t("founderPage.sevaPara1")}</p>
-              <p>{t("founderPage.sevaPara2")}</p>
-              <p>{t("founderPage.sevaPara3")}</p>
-            </div>
-            <Link to={ROUTES.seva.annJal} className="inline-block mt-6 bg-gradient-to-r from-[#ff6a00] to-[#ed9b24] hover:from-[#ed9b24] hover:to-[#fec758] text-white font-bold px-6 py-3 rounded-xl transition-all duration-300">
-              {t("founderPage.exploreSevaBtn")}
-            </Link>
+      <section className={`${SECTION_CLASS} bg-[linear-gradient(180deg,#FFFDF8_0%,#FFF1DA_100%)]`}>
+        <div className={CONTAINER_CLASS}>
+          <SectionHeader eyebrow="Core Values" title="The values that guide the mission" />
+          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {coreValues.map((item) => (
+              <IconCard key={item.title} item={item} compact circularIcon />
+            ))}
           </div>
         </div>
       </section>
 
-      {divider}
-
-      {/* â”€â”€ Youth Inspiration & Cultural Vision â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 bg-[#fff3e8]">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-2xl border border-[#f1dcc0] p-6 md:p-8">
-              <p className={`${FOUNDER_LABEL} mb-2`}>{t("founderPage.youthEyebrow")}</p>
-              <h2 className={`${FOUNDER_HEADING} mb-4 leading-tight`}>{t("founderPage.youthHeading")}</h2>
-              <div className={`space-y-3 ${FOUNDER_BODY}`}>
-                <p>{t("founderPage.youthPara1")}</p>
-                <p>{t("founderPage.youthPara2")}</p>
-                <p>{t("founderPage.youthPara3")}</p>
-              </div>
-            </div>
-            <div className="bg-white rounded-2xl border border-[#f1dcc0] p-6 md:p-8">
-              <p className={`${FOUNDER_LABEL} mb-2`}>{t("founderPage.culturalEyebrow")}</p>
-              <h2 className={`${FOUNDER_HEADING} mb-4 leading-tight`}>{t("founderPage.culturalHeading")}</h2>
-              <div className={`space-y-3 ${FOUNDER_BODY}`}>
-                <p>{t("founderPage.culturalPara1")}</p>
-                <p>{t("founderPage.culturalPara2")}</p>
-                <p>{t("founderPage.culturalPara3")}</p>
-              </div>
-            </div>
+      <section className={SECTION_CLASS}>
+        <div className={CONTAINER_CLASS}>
+          <SectionHeader
+            eyebrow="Role in Trust"
+            title="Spiritual leadership behind Bhagwat Heritage Service Foundation Trust"
+          />
+          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {trustRoles.map((item) => (
+              <IconCard key={item.title} item={item} compact circularIcon />
+            ))}
           </div>
         </div>
       </section>
 
-      {divider}
-
-      {/* â”€â”€ Message to Society â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 max-w-4xl mx-auto px-4 text-center">
-        <p className={`${FOUNDER_LABEL} mb-3`}>{t("founderPage.messageEyebrow")}</p>
-        <h2 className={`${FOUNDER_HEADING} mb-8`}>{t("founderPage.messageHeading")}</h2>
-        <div className={`space-y-5 ${FOUNDER_BODY}`}>
-          <p><span className={FOUNDER_ACCENT_BODY}>{t("founderPage.messagePara1")}</span></p>
-          <p>{t("founderPage.messagePara2")}</p>
-          <p>{t("founderPage.messagePara3")}</p>
+      <section className={`${SECTION_CLASS} bg-[#FFFDF8]`}>
+        <div className={CONTAINER_CLASS}>
+          <SectionHeader eyebrow="Guidance Areas" title="Guidance for families, youth, seekers, and society" />
+          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {guidanceAreas.map((item) => (
+              <IconCard key={item.title} item={item} compact circularIcon />
+            ))}
+          </div>
         </div>
-        <blockquote className="mt-8 border-l-4 border-[#ff6a00] pl-6 text-left bg-white rounded-r-2xl py-4 pr-6 shadow-sm">
-          <p className={`${FOUNDER_BODY} italic font-medium text-[#7a4f1f]`}>
-            &ldquo;{t("founderPage.messageQuote")}&rdquo;
-          </p>
-          <footer className={`mt-2 ${ABOUT_BODY_CLASS} font-semibold text-[#f09100]`}>â€” {t("founderPage.messageQuoteAuthor")}</footer>
-        </blockquote>
       </section>
 
-      {divider}
-
-      {/* â”€â”€ Services / Connect â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      
-
-      {divider}
-
-      {/* â”€â”€ Continuing the Journey â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 bg-[#fff3e8]">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div>
-              <p className={`${FOUNDER_LABEL} mb-3`}>{t("founderPage.journeyEyebrow")}</p>
-              <h2 className={`${FOUNDER_HEADING} mb-5 leading-tight`}>{t("founderPage.journeyHeading")}</h2>
-              <div className={`space-y-4 ${FOUNDER_BODY}`}>
-                <p>{t("founderPage.journeyPara1")}</p>
-                <p>{t("founderPage.journeyPara2")}</p>
-                <p>{t("founderPage.journeyPara3")}</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {futureFocusItems.map((item) => (
-                <div key={item.label} className="bg-white rounded-2xl border border-[#f1dcc0] p-5 text-center">
-                  <div className="text-3xl mb-2">{item.icon}</div>
-                  <p className={`${ABOUT_BODY_CLASS} font-black text-[#b32e22]`}>{item.label}</p>
-                </div>
+      <section className={SECTION_CLASS}>
+        <div className={CONTAINER_CLASS}>
+          <SectionHeader eyebrow="Gallery" title="Moments of Katha, satsang, seva, and culture" />
+          <div className="-mx-4 mt-8 overflow-x-auto px-4 pb-4 [scrollbar-width:thin]">
+            <div className="flex min-w-full gap-4">
+              {galleryImages.map((image) => (
+                <img
+                  key={image.src}
+                  src={image.src}
+                  alt={image.alt}
+                  loading="lazy"
+                  className="h-[220px] w-[78vw] shrink-0 rounded-[8px] object-cover shadow-[0_18px_44px_rgba(93,55,18,0.13)] sm:w-[360px] md:h-[280px]"
+                />
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {divider}
-
-      {/* â”€â”€ Gallery â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 max-w-6xl mx-auto px-4">
-        <h2 className={`${FOUNDER_HEADING} mb-8 text-center`}>{t("founderPage.devotionTitle")}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {["/images/s1.jfif", "/images/Inspriation Main.jpg", "/images/Aims & objectives main.jpg"].map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt={`${t("founderPage.devotionTitle")} ${i + 1}`}
-              className="w-full h-52 object-cover rounded-2xl shadow"
-              loading="lazy"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-            />
-          ))}
-        </div>
-      </section>
-
-      {divider}
-
-      {/* â”€â”€ CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-14 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className={`${FOUNDER_HEADING} mb-3`}>{t("founderPage.ctaTitle")}</h2>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link to={ROUTES.involved.volunteer} className="inline-block bg-gradient-to-r from-[#ff6a00] to-[#ed9b24] hover:from-[#ed9b24] hover:to-[#fec758] text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-300">
-              {t("founderPage.ctaVolunteer")}
-            </Link>
-            <Link to={ROUTES.donate} className="inline-block bg-white border border-[#d2deea] text-[#0d4e85] font-bold px-8 py-3.5 rounded-xl hover:bg-[#f2f6fa] transition-colors">
-              {t("founderPage.ctaSupport")}
-            </Link>
-            <Link to={ROUTES.eventsKatha.bhagwatKatha} className="inline-block border border-[#ff6a00]/50 text-[#b32e22] font-bold px-8 py-3.5 rounded-xl hover:bg-[#fff3e8] transition-colors">
-              {t("founderPage.ctaPrograms")}
-            </Link>
+      <section className="px-4 py-8 md:px-6 md:py-12 lg:py-[72px]">
+        <div className="mx-auto max-w-[1180px] overflow-hidden rounded-[8px] bg-[linear-gradient(135deg,#FFF8D8_0%,#FFD86B_42%,#F2A91F_100%)] shadow-[0_26px_70px_rgba(186,116,16,0.2)]">
+          <div className="max-w-3xl px-6 py-10 md:px-10 md:py-14">
+            <p className={EYEBROW_CLASS}>Invite Maharaj Ji</p>
+            <h2 className="mt-2 text-3xl font-black leading-tight text-[#1F3550] md:text-4xl">
+              Invite Sant Shri Manish Bhaiji Maharaj
+            </h2>
+            <p className={`mt-4 ${BODY_CLASS}`}>
+              Request Bhagwat Katha, pravachan, satsang, or spiritual guidance through the official trust channel.
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link to={ROUTES.contact} className={primaryCtaClass}>
+                Request Katha
+              </Link>
+              <Link to={ROUTES.involved.contactUs} className={secondaryCtaClass}>
+                Contact Trust
+              </Link>
+              <Link to={ROUTES.media.videos} className={secondaryCtaClass}>
+                Watch Online
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {divider}
+      <section className={`${SECTION_CLASS} bg-[#FFFDF8]`}>
+        <div className={`${CONTAINER_CLASS} max-w-[940px]`}>
+          <SectionHeader eyebrow="FAQ" title="Common questions about Maharaj Ji and the trust mission" />
+          <div className="mt-8 space-y-3">
+            {faqItems.map((item, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <article key={item.question} className="overflow-hidden rounded-[8px] border border-[#EBD7B7] bg-white shadow-[0_12px_28px_rgba(116,73,20,0.06)]">
+                  <h3>
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                      onClick={() => setOpenFaqIndex(isOpen ? -1 : index)}
+                      aria-expanded={isOpen}
+                      aria-controls={`founder-faq-${index}`}
+                    >
+                      <span className="text-base font-bold leading-[1.75] text-[#1F4D5A] md:text-lg">{item.question}</span>
+                      <span className="text-2xl font-bold text-[#C8771E]" aria-hidden="true">
+                        {isOpen ? "-" : "+"}
+                      </span>
+                    </button>
+                  </h3>
+                  <div id={`founder-faq-${index}`} className={isOpen ? "px-5 pb-5" : "hidden"}>
+                    <p className={BODY_CLASS}>{item.answer}</p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-      <ImpactCounter items={impactItems} />
-
+      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#FFF7E8_0%,#FFE5B2_100%)] px-4 py-10 text-center md:px-6 md:py-16">
+        <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-40 -translate-x-1/2 rounded-full bg-[#D8A43F]/25 blur-3xl" />
+        <blockquote className="relative mx-auto max-w-3xl">
+          <p className="text-3xl font-black leading-tight text-[#1F3550] md:text-4xl">
+            &ldquo;Bhagwat Katha is not only a narration,<br className="hidden sm:block" />
+            it is transformation of life.&rdquo;
+          </p>
+        </blockquote>
+      </section>
     </div>
   );
 });
-
