@@ -50,7 +50,6 @@ const NAV_ITEMS: NavItemConfig[] = [
       { id: "seva-ann", labelKey: "navbar.items.annSeva", href: ROUTES.seva.ann },
       { id: "seva-medicine", labelKey: "navbar.items.medicineDistribution", href: ROUTES.seva.medicine },
       { id: "seva-education", labelKey: "navbar.items.educationSupport", href: ROUTES.seva.education },
-      { id: "seva-scholarship", labelKey: "navbar.items.scholarshipProgram", href: ROUTES.seva.scholarship },
       { id: "seva-kanyadaan", labelKey: "navbar.items.kanyadaanSeva", href: ROUTES.seva.kanyadaan },
       { id: "seva-vyasan", labelKey: "navbar.items.vyasanmukti", href: ROUTES.seva.vyasanmukti },
       { id: "seva-disaster", labelKey: "navbar.items.disasterRelief", href: ROUTES.seva.disasterRelief },
