@@ -137,7 +137,153 @@ const guidanceAreas: IconCard[] = [
   },
 ];
 
+type OutreachTab = {
+  id: string;
+  title: string;
+  description: string;
+  items: string[];
+  buttons: { label: string; to: string }[];
+  icon: string;
+  image: string;
+};
+
 const kathaPoints = ["Shrimad Bhagwat Katha", "Bhakti & Dharma", "Family & Youth Guidance", "Social Harmony"];
+
+const lifeJourneyItems = [
+  {
+    title: "Early Life",
+    text: "Rooted in devotion, discipline and cultural values from the beginning.",
+    icon: "/icons/icon-life-journey.svg",
+  },
+  {
+    title: "Spiritual Awakening",
+    text: "A deeper inner call toward Bhagwat, bhakti, seva and dharma.",
+    icon: "/icons/icon-spiritual-awakening.svg",
+  },
+  {
+    title: "Guru Influence",
+    text: "Inspired by the grace, wisdom and guidance of the Guru tradition.",
+    icon: "/icons/icon-guru-influence.svg",
+  },
+  {
+    title: "Turning Points",
+    text: "Public pravachan, Bhagwat Katha and social guidance became a mission.",
+    icon: "/icons/icon-trust-establishment.svg",
+  },
+  {
+    title: "Establishment of Trust",
+    text: "Bhagwat Heritage Service Foundation Trust emerged as a seva, sanskar and cultural mission.",
+    icon: "/icons/icon-trust-establishment.svg",
+  },
+];
+
+const teachingsCards: IconCard[] = [
+  {
+    title: "Bhagwat-Based Living",
+    description: "Living with scripture, devotion and daily discipline as the center of life.",
+    icon: "/icons/icon-bhagwat-core.svg",
+  },
+  {
+    title: "Seva as Devotion",
+    description: "Service becomes sacred when offered with humility, care, and pure intention.",
+    icon: "/icons/icon-seva-devotion.svg",
+  },
+  {
+    title: "Sanskar-Based Society",
+    description: "A culture rooted in values, manners and spiritual discipline transforms families.",
+    icon: "/icons/icon-sanskar-society.svg",
+  },
+  {
+    title: "Youth Transformation",
+    description: "Young hearts guided by dharma become the future bearers of social change.",
+    icon: "/icons/icon-youth-transformation.svg",
+  },
+];
+
+const teachingQuotes = [
+  "Bhagwat is not only to be heard; it is to be lived.",
+  "Seva becomes worship when it is performed with humility.",
+  "Sanskar is the foundation of a strong family and society.",
+  "Youth power becomes divine power when guided by dharma.",
+  "True devotion expresses itself through compassion.",
+  "Spirituality is the art of transforming life from within.",
+  "A society rooted in values becomes a society rooted in peace.",
+];
+
+const outreachTabs: OutreachTab[] = [
+  {
+    id: "katha",
+    title: "Bhagwat / Ram Katha",
+    description: "Major devotional kathas for communities, temples and educational gatherings.",
+    items: ["Bhagwat Katha Mahotsav", "Ram Katha Pravachan", "Bhajan Sandhya"],
+    buttons: [
+      { label: "View Upcoming Kathas", to: ROUTES.eventsKatha.index },
+      { label: "Organize Katha in Your City", to: ROUTES.involved.contactUs },
+    ],
+    icon: "/icons/icon-bhagwat-katha.svg",
+    image: "/images/discourses-workshops-outreach.jpg",
+  },
+  {
+    id: "guidance",
+    title: "Spiritual & Life Guidance Sessions",
+    description: "Personal guidance, family support and youth counseling rooted in Bhakti wisdom.",
+    items: ["Spiritual Pravachan", "जीवन मार्गदर्शन", "Family & Youth Counseling"],
+    buttons: [{ label: "Book Guidance Session", to: ROUTES.digital.guidance }],
+    icon: "/icons/icon-life-guidance.svg",
+    image: "/images/invite-maharajji-booking.jpg",
+  },
+  {
+    id: "workshops",
+    title: "Workshops & Seminars",
+    description: "School, college, university and corporate sessions for values, leadership and awakening.",
+    items: ["Stress Management", "Value-Based Living", "Spiritual Leadership", "Youth Awakening"],
+    buttons: [
+      { label: "Invite Maharaj Ji for Seminar", to: "/get-involved/invite-maharaj-ji" },
+      { label: "Request Workshop", to: "/get-involved/invite-maharaj-ji" },
+    ],
+    icon: "/icons/icon-school-seminar.svg",
+    image: "/images/discourses-workshops-outreach.jpg",
+  },
+  {
+    id: "booking",
+    title: "Booking / Invitation System",
+    description: "Invite the Maharaj Ji team for Katha, satsang, workshops and guided sessions.",
+    items: ["Katha", "Seminar", "Workshop", "Satsang"],
+    buttons: [{ label: "Open Invitation Form", to: "/get-involved/invite-maharaj-ji" }],
+    icon: "/icons/icon-booking-form.svg",
+    image: "/images/invite-maharajji-booking.jpg",
+  },
+];
+
+const impactCounters = [
+  { value: "120+", title: "Katha Events", description: "Devotional programs that inspire communities." },
+  { value: "65+", title: "Guidance Sessions", description: "Family, youth and spiritual support meetings." },
+  { value: "45+", title: "School & Campus Workshops", description: "Values-based sessions for future generations." },
+  { value: "18+", title: "Awards & Recognition", description: "Spiritual authority acknowledged by the wider community." },
+];
+
+const mediaPresenceCards = [
+  {
+    title: "Press Coverage",
+    description: "Articles and mentions highlighting Maharaj Ji's Katha, outreach and community mission.",
+    icon: "/icons/icon-press.svg",
+  },
+  {
+    title: "Awards & Recognition",
+    description: "Honors and citations that reinforce trust credibility and cultural leadership.",
+    icon: "/icons/icon-awards.svg",
+  },
+  {
+    title: "Public Events",
+    description: "Large satsang, Katha and trust programs attended by families, youth and devotees.",
+    icon: "/icons/icon-events.svg",
+  },
+  {
+    title: "Spiritual Presence",
+    description: "A growing presence across devotional platforms, occasions and cultural forums.",
+    icon: "/icons/icon-spiritual-presence.svg",
+  },
+];
 
 const galleryImages = [
   {
@@ -233,8 +379,221 @@ function IconCard({
   );
 }
 
+function LifeJourneyTimeline() {
+  return (
+    <section className={`${SECTION_CLASS} bg-[#FFFDF8]`}>
+      <div className={CONTAINER_CLASS}>
+        <SectionHeader eyebrow="Life Journey Timeline" title="Life Journey & Spiritual Path" align="left" />
+        <div className="mt-10 space-y-8">
+          <div className="hidden lg:block">
+            <div className="relative">
+              <div className="absolute left-1/2 top-6 h-[calc(100%-3rem)] w-1 -translate-x-1/2 rounded-full bg-[#D8A43F]/15" />
+              <div className="grid grid-cols-5 gap-6">
+                {lifeJourneyItems.map((item, index) => (
+                  <div key={item.title} className="relative rounded-[20px] border border-[#E8D9BD] bg-white p-6 text-center shadow-[0_14px_34px_rgba(111,78,25,0.08)]">
+                    <span className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
+                      <img src={item.icon} alt="" className="h-8 w-8" loading="lazy" />
+                    </span>
+                    <h3 className="mt-4 text-lg font-bold text-[#1F4D5A]">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-[#6B5A48]">{item.text}</p>
+                    {index < lifeJourneyItems.length - 1 ? (
+                      <span className="pointer-events-none absolute right-[-1.5rem] top-1/2 hidden h-3 w-3 -translate-y-1/2 rounded-full bg-[#D8A43F] lg:inline-flex" />
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="space-y-4 lg:hidden">
+            {lifeJourneyItems.map((item) => (
+              <div key={item.title} className="flex items-start gap-4 rounded-[20px] border border-[#E8D9BD] bg-white p-5 shadow-[0_14px_34px_rgba(111,78,25,0.08)]">
+                <span className="mt-1 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
+                  <img src={item.icon} alt="" className="h-6 w-6" loading="lazy" />
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold text-[#1F4D5A]">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#6B5A48]">{item.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="overflow-hidden rounded-[16px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+            <img
+              src="/images/founder-life-journey-timeline.jpg"
+              alt="Founder life journey timeline"
+              className="h-[320px] w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TeachingsCorePhilosophy() {
+  return (
+    <section className={SECTION_CLASS}>
+      <div className={CONTAINER_CLASS}>
+        <SectionHeader eyebrow="Teachings & Core Philosophy" title="Teachings & Core Philosophy" align="left" />
+        <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid gap-5 sm:grid-cols-2">
+            {teachingsCards.map((item) => (
+              <IconCard key={item.title} item={item} compact circularIcon />
+            ))}
+          </div>
+          <div className="space-y-5">
+            <div className="overflow-hidden rounded-[20px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+              <img
+                src="/images/teachings-core-philosophy.jpg"
+                alt="Teachings and core philosophy imagery"
+                className="h-[320px] w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="rounded-[20px] border border-[#E8D9BD] bg-[#FFF8E5] p-6 shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+              <h3 className="text-xl font-bold text-[#1F4D5A]">Shareable Quotes</h3>
+              <div className="mt-5 space-y-3 text-sm leading-6 text-[#6B5A48]">
+                {teachingQuotes.map((quote) => (
+                  <p key={quote} className="rounded-[14px] border border-[#F0D8AF] bg-white/80 p-4">“{quote}”</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DiscoursesOutreachSection({ activeTab, onTabChange }: { activeTab: string; onTabChange: (id: string) => void }) {
+  const currentTab = outreachTabs.find((tab) => tab.id === activeTab) ?? outreachTabs[0];
+  return (
+    <section className={`${SECTION_CLASS} bg-[#FFFDF8]`}>
+      <div className={CONTAINER_CLASS}>
+        <SectionHeader eyebrow="Discourses, Workshops & Outreach" title="Discourses, Workshops & Outreach" align="left" />
+        <div className="mt-8 space-y-6">
+          <div className="flex flex-wrap gap-3">
+            {outreachTabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => onTabChange(tab.id)}
+                className={`rounded-full border px-4 py-2 text-sm font-bold transition ${
+                  activeTab === tab.id
+                    ? "border-[#DC8A2D] bg-[#FBE4AF] text-[#7A4F16]"
+                    : "border-[#E9D4A5] bg-white text-[#4D4D4D] hover:border-[#DC8A2D]"
+                }`}
+              >
+                {tab.title}
+              </button>
+            ))}
+          </div>
+          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="rounded-[24px] border border-[#E8D9BD] bg-white p-6 shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
+                  <img src={currentTab.icon} alt="" className="h-6 w-6" loading="lazy" />
+                </span>
+                <div>
+                  <h3 className="text-2xl font-bold text-[#1F4D5A]">{currentTab.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#6B5A48]">{currentTab.description}</p>
+                </div>
+              </div>
+              <ul className="mt-6 space-y-3 text-sm leading-6 text-[#6B5A48]">
+                {currentTab.items.map((item) => (
+                  <li key={item} className="flex items-start gap-3 rounded-[14px] border border-[#F1E1C4] bg-[#FFFAF1] p-4">
+                    <span className="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-[#D8A43F]" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {currentTab.buttons.map((button) => (
+                  <Link key={button.label} to={button.to} className={secondaryCtaClass}>
+                    {button.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-5">
+              <div className="overflow-hidden rounded-[24px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+                <img
+                  src={currentTab.image}
+                  alt="Discourses and outreach"
+                  className="h-[320px] w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="rounded-[24px] border border-[#E8D9BD] bg-[#FFF8E5] p-6 shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
+                    <img src="/icons/icon-booking-form.svg" alt="Booking icon" className="h-6 w-6" loading="lazy" />
+                  </span>
+                  <h3 className="text-2xl font-bold text-[#1F4D5A]">Invite Maharaj Ji</h3>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-[#6B5A48]">
+                  Request the invitation form for Katha, seminar, workshop or satsang. The trust team will respond with availability and guidance.
+                </p>
+                <Link to="/get-involved/invite-maharaj-ji" className={`${primaryCtaClass} mt-6 inline-flex`}>
+                  Open Invitation Form
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ImpactCounters() {
+  return (
+    <section className={SECTION_CLASS}>
+      <div className={CONTAINER_CLASS}>
+        <SectionHeader eyebrow="Impact Counters" title="Key Trust Impact Metrics" align="left" />
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          {impactCounters.map((stat) => (
+            <article key={stat.title} className="rounded-[20px] border border-[#E8D9BD] bg-white p-6 text-center shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+              <p className="text-4xl font-black text-[#1F4D5A]">{stat.value}</p>
+              <h3 className="mt-4 text-lg font-bold text-[#1F4D5A]">{stat.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-[#6B5A48]">{stat.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MediaPresenceSection() {
+  return (
+    <section className={`${SECTION_CLASS} bg-[#FFFDF8]`}>
+      <div className={CONTAINER_CLASS}>
+        <SectionHeader eyebrow="Media & Presence" title="Media & Presence" align="left" />
+        <div className="mt-10 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="grid gap-5 sm:grid-cols-2">
+            {mediaPresenceCards.map((item) => (
+              <IconCard key={item.title} item={item} compact circularIcon />
+            ))}
+          </div>
+          <div className="overflow-hidden rounded-[20px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+            <img
+              src="/images/media-awards-presence.jpg"
+              alt="Media and awards presence of Maharaj Ji"
+              className="h-[360px] w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default memo(function ManishBhaijiPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
+  const [activeOutreachTab, setActiveOutreachTab] = useState("katha");
 
   useEffect(() => {
     document.title = "Sant Shri Manish Bhaiji Maharaj | Bhagwat Heritage";
@@ -344,6 +703,8 @@ export default memo(function ManishBhaijiPage() {
         </div>
       </section>
 
+      <LifeJourneyTimeline />
+
       <section className={SECTION_CLASS}>
         <div className={CONTAINER_CLASS}>
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
@@ -374,6 +735,8 @@ export default memo(function ManishBhaijiPage() {
           </div>
         </div>
       </section>
+
+      <TeachingsCorePhilosophy />
 
       <section className={`${SECTION_CLASS} bg-[linear-gradient(180deg,#FFFDF8_0%,#FFF1DA_100%)]`}>
         <div className={CONTAINER_CLASS}>
@@ -411,6 +774,9 @@ export default memo(function ManishBhaijiPage() {
         </div>
       </section>
 
+      <DiscoursesOutreachSection activeTab={activeOutreachTab} onTabChange={setActiveOutreachTab} />
+      <ImpactCounters />
+
       <section className={SECTION_CLASS}>
         <div className={CONTAINER_CLASS}>
           <SectionHeader eyebrow="Gallery" title="Moments of Katha, satsang, seva, and culture" />
@@ -430,6 +796,8 @@ export default memo(function ManishBhaijiPage() {
         </div>
       </section>
 
+      <MediaPresenceSection />
+
       <section className="px-4 py-8 md:px-6 md:py-12 lg:py-[72px]">
         <div className="mx-auto max-w-[1180px] overflow-hidden rounded-[8px] bg-[linear-gradient(135deg,#FFF8D8_0%,#FFD86B_42%,#F2A91F_100%)] shadow-[0_26px_70px_rgba(186,116,16,0.2)]">
           <div className="max-w-3xl px-6 py-10 md:px-10 md:py-14">
@@ -441,10 +809,10 @@ export default memo(function ManishBhaijiPage() {
               Request Bhagwat Katha, pravachan, satsang, or spiritual guidance through the official trust channel.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link to={ROUTES.contact} className={primaryCtaClass}>
+              <Link to={`${ROUTES.involved.contactUs}#invite-maharaj`} className={primaryCtaClass}>
                 Request Katha
               </Link>
-              <Link to={ROUTES.involved.contactUs} className={secondaryCtaClass}>
+              <Link to={`${ROUTES.involved.contactUs}#invite-maharaj`} className={secondaryCtaClass}>
                 Contact Trust
               </Link>
               <Link to={ROUTES.media.videos} className={secondaryCtaClass}>
