@@ -16,6 +16,26 @@ type InquiryType =
 type PreferredContactMethod = "Phone Call" | "WhatsApp" | "Email";
 type Urgency = "Normal" | "Important" | "Emergency Seva Support";
 
+type EventType =
+  | "Bhagwat Katha"
+  | "Satsang"
+  | "Shibir"
+  | "Cultural Program"
+  | "Spiritual Workshop"
+  | "Other";
+
+type InviteMaharajForm = {
+  fullName: string;
+  phone: string;
+  email: string;
+  eventType: EventType;
+  eventDate: string;
+  venue: string;
+  attendees: string;
+  message: string;
+  consent: boolean;
+};
+
 const QUICK_CONTACT = [
   {
     title: "Call Us",
@@ -145,6 +165,15 @@ const GI_HEADING_CLASS = "mt-2 text-3xl font-black text-[#1f3550] md:text-4xl";
 const GI_CARD_TITLE_CLASS = "text-2xl font-black text-[#1f3550]";
 const GI_BODY_CLASS = "text-base leading-7 text-[#5e5247] md:text-lg";
 
+const INVITE_EVENT_TYPES: EventType[] = [
+  "Bhagwat Katha",
+  "Satsang",
+  "Shibir",
+  "Cultural Program",
+  "Spiritual Workshop",
+  "Other",
+];
+
 const getCloudinaryIconUrl = (localIconPath: string) => {
   if (localIconPath.startsWith("http://") || localIconPath.startsWith("https://")) {
     return localIconPath;
@@ -172,8 +201,22 @@ export default memo(function ContactPage() {
     consent: false,
   });
 
+  const [inviteForm, setInviteForm] = useState<InviteMaharajForm>({
+    fullName: "",
+    phone: "",
+    email: "",
+    eventType: "Bhagwat Katha",
+    eventDate: "",
+    venue: "",
+    attendees: "",
+    message: "",
+    consent: false,
+  });
+
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [inviteLoading, setInviteLoading] = useState(false);
+  const [inviteStatus, setInviteStatus] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -229,6 +272,52 @@ export default memo(function ContactPage() {
     }
   };
 
+  const onSubmitInvite = async (e: FormEvent) => {
+    e.preventDefault();
+    setInviteStatus(null);
+
+    if (!/^[6-9]\d{9}$/.test(inviteForm.phone)) {
+      setInviteStatus({ type: "error", text: "Please enter a valid 10-digit Indian mobile number." });
+      return;
+    }
+
+    if (!inviteForm.consent) {
+      setInviteStatus({ type: "error", text: "Please agree to be contacted for invite coordination." });
+      return;
+    }
+
+    setInviteLoading(true);
+    try {
+      await contactApi.send({
+        name: inviteForm.fullName.trim(),
+        email: inviteForm.email.trim(),
+        subject: `Invite Maharaj Ji - ${inviteForm.eventType}`,
+        message: `Event Type: ${inviteForm.eventType}\nPreferred Date: ${inviteForm.eventDate}\nVenue: ${inviteForm.venue}\nExpected Attendees: ${inviteForm.attendees}\nMessage: ${inviteForm.message}`,
+      });
+
+      setInviteStatus({
+        type: "success",
+        text: "Your invitation request has been submitted. Our team will connect with you for next steps.",
+      });
+
+      setInviteForm({
+        fullName: "",
+        phone: "",
+        email: "",
+        eventType: "Bhagwat Katha",
+        eventDate: "",
+        venue: "",
+        attendees: "",
+        message: "",
+        consent: false,
+      });
+    } catch {
+      setInviteStatus({ type: "error", text: "Unable to send the invitation request right now. Please try again." });
+    } finally {
+      setInviteLoading(false);
+    }
+  };
+
   return (
     <div className="bg-[#fcf8ef] pb-12 font-['Poppins'] text-[#243b53]">
       <section className="mx-auto w-full max-w-[1180px] px-4 pt-0">
@@ -261,6 +350,67 @@ export default memo(function ContactPage() {
               <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer" : undefined} className="mt-4 inline-flex rounded-full bg-[#cb7413] px-4 py-2 text-sm font-bold text-white transition hover:bg-[#ac620f]">{item.action}</a>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section id="invite-maharaj" className="mx-auto w-full max-w-[1180px] px-4 pt-11 md:pt-[72px]">
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="rounded-3xl border border-[#e2c8a2] bg-white p-6 shadow-[0_14px_32px_rgba(38,40,44,0.08)] md:p-8">
+            <p className={GI_LABEL_CLASS}>Invite Maharaj Ji</p>
+            <h2 className={GI_HEADING_CLASS}>Request Maharaj Ji for Your Event</h2>
+            <p className={`mt-4 ${GI_BODY_CLASS}`}>Submit your invitation request for Bhagwat Katha, satsang, shibir, cultural program, or spiritual workshop. Our team will review the event details and guide you through the booking process.</p>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="rounded-3xl border border-[#f2e1c2] bg-[#fff8ed] p-4">
+                <h3 className="text-xl font-semibold text-[#1f3550]">Types of Events</h3>
+                <ul className="mt-3 space-y-2 text-sm text-[#5e5247]">
+                  <li>• Bhagwat Katha and spiritual discourse</li>
+                  <li>• Satsang and devotional assembly</li>
+                  <li>• Shibir and youth educational program</li>
+                  <li>• Cultural gatherings and heritage events</li>
+                  <li>• Spiritual workshops and guidance sessions</li>
+                </ul>
+              </div>
+              <div className="rounded-3xl border border-[#f2e1c2] bg-[#fff8ed] p-4">
+                <h3 className="text-xl font-semibold text-[#1f3550]">Booking Requirements</h3>
+                <ul className="mt-3 space-y-2 text-sm text-[#5e5247]">
+                  <li>• Event date and venue details</li>
+                  <li>• Estimated guest count and audience profile</li>
+                  <li>• Purpose, program agenda, and support needs</li>
+                  <li>• Preferred language and event duration</li>
+                </ul>
+              </div>
+              <div className="rounded-3xl border border-[#f2e1c2] bg-[#fff8ed] p-4 md:col-span-2">
+                <h3 className="text-xl font-semibold text-[#1f3550]">Process Flow</h3>
+                <ol className="mt-3 space-y-2 text-sm text-[#5e5247] list-decimal list-inside">
+                  <li>Submit the invitation request from the form.</li>
+                  <li>Our team reviews availability and event details.</li>
+                  <li>We contact you with confirmation and next steps.</li>
+                  <li>Finalize date, venue, and logistical support.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <form onSubmit={onSubmitInvite} className="rounded-3xl border border-[#e6d5b4] bg-white p-6 shadow-[0_14px_32px_rgba(38,40,44,0.09)] md:p-8">
+            <h2 className={GI_HEADING_CLASS}>Invite Maharaj Ji</h2>
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              <label className="text-sm font-semibold text-[#2f435a]">Full Name<input required value={inviteForm.fullName} onChange={(e) => setInviteForm((s) => ({ ...s, fullName: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#e6d5b4] px-3 py-2.5 outline-none focus:border-[#b86d17]" /></label>
+              <label className="text-sm font-semibold text-[#2f435a]">Mobile Number<input required value={inviteForm.phone} onChange={(e) => setInviteForm((s) => ({ ...s, phone: e.target.value.replace(/\D/g, "").slice(0, 10) }))} className="mt-1 w-full rounded-xl border border-[#e6d5b4] px-3 py-2.5 outline-none focus:border-[#b86d17]" /></label>
+              <label className="text-sm font-semibold text-[#2f435a]">Email<input required type="email" value={inviteForm.email} onChange={(e) => setInviteForm((s) => ({ ...s, email: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#e6d5b4] px-3 py-2.5 outline-none focus:border-[#b86d17]" /></label>
+              <label className="text-sm font-semibold text-[#2f435a]">Event Type
+                <select value={inviteForm.eventType} onChange={(e) => setInviteForm((s) => ({ ...s, eventType: e.target.value as EventType }))} className="mt-1 w-full rounded-xl border border-[#e6d5b4] px-3 py-2.5 outline-none focus:border-[#b86d17]">
+                  {INVITE_EVENT_TYPES.map((type) => (<option key={type}>{type}</option>))}
+                </select>
+              </label>
+              <label className="text-sm font-semibold text-[#2f435a]">Preferred Event Date<input required type="date" value={inviteForm.eventDate} onChange={(e) => setInviteForm((s) => ({ ...s, eventDate: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#e6d5b4] px-3 py-2.5 outline-none focus:border-[#b86d17]" /></label>
+              <label className="text-sm font-semibold text-[#2f435a]">Venue<input required value={inviteForm.venue} onChange={(e) => setInviteForm((s) => ({ ...s, venue: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#e6d5b4] px-3 py-2.5 outline-none focus:border-[#b86d17]" /></label>
+              <label className="text-sm font-semibold text-[#2f435a]">Expected Attendees<input required value={inviteForm.attendees} onChange={(e) => setInviteForm((s) => ({ ...s, attendees: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#e6d5b4] px-3 py-2.5 outline-none focus:border-[#b86d17]" /></label>
+              <label className="text-sm font-semibold text-[#2f435a] md:col-span-2">Event Details<textarea required rows={5} value={inviteForm.message} onChange={(e) => setInviteForm((s) => ({ ...s, message: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#e6d5b4] px-3 py-2.5 outline-none focus:border-[#b86d17]" /></label>
+            </div>
+            <label className="mt-4 flex items-start gap-2 text-sm text-[#415468]"><input type="checkbox" checked={inviteForm.consent} onChange={(e) => setInviteForm((s) => ({ ...s, consent: e.target.checked }))} className="mt-1" /><span>I agree to be contacted by Bhagwat Heritage Service Foundation Trust regarding my invitation request.</span></label>
+            {inviteStatus ? <p role="alert" className={`mt-3 text-sm font-bold ${inviteStatus.type === "success" ? "text-[#13653e]" : "text-[#b42318]"}`}>{inviteStatus.text}</p> : null}
+            <button type="submit" disabled={inviteLoading} className="mt-5 w-full rounded-full bg-[#cb7413] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#a95f0f] disabled:opacity-70">{inviteLoading ? "Sending..." : "Submit Invitation"}</button>
+          </form>
         </div>
       </section>
 

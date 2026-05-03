@@ -16,6 +16,7 @@ type Highlight = {
   title: string;
   description: string;
   icon: ComponentType<IconProps>;
+  iconImage?: string;
 };
 
 type SupportCard = Highlight;
@@ -53,21 +54,25 @@ const quickHighlights: Highlight[] = [
     title: "Medicine Access",
     description: "Daily basic medicine support for needy individuals and families.",
     icon: MedicineIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785278/ChatGPT_Image_May_3_2026_10_43_38_AM_sk2ixq.png",
   },
   {
     title: "Health Review",
     description: "Basic care review and guidance through organized support efforts.",
     icon: StethoscopeIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785277/ChatGPT_Image_May_3_2026_10_43_46_AM_w1wgf4.png",
   },
   {
     title: "Care Support",
     description: "Compassionate assistance for vulnerable, elderly, and dependent people.",
     icon: HandHeartIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785279/ChatGPT_Image_May_3_2026_10_42_47_AM_e5rvlr.png",
   },
   {
     title: "Volunteer Network",
     description: "Trusted service support through doctors, volunteers, and coordinators.",
     icon: UsersIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785279/ChatGPT_Image_May_3_2026_10_42_31_AM_swi3tc.png",
   },
 ];
 
@@ -76,31 +81,37 @@ const coreSupportAreas: SupportCard[] = [
     title: "Free Medicine Distribution",
     description: "Need-based support for essential medicines and basic treatment assistance.",
     icon: MedicineIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785278/ChatGPT_Image_May_3_2026_10_43_07_AM_fa8bq9.png",
   },
   {
     title: "Health Camps and Screening",
     description: "Periodic support camps for check-ups, awareness, and early guidance.",
     icon: CampIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785278/ChatGPT_Image_May_3_2026_10_43_01_AM_ibidzp.png",
   },
   {
     title: "Chronic Care Assistance",
     description: "Support for recurring care needs where ongoing help becomes necessary.",
     icon: HeartPulseIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785278/ChatGPT_Image_May_3_2026_10_43_38_AM_sk2ixq.png",
   },
   {
     title: "Elderly Care Support",
     description: "Compassionate help for senior citizens needing basic medical attention.",
     icon: ElderIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785279/ChatGPT_Image_May_3_2026_10_42_54_AM_t0ysba.png",
   },
   {
     title: "Emergency Help Coordination",
     description: "Limited urgent support based on severity, availability, and service capacity.",
     icon: ShieldCheckIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785279/ChatGPT_Image_May_3_2026_10_42_47_AM_e5rvlr.png",
   },
   {
     title: "Volunteer Service Assistance",
     description: "Medical and non-medical volunteers helping with coordination and care.",
     icon: UsersIcon,
+    iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1777785279/ChatGPT_Image_May_3_2026_10_42_31_AM_swi3tc.png",
   },
 ];
 
@@ -290,7 +301,17 @@ function SectionHeader({ eyebrow, title, intro, align = "center" }: { eyebrow?: 
   );
 }
 
-function IconBubble({ icon: Icon }: { icon: ComponentType<IconProps> }) {
+function IconBubble({ icon: Icon, image }: { icon: ComponentType<IconProps>; image?: string }) {
+  if (image) {
+    return (
+      <img
+        src={image}
+        alt="icon"
+        className="h-[100px] w-[100px] rounded-full object-cover"
+        loading="lazy"
+      />
+    );
+  }
   return (
     <span className="inline-flex h-12 w-12 items-center justify-center rounded-[16px] bg-[#FFF0DA] text-[#C46D1A]">
       <Icon />
@@ -298,7 +319,17 @@ function IconBubble({ icon: Icon }: { icon: ComponentType<IconProps> }) {
   );
 }
 
-function CenterIconMark({ icon: Icon }: { icon: ComponentType<IconProps> }) {
+function CenterIconMark({ icon: Icon, image }: { icon: ComponentType<IconProps>; image?: string }) {
+  if (image) {
+    return (
+      <img
+        src={image}
+        alt="icon"
+        className="h-[100px] w-[100px] rounded-full object-cover"
+        loading="lazy"
+      />
+    );
+  }
   return (
     <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-[#E8D9BD] bg-[#FFF9F0] text-[#C08A2A] shadow-[0_12px_28px_rgba(111,78,25,0.08)]">
       <Icon className="h-11 w-11" />
@@ -366,10 +397,12 @@ function QuickHighlightsStrip() {
   return (
     <section className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
       {quickHighlights.map((item) => (
-        <article key={item.title} className="flex h-full flex-col rounded-[24px] border border-[#E8D9BD] bg-[#FFFDF8] p-6 shadow-[0_14px_34px_rgba(111,78,25,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(111,78,25,0.1)]">
-          <IconBubble icon={item.icon} />
-          <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{item.title}</h3>
-          <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{item.description}</p>
+        <article key={item.title} className="flex h-full flex-col items-center rounded-[24px] border border-[#E8D9BD] bg-[#FFFDF8] p-6 shadow-[0_14px_34px_rgba(111,78,25,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(111,78,25,0.1)]">
+          <div className="flex items-center justify-center">
+            <IconBubble icon={item.icon} image={item.iconImage} />
+          </div>
+          <h3 className={`mt-5 text-center ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{item.title}</h3>
+          <p className={`mt-3 text-center ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{item.description}</p>
         </article>
       ))}
     </section>
@@ -406,7 +439,7 @@ function CoreSupportAreas() {
       <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {coreSupportAreas.map((item) => (
           <article key={item.title} className="flex h-full flex-col items-center rounded-[24px] border border-[#E8D9BD] bg-[#FFFDF8] p-6 text-center shadow-[0_14px_34px_rgba(111,78,25,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(111,78,25,0.11)]">
-            <CenterIconMark icon={item.icon} />
+            <CenterIconMark icon={item.icon} image={item.iconImage} />
             <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#4A3422]`}>{item.title}</h3>
             <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#6B5A4A]`}>{item.description}</p>
           </article>

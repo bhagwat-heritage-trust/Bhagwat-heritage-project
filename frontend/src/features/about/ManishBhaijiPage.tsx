@@ -278,14 +278,20 @@ export default memo(function ManishBhaijiPage() {
                 Trust, guiding society through Bhagwat Katha, seva, sanskar and cultural awakening.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link to={ROUTES.contact} className={primaryCtaClass}>
+                <Link to={`${ROUTES.involved.contactUs}#invite-maharaj`} className={primaryCtaClass}>
                   Invite for Bhagwat Katha
                 </Link>
-                <Link to={ROUTES.media.videos} className={secondaryCtaClass}>
+                <Link to={ROUTES.digital.satsang} className={secondaryCtaClass}>
                   Watch Pravachan
                 </Link>
-                <Link to={ROUTES.involved.volunteer} className={secondaryCtaClass}>
+                <Link to={ROUTES.seva.index} className={secondaryCtaClass}>
                   Join Seva Mission
+                </Link>
+                <Link to={ROUTES.involved.donor} className={secondaryCtaClass}>
+                  Donate Now
+                </Link>
+                <Link to={ROUTES.digital.guidance} className={secondaryCtaClass}>
+                  Seek Guidance
                 </Link>
               </div>
             </div>
