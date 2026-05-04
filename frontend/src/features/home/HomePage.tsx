@@ -19,7 +19,6 @@ const assets = {
     "https://res.cloudinary.com/der8zinu8/image/upload/v1777884113/WhatsApp_Image_2026-05-04_at_2.09.33_PM_sei4eh.jpg",
     "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.09.33_PM_1_mgthzg.jpg",
     "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.09.33_PM_2_dxdmig.jpg",
-    "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.09.34_PM_1_ecqcwu.jpg",
     "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.10.27_PM_qneker.jpg",
     "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.09.34_PM_ycmjxf.jpg",
   ],
