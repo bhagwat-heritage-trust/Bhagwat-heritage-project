@@ -153,27 +153,27 @@ const lifeJourneyItems = [
   {
     title: "Early Life",
     text: "Rooted in devotion, discipline and cultural values from the beginning.",
-    icon: "/icons/icon-life-journey.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893139/WhatsApp_Image_2026-05-04_at_4.39.07_PM_un5kmt.jpg",
   },
   {
     title: "Spiritual Awakening",
     text: "A deeper inner call toward Bhagwat, bhakti, seva and dharma.",
-    icon: "/icons/icon-spiritual-awakening.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893138/WhatsApp_Image_2026-05-04_at_4.39.08_PM_1_ox5w5g.jpg",
   },
   {
     title: "Guru Influence",
     text: "Inspired by the grace, wisdom and guidance of the Guru tradition.",
-    icon: "/icons/icon-guru-influence.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893138/WhatsApp_Image_2026-05-04_at_4.39.09_PM_fkea39.jpg",
   },
   {
     title: "Turning Points",
     text: "Public pravachan, Bhagwat Katha and social guidance became a mission.",
-    icon: "/icons/icon-trust-establishment.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893987/WhatsApp_Image_2026-05-04_at_4.55.21_PM_x0u3g9.jpg",
   },
   {
     title: "Establishment of Trust",
     text: "Bhagwat Heritage Service Foundation Trust emerged as a seva, sanskar and cultural mission.",
-    icon: "/icons/icon-trust-establishment.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893137/WhatsApp_Image_2026-05-04_at_4.39.10_PM_oj7kxp.jpg",
   },
 ];
 
@@ -181,22 +181,22 @@ const teachingsCards: IconCard[] = [
   {
     title: "Bhagwat-Based Living",
     description: "Living with scripture, devotion and daily discipline as the center of life.",
-    icon: "/icons/icon-bhagwat-core.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777895048/WhatsApp_Image_2026-05-04_at_5.11.57_PM_ezegnp.jpg",
   },
   {
     title: "Seva as Devotion",
     description: "Service becomes sacred when offered with humility, care, and pure intention.",
-    icon: "/icons/icon-seva-devotion.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893137/WhatsApp_Image_2026-05-04_at_4.39.13_PM_1_s484xk.jpg",
   },
   {
     title: "Sanskar-Based Society",
     description: "A culture rooted in values, manners and spiritual discipline transforms families.",
-    icon: "/icons/icon-sanskar-society.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893137/WhatsApp_Image_2026-05-04_at_4.39.13_PM_2_p5g2ku.jpg",
   },
   {
     title: "Youth Transformation",
     description: "Young hearts guided by dharma become the future bearers of social change.",
-    icon: "/icons/icon-youth-transformation.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893136/WhatsApp_Image_2026-05-04_at_4.39.14_PM_gsnvqu.jpg",
   },
 ];
 
@@ -220,8 +220,8 @@ const outreachTabs: OutreachTab[] = [
       { label: "View Upcoming Kathas", to: ROUTES.eventsKatha.index },
       { label: "Organize Katha in Your City", to: ROUTES.involved.contactUs },
     ],
-    icon: "/icons/icon-bhagwat-katha.svg",
-    image: "/images/discourses-workshops-outreach.jpg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777895048/WhatsApp_Image_2026-05-04_at_5.11.57_PM_ezegnp.jpg",
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893136/WhatsApp_Image_2026-05-04_at_4.39.14_PM_1_bxvgu3.jpg",
   },
   {
     id: "guidance",
@@ -266,22 +266,22 @@ const mediaPresenceCards = [
   {
     title: "Press Coverage",
     description: "Articles and mentions highlighting Maharaj Ji's Katha, outreach and community mission.",
-    icon: "/icons/icon-press.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893136/WhatsApp_Image_2026-05-04_at_4.39.14_PM_3_fbzlia.jpg",
   },
   {
     title: "Awards & Recognition",
     description: "Honors and citations that reinforce trust credibility and cultural leadership.",
-    icon: "/icons/icon-awards.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893136/WhatsApp_Image_2026-05-04_at_4.39.15_PM_gq4rrb.jpg",
   },
   {
     title: "Public Events",
     description: "Large satsang, Katha and trust programs attended by families, youth and devotees.",
-    icon: "/icons/icon-events.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893136/WhatsApp_Image_2026-05-04_at_4.39.15_PM_1_kq33fx.jpg",
   },
   {
     title: "Spiritual Presence",
     description: "A growing presence across devotional platforms, occasions and cultural forums.",
-    icon: "/icons/icon-spiritual-presence.svg",
+    icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777893136/WhatsApp_Image_2026-05-04_at_4.39.15_PM_2_nnyqom.jpg",
   },
 ];
 
@@ -382,20 +382,20 @@ function IconCard({
 function LifeJourneyTimeline() {
   return (
     <section className={`${SECTION_CLASS} bg-[#FFFDF8]`}>
-      <div className={CONTAINER_CLASS}>
+      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <SectionHeader eyebrow="Life Journey Timeline" title="Life Journey & Spiritual Path" align="left" />
         <div className="mt-10 space-y-8">
           <div className="hidden lg:block">
             <div className="relative">
               <div className="absolute left-1/2 top-6 h-[calc(100%-3rem)] w-1 -translate-x-1/2 rounded-full bg-[#D8A43F]/15" />
-              <div className="grid grid-cols-5 gap-6">
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
                 {lifeJourneyItems.map((item, index) => (
-                  <div key={item.title} className="relative rounded-[20px] border border-[#E8D9BD] bg-white p-6 text-center shadow-[0_14px_34px_rgba(111,78,25,0.08)]">
-                    <span className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
-                      <img src={item.icon} alt="" className="h-8 w-8" loading="lazy" />
+                  <div key={item.title} className="relative rounded-[20px] border border-[#E8D9BD] bg-white p-8 text-center shadow-[0_14px_34px_rgba(111,78,25,0.08)]">
+                    <span className="mx-auto inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
+                      <img src={item.icon} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
                     </span>
-                    <h3 className="mt-4 text-lg font-bold text-[#1F4D5A]">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-6 text-[#6B5A48]">{item.text}</p>
+                    <h3 className="mt-5 text-lg font-bold text-[#1F4D5A]">{item.title}</h3>
+                    <p className="mt-4 text-sm leading-7 text-[#6B5A48]">{item.text}</p>
                     {index < lifeJourneyItems.length - 1 ? (
                       <span className="pointer-events-none absolute right-[-1.5rem] top-1/2 hidden h-3 w-3 -translate-y-1/2 rounded-full bg-[#D8A43F] lg:inline-flex" />
                     ) : null}
@@ -407,8 +407,8 @@ function LifeJourneyTimeline() {
           <div className="space-y-4 lg:hidden">
             {lifeJourneyItems.map((item) => (
               <div key={item.title} className="flex items-start gap-4 rounded-[20px] border border-[#E8D9BD] bg-white p-5 shadow-[0_14px_34px_rgba(111,78,25,0.08)]">
-                <span className="mt-1 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
-                  <img src={item.icon} alt="" className="h-6 w-6" loading="lazy" />
+                <span className="mt-1 inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
+                  <img src={item.icon} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
                 </span>
                 <div>
                   <h3 className="text-lg font-bold text-[#1F4D5A]">{item.title}</h3>
@@ -419,7 +419,7 @@ function LifeJourneyTimeline() {
           </div>
           <div className="overflow-hidden rounded-[16px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
             <img
-              src="/images/founder-life-journey-timeline.jpg"
+              src="https://res.cloudinary.com/der8zinu8/image/upload/v1777893137/WhatsApp_Image_2026-05-04_at_4.39.10_PM_1_buqgb0.jpg"
               alt="Founder life journey timeline"
               className="h-[320px] w-full object-cover"
               loading="lazy"
@@ -445,7 +445,7 @@ function TeachingsCorePhilosophy() {
           <div className="space-y-5">
             <div className="overflow-hidden rounded-[20px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
               <img
-                src="/images/teachings-core-philosophy.jpg"
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777893137/WhatsApp_Image_2026-05-04_at_4.39.14_PM_2_dyboov.jpg"
                 alt="Teachings and core philosophy imagery"
                 className="h-[320px] w-full object-cover"
                 loading="lazy"
@@ -527,8 +527,8 @@ function DiscoursesOutreachSection({ activeTab, onTabChange }: { activeTab: stri
               </div>
               <div className="rounded-[24px] border border-[#E8D9BD] bg-[#FFF8E5] p-6 shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
-                    <img src="/icons/icon-booking-form.svg" alt="Booking icon" className="h-6 w-6" loading="lazy" />
+                <span className="inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-[#FFF3DA] shadow-[0_8px_16px_rgba(216,164,63,0.12)]">
+                  <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777804759/WhatsApp_Image_2026-05-03_at_4.08.24_PM_rpoyeu.jpg" alt="Invite Maharaj Ji" className="h-full w-full object-cover" loading="lazy" />
                   </span>
                   <h3 className="text-2xl font-bold text-[#1F4D5A]">Invite Maharaj Ji</h3>
                 </div>
@@ -577,13 +577,31 @@ function MediaPresenceSection() {
               <IconCard key={item.title} item={item} compact circularIcon />
             ))}
           </div>
-          <div className="overflow-hidden rounded-[20px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
-            <img
-              src="/images/media-awards-presence.jpg"
-              alt="Media and awards presence of Maharaj Ji"
-              className="h-[360px] w-full object-cover"
-              loading="lazy"
-            />
+          <div className="space-y-5">
+            <div className="overflow-hidden rounded-[20px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+              <img
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777895983/WhatsApp_Image_2026-05-04_at_5.28.49_PM_pwsknl.jpg"
+                alt="Media and awards presence of Maharaj Ji"
+                className="h-[260px] w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="overflow-hidden rounded-[20px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+              <img
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777895982/WhatsApp_Image_2026-05-04_at_5.28.51_PM_x6nbqf.jpg"
+                alt="Additional Maharaj Ji media presence image"
+                className="h-[180px] w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="overflow-hidden rounded-[20px] border border-[#E8D9BD] bg-white shadow-[0_18px_42px_rgba(116,73,20,0.08)]">
+              <img
+                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777895982/WhatsApp_Image_2026-05-04_at_5.28.50_PM_lrwxdl.jpg"
+                alt="Additional Maharaj Ji media presence image 2"
+                className="h-[180px] w-full object-cover"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -674,30 +692,20 @@ export default memo(function ManishBhaijiPage() {
 
       <section className={`${SECTION_CLASS} bg-[#FFFDF8]`}>
         <div className={CONTAINER_CLASS}>
-          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
-            <div className="overflow-hidden rounded-[8px] shadow-[0_22px_56px_rgba(93,55,18,0.14)]">
-              <img
-                src="https://res.cloudinary.com/der8zinu8/image/upload/v1777741439/ChatGPT_Image_May_2_2026_10_28_25_PM_vdt4sk.png"
-                alt="Sant Shri Manish Bhaiji Maharaj addressing a Bhagwat Katha Sabha"
-                className="h-[300px] w-full object-cover md:h-[420px]"
-                loading="lazy"
-              />
-            </div>
-            <div>
-              <SectionHeader eyebrow="About Maharaj Ji" title="A devotional voice for faith, family, and society" align="left" />
-              <div className={`mt-5 space-y-4 ${BODY_CLASS}`}>
-                <p>
-                  Sant Shri Manish Bhaiji Maharaj has devoted his spiritual journey to bringing the message of Shrimad
-                  Bhagwat into the lives of families, youth, devotees, and seekers. His pravachan style is rooted in
-                  scripture yet deeply connected with everyday life, helping listeners understand bhakti, dharma,
-                  responsibility, and inner transformation.
-                </p>
-                <p>
-                  Through Bhagwat Katha, satsang, social guidance, and seva inspiration, he encourages society to live
-                  with compassion, discipline, cultural pride, and service. His direction continues to shape the trust's
-                  mission of spiritual upliftment, sanskar education, and humanitarian support.
-                </p>
-              </div>
+          <div>
+            <SectionHeader eyebrow="About Maharaj Ji" title="A devotional voice for faith, family, and society" align="left" />
+            <div className={`mt-5 space-y-4 ${BODY_CLASS}`}>
+              <p>
+                Sant Shri Manish Bhaiji Maharaj has devoted his spiritual journey to bringing the message of Shrimad
+                Bhagwat into the lives of families, youth, devotees, and seekers. His pravachan style is rooted in
+                scripture yet deeply connected with everyday life, helping listeners understand bhakti, dharma,
+                responsibility, and inner transformation.
+              </p>
+              <p>
+                Through Bhagwat Katha, satsang, social guidance, and seva inspiration, he encourages society to live
+                with compassion, discipline, cultural pride, and service. His direction continues to shape the trust's
+                mission of spiritual upliftment, sanskar education, and humanitarian support.
+              </p>
             </div>
           </div>
         </div>
