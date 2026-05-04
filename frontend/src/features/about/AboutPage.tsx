@@ -4,7 +4,7 @@ import { ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
 
 type DirectionCard = { icon: string; title: string; text: string };
-type ServiceCard = { icon: string; title: string; text: string };
+type ServiceCard = { icon: string; title: string; text: string; href: string };
 type TimelineItem = { title: string; text: string; icon: string };
 type FutureCard = { icon: string; title: string; text: string };
 
@@ -38,15 +38,15 @@ const valueItems = [
 ];
 
 const services: ServiceCard[] = [
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_35_PM_vpi1qj.png", title: "Bhagwat Katha", text: "Spreading divine wisdom through Bhagwat Katha and spiritual discourses." },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776880621/ChatGPT_Image_Apr_22_2026_11_25_30_PM_i6q6qj.png", title: "Gau Seva", text: "Serving and protecting cows through compassionate care and awareness." },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_42_51_PM_rxxuvx.png", title: "Ann Seva", text: "Offering food support to devotees, needy families, and community gatherings." },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776888501/ChatGPT_Image_Apr_23_2026_01_37_00_AM_yvrlwv.png", title: "Jal Seva", text: "Supporting water service initiatives for public welfare." },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_45_PM_t3c0vd.png", title: "Education Support", text: "Encouraging learning, sanskar, scholarships, and value-based education." },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776973581/ChatGPT_Image_Apr_24_2026_01_06_36_AM_j1fxyl.png", title: "Medical Seva", text: "Supporting health camps, medicine distribution, and wellness initiatives." },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_12_PM_ark4ok.png", title: "Cultural Events", text: "Organising festivals, family-value programs, and cultural gatherings." },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032975/ChatGPT_Image_Apr_24_2026_05_42_35_PM_hwotsz.png", title: "Youth & Family Sanskar", text: "Guiding youth and families through values, discipline, and spiritual learning." },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029119/ChatGPT_Image_Apr_24_2026_04_39_27_PM_e5yys0.png", title: "Digital Knowledge", text: "Creating digital platforms for e-library, e-pathshala, satsang, and study resources." },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_35_PM_vpi1qj.png", title: "Bhagwat Katha", text: "Spreading divine wisdom through Bhagwat Katha and spiritual discourses.", href: ROUTES.eventsKatha.bhagwatKatha },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776880621/ChatGPT_Image_Apr_22_2026_11_25_30_PM_i6q6qj.png", title: "Gau Seva", text: "Serving and protecting cows through compassionate care and awareness.", href: ROUTES.seva.gau },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_42_51_PM_rxxuvx.png", title: "Ann Seva", text: "Offering food support to devotees, needy families, and community gatherings.", href: ROUTES.seva.ann },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776888501/ChatGPT_Image_Apr_23_2026_01_37_00_AM_yvrlwv.png", title: "Jal Seva", text: "Supporting water service initiatives for public welfare.", href: ROUTES.seva.jal },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777215185/ChatGPT_Image_Apr_26_2026_08_21_45_PM_t3c0vd.png", title: "Education Support", text: "Encouraging learning, sanskar, scholarships, and value-based education.", href: ROUTES.seva.education },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1776973581/ChatGPT_Image_Apr_24_2026_01_06_36_AM_j1fxyl.png", title: "Medical Seva", text: "Supporting health camps, medicine distribution, and wellness initiatives.", href: ROUTES.seva.medicine },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032972/ChatGPT_Image_Apr_24_2026_05_43_12_PM_ark4ok.png", title: "Cultural Events", text: "Organising festivals, family-value programs, and cultural gatherings.", href: ROUTES.eventsKatha.festivals },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032975/ChatGPT_Image_Apr_24_2026_05_42_35_PM_hwotsz.png", title: "Youth & Family Sanskar", text: "Guiding youth and families through values, discipline, and spiritual learning.", href: ROUTES.knowledge.children },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029119/ChatGPT_Image_Apr_24_2026_04_39_27_PM_e5yys0.png", title: "Digital Knowledge", text: "Creating digital platforms for e-library, e-pathshala, satsang, and study resources.", href: ROUTES.knowledge.studyResources },
 ];
 
 const timelineItems: TimelineItem[] = [
@@ -279,7 +279,7 @@ export default memo(function AboutPage() {
                 <img src={service.icon} alt="" aria-hidden="true" className="mx-auto h-[74px] w-[74px] rounded-full object-cover" />
                 <h3 className="mt-4 text-xl font-bold text-[#1f4d5a]">{service.title}</h3>
                 <p className="about-body mt-3">{service.text}</p>
-                <Link to={ROUTES.seva.index} className="mt-4 inline-flex text-sm font-semibold text-[#c8771e] underline-offset-4 hover:underline">
+                <Link to={service.href} className="mt-4 inline-flex text-sm font-semibold text-[#c8771e] underline-offset-4 hover:underline">
                   Learn More
                 </Link>
               </article>

@@ -9753,7 +9753,6 @@ export const DigitalSatsangPage = memo(function DigitalSatsangPage() {
         subtitle="Digital darshan, real devotion - connect with pravachan, bhajan, katha, and spiritual guidance from anywhere."
         subtitleClassName="mx-auto mt-4 max-w-3xl text-base font-medium text-[#f5ead7] md:text-lg"
         contentClassName="mx-auto flex h-full max-w-5xl flex-col items-center justify-end px-4 pb-8 text-center md:pb-10"
-        backgroundImage="https://res.cloudinary.com/der8zinu8/image/upload/v1777477647/ChatGPT_Image_Apr_29_2026_09_16_48_PM_meyuwm.png"
         boxed
         heightClass="h-[380px] md:h-[520px]"
         overlayClass="bg-[linear-gradient(120deg,rgba(27,21,18,0.42),rgba(110,66,16,0.28))]"

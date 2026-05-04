@@ -217,7 +217,7 @@ const outreachTabs: OutreachTab[] = [
     description: "Major devotional kathas for communities, temples and educational gatherings.",
     items: ["Bhagwat Katha Mahotsav", "Ram Katha Pravachan", "Bhajan Sandhya"],
     buttons: [
-      { label: "View Upcoming Kathas", to: ROUTES.eventsKatha.index },
+      { label: "View Upcoming Kathas", to: ROUTES.eventsKatha.bhagwatKatha },
       { label: "Organize Katha in Your City", to: ROUTES.involved.contactUs },
     ],
     icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777895048/WhatsApp_Image_2026-05-04_at_5.11.57_PM_ezegnp.jpg",
@@ -249,7 +249,7 @@ const outreachTabs: OutreachTab[] = [
     title: "Booking / Invitation System",
     description: "Invite the Maharaj Ji team for Katha, satsang, workshops and guided sessions.",
     items: ["Katha", "Seminar", "Workshop", "Satsang"],
-    buttons: [{ label: "Open Invitation Form", to: "/get-involved/invite-maharaj-ji" }],
+    buttons: [{ label: "Open Invitation Form", to: ROUTES.involved.contactUs }],
     icon: "/icons/icon-booking-form.svg",
     image: "/images/invite-maharajji-booking.jpg",
   },
