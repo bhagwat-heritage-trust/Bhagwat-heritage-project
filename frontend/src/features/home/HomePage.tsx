@@ -1,688 +1,671 @@
-import { memo, useMemo } from "react";
+import { memo, useEffect, useState, type AnchorHTMLAttributes, type ComponentType, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom"; 
-import { ROUTES } from "../../app/routes/routes";
-import { HeroSection, type HeroSlide } from "../../components/ui/HeroSection";
-import { usePageMeta } from "../../hooks/usePageMeta"; 
-const PRIMARY_BUTTON =
-  "inline-flex items-center justify-center rounded-lg bg-[var(--color-footer-cta)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-footer-cta-hover)]";
-const SECONDARY_BUTTON =
-  "inline-flex items-center justify-center rounded-lg border border-[#d4a270] bg-white px-6 py-3 text-sm font-semibold text-[#9a5310] transition-colors hover:bg-[#fff7ef]";
-const HOME_SECTION_LABEL = "text-[24px] font-semibold uppercase tracking-[0.18em] text-[var(--campaign-accent)]";
-const HOME_SECTION_HEADING = "mt-2 text-[14px] font-black leading-tight text-[#12394c] md:text-[20px]";
-const HOME_BODY = "text-base leading-7 text-[#38505f] md:text-lg";
-const HOME_LIGHT_HEADING = "mt-2 text-[14px] font-black leading-tight text-[#12394c] md:text-[20px]";
-const HOME_LIGHT_BODY = "text-base leading-7 text-[#38505f] md:text-lg";
-const HOME_DARK_HEADING = "mt-2 text-[14px] font-black leading-tight text-[#12394c] md:text-[20px]";
-const HOME_DARK_BODY = "text-base leading-7 text-[#38505f] md:text-lg";
-const MISSION_CARD =
-  "group relative overflow-hidden rounded-[32px] border border-white/80 bg-white/88 p-8 text-center shadow-[0_24px_54px_rgba(233,147,45,0.12)] backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:shadow-[0_30px_64px_rgba(233,147,45,0.20)]";
-const MISSION_ICON_WRAP =
-  "mx-auto mb-7 flex h-[18.125rem] w-[18.125rem] items-center justify-center rounded-full border-[6px] border-[#fff8ee] bg-white p-2 shadow-[0_18px_36px_rgba(233,147,45,0.18)]";
-const GOLD_CTA =
-  "inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#f4ce5a] via-[#f8db81] to-[#e9932d] px-7 py-3 text-sm font-semibold text-[#12394c] shadow-[0_18px_34px_rgba(233,147,45,0.22)] transition duration-300 hover:scale-[1.03] hover:shadow-[0_24px_44px_rgba(233,147,45,0.30)]";
-const MISSION_BAR_BUTTON =
-  "mt-8 inline-flex w-full items-center justify-center rounded-[18px] bg-gradient-to-r from-[#c53e22] via-[#df6927] to-[#f0af3d] px-6 py-4 text-base font-semibold text-white shadow-[0_16px_30px_rgba(223,105,39,0.22)] transition duration-300 group-hover:scale-[1.01] group-hover:shadow-[0_20px_34px_rgba(223,105,39,0.30)]";
-const SEVA_SCROLL_CARD =
-  "group relative block min-w-[18rem] max-w-[18rem] snap-start overflow-hidden rounded-[1.6rem] shadow-lg shadow-[#c98a2b]/10 transition duration-300 md:min-w-[19.5rem] md:max-w-[19.5rem] xl:min-w-[20rem] xl:max-w-[20rem]";
-const INVOLVED_CARD =
-  "group rounded-[28px] border border-[#f1d7ab] bg-white/88 p-8 text-center shadow-[0_20px_50px_rgba(233,147,45,0.12)] backdrop-blur-xl transition duration-300 hover:scale-[1.05] hover:border-[#f4ce5a]/70 hover:shadow-[0_26px_56px_rgba(244,206,90,0.18)]";
-const CTA_PRIMARY =
-  "inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#f4ce5a] via-[#f8db81] to-[#e9932d] px-8 py-3 text-sm font-semibold text-black shadow-[0_18px_34px_rgba(233,147,45,0.26)] transition duration-300 hover:scale-[1.04] hover:shadow-[0_24px_40px_rgba(233,147,45,0.34)]";
+import { Link, type LinkProps } from "react-router-dom";
+import { EXTERNAL_RAZORPAY_DONATE_URL, ROUTES } from "../../app/routes/routes";
+import { usePageMeta } from "../../hooks/usePageMeta";
 
-function VolunteerIcon() {
+type IconProps = { className?: string };
+type InternalTrackedLinkProps = LinkProps & { trackingId: string };
+type ExternalTrackedLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & { trackingId: string };
+
+const CLD = "https://res.cloudinary.com/der8zinu8/image/upload";
+
+const image = (path: string, width = 1200) => `${CLD}/f_auto,q_auto,w_${width}/${path}`;
+
+const assets = {
+  hero: image("v1774802023/swami_r7ypl0.jpg", 1920),
+  heroSlides: [
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1774587405/fornthero_px3xdq.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777878814/WhatsApp_Image_2026-05-04_at_12.37.47_PM_1_qdzfgu.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777878815/WhatsApp_Image_2026-05-04_at_12.37.47_PM_sjvkyv.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777878814/WhatsApp_Image_2026-05-04_at_12.37.57_PM_1_bssjyx.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777878814/WhatsApp_Image_2026-05-04_at_12.37.58_PM_awfi6e.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777809020/WhatsApp_Image_2026-05-03_at_5.14.05_PM_jv7wxu.jpg",
+  ],
+  founder: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873571/WhatsApp_Image_2026-05-04_at_10.47.29_AM_dzcqvm.jpg",
+  templeCurrent: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873570/WhatsApp_Image_2026-05-04_at_10.47.33_AM_mtgyjq.jpg",
+  templeVision: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873569/WhatsApp_Image_2026-05-04_at_10.47.35_AM_ugdoty.jpg",
+  gau: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873570/WhatsApp_Image_2026-05-04_at_10.47.31_AM_1_nqaf4t.jpg",
+  ann: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873570/WhatsApp_Image_2026-05-04_at_10.47.32_AM_ov5omq.jpg",
+  jal: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873570/WhatsApp_Image_2026-05-04_at_10.47.32_AM_1_gkk8i8.jpg",
+  education: "https://res.cloudinary.com/der8zinu8/image/upload/v1776791703/12_lwchms.png",
+  health: "https://res.cloudinary.com/der8zinu8/image/upload/v1776778493/ChatGPT_Image_Apr_21_2026_07_03_13_PM_osc3pk.png",
+  kanyadaan: "https://res.cloudinary.com/der8zinu8/image/upload/v1776857856/herobanner_k_jckja5.png",
+  katha: "https://res.cloudinary.com/der8zinu8/image/upload/v1777193612/ChatGPT_Image_Apr_26_2026_12_00_27_PM_ridmh0.png",
+  festival: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032985/ChatGPT_Image_Apr_24_2026_05_41_40_PM_tcwoaz.png",
+  satsang: "https://res.cloudinary.com/der8zinu8/image/upload/v1777206437/ChatGPT_Image_Apr_26_2026_05_55_49_PM_irlgtb.png",
+  galleryFeature: "https://res.cloudinary.com/der8zinu8/image/upload/v1777206437/ChatGPT_Image_Apr_26_2026_05_55_42_PM_vgj8v7.png",
+  galleryThumbs: [
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777193611/ChatGPT_Image_Apr_26_2026_01_41_59_PM_dsktes.png",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777459099/ChatGPT_Image_Apr_29_2026_04_07_51_PM_vegbl7.png",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777604293/lord_icuvdm.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777567691/ChatGPT_Image_Apr_30_2026_10_15_35_PM_he0lrd.png",
+  ],
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0 },
+};
+
+function trackCta(trackingId: string) {
+  if (typeof window === "undefined") return;
+
+  const payload = {
+    event: "cta_click",
+    cta_id: trackingId,
+    page: "homepage",
+  };
+
+  window.dispatchEvent(new CustomEvent("bhagwat:cta-click", { detail: payload }));
+
+  const maybeWindow = window as Window & {
+    dataLayer?: Array<Record<string, unknown>>;
+    gtag?: (command: string, eventName: string, params?: Record<string, unknown>) => void;
+  };
+
+  maybeWindow.dataLayer?.push(payload);
+  maybeWindow.gtag?.("event", "cta_click", { cta_id: trackingId, page_location: window.location.href });
+}
+
+function TrackedLink({ trackingId, onClick, ...props }: InternalTrackedLinkProps) {
   return (
-    <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" aria-hidden="true">
-      <path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-8 2c-2.8 0-5 1.8-5 4v1h10v-1c0-2.2-2.2-4-5-4Zm8 1c-1 0-1.9.2-2.7.7.9.8 1.5 1.9 1.7 3.3H21v-.8c0-1.8-2-3.2-5-3.2Z" fill="currentColor" />
+    <Link
+      {...props}
+      onClick={(event) => {
+        trackCta(trackingId);
+        onClick?.(event);
+      }}
+    />
+  );
+}
+
+function ExternalTrackedLink({ trackingId, onClick, ...props }: ExternalTrackedLinkProps) {
+  return (
+    <a
+      {...props}
+      onClick={(event) => {
+        trackCta(trackingId);
+        onClick?.(event);
+      }}
+    />
+  );
+}
+
+function SectionIntro({ eyebrow, title, text }: { eyebrow: string; title: string; text?: string }) {
+  return (
+    <motion.div
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.65, ease: "easeOut" }}
+      className="mx-auto max-w-3xl text-center"
+    >
+      <p className="home-label">{eyebrow}</p>
+      <h2 className="home-h2">{title}</h2>
+      {text ? <p className="home-body mt-4">{text}</p> : null}
+    </motion.div>
+  );
+}
+
+function Shell({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <section className={`relative overflow-hidden px-4 py-16 sm:px-6 lg:px-10 xl:px-14 ${className}`}>{children}</section>;
+}
+
+function PrimaryCta({ children, trackingId, className = "", ...props }: Omit<InternalTrackedLinkProps, "className"> & { className?: string }) {
+  return (
+    <TrackedLink
+      {...props}
+      trackingId={trackingId}
+      className={`home-btn-primary ${className}`}
+    >
+      {children}
+    </TrackedLink>
+  );
+}
+
+function OutlineCta({ children, trackingId, className = "", ...props }: Omit<InternalTrackedLinkProps, "className"> & { className?: string }) {
+  return (
+    <TrackedLink
+      {...props}
+      trackingId={trackingId}
+      className={`home-btn-secondary ${className}`}
+    >
+      {children}
+    </TrackedLink>
+  );
+}
+
+function DonateExternal({ children, trackingId, className = "" }: { children: ReactNode; trackingId: string; className?: string }) {
+  return (
+    <ExternalTrackedLink
+      href={EXTERNAL_RAZORPAY_DONATE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      trackingId={trackingId}
+      className={`home-btn-primary ${className}`}
+    >
+      {children}
+    </ExternalTrackedLink>
+  );
+}
+
+function SpiritualIcon({ className = "h-7 w-7" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true" fill="none">
+      <path d="M12 3.5c3.5 3.2 5.2 6.1 5.2 8.8a5.2 5.2 0 0 1-10.4 0C6.8 9.6 8.5 6.7 12 3.5Z" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M12 9v11M8.6 15.5h6.8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
     </svg>
   );
 }
 
-function DonateIcon() {
+function SevaIcon({ className = "h-7 w-7" }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" aria-hidden="true">
-      <path d="M12 20c5.4-3.4 8-6 8-9 0-2.1-1.5-3.8-3.6-3.8-1.6 0-2.8.8-3.7 2.1-.9-1.3-2.1-2.1-3.7-2.1C7 7.2 5.5 8.9 5.5 11c0 3 2.6 5.6 6.5 9Z" fill="currentColor" />
-      <path d="M6 16.8c1.2-.9 2.3-1 3.6-.1l1.1.8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true" fill="none">
+      <path d="M7.2 12.4 12 17l4.8-4.6a3.2 3.2 0 0 0-4.5-4.5L12 8.2l-.3-.3a3.2 3.2 0 0 0-4.5 4.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+      <path d="M4 19.5h16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
     </svg>
   );
 }
 
-function PartnerIcon() {
+function CultureIcon({ className = "h-7 w-7" }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" aria-hidden="true">
-      <path d="M7.5 13.5 10 11l3.2 3.2a2 2 0 0 0 2.8 0l2.7-2.7 2.3 2.3-4.7 4.7a2.5 2.5 0 0 1-3.5 0l-1.3-1.3-1.3 1.3a2.5 2.5 0 0 1-3.5 0L2 13.8l2.3-2.3L7 14.2" fill="currentColor" />
-      <path d="M8 10.5 5.3 7.8a2 2 0 0 1 0-2.8l.9-.9a2 2 0 0 1 2.8 0L12 7l3-3a2 2 0 0 1 2.8 0l.9.9a2 2 0 0 1 0 2.8L16 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true" fill="none">
+      <path d="M4 20h16M6 17V9l6-4 6 4v8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9 17v-6h6v6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
+
+function DonateIcon({ className = "h-7 w-7" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true" fill="none">
+      <path d="M12 20c4.7-3 7-5.4 7-8.2a3.5 3.5 0 0 0-6.4-2L12 10.7l-.6-.9a3.5 3.5 0 0 0-6.4 2C5 14.6 7.3 17 12 20Z" stroke="currentColor" strokeWidth="1.7" />
+    </svg>
+  );
+}
+
+function PartnerIcon({ className = "h-7 w-7" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true" fill="none">
+      <path d="M7 13.5 10.2 17a2.4 2.4 0 0 0 3.6 0L17 13.5M8.5 10.5l-2-2a2.5 2.5 0 0 1 3.5-3.5L12 7l2-2a2.5 2.5 0 0 1 3.5 3.5l-2 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+const pillars: Array<{ title: string; text: string; to: string; cta: string; image: string }> = [
+  {
+    title: "Spiritual Mission",
+    text: "Bhagwat Katha, satsang, scriptural learning, and daily spiritual guidance for families and youth.",
+    to: ROUTES.mission.spiritual,
+    cta: "Explore Mission",
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873571/WhatsApp_Image_2026-05-04_at_10.47.29_AM_1_goy70w.jpg",
+  },
+  {
+    title: "Social Service (Seva)",
+    text: "Compassionate support through food, water, health, education, Gau Seva, and community welfare.",
+    to: ROUTES.mission.social,
+    cta: "Join Seva",
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873570/WhatsApp_Image_2026-05-04_at_10.47.29_AM_2_iqyyob.jpg",
+  },
+  {
+    title: "Cultural Renaissance",
+    text: "Preserving Sanatan values, festivals, temple culture, and sanskar for the next generation.",
+    to: ROUTES.mission.cultural,
+    cta: "View Culture",
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873570/WhatsApp_Image_2026-05-04_at_10.47.31_AM_v0he99.jpg",
+  },
+];
+
+const sevaItems = [
+  { title: "Gau Seva", image: assets.gau, to: ROUTES.seva.gau, icon: "Go" },
+  { title: "Ann Seva", image: assets.ann, to: ROUTES.seva.ann, icon: "An" },
+  { title: "Jal Seva", image: assets.jal, to: ROUTES.seva.jal, icon: "Ja" },
+  { title: "Education", image: assets.education, to: ROUTES.seva.education, icon: "Ed" },
+  { title: "Health", image: assets.health, to: ROUTES.seva.medicine, icon: "He" },
+  { title: "Kanyadaan", image: assets.kanyadaan, to: ROUTES.seva.kanyadaan, icon: "Ka" },
+];
+
+const events = [
+  { title: "Upcoming Katha", text: "Bhagwat Katha programs that unite devotion, wisdom, and community participation.", image: assets.katha, to: ROUTES.eventsKatha.bhagwatKatha },
+  { title: "Festivals", text: "Sacred celebrations, utsav, and cultural gatherings for all devotees.", image: assets.festival, to: ROUTES.eventsKatha.festivals },
+  { title: "Live Satsang", text: "Join digital satsang, pravachan, and live darshan from wherever you are.", image: assets.satsang, to: ROUTES.digital.satsang },
+];
+
+const involved = [
+  {
+    title: "Join Seva",
+    text: "Contribute your time in food, temple, health, education, and event seva.",
+    to: ROUTES.involved.volunteer,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967402/g5_ilegzw.png",
+  },
+  {
+    title: "Donate Now",
+    text: "Support active seva programs and Bhagwat Dham construction with devotion.",
+    to: ROUTES.donate,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967400/g8_cw3tcs.png",
+  },
+  {
+    title: "Partner With Us",
+    text: "Collaborate through CSR, community networks, events, and digital outreach.",
+    to: ROUTES.involved.partner,
+    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776967401/g6_sxiq7h.png",
+  },
+];
 
 export default memo(function HomePage() {
   const { t } = useTranslation();
-  usePageMeta(t("home.meta.title"), t("home.meta.description"));
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
 
-  const heroSlides = useMemo<HeroSlide[]>(
-    () => [
-      {
-        id: 1,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1774802023/swami_r7ypl0.jpg",
-        title: t("home.heroSlides.foundationTitle", { defaultValue: "Bhagwat Heritage" }),
-        subtitle: t("home.heroSlides.foundationSubtitle", {
-          defaultValue: "Spiritual wisdom, seva, and cultural awakening",
-        }),
-        link: ROUTES.about.index,
-      },
-      {
-        id: 2,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1774588045/worldspiritual_smnrog.png",
-        title: t("home.heroSlides.founderTitle", {
-          defaultValue: "Sant Shri Manish Bhaiji Maharaj",
-        }),
-        subtitle: t("home.heroSlides.founderSubtitle", {
-          defaultValue: "Guiding lives through devotion and service",
-        }),
-        link: ROUTES.about.founder,
-      },
-      {
-        id: 3,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1772647455/hero2_eenipn.png",
-        title: t("home.heroSlides.sevaTitle", { defaultValue: "Seva Initiatives" }),
-        subtitle: t("home.heroSlides.sevaSubtitle", {
-          defaultValue: "Join compassionate service for humanity",
-        }),
-        link: ROUTES.seva.index,
-      },
-      {
-        id: 4,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1771999936/hanuman5_yhct8y.jpg",
-        title: t("home.heroSlides.mandirTitle", { defaultValue: "Mandir & Teerth" }),
-        subtitle: t("home.heroSlides.mandirSubtitle", {
-          defaultValue: "Explore sacred heritage and spiritual vision",
-        }),
-        link: ROUTES.mandirTeerth.index,
-      },
-      {
-        id: 5,
-        image: "/images/homepage/HomePageBanner.jpeg",
-        title: t("home.heroSlides.foundationTitle", { defaultValue: "Bhagwat Heritage" }),
-        subtitle: t("home.heroSlides.foundationSubtitle", {
-          defaultValue: "Spiritual wisdom, seva, and cultural awakening",
-        }),
-        link: ROUTES.about.index,
-      },
-    ],
-    [t],
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveHeroSlide((current) => (current + 1) % assets.heroSlides.length);
+    }, 2800);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  usePageMeta(
+    t("home.meta.title", { defaultValue: "Bhagwat Heritage Service Foundation Trust" }),
+    t("home.meta.description", {
+      defaultValue: "Preserving Bhagwat Dharma through seva, sanskar, spiritual awakening, and Bhagwat Dham.",
+    }),
   );
 
-  const missionItems = useMemo(
-    () => [
-      {
-        title: "Spiritual Mission",
-        description:
-          "Spreading the teachings of Shrimad Bhagavat through Katha, Satsang, and spiritual guidance.",
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1771829450/sanskriti_3_bhvx6q.png",
-        buttonLabel: "Explore Spiritual Mission",
-      },
-      {
-        title: "Social Service",
-        description:
-          "Serving society through Annadaan, Gau Seva, disaster relief, and humanitarian initiatives.",
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776586564/sa2_v3ugrc.png",
-        buttonLabel: "Explore Social Service",
-      },
-      {
-        title: "Cultural Renaissance",
-        description:
-          "Preserving Indian traditions, values, and spiritual heritage for future generations.",
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776586564/sa1_fug3jm.png",
-        buttonLabel: "Explore Cultural Heritage",
-      },
-    ],
-    [],
-  );
-
-  const sevaItems = useMemo(
-    () => [
-      {
-        title: "Gau Seva",
-        link: ROUTES.seva.gau,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1772910777/gau_pdm92i.jpg",
-      },
-      {
-        title: "Jal Seva",
-        link: ROUTES.seva.jal,
-        image: "/images/jal1.png",
-      },
-      {
-        title: "Ann Seva",
-        link: ROUTES.seva.ann,
-        image: "/images/annseva.png",
-      },
-      {
-        title: "Chikitsa Seva",
-        link: ROUTES.seva.medicine,
-        image: "/images/chikitsa.png",
-      },
-      {
-        title: "Education Support",
-        link: ROUTES.seva.education,
-        image: "/images/education.png",
-      },
-      {
-        title: "Scholarship Program",
-        link: ROUTES.seva.scholarship,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1772699279/scholorship_ki7aes.png",
-      },
-      {
-        title: "Kanyadaan Seva",
-        link: ROUTES.seva.kanyadaan,
-        image: "/images/kanyadan.png",
-      },
-      {
-        title: "Vyasanmukti Abhiyan",
-        link: ROUTES.seva.vyasanmukti,
-        image: "/images/vyasanmukti.png",
-      },
-      {
-        title: "Disaster Relief",
-        link: ROUTES.seva.disasterRelief,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1772911110/disaster-relief_lg6qcp.webp",
-      },
-    ],
-    [],
-  );
-
-  const involvedItems = useMemo(
-    () => [
-      {
-        title: "Become a Volunteer",
-        description: "Offer your time and energy to living seva projects that uplift people with compassion.",
-        link: ROUTES.involved.volunteer,
-        Icon: VolunteerIcon,
-      },
-      {
-        title: "Donate Now",
-        description: "Support spiritual, charitable, and cultural initiatives through focused contribution.",
-        link: ROUTES.donate,
-        Icon: DonateIcon,
-      },
-      {
-        title: "Partner With Us",
-        description: "Collaborate to expand outreach, trust impact, and meaningful service at scale.",
-        link: ROUTES.involved.partner,
-        Icon: PartnerIcon,
-      },
-    ],
-    [],
-  );
-
-  const mediaItems = useMemo(
-    () => [
-      {
-        title: "Photo Gallery",
-        tag: "Trending",
-        link: ROUTES.media.photos,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1771999936/hanuman5_yhct8y.jpg",
-        kind: "featured" as const,
-      },
-      {
-        title: "Video Gallery",
-        tag: "New",
-        link: ROUTES.media.videos,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1774802023/swami_r7ypl0.jpg",
-        kind: "medium" as const,
-      },
-      {
-        title: "Event Highlights",
-        tag: "Featured",
-        link: ROUTES.media.highlights,
-        image: "/images/kathapravachan.png",
-        kind: "medium" as const,
-      },
-      {
-        title: "Publications",
-        tag: "Read",
-        link: ROUTES.media.publications,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1772913533/festival_axzy0v.jpg",
-        kind: "small" as const,
-      },
-      {
-        title: "Latest News",
-        tag: "Update",
-        link: ROUTES.eventsKatha.index,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776594556/news_c5ixjb.webp",
-        kind: "small" as const,
-      },
-      {
-        title: "Social Feed",
-        tag: "Live",
-        link: ROUTES.media.socialFeed,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1774588045/worldspiritual_smnrog.png",
-        kind: "small" as const,
-      },
-      {
-        title: "Live Darshan",
-        tag: "Live",
-        link: ROUTES.digital.satsang,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1774801393/ghanshyammaharaj_x75e8f.jpg",
-        kind: "small" as const,
-      },
-      {
-        title: "Upcoming Events",
-        tag: "Soon",
-        link: ROUTES.eventsKatha.index,
-        image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776594836/upcommigevents_uimqwg.jpg",
-        kind: "small" as const,
-      },
-    ],
-    [], 
-  );
   return (
-    <div
-      className="min-h-screen"
-      style={{
-        backgroundColor: "#eaf4fb",
-        backgroundImage:
-          "radial-gradient(circle at top left, rgba(89,166,215,0.24) 0%, rgba(89,166,215,0) 42%), radial-gradient(circle at top right, rgba(133,196,234,0.26) 0%, rgba(133,196,234,0) 40%), radial-gradient(circle at bottom left, rgba(207,232,250,0.46) 0%, rgba(207,232,250,0) 44%), radial-gradient(circle at bottom right, rgba(185,223,245,0.34) 0%, rgba(185,223,245,0) 46%), linear-gradient(135deg, #f7fbff 0%, #edf7ff 46%, #e5f3ff 100%)",
-      }}
-    >
-      <section className="w-full px-4 pt-0 sm:px-6 md:px-10 lg:px-[50px]">
-        <HeroSection
-          title={t("home.heroTitle")}
-          slides={heroSlides}
-          autoplayDelayMs={5600}
-          heightClass="h-[calc(58vh+40px)] min-h-[360px] max-h-[800px] sm:h-[calc(62vh+40px)] md:h-[calc(68vh+40px)] lg:h-[calc(72vh+40px)]"
-        />
-      </section>
-
-      <section className="w-full px-4 py-16 sm:px-6 md:px-10 md:py-24 lg:px-[50px] lg:py-28">
-        <div className="w-full rounded-[30px] border border-[#cde2f1] bg-white/88 px-6 py-10 shadow-[0_16px_34px_rgba(71,125,170,0.12)] backdrop-blur-sm sm:px-10 md:px-12 md:py-12 lg:px-14 xl:px-16">
-          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-            <div className="rounded-[24px] border border-[#d7e7f3] bg-[#f8fcff] p-8 shadow-[0_12px_28px_rgba(71,125,170,0.08)]">
-              <p className={`mb-3 ${HOME_SECTION_LABEL}`}>Welcome To</p>
-              <h2 className={`mb-4 max-w-4xl ${HOME_SECTION_HEADING}`}>{t("home.aboutTitle")}</h2>
-              <p className={`max-w-3xl ${HOME_BODY}`}>{t("home.aboutText")}</p>
-              <div className="mt-7">
-                <Link to={ROUTES.about.index} className={PRIMARY_BUTTON}>
-                  {t("home.readMore")}
-                </Link>
-              </div>
-            </div>
-
-            <div className="rounded-[24px] border border-[#d7e7f3] bg-[#f8fcff] p-8 shadow-[0_12px_28px_rgba(71,125,170,0.08)]">
-              <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-[220px_1fr] md:gap-8">
-                <div className="mx-auto w-full max-w-[220px]">
-                  <div className="rounded-2xl border border-[#e0e8f0] bg-[#f6f8fb] p-2 shadow-sm">
-                    <img
-                      src="/images/manish2.PNG"
-                      alt={t("home.founderTitle")}
-                      className="h-[260px] w-full rounded-xl object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <p className={`mb-2 ${HOME_SECTION_LABEL}`}>{t("home.founderEyebrow")}</p>
-                  <h2 className={`mb-3 ${HOME_SECTION_HEADING}`}>{t("home.founderTitle")}</h2>
-                  <p className={HOME_BODY}>{t("home.founderQuote")}</p>
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <Link to={ROUTES.about.founder} className={PRIMARY_BUTTON}>
-                      {t("home.viewFounderProfile")}
-                    </Link>
-                    <Link to="/events" className={PRIMARY_BUTTON}>
-                      Upcoming Pravachans
-                    </Link>
-                    <Link to="/get-involved/invite-maharaj-ji" className={PRIMARY_BUTTON}>
-                      Invite Maharaj Ji
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative w-full overflow-hidden px-4 py-16 sm:px-6 md:px-10 md:py-24 lg:px-[50px] lg:py-32">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(142,204,242,0.34),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(82,156,176,0.18),transparent_32%),linear-gradient(135deg,#f4faff_0%,#eaf6ff_46%,#eff9ff_100%)]"
-        />
-        <div aria-hidden="true" className="absolute left-[-5rem] top-12 h-40 w-40 rounded-full bg-[#b9def4]/36 blur-3xl" />
-        <div aria-hidden="true" className="absolute bottom-8 right-[-4rem] h-48 w-48 rounded-full bg-[#8bc9ea]/24 blur-3xl" />
-
-        <div className="relative w-full">
-          <div className="rounded-[40px] border border-[#f1d7ab] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.88),rgba(255,246,228,0.92)),linear-gradient(135deg,#fffaf0_0%,#fff2d3_100%)] px-6 py-12 shadow-[0_28px_80px_rgba(233,147,45,0.12)] sm:px-10 lg:px-14 lg:py-16">
-            <motion.div
-              initial={{ opacity: 0, y: 26 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="mx-auto max-w-3xl text-center"
-            >
-              <p className={HOME_SECTION_LABEL}>Our Core Mission</p>
-              <h2 className={HOME_LIGHT_HEADING}>Our Core Mission</h2>
-              <p className={`${HOME_LIGHT_BODY} mt-4`}>Guided by Dharma, Service, and Heritage</p>
-            </motion.div>
-
-            <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-3">
-              {missionItems.map((item, index) => {
-                return (
-                  <motion.div
-                    key={item.title}
-                    initial={{ opacity: 0, y: 34 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.25 }}
-                    transition={{ duration: 0.65, delay: index * 0.12, ease: "easeOut" }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className={MISSION_CARD}
-                  >
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(244,206,90,0.14),transparent_36%)] opacity-0 transition duration-300 group-hover:opacity-100" />
-                    <div className="relative">
-                      <motion.div
-                        className={MISSION_ICON_WRAP}
-                        animate={{ rotate: [0, 4, 0], scale: [1, 1.04, 1] }}
-                        transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: index * 0.2 }}
-                      >
-                        <img src={item.image} alt={item.title} className="h-full w-full object-contain" loading="lazy" />
-                      </motion.div>
-
-                      <h3 className={HOME_LIGHT_HEADING}>{item.title}</h3>
-                      <p className={`${HOME_LIGHT_BODY} mt-4 min-h-[96px]`}>{item.description}</p>
-                      <div className={MISSION_BAR_BUTTON}>{item.buttonLabel}</div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.7, delay: 0.18, ease: "easeOut" }}
-              className="mt-12 text-center"
-            >
-              <Link to={ROUTES.mission.index} className={GOLD_CTA}>
-                Explore Mission →
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative w-full overflow-hidden px-4 py-16 sm:px-6 md:px-10 md:py-24 lg:px-[50px] lg:py-32">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(173,220,248,0.30),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(120,185,228,0.16),transparent_26%),linear-gradient(135deg,#f4faff_0%,#e8f5ff_38%,#f7fbff_100%)]"
-        />
-        <motion.div
-          aria-hidden="true"
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="absolute left-[-4rem] top-12 h-40 w-40 rounded-full bg-[#b9def4]/34 blur-3xl"
-        />
-        <motion.div
-          aria-hidden="true"
-          initial={{ opacity: 0, y: -18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-          className="absolute bottom-10 right-[-3rem] h-52 w-52 rounded-full bg-[#8bc9ea]/22 blur-3xl"
-        />
-
-        <div className="relative w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.65, ease: "easeOut" }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <p className={HOME_SECTION_LABEL}>Seva Initiatives</p>
-            <p className={`${HOME_LIGHT_BODY} mt-4`}>Serving Humanity Through Selfless Actions</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 0.12, ease: "easeOut" }}
-            className="mt-6 flex items-center justify-end gap-2 text-sm font-semibold text-[#9a6a3f]"
-          >
-            <span>Scroll</span>
-            <motion.span animate={{ x: [0, 6, 0] }} transition={{ duration: 1.4, repeat: Number.POSITIVE_INFINITY }}>
-              →
-            </motion.span>
-          </motion.div>
-
-          <div className="relative mt-8">
-            <div aria-hidden="true" className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-10 bg-gradient-to-r from-[#fff6e7] to-transparent md:w-16" />
-            <div aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-10 bg-gradient-to-l from-[#fffdf8] to-transparent md:w-16" />
-            <div className="w-full overflow-x-auto pl-1 pr-1 [scrollbar-width:none] md:pl-2 md:pr-2 [&::-webkit-scrollbar]:hidden">
-              <div className="flex w-max snap-x snap-mandatory gap-5 pb-3 md:gap-6">
-                {sevaItems.map((item, index) => (
-                  <motion.div
-                    key={item.title}
-                    initial={{ opacity: 0, y: 28 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.15 }}
-                    transition={{ duration: 0.55, delay: index * 0.06, ease: "easeOut" }}
-                    className="flex-shrink-0"
-                  >
-                    <Link to={item.link} className={SEVA_SCROLL_CARD}>
-                      <motion.div whileHover={{ y: -8 }} transition={{ type: "spring", stiffness: 220, damping: 18 }} className="relative h-[23rem]">
-                        <motion.img
-                          src={item.image}
-                          alt={item.title}
-                          loading="lazy"
-                          whileHover={{ scale: 1.07 }}
-                          transition={{ duration: 0.4, ease: "easeOut" }}
-                          className="h-full w-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,26,36,0.04),rgba(11,26,36,0.16)_35%,rgba(11,26,36,0.82)_100%)] transition duration-300 group-hover:bg-[linear-gradient(180deg,rgba(11,26,36,0.08),rgba(11,26,36,0.22)_34%,rgba(11,26,36,0.9)_100%)]" />
-                        <motion.div
-                          whileHover={{ y: -2 }}
-                          transition={{ duration: 0.3 }}
-                          className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5"
-                        >
-                          <h3 className={`max-w-[12rem] ${HOME_DARK_HEADING}`}>{item.title}</h3>
-                          <span className="inline-flex items-center gap-1 text-sm font-semibold text-white/92">
-                            Explore
-                            <span aria-hidden="true">→</span>
-                          </span>
-                        </motion.div>
-                      </motion.div>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative w-full overflow-hidden px-4 py-16 sm:px-6 md:px-10 md:py-24 lg:px-[50px] lg:py-32">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(173,220,248,0.28),transparent_26%),linear-gradient(135deg,#f4faff_0%,#eaf6ff_42%,#f6fbff_100%)]" />
-        <div aria-hidden="true" className="absolute left-[-4rem] top-16 h-52 w-52 rounded-full bg-[#b9def4]/28 blur-3xl" />
-        <div aria-hidden="true" className="absolute right-[-4rem] top-28 h-48 w-48 rounded-full bg-[#8bc9ea]/18 blur-3xl" />
-        <div aria-hidden="true" className="absolute bottom-8 left-1/3 h-44 w-44 rounded-full bg-[#d9effd]/30 blur-3xl" />
-
-        <div className="relative">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <p className={HOME_SECTION_LABEL}>Get Involved</p>
-            <h2 className={HOME_DARK_HEADING}>Be a Part of This Divine Mission</h2>
-            <p className={`${HOME_DARK_BODY} mt-4`}>
-              Be a part of this divine mission and contribute towards building a better socsety.
-            </p>
-          </motion.div>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {involvedItems.map((item, index) => {
-              const Icon = item.Icon;
-
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-                >
-                  <Link to={item.link} className={INVOLVED_CARD}>
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-[#f6dfb4] bg-white text-[#d08a32] shadow-[0_0_30px_rgba(244,206,90,0.14)]">
-                      <Icon />
-                    </div>
-                    <h3 className={`mt-6 ${HOME_DARK_HEADING}`}>{item.title}</h3>
-                    <p className={`${HOME_DARK_BODY} mt-4`}>{item.description}</p>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative w-full overflow-hidden px-4 py-16 sm:px-6 md:px-10 md:py-24 lg:px-[50px] lg:py-32">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(173,220,248,0.24),transparent_24%),linear-gradient(135deg,#f4faff_0%,#e8f5ff_44%,#f7fbff_100%)]" />
-        <div aria-hidden="true" className="absolute left-[-4rem] top-16 h-52 w-52 rounded-full bg-[#b9def4]/26 blur-3xl" />
-        <div aria-hidden="true" className="absolute right-[-3rem] top-10 h-44 w-44 rounded-full bg-[#8bc9ea]/16 blur-3xl" />
-        <div aria-hidden="true" className="absolute bottom-8 left-1/3 h-40 w-40 rounded-full bg-[#d9effd]/28 blur-3xl" />
-
-        <div className="relative">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <p className={HOME_SECTION_LABEL}>Media & Updates</p>
-            <h2 className={HOME_DARK_HEADING}>Explore Our Media & Spiritual Journey</h2>
-            <p className={`mx-auto mt-5 max-w-3xl ${HOME_DARK_BODY}`}>
-              Dive into pravachans, events, publications, and moments that reflect our mission.
-            </p>
-          </motion.div>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-[1.25fr_0.75fr]">
-            <motion.div
-              initial={{ opacity: 0, y: 26, scale: 0.98 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.65, ease: "easeOut" }}
-            >
-              <Link to={mediaItems[0].link} className="group relative block overflow-hidden rounded-[28px] border border-[#f1d7ab] shadow-[0_22px_54px_rgba(233,147,45,0.14)]">
-                <motion.img
-                  src={mediaItems[0].image}
-                  alt={mediaItems[0].title}
-                  loading="lazy"
-                  whileHover={{ scale: 1.06 }}
-                  transition={{ duration: 0.45, ease: "easeOut" }}
-                  className="h-[26rem] w-full object-cover md:h-[34rem]"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,26,36,0.04),rgba(11,26,36,0.16)_40%,rgba(11,26,36,0.82)_100%)] transition duration-300 group-hover:bg-[linear-gradient(180deg,rgba(11,26,36,0.08),rgba(11,26,36,0.24)_34%,rgba(11,26,36,0.9)_100%)]" />
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
-                  <div>
-                    <span className="inline-flex rounded-full border border-[#f6dfb4] bg-white/90 px-3 py-1 text-sm font-semibold text-[#d08a32]">
-                      {mediaItems[0].tag}
-                    </span>
-                    <h3 className={`mt-4 ${HOME_DARK_HEADING}`}>{mediaItems[0].title}</h3>
-                  </div>
-                  <span className="text-sm font-semibold text-white/90">Explore →</span>
-                </div>
-              </Link>
-            </motion.div>
-
-            <div className="grid gap-6">
-              {mediaItems.slice(1, 3).map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.55, delay: index * 0.08, ease: "easeOut" }}
-                >
-                  <Link to={item.link} className="group relative block overflow-hidden rounded-[28px] border border-[#f1d7ab] shadow-[0_18px_42px_rgba(233,147,45,0.12)]">
-                    <motion.img
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      whileHover={{ scale: 1.06 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="h-[16rem] w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,26,36,0.04),rgba(11,26,36,0.18)_36%,rgba(11,26,36,0.84)_100%)] transition duration-300 group-hover:bg-[linear-gradient(180deg,rgba(11,26,36,0.08),rgba(11,26,36,0.24)_30%,rgba(11,26,36,0.9)_100%)]" />
-                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
-                      <div>
-                        <span className="inline-flex rounded-full border border-[#f6dfb4] bg-white/90 px-3 py-1 text-sm font-semibold text-[#d08a32]">
-                          {item.tag}
-                        </span>
-                        <h3 className={`mt-3 ${HOME_DARK_HEADING}`}>{item.title}</h3>
-                      </div>
-                      <span className="text-sm font-semibold text-white/90">Explore →</span>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-5">
-            {mediaItems.slice(3).map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 22, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
-              >
-                <Link to={item.link} className="group relative block overflow-hidden rounded-[24px] border border-[#f1d7ab] shadow-[0_16px_36px_rgba(233,147,45,0.12)]">
-                  <motion.img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    whileHover={{ scale: 1.08 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="h-[14rem] w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,26,36,0.04),rgba(11,26,36,0.14)_30%,rgba(11,26,36,0.82)_100%)] transition duration-300 group-hover:bg-[linear-gradient(180deg,rgba(11,26,36,0.08),rgba(11,26,36,0.22)_26%,rgba(11,26,36,0.9)_100%)]" />
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
-                    <div>
-                      <span className="inline-flex rounded-full border border-[#f6dfb4] bg-white/90 px-2.5 py-1 text-sm font-semibold text-[#d08a32]">
-                        {item.tag}
-                      </span>
-                      <h3 className={`mt-2 ${HOME_DARK_HEADING}`}>{item.title}</h3>
-                    </div>
-                    <span className="text-xs font-semibold text-white/88">→</span>
-                  </div>
-                </Link>
-              </motion.div>
+    <div className="homepage-about-typography min-h-screen bg-[linear-gradient(180deg,#fffaf2_0%,#fffdf9_50%,#f8efe2_100%)] font-['Poppins'] text-[#1f4d5a]">
+      <section className="relative min-h-screen w-screen overflow-hidden">
+        {assets.heroSlides.map((slide, index) => (
+          <img
+            key={slide}
+            src={slide}
+            alt={index === 0 ? "Temple, Bhagwat and diya atmosphere" : ""}
+            aria-hidden={index === 0 ? undefined : true}
+            className={`absolute inset-0 h-screen w-full object-cover object-center transition-opacity duration-1000 ${
+              index === activeHeroSlide ? "opacity-100" : "opacity-0"
+            }`}
+            fetchPriority={index === 0 ? "high" : "auto"}
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+        ))}
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(42,18,3,0.50),rgba(102,49,7,0.24)_48%,rgba(255,242,205,0.08)),radial-gradient(circle_at_72%_28%,rgba(255,226,146,0.34),transparent_32%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,247,226,0.12),rgba(255,255,255,0.03)_40%,rgba(48,20,2,0.18))]" />
+        <div className="relative mx-auto flex min-h-screen w-full max-w-[1920px] items-end justify-center px-4 py-8 sm:px-8 lg:px-14">
+          <div className="flex gap-2" aria-label="Homepage hero slides">
+            {assets.heroSlides.map((slide, index) => (
+              <button
+                key={`${slide}-dot`}
+                type="button"
+                onClick={() => setActiveHeroSlide(index)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  index === activeHeroSlide ? "w-9 bg-[#f8d36a]" : "w-2.5 bg-white/50 hover:bg-white/80"
+                }`}
+                aria-label={`Show hero slide ${index + 1}`}
+                aria-current={index === activeHeroSlide ? "true" : undefined}
+              />
             ))}
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.65, delay: 0.12, ease: "easeOut" }}
-            className="mt-12 text-center"
-          >
-            <p className={HOME_DARK_BODY}>Stay Connected with Our Spiritual Journey</p>
-            <Link to={ROUTES.media.index} className={`${CTA_PRIMARY} mt-6`}>
-              View All Media →
-            </Link>
-          </motion.div>
         </div>
       </section>
+
+      <section className="bg-[linear-gradient(180deg,#fff8ea,#fffdf7)] px-4 py-12 text-center sm:px-8 lg:px-14 lg:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, ease: "easeOut" }}
+          className="mx-auto max-w-4xl"
+        >
+          <p className="home-label">Bhagwat Heritage Service Foundation Trust</p>
+          <h1 className="home-h2">
+            Preserving Bhagwat Dharma, Serving Humanity
+          </h1>
+          <p className="home-body mx-auto mt-4 max-w-3xl">
+            Join the divine mission of Seva, Sanskar, and Spiritual Awakening under the guidance of Sant Shri Manish Bhaiji Maharaj.
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <DonateExternal trackingId="hero_content_donate">Donate Now</DonateExternal>
+            <PrimaryCta to={ROUTES.involved.volunteer} trackingId="hero_content_join_seva" className="bg-none bg-white text-[#653307] ring-1 ring-[#e9bc5a] hover:bg-[#fff7df]">
+              Join Seva
+            </PrimaryCta>
+          </div>
+        </motion.div>
+      </section>
+
+      <Shell className="bg-[linear-gradient(180deg,#fff8ea,#fffdf7)]">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.65 }}
+            className="rounded-[8px] border border-[#efd8a7] bg-white/78 p-7 shadow-[0_24px_70px_rgba(126,64,8,0.08)] sm:p-10"
+          >
+            <p className="home-label">About Trust</p>
+            <h2 className="home-h2">A living mission of bhakti, seva, and sanskar.</h2>
+            <p className="home-body mt-4">
+              Bhagwat Heritage Service Foundation Trust works to preserve sacred wisdom, nurture cultural values, and serve society through spiritual programs, food and water seva, education support, healthcare assistance, and temple-centered community work.
+            </p>
+            <PrimaryCta to={ROUTES.about.index} trackingId="trust_explore_about" className="mt-7">
+              Explore About
+            </PrimaryCta>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.65, delay: 0.12 }}
+            className="grid gap-5 rounded-[8px] border border-[#f2d998] bg-[linear-gradient(145deg,#fff6df,#ffffff)] p-5 shadow-[0_24px_70px_rgba(184,100,18,0.12)] sm:grid-cols-[210px_1fr] sm:p-7"
+          >
+            <img src={assets.founder} alt="Sant Shri Manish Bhaiji Maharaj" loading="lazy" className="h-[280px] w-full rounded-[8px] object-cover object-top shadow-[0_18px_40px_rgba(71,31,5,0.16)]" />
+            <div className="self-center">
+              <p className="home-label">Founder Message</p>
+              <h3 className="home-card-title mt-3">Sant Shri Manish Bhaiji Maharaj</h3>
+              <p className="home-body mt-4">
+                True devotion becomes complete when it awakens compassion. Through seva, every devotee can become an instrument of divine grace.
+              </p>
+              <PrimaryCta to={ROUTES.about.founder} trackingId="founder_read_message" className="mt-6">
+                Read Message
+              </PrimaryCta>
+            </div>
+          </motion.div>
+        </div>
+      </Shell>
+
+      <Shell className="bg-[#fffaf0]">
+        <SectionIntro eyebrow="Core Pillars" title="One Foundation, Three Sacred Directions" text="Every initiative is rooted in devotion and expressed through visible service." />
+        <div className="mx-auto mt-12 grid max-w-7xl gap-6 md:grid-cols-3">
+          {pillars.map((item, index) => {
+            return (
+              <motion.div
+                key={item.title}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group rounded-[8px] border border-[#efd8a7] bg-white p-7 text-center shadow-[0_20px_52px_rgba(126,64,8,0.08)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_28px_68px_rgba(126,64,8,0.14)]"
+              >
+                <div className="mx-auto flex items-center justify-center">
+                  <img
+                    src={item.image}
+                    alt={`${item.title} icon`}
+                    loading="lazy"
+                    className="h-[6.6rem] w-[6.6rem] rounded-full object-cover shadow-[0_16px_32px_rgba(224,172,67,0.16)]"
+                  />
+                </div>
+                <h3 className="home-card-title mt-4">{item.title}</h3>
+                <p className="home-body mt-3 min-h-[112px]">{item.text}</p>
+                <PrimaryCta to={item.to} trackingId={`pillar_${index + 1}`} className="mt-6 w-full">
+                  {item.cta}
+                </PrimaryCta>
+              </motion.div>
+            );
+          })}
+        </div>
+      </Shell>
+
+      <Shell className="bg-[radial-gradient(circle_at_top_right,rgba(255,211,111,0.24),transparent_30%),linear-gradient(180deg,#fffdf7,#fff4d8)]">
+        <div className="mx-auto grid max-w-7xl gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.65 }}>
+            <p className="home-label">Bhagwat Dham Project</p>
+            <h2 className="home-h2">A sacred dham for worship, learning, seva, and cultural continuity.</h2>
+            <p className="home-body mt-4">
+              The Bhagwat Dham vision brings together temple devotion, satsang spaces, seva infrastructure, pilgrim facilities, and spiritual education for generations to come.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {[
+                "Temple darshan and daily aarti spaces",
+                "Bhagwat Katha and satsang halls",
+                "Ann Seva and pilgrim support facilities",
+                "Sanskar, study, and youth learning areas",
+              ].map((item) => (
+                <div key={item} className="rounded-[8px] border border-[#ead2a6] bg-white/70 px-4 py-3 shadow-[0_10px_22px_rgba(126,64,8,0.06)]">
+                  <p className="text-sm font-bold leading-6 text-[#1f4d5a]">{item}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 rounded-[8px] border border-[#e8c98f] bg-[linear-gradient(180deg,#fff8eb_0%,#fffdf7_100%)] p-5 shadow-[0_14px_30px_rgba(126,64,8,0.08)]">
+              <p className="text-base font-bold leading-7 text-[#3f3123]">
+                Every contribution supports a sacred place where devotees can pray, families can learn dharma, volunteers can serve, and future generations can remain connected with Bhagwat sanskar.
+              </p>
+            </div>
+            <div className="mt-7">
+              <div className="flex items-center justify-between text-sm font-black text-[#7a4b12]">
+                <span>Construction Progress</span>
+                <span>Seva in progress</span>
+              </div>
+              <div className="mt-3 h-3 overflow-hidden rounded-full bg-[#f0ddb2]">
+                <div className="h-full w-[58%] rounded-full bg-gradient-to-r from-[#c96f12] via-[#f1b632] to-[#ffe18a]" />
+              </div>
+            </div>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <PrimaryCta to={ROUTES.mandirTeerth.bhagwatDham} trackingId="project_view">
+                View Project
+              </PrimaryCta>
+              <DonateExternal trackingId="project_support_construction">Support Construction</DonateExternal>
+            </div>
+          </motion.div>
+
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.22 }} transition={{ duration: 0.65, delay: 0.12 }} className="grid w-full max-w-[640px] gap-5 justify-self-center">
+            <div className="overflow-hidden rounded-[8px] border border-[#efd8a7] bg-white shadow-[0_24px_60px_rgba(126,64,8,0.12)]">
+              <div className="aspect-[16/9] w-full overflow-hidden bg-[#fff8ea]">
+                <img src={assets.templeCurrent} alt="Bhagwat Dham current temple view" loading="lazy" className="h-full w-full object-cover" />
+              </div>
+              <p className="px-5 py-4 text-sm font-black uppercase tracking-[0.18em] text-[#7a4b12]">Current</p>
+            </div>
+            <div className="overflow-hidden rounded-[8px] border border-[#efd8a7] bg-white shadow-[0_24px_60px_rgba(126,64,8,0.12)]">
+              <div className="aspect-[16/9] w-full overflow-hidden bg-[#fff8ea]">
+                <img src={assets.templeVision} alt="Bhagwat Dham vision temple view" loading="lazy" className="h-full w-full object-cover" />
+              </div>
+              <p className="px-5 py-4 text-sm font-black uppercase tracking-[0.18em] text-[#7a4b12]">Vision</p>
+            </div>
+          </motion.div>
+        </div>
+      </Shell>
+
+      <Shell className="bg-[#fffdf7]">
+        <SectionIntro eyebrow="Seva Initiatives" title="Serve Where Compassion Becomes Action" />
+        <div className="mx-auto mt-12 grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {sevaItems.map((item, index) => (
+            <motion.div key={item.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.18 }} transition={{ duration: 0.55, delay: index * 0.06 }}>
+              <TrackedLink to={item.to} trackingId={`seva_${item.title.toLowerCase().replace(/\s+/g, "_")}`} className="group block overflow-hidden rounded-[8px] border border-[#efd8a7] bg-white shadow-[0_18px_44px_rgba(126,64,8,0.08)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_28px_62px_rgba(126,64,8,0.14)]">
+                <div className="relative h-[230px] overflow-hidden">
+                  <img src={item.image} alt={`${item.title} initiative`} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <div className="absolute left-4 top-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-[#fff6df]/92 text-sm font-black text-[#b86412] shadow-lg">{item.icon}</div>
+                </div>
+                <div className="p-5">
+                  <h3 className="home-card-title">{item.title}</h3>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-[#c8771e]">Participate in this seva</p>
+                </div>
+              </TrackedLink>
+            </motion.div>
+          ))}
+        </div>
+      </Shell>
+
+      <Shell className="bg-[#fffaf0]">
+        <SectionIntro eyebrow="Events & Satsang" title="Stay Connected With Katha, Festivals, and Live Satsang" />
+        <div className="mx-auto mt-12 grid max-w-7xl gap-6 lg:grid-cols-3">
+          {events.map((item, index) => (
+            <motion.article key={item.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: index * 0.08 }} className="overflow-hidden rounded-[8px] border border-[#efd8a7] bg-white shadow-[0_20px_54px_rgba(126,64,8,0.08)]">
+              <img src={item.image} alt={item.title} loading="lazy" className="h-[235px] w-full object-cover" />
+              <div className="p-6">
+                <h3 className="home-card-title">{item.title}</h3>
+                <p className="home-body mt-3">{item.text}</p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <PrimaryCta to={item.to} trackingId={`event_${index + 1}`}>
+                    {index === 2 ? "Watch Live" : "View Events"}
+                  </PrimaryCta>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </Shell>
+
+      <Shell className="bg-[#fffdf7]">
+        <SectionIntro eyebrow="Media Gallery" title="Moments of Devotion, Service, and Community" />
+        <div className="mx-auto mt-12 grid max-w-7xl gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.65 }} className="overflow-hidden rounded-[8px] border border-[#efd8a7] bg-white shadow-[0_24px_64px_rgba(126,64,8,0.1)]">
+            <img src={assets.galleryFeature} alt="Featured devotional gallery moment" loading="lazy" className="h-[360px] w-full object-cover sm:h-[520px]" />
+          </motion.div>
+          <div className="grid grid-cols-2 gap-5">
+            {assets.galleryThumbs.map((thumb, index) => (
+              <motion.img key={thumb} src={thumb} alt={`Bhagwat Heritage gallery thumbnail ${index + 1}`} loading="lazy" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55, delay: index * 0.06 }} className="h-[170px] w-full rounded-[8px] border border-[#efd8a7] object-cover shadow-[0_18px_42px_rgba(126,64,8,0.08)] sm:h-[250px]" />
+            ))}
+          </div>
+        </div>
+        <div className="mt-8 text-center">
+          <PrimaryCta to={ROUTES.media.photos} trackingId="media_gallery_view_all">
+            View Gallery
+          </PrimaryCta>
+        </div>
+      </Shell>
+
+      <Shell className="bg-[#fff8ea]">
+        <SectionIntro eyebrow="Get Involved" title="Choose Your Way to Serve the Mission" />
+        <div className="mx-auto mt-12 grid max-w-7xl gap-6 md:grid-cols-3">
+          {involved.map((item, index) => {
+            return (
+              <motion.div key={item.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: index * 0.08 }}>
+                <TrackedLink to={item.to} trackingId={`involved_${index + 1}`} className="group block h-full rounded-[8px] border border-[#efd8a7] bg-white shadow-[0_20px_54px_rgba(126,64,8,0.08)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_28px_66px_rgba(126,64,8,0.14)]">
+                  <div className="mt-10 flex justify-center">
+                    <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#fff7e2] shadow-[0_14px_30px_rgba(126,64,8,0.12)]">
+                      <img src={item.image} alt={`${item.title} icon`} loading="lazy" className="h-20 w-20 rounded-full object-cover" />
+                    </div>
+                  </div>
+                  <div className="p-7 text-center">
+                    <h3 className="home-card-title">{item.title}</h3>
+                    <p className="home-body mt-3">{item.text}</p>
+                  </div>
+                </TrackedLink>
+              </motion.div>
+            );
+          })}
+        </div>
+      </Shell>
+
+      <Shell className="bg-[#fffdf7]">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.65 }}
+          className="relative mx-auto overflow-hidden rounded-[24px] border border-[#e3b85e] bg-[url('https://res.cloudinary.com/der8zinu8/image/upload/v1777878814/WhatsApp_Image_2026-05-04_at_12.37.57_PM_2_syalcj.jpg')] bg-cover bg-center bg-no-repeat p-8 text-center shadow-[0_30px_80px_rgba(173,91,12,0.22)] sm:p-14"
+          style={{ minHeight: "420px" }}
+        >
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,197,81,0.82),rgba(255,235,178,0.82))]" />
+          <div className="absolute inset-0 bg-black/10 mix-blend-multiply" />
+          <div className="relative flex h-full flex-col items-center justify-center gap-6 text-[#3f3123]">
+            <div className="max-w-3xl">
+              <p className="home-label text-[#3f3123]">Be Part of Bhagwat Mission</p>
+              <h2 className="home-h2 text-[#3f3123]">Your seva can carry dharma, dignity, and hope forward.</h2>
+            </div>
+            <div className="max-w-2xl">
+              <p className="home-body mx-auto text-[#3f3123]/90">
+                When you donate or volunteer, you become part of a sacred effort that brings spiritual awakening, community support, and cultural preservation to families and pilgrims.
+              </p>
+            </div>
+            <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <DonateExternal trackingId="final_donate" className="bg-none bg-[#321b06] text-[#ffe39a] hover:bg-[#46290a] shadow-[0_10px_25px_rgba(0,0,0,0.18)]">
+                Donate Now
+              </DonateExternal>
+              <PrimaryCta to={ROUTES.involved.volunteer} trackingId="final_join_seva" className="bg-none bg-white text-[#653307] hover:bg-[#fff7df] shadow-[0_10px_25px_rgba(0,0,0,0.12)]">
+                Join Seva
+              </PrimaryCta>
+            </div>
+          </div>
+        </motion.div>
+      </Shell>
+
+      <style>{`
+        .home-label {
+          color: #7a4f16;
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+        }
+        .home-h2 {
+          color: #3f3123;
+          font-size: 14px;
+          font-weight: 900;
+          line-height: 1.2;
+          margin-top: 0.5rem;
+        }
+        @media (min-width: 768px) {
+          .home-h2 {
+            font-size: 20px;
+          }
+        }
+        .home-body {
+          color: #6b5a48;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 1.75;
+        }
+        @media (min-width: 768px) {
+          .home-body {
+            font-size: 18px;
+          }
+        }
+        .home-card-title {
+          color: #1f4d5a;
+          font-size: 20px;
+          font-weight: 700;
+          line-height: 1.25;
+        }
+        .home-btn-primary {
+          align-items: center;
+          background: linear-gradient(180deg, #f0ae57 0%, #df8e2f 100%);
+          border: 1px solid #dc8a2d;
+          border-radius: 0.8rem;
+          box-shadow: 0 12px 24px rgba(181, 111, 26, 0.22);
+          color: #fffdf8;
+          display: inline-flex;
+          font-size: 0.95rem;
+          font-weight: 800;
+          justify-content: center;
+          min-height: 48px;
+          padding: 0.72rem 1.1rem;
+          text-align: center;
+          transition: transform 240ms ease, box-shadow 240ms ease, filter 240ms ease;
+        }
+        .home-btn-secondary {
+          align-items: center;
+          background: #fffdf8;
+          border: 1px solid #e4c79f;
+          border-radius: 0.8rem;
+          box-shadow: 0 10px 22px rgba(82, 61, 34, 0.1);
+          color: #1f4d5a;
+          display: inline-flex;
+          font-size: 0.95rem;
+          font-weight: 800;
+          justify-content: center;
+          min-height: 48px;
+          padding: 0.72rem 1.1rem;
+          text-align: center;
+          transition: transform 240ms ease, box-shadow 240ms ease, background-color 240ms ease;
+        }
+        .home-btn-primary:focus-visible,
+        .home-btn-secondary:focus-visible {
+          outline: 3px solid #1f4d5a;
+          outline-offset: 2px;
+        }
+        .home-btn-primary:hover,
+        .home-btn-secondary:hover {
+          transform: translateY(-2px);
+        }
+        .home-btn-secondary:hover {
+          background: #fff3de;
+        }
+      `}</style>
     </div>
   );
 });

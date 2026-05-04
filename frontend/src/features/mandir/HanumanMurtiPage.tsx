@@ -312,32 +312,100 @@ const installationHistory = [
   { year: "Divine Illumination", title: "LED Spiritual Aura", description: "Modern LED lighting enhances the mandir's spiritual atmosphere after dusk." },
 ];
 
-const dailySevaTimeline = [
-  { title: "Morning", time: "07:00 – 08:00", description: "Abhishek, Shringar and Aarti for the sacred Hanuman Murti." },
-  { title: "Darshan", time: "08:00 – 12:00", description: "Devotee prayers, offerings and focused darshan time." },
-  { title: "Midday", time: "12:00", description: "Maha Bhog Prasad offered to all devotees." },
-  { title: "Daily Seva", time: "Throughout the day", description: "Garland seva, besan laddoo prasad distribution and seva support." },
-  { title: "Evening", time: "19:00", description: "Sandhya Aarti and Bhog for peace and devotion." },
-  { title: "Special Days", time: "Tue & Sat", description: "Sundarkand Paath and Mahaprasad on dedicated devotional days." },
+const dailySevaTimeline: Array<{ icon: IconName; title: string; time: string; description: string }> = [
+  { icon: "water", title: "Morning", time: "07:00 – 08:00", description: "Abhishek, Shringar and Aarti for the sacred Hanuman Murti." },
+  { icon: "hands", title: "Darshan", time: "08:00 – 12:00", description: "Devotee prayers, offerings and focused darshan time." },
+  { icon: "prasad", title: "Midday", time: "12:00", description: "Maha Bhog Prasad offered to all devotees." },
+  { icon: "seva", title: "Daily Seva", time: "Throughout the day", description: "Garland seva, besan laddoo prasad distribution and seva support." },
+  { icon: "aarti", title: "Evening", time: "19:00", description: "Sandhya Aarti and Bhog for peace and devotion." },
+  { icon: "book", title: "Special Days", time: "Tue & Sat", description: "Sundarkand Paath and Mahaprasad on dedicated devotional days." },
 ];
 
 const specialPujaCards: InfoItem[] = [
-  { icon: "book", title: "108 Hanuman Chalisa Paath", text: "Collective recitation for strength, protection and peace." },
-  { icon: "shield", title: "Panchmukhi Hanuman Kavach", text: "Sacred protection through chanting and ritual energy." },
-  { icon: "diya", title: "Vadvanal Stotra", text: "Special stotra for divine power and spiritual upliftment." },
-  { icon: "aarti", title: "Hanuman Bahuk", text: "Austere prayer for relief, healing and divine blessing." },
-  { icon: "bhajan", title: "Bajrang Baan Paath", text: "Powerful recitation for courage and removal of obstacles." },
-  { icon: "strength", title: "Maha Mantra Japa & Yagya", text: "Continuous mantra chanting and yagya for deep spiritual benefit." },
-  { icon: "family", title: "Personal / Family Puja", text: "Dedicated rituals for families, birthdays and special intentions." },
+  {
+    icon: "book",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777804760/WhatsApp_Image_2026-05-03_at_4.08.23_PM_waol3c.jpg",
+    title: "108 Hanuman Chalisa Paath",
+    text: "Collective recitation for strength, protection and peace.",
+  },
+  {
+    icon: "shield",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777804759/WhatsApp_Image_2026-05-03_at_4.08.23_PM_1_ms0iql.jpg",
+    title: "Panchmukhi Hanuman Kavach",
+    text: "Sacred protection through chanting and ritual energy.",
+  },
+  {
+    icon: "diya",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777802408/WhatsApp_Image_2026-05-03_at_3.19.42_PM_wzjehz.jpg",
+    title: "Vadvanal Stotra",
+    text: "Special stotra for divine power and spiritual upliftment.",
+  },
+  {
+    icon: "aarti",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777471880/ChatGPT_Image_Apr_29_2026_07_39_45_PM_lsplqf.png",
+    title: "Hanuman Bahuk",
+    text: "Austere prayer for relief, healing and divine blessing.",
+  },
+  {
+    icon: "bhajan",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777804759/WhatsApp_Image_2026-05-03_at_4.08.24_PM_1_bhugpa.jpg",
+    title: "Bajrang Baan Paath",
+    text: "Powerful recitation for courage and removal of obstacles.",
+  },
+  {
+    icon: "strength",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777804759/WhatsApp_Image_2026-05-03_at_4.08.23_PM_2_o4xgvv.jpg",
+    title: "Maha Mantra Japa & Yagya",
+    text: "Continuous mantra chanting and yagya for deep spiritual benefit.",
+  },
+  {
+    icon: "family",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777741421/ChatGPT_Image_May_2_2026_10_30_23_PM_h1y7jd.png",
+    title: "Personal / Family Puja",
+    text: "Dedicated rituals for families, birthdays and special intentions.",
+  },
 ];
 
+const BOOK_SPECIAL_PUJA_IMAGE =
+  "https://res.cloudinary.com/der8zinu8/image/upload/v1777804759/WhatsApp_Image_2026-05-03_at_4.08.24_PM_rpoyeu.jpg";
+
 const participationOptions = [
-  { icon: "volunteer", title: "Personal Puja", text: "Arrange a focused personal puja for your family and household." },
-  { icon: "family", title: "Family Rituals", text: "Celebrate anniversaries, birthdays and family milestones with sacred seva." },
-  { icon: "diya", title: "Birthday / Anniversary Puja", text: "Offer a sacred sankalp for birthdays, anniversaries and family occasions." },
-  { icon: "hands", title: "Bhajan & Kirtan Seva", text: "Join devotional music, bhajan and kirtan seva at the dham." },
-  { icon: "prasad", title: "Mahaprasad Seva", text: "Share blessed prasad with the whole community." },
-  { icon: "aarti", title: "Sundarkand Paath आयोजन", text: "Participate in collective Sundarkand recitation events." },
+  {
+    icon: "volunteer",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777805937/WhatsApp_Image_2026-05-03_at_4.27.44_PM_hievpu.jpg",
+    title: "Personal Puja",
+    text: "Arrange a focused personal puja for your family and household.",
+  },
+  {
+    icon: "family",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777805937/WhatsApp_Image_2026-05-03_at_4.27.44_PM_1_h61ep8.jpg",
+    title: "Family Rituals",
+    text: "Celebrate anniversaries, birthdays and family milestones with sacred seva.",
+  },
+  {
+    icon: "diya",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777805937/WhatsApp_Image_2026-05-03_at_4.27.45_PM_rkvzbe.jpg",
+    title: "Birthday / Anniversary Puja",
+    text: "Offer a sacred sankalp for birthdays, anniversaries and family occasions.",
+  },
+  {
+    icon: "hands",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777805937/WhatsApp_Image_2026-05-03_at_4.27.45_PM_1_agduyg.jpg",
+    title: "Bhajan & Kirtan Seva",
+    text: "Join devotional music, bhajan and kirtan seva at the dham.",
+  },
+  {
+    icon: "prasad",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777805937/WhatsApp_Image_2026-05-03_at_4.27.45_PM_2_somjjg.jpg",
+    title: "Mahaprasad Seva",
+    text: "Share blessed prasad with the whole community.",
+  },
+  {
+    icon: "aarti",
+    imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777805937/WhatsApp_Image_2026-05-03_at_4.27.46_PM_wrquit.jpg",
+    title: "Sundarkand Paath आयोजन",
+    text: "Participate in collective Sundarkand recitation events.",
+  },
 ];
 
 const socialConnectCards = [
@@ -445,12 +513,12 @@ const facilities: InfoItem[] = [
 ];
 
 const gallery = [
-  ["Hanuman Murti front view", "/images/hanuman.jpg"],
-  ["Evening aarti", "/images/hanuman2.JPG"],
-  ["Devotees in darshan", "/images/hanuman3.JPG"],
-  ["Sundarkand paath", "/images/hanuman4.JPG"],
-  ["Festival celebration", "/images/hanuman5.JPG"],
-  ["Temple premises", "/images/hanuman-banner-01.jpg"],
+  ["Hanuman Murti front view", "https://res.cloudinary.com/der8zinu8/image/upload/v1777809020/WhatsApp_Image_2026-05-03_at_5.14.05_PM_jv7wxu.jpg"],
+  ["Evening aarti", "https://res.cloudinary.com/der8zinu8/image/upload/v1777809020/WhatsApp_Image_2026-05-03_at_5.14.06_PM_vla1df.jpg"],
+  ["Devotees in darshan", "https://res.cloudinary.com/der8zinu8/image/upload/v1777809019/WhatsApp_Image_2026-05-03_at_5.14.07_PM_fiuxy2.jpg"],
+  ["Sundarkand paath", "https://res.cloudinary.com/der8zinu8/image/upload/v1777809019/WhatsApp_Image_2026-05-03_at_5.14.06_PM_1_oed8p0.jpg"],
+  ["Festival celebration", "https://res.cloudinary.com/der8zinu8/image/upload/v1777809019/WhatsApp_Image_2026-05-03_at_5.14.06_PM_2_escfsl.jpg"],
+  ["Temple Mahaprasad", "https://res.cloudinary.com/der8zinu8/image/upload/v1777809019/WhatsApp_Image_2026-05-03_at_5.14.07_PM_1_mewlvi.jpg"],
 ];
 
 const sectionClass = "mx-auto max-w-[1180px] px-4 py-10 sm:py-14";
@@ -560,56 +628,55 @@ export default memo(function HanumanMurtiPage() {
         <div className="mx-auto max-w-[1240px] overflow-hidden rounded-[34px] border border-[#eccb95] bg-[#fff0dc] shadow-[0_26px_70px_rgba(111,60,23,0.16)]">
           <div className="relative min-h-[520px] sm:min-h-[680px] lg:min-h-[760px]">
             <img src={HERO_IMAGE} alt="Maharudra Kashtbhanjan Hanuman Ji murti darshan" className="absolute inset-0 h-full w-full object-cover object-center" />
-            <div className="absolute inset-0 flex items-end justify-center bg-[linear-gradient(180deg,rgba(49,34,20,0.04)_0%,rgba(49,34,20,0.12)_46%,rgba(49,34,20,0.38)_100%)] px-5 pb-8 pt-24 sm:px-9 sm:pb-10 lg:px-12 lg:pb-12">
-              <div className="mx-auto max-w-4xl text-center">
-                <h1 className="text-[20px] font-black leading-tight text-[#f8d982] drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)] sm:text-[38px] lg:text-[50px]">
-                  Jay Shree Maharudra Kashtbhanjan Hanuman Darshan
-                </h1>
-                <p className="mx-auto mt-4 max-w-3xl text-base font-semibold leading-7 text-[#fff0d8] drop-shadow-[0_3px_12px_rgba(0,0,0,0.75)] sm:text-xl sm:leading-8">
-                  Experience devotion, strength, protection, courage and spiritual peace through the divine darshan of Hanuman Ji.
-                </p>
-                <div className="mt-6 flex flex-wrap justify-center gap-3">
-                  <Link to="#plan-visit" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#f39718] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(243,151,24,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#df8410]">
-                    Plan Your Visit
-                  </Link>
-                  <Link to="#gallery" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#1d6fb8] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(29,111,184,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#175c9b]">
-                    View Gallery
-                  </Link>
-                  <Link to={ROUTES.donate} className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#c92f26] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(201,47,38,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#a92821]">
-                    Donate for Mandir Seva
-                  </Link>
-                </div>
-                <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm font-semibold text-[#4f3a1f]">
-                  <a href="#introduction" className="rounded-full border border-[#ecd0a4] bg-white/80 px-4 py-2 transition hover:bg-[#fff4df]">Introduction</a>
-                  <a href="#history" className="rounded-full border border-[#ecd0a4] bg-white/80 px-4 py-2 transition hover:bg-[#fff4df]">Installation History</a>
-                  <a href="#blessings" className="rounded-full border border-[#ecd0a4] bg-white/80 px-4 py-2 transition hover:bg-[#fff4df]">Blessings</a>
-                  <a href="#daily-seva" className="rounded-full border border-[#ecd0a4] bg-white/80 px-4 py-2 transition hover:bg-[#fff4df]">Daily Seva</a>
-                  <a href="#special-puja" className="rounded-full border border-[#ecd0a4] bg-white/80 px-4 py-2 transition hover:bg-[#fff4df]">Special Puja</a>
-                </div>
-              </div>
-            </div>
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(49,34,20,0.02)_0%,rgba(49,34,20,0.06)_100%)]" />
+          </div>
+        </div>
+        <div className="mx-auto mt-6 max-w-[1240px] rounded-[30px] border border-[#ecd0a4] bg-white/95 px-5 py-8 text-center shadow-[0_18px_42px_rgba(111,60,23,0.12)] sm:px-8 sm:py-10">
+          <h1 className="text-[28px] font-black leading-tight text-[#113f50] sm:text-[42px] lg:text-[52px]">
+            Jay Shree Maharudra Kashtbhanjan Hanuman Darshan
+          </h1>
+          <p className="mx-auto mt-4 max-w-3xl text-[21px] font-semibold leading-8 text-[#6a5948] sm:text-[25px] sm:leading-9">
+            Experience devotion, strength, protection, courage and spiritual peace through the divine darshan of Hanuman Ji.
+          </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link to="#plan-visit" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#f39718] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(243,151,24,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#df8410]">
+              Plan Your Visit
+            </Link>
+            <Link to="#gallery" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#1d6fb8] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(29,111,184,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#175c9b]">
+              View Gallery
+            </Link>
+            <Link to={ROUTES.donate} className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#c92f26] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(201,47,38,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#a92821]">
+              Donate for Mandir Seva
+            </Link>
+          </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm font-semibold text-[#4f3a1f]">
+            <a href="#introduction" className="rounded-full border border-[#ecd0a4] bg-[#fff8ee] px-4 py-2 transition hover:bg-[#fff1da]">Introduction</a>
+            <a href="#history" className="rounded-full border border-[#ecd0a4] bg-[#fff8ee] px-4 py-2 transition hover:bg-[#fff1da]">Installation History</a>
+            <a href="#blessings" className="rounded-full border border-[#ecd0a4] bg-[#fff8ee] px-4 py-2 transition hover:bg-[#fff1da]">Blessings</a>
+            <a href="#daily-seva" className="rounded-full border border-[#ecd0a4] bg-[#fff8ee] px-4 py-2 transition hover:bg-[#fff1da]">Daily Seva</a>
+            <a href="#special-puja" className="rounded-full border border-[#ecd0a4] bg-[#fff8ee] px-4 py-2 transition hover:bg-[#fff1da]">Special Puja</a>
           </div>
         </div>
       </section>
 
       <section id="introduction" className="bg-[#fff7eb] px-4 py-14 sm:py-16">
         <div className="mx-auto max-w-[1240px]">
-          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-            <div className="rounded-[30px] border border-[#f1d2a3] bg-white/90 p-8 shadow-[0_18px_42px_rgba(111,63,24,0.12)] sm:p-10">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#8b5f26]">Shri Maharudra Kashtbhanjan Hanuman Dham</p>
-              <h2 className="mt-4 text-4xl font-black text-[#113f50] sm:text-5xl">Shri Maharudra Kashtbhanjan Hanuman Dham</h2>
-              <p className="mt-6 text-base leading-8 text-[#5f5042] sm:text-lg">
+          <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
+            <div className="flex h-full flex-col justify-center rounded-[30px] border border-[#f1d2a3] bg-white/90 p-6 shadow-[0_18px_42px_rgba(111,63,24,0.12)] sm:p-8 lg:p-9">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8b5f26] sm:text-sm">Shri Maharudra Kashtbhanjan Hanuman Dham</p>
+              <h2 className="mt-4 text-3xl font-black leading-tight text-[#113f50] sm:text-4xl lg:text-[42px]">Shri Maharudra Kashtbhanjan Hanuman Dham</h2>
+              <p className="mt-5 text-base leading-7 text-[#5f5042]">
                 Across India, many divine idols have been स्थापित as centers of devotion, but in Central India, at Chandrapur (Chichpalli), Bhagwat Niketan Ashram, the sacred form of Shri Maharudra Kashtbhanjan Hanuman stands as a unique spiritual pilgrimage center.
               </p>
-              <p className="mt-4 text-base leading-8 text-[#5f5042] sm:text-lg">
+              <p className="mt-4 text-base leading-7 text-[#5f5042]">
                 Established through the tireless efforts of Bhagwat Acharya Sant Shri Manish Bhaiji Maharaj, this divine dham is dedicated to the welfare of devotees, removal of suffering, and protection of Dharma.
               </p>
-              <p className="mt-4 text-base leading-8 text-[#5f5042] sm:text-lg">
+              <p className="mt-4 text-base leading-7 text-[#5f5042]">
                 This sacred form of Hanuman Ji represents strength, devotion, seva and divine energy. Every devotee who visits experiences inner peace, spiritual strength, and divine blessings.
               </p>
             </div>
             <div className="relative overflow-hidden rounded-[30px] border border-[#f1d2a3] bg-white shadow-[0_18px_42px_rgba(111,63,24,0.12)]">
-              <img src="/images/hanuman-murti-full.jpg" alt="Shri Maharudra Kashtbhanjan Hanuman Ji murti" className="h-full min-h-[420px] w-full object-cover" loading="lazy" />
+              <img src="/images/hanuman-murti-full.jpg" alt="Shri Maharudra Kashtbhanjan Hanuman Ji murti" className="h-full min-h-[360px] w-full object-cover lg:min-h-full" loading="lazy" />
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.35),transparent_24%)]" />
               <div className="pointer-events-none absolute right-6 top-6 h-24 w-24 rounded-full border border-white/50 bg-white/10 blur-xl" />
             </div>
@@ -701,45 +768,20 @@ export default memo(function HanumanMurtiPage() {
         </div>
       </section>
 
-      <section className={sectionClass}>
-        <SectionHeader center title="Darshan Timings" subtitle="Our 63-foot Hanuman idol is a sacred center for thousands of devotees. Plan your visit according to darshan and aarti timings." />
-        <div className="mx-auto grid max-w-4xl gap-5 sm:grid-cols-2">
-          {[
-            ["Morning Darshan", "09:00 AM - 12:00 PM", ["Morning Aarti"]],
-            ["Evening Darshan", "04:00 PM - 09:00 PM", ["Evening Aarti"]],
-          ].map(([title, time, badges]) => (
-            <article key={title as string} className={`${cardClass} text-center`}>
-              <span className="mx-auto flex h-[84px] w-[84px] shrink-0 items-center justify-center overflow-hidden rounded-full">
-                <img src={DARSHAN_TIMING_ICON} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
-              </span>
-              <h3 className="mt-4 text-2xl font-black text-[#113f50]">{title}</h3>
-              <p className="mt-3 text-xl font-black text-[#c86b17]">{time}</p>
-              <div className="mt-4 flex flex-wrap justify-center gap-2">
-                {(badges as string[]).map((badge) => <span key={badge} className="rounded-full bg-[#fff0d6] px-3 py-1 text-xs font-bold text-[#9b5618]">{badge}</span>)}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section id="daily-seva" className="px-4 py-14 sm:py-16">
         <div className="mx-auto max-w-[1240px]">
           <SectionHeader title="Complete Daily Seva System" subtitle="A full devotional rhythm for darshan, aarti, prasad and special seva." center />
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            <div className="rounded-[28px] border border-[#ecd0a4] bg-white p-6 shadow-[0_18px_42px_rgba(106,63,25,0.10)]">
-              <div className="space-y-5">
-                {dailySevaTimeline.map((item) => (
-                  <div key={item.title} className="rounded-[22px] border border-[#f2d6a1] bg-[#fff7ee] p-5">
-                    <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#ae7f29]">{item.time}</p>
-                    <h3 className="mt-3 text-2xl font-black text-[#113f50]">{item.title}</h3>
-                    <p className="mt-2 text-base leading-7 text-[#5f5042]">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-[28px] border border-[#ecd0a4] bg-[linear-gradient(135deg,#fff9eb_0%,#fff0d6_45%,#ffe9c9_100%)] p-6 shadow-[0_18px_42px_rgba(106,63,25,0.10)]">
-              <img src="/images/hanuman-aarti-evening.jpg" alt="Evening aarti at Hanuman Dham" className="h-[420px] w-full rounded-[24px] object-cover" loading="lazy" />
-            </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {dailySevaTimeline.map((item) => (
+              <article key={item.title} className={`${cardClass} flex min-h-[230px] flex-col text-center`}>
+                <span className="mx-auto flex h-[82px] w-[82px] shrink-0 items-center justify-center rounded-full bg-[#fff3de] text-[#c86b17] shadow-[0_12px_26px_rgba(196,104,19,0.14)]">
+                  <Icon name={item.icon} />
+                </span>
+                <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[#ae7f29]">{item.time}</p>
+                <h3 className="mt-3 text-2xl font-black text-[#113f50]">{item.title}</h3>
+                <p className="mt-3 text-base leading-7 text-[#5f5042]">{item.description}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -747,7 +789,7 @@ export default memo(function HanumanMurtiPage() {
       <section id="blessings" className={sectionClass}>
         <div className="rounded-[32px] border border-[#f3c98b] bg-[linear-gradient(135deg,#fff8df_0%,#ffe8b8_45%,#ffd7e7_100%)] p-6 shadow-[0_22px_54px_rgba(146,91,28,0.14)] sm:p-8">
           <SectionHeader center title="Blessings of Hanuman Bhakti" subtitle="Faith in Hanuman Ji brings strength, focus, humility and protection." />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {blessingCards.map((item) => (
               <article key={item.title} className="rounded-[22px] border border-[#f0c587] bg-white/75 p-5 text-[#113f50] shadow-[0_14px_30px_rgba(146,91,28,0.10)] backdrop-blur">
                 <h3 className="text-xl font-black">{item.title}</h3>
@@ -778,30 +820,37 @@ export default memo(function HanumanMurtiPage() {
       <section id="special-puja" className="px-4 py-14 sm:py-16">
         <div className="mx-auto max-w-[1240px]">
           <SectionHeader title="Special Puja & Sacred Rituals" subtitle="Participate in powerful Hanuman puja, stotra, mantra and family rites." center />
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {specialPujaCards.map((item) => (
-                <article key={item.title} className={`${cardClass} text-center`}>
-                  <span className="mx-auto flex h-[88px] w-[88px] items-center justify-center overflow-hidden rounded-full bg-[#fff3de] text-[#c86b17]">
+          <div className="mt-10 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {specialPujaCards.map((item) => (
+              <article key={item.title} className={`${cardClass} flex min-h-[300px] flex-col items-center justify-start text-center`}>
+                <span className="mx-auto flex h-[132px] w-[132px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#fff3de] shadow-[0_14px_30px_rgba(196,104,19,0.16)]">
+                  {item.imageIcon ? (
+                    <img src={item.imageIcon} alt={item.title} className="h-full w-full rounded-full object-cover" loading="lazy" />
+                  ) : (
                     <Icon name={item.icon as IconName} />
-                  </span>
-                  <h3 className="mt-5 text-xl font-black text-[#113f50]">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#5f5042]">{item.text}</p>
-                </article>
-              ))}
-            </div>
-            <div className="rounded-[28px] border border-[#ecd0a4] bg-[linear-gradient(135deg,#fff8ea_0%,#fff5d4_45%,#fde2c7_100%)] p-6 shadow-[0_18px_42px_rgba(106,63,25,0.10)]">
-              <h3 className="text-2xl font-black text-[#113f50]">Book Special Puja</h3>
-              <p className="mt-4 text-base leading-7 text-[#5f5042]">
-                Choose from powerful Hanuman rituals and sacred offerings to receive spiritual grace, healing and seva blessings.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <button type="button" onClick={() => setOpenPujaModal(true)} className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#f39718] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(243,151,24,0.28)] transition duration-300 hover:bg-[#df8410]">
+                  )}
+                </span>
+                <h3 className="mt-5 text-lg font-black leading-snug text-[#113f50]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#5f5042]">{item.text}</p>
+              </article>
+            ))}
+            <article className="flex min-h-[300px] flex-col items-center justify-between rounded-[24px] border border-[#ecd0a4] bg-[linear-gradient(135deg,#fff8ea_0%,#fff5d4_45%,#fde2c7_100%)] p-5 text-center shadow-[0_16px_34px_rgba(106,63,25,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_rgba(106,63,25,0.16)]">
+              <div className="flex flex-col items-center">
+                <span className="mx-auto flex h-[132px] w-[132px] items-center justify-center overflow-hidden rounded-full bg-white shadow-[0_14px_30px_rgba(196,104,19,0.16)]">
+                  <img src={BOOK_SPECIAL_PUJA_IMAGE} alt="Book Special Puja" className="h-full w-full rounded-full object-cover" loading="lazy" />
+                </span>
+                <h3 className="mt-5 text-xl font-black text-[#113f50]">Book Special Puja</h3>
+                <p className="mt-3 text-sm leading-6 text-[#5f5042]">
+                  Choose sacred Hanuman rituals for spiritual grace, healing and seva blessings.
+                </p>
+              </div>
+              <div className="mt-5 flex w-full flex-col gap-3">
+                <button type="button" onClick={() => setOpenPujaModal(true)} className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#f39718] px-4 py-2.5 text-sm font-bold text-white shadow-[0_14px_28px_rgba(243,151,24,0.28)] transition duration-300 hover:bg-[#df8410]">
                   Book Special Puja
                 </button>
                 <CtaLink to={ROUTES.involved.contactUs} tone="secondary">Contact Seva Desk</CtaLink>
               </div>
-            </div>
+            </article>
           </div>
         </div>
       </section>
@@ -855,8 +904,12 @@ export default memo(function HanumanMurtiPage() {
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {participationOptions.map((item) => (
               <article key={item.title} className={`${cardClass} text-center`}>
-                <span className="mx-auto flex h-[88px] w-[88px] items-center justify-center overflow-hidden rounded-full bg-[#fff3de] text-[#c86b17]">
-                  <Icon name={item.icon as IconName} />
+                <span className="mx-auto flex h-[104px] w-[104px] items-center justify-center overflow-hidden rounded-full bg-[#fff3de] text-[#c86b17] shadow-[0_12px_26px_rgba(196,104,19,0.14)]">
+                  {item.imageIcon ? (
+                    <img src={item.imageIcon} alt={item.title} className="h-full w-full rounded-full object-cover" loading="lazy" />
+                  ) : (
+                    <Icon name={item.icon as IconName} />
+                  )}
                 </span>
                 <h3 className="mt-5 text-xl font-black text-[#113f50]">{item.title}</h3>
                 <p className="mt-3 text-base leading-7 text-[#5f5042]">{item.text}</p>
@@ -870,7 +923,8 @@ export default memo(function HanumanMurtiPage() {
         </div>
       </section>
 
-      <section id="social-connect" className="px-4 py-14 sm:py-16">
+      <section id="social-connect" className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(255,236,213,0.92),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(255,210,226,0.88),transparent_38%),linear-gradient(180deg,#fff7fb_0%,#fff1f5_48%,#fff8ea_100%)] px-4 py-14 sm:py-16">
+        <div className="pointer-events-none absolute inset-0 bg-[url('/images/hanuman-hero-banner.jpg')] bg-cover bg-center opacity-[0.035]" />
         <div className="mx-auto max-w-[1240px]">
           <SectionHeader title="Stay Connected with Maharudra Kashtbhanjan Hanuman Dham" subtitle="Join our spiritual community and stay updated with live darshan, aarti, bhajans and special events." center />
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -889,6 +943,20 @@ export default memo(function HanumanMurtiPage() {
               </a>
             ))}
           </div>
+          <div className="relative mt-10 overflow-hidden rounded-[30px] border border-[#f1bfd1] bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.78),transparent_32%),linear-gradient(135deg,#fff3f8_0%,#ffe2ec_52%,#ffd5e6_100%)] p-8 text-center shadow-[0_18px_42px_rgba(140,70,95,0.14)]">
+            <div className="pointer-events-none absolute inset-0 bg-[url('/images/hanuman-hero-banner.jpg')] bg-cover bg-center opacity-[0.055]" />
+            <div className="relative">
+              <h3 className="text-3xl font-black leading-tight text-[#113f50] sm:text-4xl">For Devotees Across the World</h3>
+              <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-[#6a5948] sm:text-lg">
+                Devotees from anywhere in the world can now connect with this divine dham through online darshan, seva participation and spiritual offerings.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <CtaLink to="/links/youtube">Watch Live Darshan</CtaLink>
+                <CtaLink to={ROUTES.involved.volunteer} tone="secondary">Join Online Seva</CtaLink>
+                <CtaLink to={ROUTES.donate} tone="teal">Donate Now</CtaLink>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -897,7 +965,9 @@ export default memo(function HanumanMurtiPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {gallery.map((item) => (
             <button key={item[0]} type="button" onClick={() => setActiveImage(item)} className="group overflow-hidden rounded-[24px] border border-[#ecd0a4] bg-white text-left shadow-[0_16px_34px_rgba(106,63,25,0.10)]">
-              <img src={item[1]} alt={item[0]} loading="lazy" className="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
+              <span className="flex h-64 w-full items-center justify-center bg-[#fff7ed]">
+                <img src={item[1]} alt={item[0]} loading="lazy" className="max-h-full w-full object-contain transition duration-500 group-hover:scale-105" />
+              </span>
               <p className="p-4 text-lg font-black text-[#113f50]">{item[0]}</p>
             </button>
           ))}
@@ -928,39 +998,27 @@ export default memo(function HanumanMurtiPage() {
         </div>
       </section>
 
-      <section className="px-4 py-14 sm:py-16">
-        <div className="mx-auto max-w-[1240px] rounded-[30px] border border-[#ecd0a4] bg-[linear-gradient(135deg,#fff8dc_0%,#ffe99a_45%,#f0a14b_100%)] p-8 shadow-[0_18px_42px_rgba(106,63,25,0.12)]">
-          <SectionHeader title="For Devotees Across the World" subtitle="Devotees from anywhere in the world can now connect with this divine dham through online darshan, seva participation and spiritual offerings." center />
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <CtaLink to="/links/youtube">Watch Live Darshan</CtaLink>
-            <CtaLink to={ROUTES.involved.volunteer} tone="secondary">Join Online Seva</CtaLink>
-            <CtaLink to={ROUTES.donate} tone="teal">Donate Now</CtaLink>
-          </div>
-        </div>
-      </section>
-
       <section className={sectionClass}>
         <div className="relative overflow-hidden rounded-[34px] border border-[#e5b65d] bg-[linear-gradient(120deg,#ffcf73_0%,#f39718_48%,#a9471d_100%)] p-6 text-white shadow-[0_22px_54px_rgba(133,77,20,0.22)] sm:p-9">
           <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full border border-white/20" />
-          <h2 className="text-3xl font-black sm:text-4xl">Participate in Hanuman Mandir Seva</h2>
-          <p className="mt-3 max-w-4xl text-base leading-8 text-white/92 sm:text-lg">
-            Support darshan arrangements, aarti seva, prasad seva, utsav seva, volunteer support and mandir development through your shraddha and seva.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <CtaLink to={ROUTES.donate} tone="teal">Donate for Hanuman Seva</CtaLink>
-            <CtaLink to={ROUTES.involved.volunteer} tone="secondary">Become a Volunteer</CtaLink>
-            <CtaLink to={ROUTES.involved.sponsor} tone="secondary">Sponsor Utsav Seva</CtaLink>
-          </div>
-        </div>
-      </section>
-
-      <section className={sectionClass}>
-        <div className="rounded-[30px] border border-[#e5b65d] bg-[linear-gradient(135deg,#fff8dc_0%,#ffe18d_48%,#f8b733_100%)] p-6 text-center shadow-[0_16px_34px_rgba(106,63,25,0.14)]">
-          <h2 className="text-3xl font-black text-[#113f50]">Come for Darshan. Return with Courage, Peace and Devotion.</h2>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <CtaLink to="#plan-visit">Plan Your Visit</CtaLink>
-            <CtaLink to={ROUTES.donate} tone="teal">Donate</CtaLink>
-            <CtaLink to="#gallery" tone="secondary">View Gallery</CtaLink>
+          <div className="relative">
+            <h2 className="text-3xl font-black sm:text-4xl">Participate in Hanuman Mandir Seva</h2>
+            <p className="mt-3 max-w-4xl text-base leading-8 text-white/92 sm:text-lg">
+              Support darshan arrangements, aarti seva, prasad seva, utsav seva, volunteer support and mandir development through your shraddha and seva.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <CtaLink to={ROUTES.donate} tone="teal">Donate for Hanuman Seva</CtaLink>
+              <CtaLink to={ROUTES.involved.volunteer} tone="secondary">Become a Volunteer</CtaLink>
+              <CtaLink to={ROUTES.involved.sponsor} tone="secondary">Sponsor Utsav Seva</CtaLink>
+            </div>
+            <div className="mt-8 border-t border-white/24 pt-7 text-center">
+              <h3 className="text-2xl font-black text-[#113f50] sm:text-3xl">Come for Darshan. Return with Courage, Peace and Devotion.</h3>
+              <div className="mt-5 flex flex-wrap justify-center gap-3">
+                <CtaLink to="#plan-visit">Plan Your Visit</CtaLink>
+                <CtaLink to={ROUTES.donate} tone="teal">Donate</CtaLink>
+                <CtaLink to="#gallery" tone="secondary">View Gallery</CtaLink>
+              </div>
+            </div>
           </div>
         </div>
       </section>
