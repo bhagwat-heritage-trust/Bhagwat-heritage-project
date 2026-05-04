@@ -16,12 +16,12 @@ const image = (path: string, width = 1200) => `${CLD}/f_auto,q_auto,w_${width}/$
 const assets = {
   hero: image("v1774802023/swami_r7ypl0.jpg", 1920),
   heroSlides: [
-    "https://res.cloudinary.com/der8zinu8/image/upload/v1774587405/fornthero_px3xdq.jpg",
-    "https://res.cloudinary.com/der8zinu8/image/upload/v1777878814/WhatsApp_Image_2026-05-04_at_12.37.47_PM_1_qdzfgu.jpg",
-    "https://res.cloudinary.com/der8zinu8/image/upload/v1777878815/WhatsApp_Image_2026-05-04_at_12.37.47_PM_sjvkyv.jpg",
-    "https://res.cloudinary.com/der8zinu8/image/upload/v1777878814/WhatsApp_Image_2026-05-04_at_12.37.57_PM_1_bssjyx.jpg",
-    "https://res.cloudinary.com/der8zinu8/image/upload/v1777878814/WhatsApp_Image_2026-05-04_at_12.37.58_PM_awfi6e.jpg",
-    "https://res.cloudinary.com/der8zinu8/image/upload/v1777809020/WhatsApp_Image_2026-05-03_at_5.14.05_PM_jv7wxu.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777884113/WhatsApp_Image_2026-05-04_at_2.09.33_PM_sei4eh.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.09.33_PM_1_mgthzg.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.09.33_PM_2_dxdmig.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.09.34_PM_1_ecqcwu.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.10.27_PM_qneker.jpg",
+    "https://res.cloudinary.com/der8zinu8/image/upload/v1777884112/WhatsApp_Image_2026-05-04_at_2.09.34_PM_ycmjxf.jpg",
   ],
   founder: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873571/WhatsApp_Image_2026-05-04_at_10.47.29_AM_dzcqvm.jpg",
   templeCurrent: "https://res.cloudinary.com/der8zinu8/image/upload/v1777873570/WhatsApp_Image_2026-05-04_at_10.47.33_AM_mtgyjq.jpg",
@@ -223,7 +223,7 @@ const sevaItems = [
   { title: "Gau Seva", image: assets.gau, to: ROUTES.seva.gau, icon: "Go" },
   { title: "Ann Seva", image: assets.ann, to: ROUTES.seva.ann, icon: "An" },
   { title: "Jal Seva", image: assets.jal, to: ROUTES.seva.jal, icon: "Ja" },
-  { title: "Education", image: assets.education, to: ROUTES.seva.education, icon: "Ed" },
+  { title: "Education", image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777882209/WhatsApp_Image_2026-05-04_at_1.39.27_PM_gdimbp.jpg", to: ROUTES.seva.education, icon: "Ed" },
   { title: "Health", image: assets.health, to: ROUTES.seva.medicine, icon: "He" },
   { title: "Kanyadaan", image: assets.kanyadaan, to: ROUTES.seva.kanyadaan, icon: "Ka" },
 ];
@@ -476,7 +476,6 @@ export default memo(function HomePage() {
               <TrackedLink to={item.to} trackingId={`seva_${item.title.toLowerCase().replace(/\s+/g, "_")}`} className="group block overflow-hidden rounded-[8px] border border-[#efd8a7] bg-white shadow-[0_18px_44px_rgba(126,64,8,0.08)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_28px_62px_rgba(126,64,8,0.14)]">
                 <div className="relative h-[230px] overflow-hidden">
                   <img src={item.image} alt={`${item.title} initiative`} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-                  <div className="absolute left-4 top-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-[#fff6df]/92 text-sm font-black text-[#b86412] shadow-lg">{item.icon}</div>
                 </div>
                 <div className="p-5">
                   <h3 className="home-card-title">{item.title}</h3>
@@ -534,8 +533,8 @@ export default memo(function HomePage() {
             return (
               <motion.div key={item.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6, delay: index * 0.08 }}>
                 <TrackedLink to={item.to} trackingId={`involved_${index + 1}`} className="group block h-full rounded-[8px] border border-[#efd8a7] bg-white shadow-[0_20px_54px_rgba(126,64,8,0.08)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_28px_66px_rgba(126,64,8,0.14)]">
-                  <div className="mt-10 flex justify-center">
-                    <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#fff7e2] shadow-[0_14px_30px_rgba(126,64,8,0.12)]">
+                  <div className="pt-8 text-center">
+                    <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-[#fff7e2] shadow-[0_14px_30px_rgba(126,64,8,0.14)]">
                       <img src={item.image} alt={`${item.title} icon`} loading="lazy" className="h-20 w-20 rounded-full object-cover" />
                     </div>
                   </div>
@@ -557,11 +556,11 @@ export default memo(function HomePage() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.65 }}
-          className="relative mx-auto overflow-hidden rounded-[24px] border border-[#e3b85e] bg-[url('https://res.cloudinary.com/der8zinu8/image/upload/v1777878814/WhatsApp_Image_2026-05-04_at_12.37.57_PM_2_syalcj.jpg')] bg-cover bg-center bg-no-repeat p-8 text-center shadow-[0_30px_80px_rgba(173,91,12,0.22)] sm:p-14"
+          className="relative mx-auto overflow-hidden rounded-[24px] border border-[#e3b85e] bg-[url('https://res.cloudinary.com/der8zinu8/image/upload/v1777884403/WhatsApp_Image_2026-05-04_at_2.15.14_PM_sfbido.jpg')] bg-cover bg-center bg-no-repeat p-8 text-center shadow-[0_30px_80px_rgba(173,91,12,0.22)] sm:p-14"
           style={{ minHeight: "420px" }}
         >
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,197,81,0.82),rgba(255,235,178,0.82))]" />
-          <div className="absolute inset-0 bg-black/10 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.40),rgba(255,255,255,0.20))]" />
+          <div className="absolute inset-0 bg-white/20 mix-blend-screen" />
           <div className="relative flex h-full flex-col items-center justify-center gap-6 text-[#3f3123]">
             <div className="max-w-3xl">
               <p className="home-label text-[#3f3123]">Be Part of Bhagwat Mission</p>
