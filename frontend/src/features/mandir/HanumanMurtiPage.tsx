@@ -409,10 +409,10 @@ const participationOptions = [
 ];
 
 const socialConnectCards = [
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777897847/WhatsApp_Image_2026-05-04_at_5.57.34_PM_nruewd.jpg", title: "YouTube", description: "Watch Live Darshan, Aarti & Ram Katha.", to: "/links/youtube", button: "Subscribe Now", accent: "bg-[#ff0000]/10 text-[#c12b26]" },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777897846/WhatsApp_Image_2026-05-04_at_5.57.34_PM_1_n0itpw.jpg", title: "Facebook", description: "Get updates on events, seva and announcements.", to: "/links/facebook", button: "Follow Page", accent: "bg-[#1877f2]/10 text-[#154ea3]" },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777900658/WhatsApp_Image_2026-05-04_at_6.46.45_PM_k0q2yf.jpg", title: "YouTube", description: "Watch Live Darshan, Aarti & Ram Katha.", to: "/links/youtube", button: "Subscribe Now", accent: "bg-[#ff0000]/10 text-[#c12b26]" },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777900659/WhatsApp_Image_2026-05-04_at_6.46.44_PM_1_vnpt8a.jpg", title: "Facebook", description: "Get updates on events, seva and announcements.", to: "/links/facebook", button: "Follow Page", accent: "bg-[#1877f2]/10 text-[#154ea3]" },
   { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777897847/WhatsApp_Image_2026-05-04_at_5.57.34_PM_2_zlvmtg.jpg", title: "Instagram", description: "Explore devotional visuals and temple moments.", to: "/links/instagram", button: "Follow Us", accent: "bg-[#f7b12b]/10 text-[#a86f1a]" },
-  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777897846/WhatsApp_Image_2026-05-04_at_5.57.35_PM_apm0fd.jpg", title: "WhatsApp", description: "Receive direct updates and join satsang groups.", to: "/links/whatsapp", button: "Join WhatsApp", accent: "bg-[#25d366]/10 text-[#1f8d4b]" },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777900659/WhatsApp_Image_2026-05-04_at_6.46.44_PM_chkmib.jpg", title: "WhatsApp", description: "Receive direct updates and join satsang groups.", to: "/links/whatsapp", button: "Join WhatsApp", accent: "bg-[#25d366]/10 text-[#1f8d4b]" },
 ];
 
 const programs = [
@@ -931,8 +931,8 @@ export default memo(function HanumanMurtiPage() {
             {socialConnectCards.map((item) => (
               <a key={item.title} href={item.to} className="group overflow-hidden rounded-[24px] border border-[#ecd0a4] bg-white p-6 text-left shadow-[0_16px_34px_rgba(106,63,25,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_rgba(106,63,25,0.16)]">
                 <div className="flex items-center gap-4">
-                  <span className="inline-flex h-[76px] w-[76px] items-center justify-center overflow-hidden rounded-full bg-white p-2 shadow-[0_10px_28px_rgba(0,0,0,0.08)]">
-                    <img src={item.icon} alt={`${item.title} icon`} className="h-full w-full object-contain" loading="lazy" />
+                  <span className="inline-flex h-[92px] w-[92px] items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-[0_10px_28px_rgba(0,0,0,0.08)]">
+                    <img src={item.icon} alt={`${item.title} icon`} className="h-full w-full object-cover" loading="lazy" />
                   </span>
                   <div>
                     <h3 className="text-xl font-black text-[#113f50]">{item.title}</h3>
