@@ -312,13 +312,13 @@ const installationHistory = [
   { year: "Divine Illumination", title: "LED Spiritual Aura", description: "Modern LED lighting enhances the mandir's spiritual atmosphere after dusk." },
 ];
 
-const dailySevaTimeline: Array<{ icon: IconName; title: string; time: string; description: string }> = [
-  { icon: "water", title: "Morning", time: "07:00 – 08:00", description: "Abhishek, Shringar and Aarti for the sacred Hanuman Murti." },
-  { icon: "hands", title: "Darshan", time: "08:00 – 12:00", description: "Devotee prayers, offerings and focused darshan time." },
-  { icon: "prasad", title: "Midday", time: "12:00", description: "Maha Bhog Prasad offered to all devotees." },
-  { icon: "seva", title: "Daily Seva", time: "Throughout the day", description: "Garland seva, besan laddoo prasad distribution and seva support." },
-  { icon: "aarti", title: "Evening", time: "19:00", description: "Sandhya Aarti and Bhog for peace and devotion." },
-  { icon: "book", title: "Special Days", time: "Tue & Sat", description: "Sundarkand Paath and Mahaprasad on dedicated devotional days." },
+const dailySevaTimeline: Array<{ icon?: IconName; image: string; title: string; time: string; description: string }> = [
+  { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777869577/WhatsApp_Image_2026-05-04_at_9.50.28_AM_scrwmd.jpg", title: "Morning", time: "07:00 – 08:00", description: "Abhishek, Shringar and Aarti for the sacred Hanuman Murti." },
+  { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777869015/WhatsApp_Image_2026-05-04_at_9.50.31_AM_jdknno.jpg", title: "Darshan", time: "08:00 – 12:00", description: "Devotee prayers, offerings and focused darshan time." },
+  { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777802407/WhatsApp_Image_2026-05-03_at_3.19.43_PM_vgygkk.jpg", title: "Midday", time: "12:00", description: "Maha Bhog Prasad offered to all devotees." },
+  { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777869016/WhatsApp_Image_2026-05-04_at_9.50.30_AM_1_mofzei.jpg", title: "Daily Seva", time: "Throughout the day", description: "Garland seva, besan laddoo prasad distribution and seva support." },
+  { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777869016/WhatsApp_Image_2026-05-04_at_9.50.29_AM_cbk7zh.jpg", title: "Evening", time: "19:00", description: "Sandhya Aarti and Bhog for peace and devotion." },
+  { image: "https://res.cloudinary.com/der8zinu8/image/upload/v1777804760/WhatsApp_Image_2026-05-03_at_4.08.23_PM_waol3c.jpg", title: "Special Days", time: "Tue & Sat", description: "Sundarkand Paath and Mahaprasad on dedicated devotional days." },
 ];
 
 const specialPujaCards: InfoItem[] = [
@@ -409,38 +409,38 @@ const participationOptions = [
 ];
 
 const socialConnectCards = [
-  { icon: "/icons/icon-youtube.svg", title: "YouTube", description: "Watch Live Darshan, Aarti & Ram Katha.", to: "/links/youtube", button: "Subscribe Now", accent: "bg-[#ff0000]/10 text-[#c12b26]" },
-  { icon: "/icons/icon-facebook.svg", title: "Facebook", description: "Get updates on events, seva and announcements.", to: "/links/facebook", button: "Follow Page", accent: "bg-[#1877f2]/10 text-[#154ea3]" },
-  { icon: "/icons/icon-instagram.svg", title: "Instagram", description: "Explore devotional visuals and temple moments.", to: "/links/instagram", button: "Follow Us", accent: "bg-[#f7b12b]/10 text-[#a86f1a]" },
-  { icon: "/icons/icon-whatsapp.svg", title: "WhatsApp", description: "Receive direct updates and join satsang groups.", to: "/links/whatsapp", button: "Join WhatsApp", accent: "bg-[#25d366]/10 text-[#1f8d4b]" },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777897847/WhatsApp_Image_2026-05-04_at_5.57.34_PM_nruewd.jpg", title: "YouTube", description: "Watch Live Darshan, Aarti & Ram Katha.", to: "/links/youtube", button: "Subscribe Now", accent: "bg-[#ff0000]/10 text-[#c12b26]" },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777897846/WhatsApp_Image_2026-05-04_at_5.57.34_PM_1_n0itpw.jpg", title: "Facebook", description: "Get updates on events, seva and announcements.", to: "/links/facebook", button: "Follow Page", accent: "bg-[#1877f2]/10 text-[#154ea3]" },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777897847/WhatsApp_Image_2026-05-04_at_5.57.34_PM_2_zlvmtg.jpg", title: "Instagram", description: "Explore devotional visuals and temple moments.", to: "/links/instagram", button: "Follow Us", accent: "bg-[#f7b12b]/10 text-[#a86f1a]" },
+  { icon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777897846/WhatsApp_Image_2026-05-04_at_5.57.35_PM_apm0fd.jpg", title: "WhatsApp", description: "Receive direct updates and join satsang groups.", to: "/links/whatsapp", button: "Join WhatsApp", accent: "bg-[#25d366]/10 text-[#1f8d4b]" },
 ];
 
 const programs = [
   {
     icon: "temple" as IconName,
     imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777471880/ChatGPT_Image_Apr_29_2026_07_39_45_PM_lsplqf.png",
-    title: "Hanuman Jayanti Mahotsav",
+    title: "Hanum Janmotsav",
     frequency: "Annual Grand Celebration",
     text: "Special aarti, bhajan, prasad seva and large-scale devotee participation.",
   },
   {
     icon: "book" as IconName,
     imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032975/ChatGPT_Image_Apr_24_2026_05_42_35_PM_hwotsz.png",
-    title: "Sundarkand Paath Sabha",
+    title: "Deep Mahotsav",
     frequency: "Every Saturday Evening",
     text: "Collective Sundarkand recitation for peace, courage and spiritual upliftment.",
   },
   {
     icon: "aarti" as IconName,
     imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777032971/ChatGPT_Image_Apr_24_2026_05_43_04_PM_xi8530.png",
-    title: "Mangal Aarti Mahaseva",
+    title: "Maha Aarti",
     frequency: "Every Tuesday Morning",
     text: "Special Tuesday Hanuman aarti and seva participation.",
   },
   {
     icon: "bhajan" as IconName,
     imageIcon: "https://res.cloudinary.com/der8zinu8/image/upload/v1777029120/ChatGPT_Image_Apr_24_2026_04_39_35_PM_lyi1ew.png",
-    title: "Shri Ram Bhajan Sandhya",
+    title: "Bhajan & Sundarkand Paath",
     frequency: "Monthly Devotional Event",
     text: "Bhajan, kirtan and satsang dedicated to Shri Ram and Hanuman Ji.",
   },
@@ -676,7 +676,7 @@ export default memo(function HanumanMurtiPage() {
               </p>
             </div>
             <div className="relative overflow-hidden rounded-[30px] border border-[#f1d2a3] bg-white shadow-[0_18px_42px_rgba(111,63,24,0.12)]">
-              <img src="/images/hanuman-murti-full.jpg" alt="Shri Maharudra Kashtbhanjan Hanuman Ji murti" className="h-full min-h-[360px] w-full object-cover lg:min-h-full" loading="lazy" />
+              <img src="https://res.cloudinary.com/der8zinu8/image/upload/v1777809020/WhatsApp_Image_2026-05-03_at_5.14.05_PM_jv7wxu.jpg" alt="Shri Maharudra Kashtbhanjan Hanuman Ji murti" className="h-full min-h-[360px] w-full object-cover lg:min-h-full" loading="lazy" />
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.35),transparent_24%)]" />
               <div className="pointer-events-none absolute right-6 top-6 h-24 w-24 rounded-full border border-white/50 bg-white/10 blur-xl" />
             </div>
@@ -774,8 +774,8 @@ export default memo(function HanumanMurtiPage() {
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {dailySevaTimeline.map((item) => (
               <article key={item.title} className={`${cardClass} flex min-h-[230px] flex-col text-center`}>
-                <span className="mx-auto flex h-[82px] w-[82px] shrink-0 items-center justify-center rounded-full bg-[#fff3de] text-[#c86b17] shadow-[0_12px_26px_rgba(196,104,19,0.14)]">
-                  <Icon name={item.icon} />
+                <span className="mx-auto flex h-[82px] w-[82px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#fff3de] shadow-[0_12px_26px_rgba(196,104,19,0.14)]">
+                  <img src={item.image} alt={item.title} className="h-full w-full object-cover" loading="lazy" />
                 </span>
                 <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[#ae7f29]">{item.time}</p>
                 <h3 className="mt-3 text-2xl font-black text-[#113f50]">{item.title}</h3>
@@ -931,8 +931,8 @@ export default memo(function HanumanMurtiPage() {
             {socialConnectCards.map((item) => (
               <a key={item.title} href={item.to} className="group overflow-hidden rounded-[24px] border border-[#ecd0a4] bg-white p-6 text-left shadow-[0_16px_34px_rgba(106,63,25,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_rgba(106,63,25,0.16)]">
                 <div className="flex items-center gap-4">
-                  <span className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl ${item.accent}`}>
-                    <img src={item.icon} alt={`${item.title} icon`} className="h-8 w-8 object-contain" loading="lazy" />
+                  <span className="inline-flex h-[76px] w-[76px] items-center justify-center overflow-hidden rounded-full bg-white p-2 shadow-[0_10px_28px_rgba(0,0,0,0.08)]">
+                    <img src={item.icon} alt={`${item.title} icon`} className="h-full w-full object-contain" loading="lazy" />
                   </span>
                   <div>
                     <h3 className="text-xl font-black text-[#113f50]">{item.title}</h3>
