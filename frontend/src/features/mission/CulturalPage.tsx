@@ -80,7 +80,7 @@ const programCards = [
   {
     title: "Youth Sanskar Camps",
     description: "Helping children and youth grow through values, devotion, learning, and cultural exposure.",
-    href: ROUTES.eventsKatha.dharmikEvents,
+    href:"/knowledge/children-spiritual-learning",
     icon: YouthIcon,
     iconImage: PROGRAM_ICON_IMAGES[1],
   },
@@ -101,14 +101,14 @@ const programCards = [
   {
     title: "Devotional Music",
     description: "Encouraging bhajan, kirtan, and sacred musical expression in community life.",
-    href: ROUTES.eventsKatha.spiritualEvents,
+    href:"/events-katha/bhagwat-katha-mahotsav",
     icon: MusicIcon,
     iconImage: PROGRAM_ICON_IMAGES[4],
   },
   {
     title: "Family Value Programs",
     description: "Strengthening family-centered tradition, observances, and value-based participation.",
-    href: ROUTES.about.activities,
+    href:"/events-katha/dharmik-events/socio-cultural-events",
     icon: FamilyIcon,
     iconImage: PROGRAM_ICON_IMAGES[5],
   },
@@ -191,7 +191,7 @@ const participationCards: Array<{
     title: "Sponsor a Cultural Program",
     description: "Help sustain meaningful cultural initiatives.",
     button: "Sponsor Now",
-    href: ROUTES.donate,
+    href:"/get-involved/sponsor-programs",
     icon: SponsorIcon,
     iconImage: SPONSOR_ICON_IMAGE,
   },
@@ -207,7 +207,7 @@ const participationCards: Array<{
     title: "Support Youth Sanskar Initiatives",
     description: "Support value-based learning for the next generation.",
     button: "Support Youth",
-    href: ROUTES.donate,
+    href:"/knowledge/children-spiritual-learning",
     icon: YouthIcon,
     iconImage: PROGRAM_ICON_IMAGES[1],
   },
@@ -215,13 +215,13 @@ const participationCards: Array<{
     title: "Collaborate for Community Events",
     description: "Partner with us for spiritually rooted cultural outreach.",
     button: "Collaborate",
-    href: ROUTES.contact,
+    href:"/get-involved/partner-with-us",
     icon: PartnerIcon,
     iconImage: COMMUNITY_ICON_IMAGE,
   },
 ];
 
-export default memo(function CulturalPage() {
+export default memo(function CulturalPage() { 
   usePageMeta(
     "Cultural Renaissance",
     "Cultural renaissance of Bhagwat Heritage: festivals, devotional arts, youth sanskar, pilgrimage, heritage continuity, and public participation.",

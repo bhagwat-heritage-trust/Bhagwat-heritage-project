@@ -178,7 +178,7 @@ const PROGRAMS = [
     description: "Festival observances, family values sessions, and devotional cultural continuity for households.",
     image: IMAGE.programs2,
     fallback: FALLBACK.programs2,
-    href: ROUTES.eventsKatha.spiritualEvents,
+    href:"/events-katha/dharmik-events/socio-cultural-events",
   },
   {
     title: "Youth Learning Tracks",

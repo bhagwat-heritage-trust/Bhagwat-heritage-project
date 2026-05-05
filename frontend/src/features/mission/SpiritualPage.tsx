@@ -84,14 +84,14 @@ const PLATFORMS = [
   {
     title: "Devotional Publications",
     description: "Printed and digital literature that carries sacred guidance into daily life.",
-    href: ROUTES.knowledge.studyResources,
+    href: ROUTES.media.publications,
     icon: ScrollIcon,
     iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1776929974/WhatsApp_Image_2026-04-23_at_13.07.35_5_bw1f0e.jpg",
   },
   {
     title: "Digital Outreach",
     description: "Timeless wisdom made accessible through modern communication and global channels.",
-    href: ROUTES.digital.index,
+    href: ROUTES.digital.satsang,
     icon: SignalIcon,
     iconImage: "https://res.cloudinary.com/der8zinu8/image/upload/v1776929974/WhatsApp_Image_2026-04-23_at_13.07.35_2_iw84qr.jpg",
   },
