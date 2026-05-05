@@ -109,7 +109,7 @@ export default memo(function StorePage() {
             <div className="flex flex-wrap justify-center gap-3">
               <a href="#store-catalog" className="rounded-full bg-[#d68526] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#b86d17]">Browse Products</a>
               <button type="button" onClick={() => setCartOpen(true)} className="rounded-full border border-white/70 bg-white/10 px-5 py-2.5 text-sm font-bold text-white hover:bg-white/20">Open Cart</button>
-              <Link to={ROUTES.digital.index} className="rounded-full border border-[#f8dcae] bg-[#f8dcae] px-5 py-2.5 text-sm font-bold text-[#4c2f13] hover:bg-[#f5cf92]">Digital Services</Link>
+              <Link to={"/digital-services/online-satsang"} className="rounded-full border border-[#f8dcae] bg-[#f8dcae] px-5 py-2.5 text-sm font-bold text-[#4c2f13] hover:bg-[#f5cf92]">Digital Services</Link>
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@ export default memo(function StorePage() {
             ["Store Access", "Books, puja items, digital seva, and devotional essentials in one place.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776878925/ChatGPT_Image_Apr_22_2026_10_57_17_PM_gfz5pg.png"],
             ["Smart Shopping Flow", "Search, filter, sort, add to cart, and continue toward checkout smoothly.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776967401/g9_vdlu1r.png"],
             ["Featured Picks", "Highlighted daily essentials, scripture resources, and trusted selections.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776967402/g5_ilegzw.png"],
-            ["User Experience", "Clean, fast, mobile-friendly browsing aligned with the website’s devotional design.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776973581/ChatGPT_Image_Apr_24_2026_01_07_00_AM_eggbt0.png"],
+            ["User Experience", "Clean, fast, mobile-friendly browsing aligned with the websiteï¿½s devotional design.", "https://res.cloudinary.com/der8zinu8/image/upload/v1776973581/ChatGPT_Image_Apr_24_2026_01_07_00_AM_eggbt0.png"],
           ].map(([title, text, icon]) => (
             <article key={title} className="rounded-[20px] border border-[#ebd9b5] bg-white p-5 shadow-[0_10px_24px_rgba(23,40,66,0.08)]">
               <img src={getStoreCloudinaryIconUrl(icon)} onError={(event) => { event.currentTarget.src = icon; }} alt={`${title} icon`} className="mx-auto h-[70px] w-[70px] rounded-full object-cover" loading="lazy" />
@@ -232,7 +232,7 @@ export default memo(function StorePage() {
             </article>
           ))}
         </div>
-        <Link to={ROUTES.digital.index} className="mt-5 inline-flex rounded-full bg-[#cb7413] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#a95f0f]">Explore Digital Services</Link>
+        <Link to={"/digital-services/online-satsang"} className="mt-5 inline-flex rounded-full bg-[#cb7413] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#a95f0f]">Explore Digital Services</Link>
       </section>
 
       <section className="mx-auto w-full max-w-[1120px] px-4 pt-11 md:pt-[72px]">

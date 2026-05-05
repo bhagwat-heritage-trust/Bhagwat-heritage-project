@@ -614,7 +614,7 @@ function FinalCTA() {
             ["Donate Now", ROUTES.donate],
             ["Support Medicine Seva", ROUTES.donate],
             ["Become a Volunteer", ROUTES.involved.volunteer],
-            ["Contact Us", ROUTES.contact],
+            ["Contact Us","/get-involved/contactUs"],
           ].map(([label, to], index) => (
             <Link key={label} to={to} className={`inline-flex min-h-[54px] items-center justify-center rounded-full px-6 text-base font-semibold transition ${index === 0 ? "bg-white text-[#8A4D13] shadow-[0_12px_24px_rgba(138,77,19,0.08)] hover:bg-[#FFF9F1]" : "border border-white/75 bg-transparent text-[#4A3422] hover:bg-white/30"}`}>
               {label}

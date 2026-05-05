@@ -306,9 +306,9 @@ export default memo(function PilgrimageInfoPage() {
               <h1 className="text-4xl font-black leading-tight text-white sm:text-6xl">Bhagwat Dham Chandrapur</h1>
               <p className="mt-4 text-2xl font-bold leading-tight text-[#ffe8bd] sm:text-4xl">A Divine Place of Darshan, Seva, and Spiritual Living</p>
               <div className="mt-7 flex flex-wrap justify-center gap-3">
-                <ButtonLink to="#plan-visit">Plan Your Visit</ButtonLink>
-                <ButtonLink to={BOOK_DARSHAN_PATH} tone="secondary">Book Darshan</ButtonLink>
-                <ButtonLink to={GOOGLE_MAP_URL} tone="teal">Open Route Map</ButtonLink>
+                <ButtonLink to="/get-involved/contactUs">Contact Us</ButtonLink>
+                <ButtonLink to={"/digital-services/donation-system"} tone="secondary">Donate Now</ButtonLink>
+                <ButtonLink to={"https://www.google.com/maps/place/Bhagwat+Heritage+Service+Foundation+Trust/@19.953639,79.2948411,17z/data=!3m1!4b1!4m6!3m5!1s0x3bd2d42c3dd21143:0x15bb2d6a255e7182!8m2!3d19.953639!4d79.297416!16s%2Fg%2F11gdfj8w6q?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"} tone="teal">Open Route Map</ButtonLink>
               </div>
             </div>
           </div>

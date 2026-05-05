@@ -298,7 +298,7 @@ export default memo(function SpiritualPage() {
               for society.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link to={ROUTES.contact} className="cta-button bg-[#3F3123] text-white hover:bg-[#261C13]">
+              <Link to={ROUTES.involved.contactUs} className="cta-button bg-[#3F3123] text-white hover:bg-[#261C13]">
                 Contact the Trust
               </Link>
               <Link to={ROUTES.donate} className="cta-button bg-white text-[#A96F1D] hover:bg-[#FFF8EC]">

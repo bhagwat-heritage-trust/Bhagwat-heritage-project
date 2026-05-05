@@ -61,7 +61,6 @@ const NAV_ITEMS: NavItemConfig[] = [
     children: [
       { id: "events-bhagwat-katha", labelKey: "navbar.items.bhagwatKatha", href: ROUTES.eventsKatha.bhagwatKatha },
       { id: "events-festivals", labelKey: "navbar.items.festivals", href: ROUTES.eventsKatha.festivals },
-      { id: "events-dharmik", labelKey: "navbar.items.dharmikEvents", href: ROUTES.eventsKatha.dharmikEvents },
       {
         id: "events-socio-cultural",
         labelKey: "navbar.items.socioCulturalEvents",

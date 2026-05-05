@@ -453,13 +453,13 @@ export const BhagwatKathaMahotsavPremiumPage = memo(function BhagwatKathaMahotsa
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              to={ROUTES.donate}
+              to={"/get-involved/sponsor-programs"}
               className="inline-flex items-center justify-center rounded-full bg-[#E9932D] px-6 py-3 text-sm font-black text-white shadow-[0_18px_36px_rgba(233,147,45,0.26)] transition hover:bg-[#C96F18]"
             >
               Become Sponsor
             </Link>
             <Link
-              to={ROUTES.contact}
+              to={"/get-involved/partner-with-us"}
               className="inline-flex items-center justify-center rounded-full border border-[#E8CFA8] bg-white px-6 py-3 text-sm font-black text-[#1F6F73] shadow-[0_14px_26px_rgba(43,33,24,0.08)] transition hover:border-[#E9932D]/70"
             >
               Contact Seva Team
@@ -680,7 +680,7 @@ export const BhagwatKathaMahotsavPremiumPage = memo(function BhagwatKathaMahotsa
                 Join Volunteer Team
               </Link>
               <Link
-                to={ROUTES.contact}
+                to={"/get-involved/contactUs"}
                 className="inline-flex w-full items-center justify-center rounded-full border border-white/55 bg-white/10 px-6 py-3 text-sm font-bold text-[#2B2118] transition hover:bg-white/18"
               >
                 Contact Us

@@ -553,7 +553,7 @@ export default memo(function VyasanPage() {
                   <p className="mt-5 text-sm font-black uppercase tracking-[0.16em] text-[#5e7fa3]">{item.amount}</p>
                   <h3 className={`mt-2 ${SEVA_CARD_TITLE_CLASS} text-[#6d4c2f]`}>{item.title}</h3>
                   <p className={`mt-3 flex-1 ${SEVA_BODY_TEXT_CLASS} text-[#5b544b]`}>{item.desc}</p>
-                  <a href="#sponsor-support" className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#fff2df] px-5 text-sm font-black text-[#8a5b16] transition hover:bg-[#d89a2b] hover:text-white">
+                  <a href="/get-involved/become-a-donor" className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#fff2df] px-5 text-sm font-black text-[#8a5b16] transition hover:bg-[#d89a2b] hover:text-white">
                     Support This Program
                   </a>
                 </Card>
@@ -623,7 +623,7 @@ export default memo(function VyasanPage() {
                 </p>
               </div>
               <div className="grid gap-3">
-                <Link to={ROUTES.contact} className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-white px-7 text-base font-black text-[#7A4A12] shadow-[0_12px_28px_rgba(111,78,25,0.1)] transition hover:-translate-y-0.5 hover:bg-[#FFF9EC]">
+                <Link to={"/get-involved/contactUs"} className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-white px-7 text-base font-black text-[#7A4A12] shadow-[0_12px_28px_rgba(111,78,25,0.1)] transition hover:-translate-y-0.5 hover:bg-[#FFF9EC]">
                   Talk to Our Team
                 </Link>
                 <Link to={ROUTES.donate} className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border border-white/75 bg-white/18 px-7 text-base font-black text-[#4A3422] transition hover:-translate-y-0.5 hover:bg-white">

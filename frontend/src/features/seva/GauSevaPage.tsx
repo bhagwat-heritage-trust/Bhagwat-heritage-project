@@ -440,7 +440,7 @@ function GauSevaHero() {
               <Link to={ROUTES.donate} className="inline-flex min-h-[56px] w-full min-w-[210px] items-center justify-center rounded-full bg-[#C83232] px-8 text-base font-bold text-white transition hover:bg-[#A92525] sm:w-auto">
                 Sponsor a Cow
               </Link>
-              <Link to={ROUTES.contact} className="inline-flex min-h-[56px] w-full min-w-[210px] items-center justify-center rounded-full bg-[#F28C28] px-8 text-base font-bold text-white transition hover:bg-[#D97612] sm:w-auto">
+              <Link to={"/get-involved/contactUs"} className="inline-flex min-h-[56px] w-full min-w-[210px] items-center justify-center rounded-full bg-[#F28C28] px-8 text-base font-bold text-white transition hover:bg-[#D97612] sm:w-auto">
                 Visit the Ashram
               </Link>
             </div>
@@ -624,7 +624,7 @@ function VolunteerVisitSection() {
   return (
     <section className="mt-20 grid gap-5 lg:grid-cols-2">
       <ActionCard title="Volunteer for Gau Seva" text="Join hands in a meaningful act of service. Whether through feeding support, care participation, shelter assistance, or seva coordination, your presence can become a direct offering of compassion and devotion." buttons={[["Join as Volunteer", ROUTES.involved.volunteer], ["Offer Seva", ROUTES.donate]]} />
-      <ActionCard title="Visit Kamdhenu Ashram" text="Devotees and well-wishers are welcome to visit the ashram, experience the atmosphere of Gau Seva, and connect personally with this sacred service of care and protection." buttons={[["Plan a Visit", ROUTES.contact], ["Contact for Visit", ROUTES.contact]]} />
+      <ActionCard title="Visit Kamdhenu Ashram" text="Devotees and well-wishers are welcome to visit the ashram, experience the atmosphere of Gau Seva, and connect personally with this sacred service of care and protection." buttons={[["Plan a Visit","/get-involved/contactUs"], ["Contact for Visit","/get-involved/contactUs"]]} />
     </section>
   );
 }
@@ -660,9 +660,14 @@ function InfoCards() {
               <a href={`tel:${page.phone}`} className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-[#D89B2B] px-6 text-sm font-semibold text-white">
                 Call Now
               </a>
-              <Link to={ROUTES.contact} className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-[#D89B2B] px-6 text-sm font-semibold text-[#B97916]">
-                Get Directions
-              </Link>
+            <a
+  href="https://www.google.com/maps?ll=19.953639,79.297416&z=16&t=m&hl=en-US&gl=US&mapclient=embed&cid=1565895229358109058"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-[#D89B2B] px-6 text-sm font-semibold text-[#B97916]"
+>
+  Get Directions
+</a>s
             </div>
           ) : null}
         </article>
@@ -687,7 +692,7 @@ function FinalCTASection() {
             ["Donate Now", ROUTES.donate],
             ["Sponsor a Cow", ROUTES.donate],
             ["Become a Volunteer", ROUTES.involved.volunteer],
-            ["Contact Us", ROUTES.contact],
+            ["Contact Us","/get-involved/contactUs"],
           ].map(([label, to], index) => (
             <Link key={label} to={to} className={`inline-flex min-h-[54px] items-center justify-center rounded-full px-6 text-base font-semibold transition ${index === 0 ? "bg-white text-[#8A4D13] shadow-[0_12px_24px_rgba(138,77,19,0.08)] hover:bg-[#FFF9F1]" : "border border-white/75 bg-transparent text-[#4A3422] hover:bg-white/30"}`}>
               {label}

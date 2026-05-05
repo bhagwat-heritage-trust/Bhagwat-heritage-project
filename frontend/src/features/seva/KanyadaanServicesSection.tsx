@@ -167,7 +167,7 @@ const KanyadaanServiceCard = memo(function KanyadaanServiceCard({
           onClick={onToggle}
           className="inline-flex items-center rounded-xl px-1 py-2 text-sm font-bold text-[var(--campaign-accent)] transition-colors hover:text-white"
         >
-          Learn More
+        
         </button>
       </div>
 

@@ -557,7 +557,7 @@ function ScholarshipSupportProgramSection() {
               values, and confidence.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <Link to={`${ROUTES.donate}?cause=education-scholarship`} className={`${primaryButtonClass} w-full px-4 text-sm`}>
+              <Link to={`${"/get-involved/sponsor-programs"}?cause=education-scholarship`} className={`${primaryButtonClass} w-full px-4 text-sm`}>
                 Sponsor a Student
               </Link>
               <Link to={`${ROUTES.donate}?cause=education`} className={`${secondaryButtonClass} w-full px-4 text-sm`}>
@@ -593,7 +593,7 @@ function ScholarshipSupportProgramSection() {
                 <IconMark imageSrc={item.iconImage} imageAlt={`${item.title} icon`} />
                 <h4 className={`mt-4 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{item.title}</h4>
                 <p className={`mt-3 flex-1 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{item.text}</p>
-                <Link to={`${ROUTES.donate}?cause=education-scholarship`} className={`${secondaryButtonClass} mt-6 w-full px-4 text-sm`}>
+                <Link to={`${"/get-involved/sponsor-programs"}?cause=education-scholarship`} className={`${secondaryButtonClass} mt-6 w-full px-4 text-sm`}>
                   {item.cta}
                 </Link>
               </article>
@@ -615,10 +615,10 @@ function ScholarshipSupportProgramSection() {
             ))}
           </div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <Link to={`${ROUTES.donate}?cause=education-scholarship`} className={`${primaryButtonClass} w-full px-4 text-sm`}>
+            <Link to={`${"/get-involved/sponsor-programs"}?cause=education-scholarship`} className={`${primaryButtonClass} w-full px-4 text-sm`}>
               Sponsor a Student
             </Link>
-            <Link to={`${ROUTES.contact}?subject=scholarship-support`} className={`${secondaryButtonClass} w-full px-4 text-sm`}>
+            <Link to={`${"/get-involved/contactUs"}`} className={`${secondaryButtonClass} w-full px-4 text-sm`}>
               Contact for Scholarship Support
             </Link>
           </div>
@@ -787,7 +787,7 @@ function FinalCTASection() {
             <Link to={ROUTES.involved.volunteer} className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border border-white/75 bg-white/18 px-7 text-base font-black text-[#4A3422] transition hover:-translate-y-0.5 hover:bg-white">
               Become a Mentor
             </Link>
-            <Link to={ROUTES.contact} className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border border-white/75 bg-white/18 px-7 text-base font-black text-[#4A3422] transition hover:-translate-y-0.5 hover:bg-white">
+            <Link to={"/get-involved/contactUs"} className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border border-white/75 bg-white/18 px-7 text-base font-black text-[#4A3422] transition hover:-translate-y-0.5 hover:bg-white">
               Contact Us
             </Link>
           </div>

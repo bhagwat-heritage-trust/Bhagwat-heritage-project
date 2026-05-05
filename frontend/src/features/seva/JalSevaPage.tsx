@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
 import { SEVA_HERO_SUBTITLE_CLASS } from "./sevaTypography";
-
+import { Link } from "react-router-dom";
 type IconProps = { className?: string };
 
 type StatItem = {
@@ -724,13 +724,12 @@ function FinalCTABanner({ onDonate, onSponsor }: { onDonate: () => void; onSpons
           >
             Donate Now
           </button>
-          <button
-            type="button"
-            onClick={onSponsor}
-            className="inline-flex min-h-14 w-full items-center justify-center rounded-full border border-white/75 bg-transparent px-6 py-3 text-base font-bold text-[#51463C] transition hover:bg-white/30"
-          >
-            Sponsor Jal Seva
-          </button>
+         <Link
+  to="/get-involved/sponsor-programs"
+  className="inline-flex min-h-14 w-full items-center justify-center rounded-full border border-white/75 bg-transparent px-6 py-3 text-base font-bold text-[#51463C] transition hover:bg-white/30"
+>
+  Sponsor Jal Seva
+</Link>
         </div>
       </div>
     </section>

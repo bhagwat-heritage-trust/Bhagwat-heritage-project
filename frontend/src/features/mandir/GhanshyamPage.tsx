@@ -278,7 +278,7 @@ export default memo(function GhanshyamPage() {
               <button type="button" onClick={() => openBooking("Morning Aarti Puja Service")} className="inline-flex min-w-[170px] items-center justify-center rounded-full bg-[#0F7D81] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#0A6B6E]">
                 Book Puja Seva
               </button>
-              <Link to={ROUTES.involved.index} className="inline-flex min-w-[170px] items-center justify-center rounded-full bg-[#123F66] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#0D3150]">
+              <Link to={"/digital-services/online-satsang"} className="inline-flex min-w-[170px] items-center justify-center rounded-full bg-[#123F66] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#0D3150]">
                 Join Satsang
               </Link>
               <Link to={`${ROUTES.donate}?purpose=mandir-seva`} className="inline-flex min-w-[190px] items-center justify-center rounded-full bg-[#F2D7A0] px-5 py-2.5 text-sm font-bold text-[#5A3713] transition hover:bg-[#E9C788]">
@@ -499,7 +499,7 @@ export default memo(function GhanshyamPage() {
               <Link to={`${ROUTES.donate}?purpose=mandir-seva`} className="rounded-full bg-[#0F7D81] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#0A6B6E]">
                 Donate for Mandir Seva
               </Link>
-              <Link to={ROUTES.involved.index} className="rounded-full bg-[#123F66] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#0D3150]">
+              <Link to={"/get-involved/contactUs"} className="rounded-full bg-[#123F66] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#0D3150]">
                 Join Satsang
               </Link>
             </div>

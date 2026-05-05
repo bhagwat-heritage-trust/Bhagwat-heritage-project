@@ -632,8 +632,8 @@ export default memo(function BhagwatDhamProjectPage() {
             this eternal Bhagwat Dham legacy.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <PrimaryButton to="#donation">Participate in Divine Construction</PrimaryButton>
-            <SecondaryButton to="#vision">Explore Temple Vision</SecondaryButton>
+            <PrimaryButton to="/digital-services/donation-system">Participate in Divine Construction</PrimaryButton>
+            <SecondaryButton to="/mission-philosophy/global-outreach-vision">Explore Temple Vision</SecondaryButton>
           </div>
         </div>
       </section>
@@ -896,7 +896,7 @@ export default memo(function BhagwatDhamProjectPage() {
               </div>
               <div className="mt-6 flex flex-wrap gap-3">
                 <PrimaryButton to={donateLink}>Donate for Bhagwat Dham</PrimaryButton>
-                <SecondaryButton to={`${ROUTES.donate}?fund=bhagwat-dham&fund_type=bhagwat-dham&sponsor=section`}>Sponsor a Sacred Section</SecondaryButton>
+                <SecondaryButton to={`${"/get-involved/sponsor-programs"}?fund=bhagwat-dham&fund_type=bhagwat-dham&sponsor=section`}>Sponsor a Sacred Section</SecondaryButton>
                 <ExternalButton href={EXTERNAL_RAZORPAY_DONATE_URL}>Razorpay / UPI</ExternalButton>
               </div>
               <ImageCard

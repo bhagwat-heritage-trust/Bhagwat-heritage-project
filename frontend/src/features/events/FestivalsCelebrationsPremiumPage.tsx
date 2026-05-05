@@ -790,7 +790,7 @@ export default memo(function FestivalsCelebrationsPremiumPage() {
               <PrimaryButton to={ROUTES.donate} className="bg-white/30 text-[#2B2118] hover:bg-white/40">
                 Support Festival Seva
               </PrimaryButton>
-              <SoftButton to={ROUTES.contact} className="border-white/55 bg-white/10 text-[#2B2118] hover:bg-white/18">
+              <SoftButton to={"/get-involved/contactUs"} className="border-white/55 bg-white/10 text-[#2B2118] hover:bg-white/18">
                 Contact Us
               </SoftButton>
             </div>

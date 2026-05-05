@@ -639,10 +639,10 @@ export default memo(function HanumanMurtiPage() {
             Experience devotion, strength, protection, courage and spiritual peace through the divine darshan of Hanuman Ji.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link to="#plan-visit" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#f39718] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(243,151,24,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#df8410]">
+            <Link to="https://www.google.com/maps/place/Chichpalli+Hanuman+temple/@20.0014352,79.4723645,17z/data=!3m1!4b1!4m6!3m5!1s0x3a2d29f6df52605d:0xaca16a237bb25e89!8m2!3d20.0014352!4d79.4749394!16s%2Fg%2F11c58hkcrf?authuser=0&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#f39718] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(243,151,24,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#df8410]">
               Plan Your Visit
             </Link>
-            <Link to="#gallery" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#1d6fb8] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(29,111,184,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#175c9b]">
+            <Link to="/media-gallery/photo-gallery" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#1d6fb8] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(29,111,184,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#175c9b]">
               View Gallery
             </Link>
             <Link to={ROUTES.donate} className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#c92f26] px-5 py-3 text-sm font-bold text-white shadow-[0_14px_28px_rgba(201,47,38,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#a92821]">
@@ -799,23 +799,45 @@ export default memo(function HanumanMurtiPage() {
           </div>
         </div>
       </section>
+<section className={sectionClass}>
+  <SectionHeader center title="Hanuman Utsav & Programs" />
 
-      <section className={sectionClass}>
-        <SectionHeader center title="Hanuman Utsav & Programs" />
-        <div className="grid gap-5 md:grid-cols-2">
-          {programs.map((item) => (
-            <article key={item.title} className={`${cardClass} text-center`}>
-              <span className="mx-auto flex h-[116px] w-[116px] items-center justify-center overflow-hidden rounded-full">
-                <img src={item.imageIcon} alt="" className="h-full w-full rounded-full object-cover" loading="lazy" />
-              </span>
-              <h3 className="mt-5 text-2xl font-black text-[#113f50]">{item.title}</h3>
-              <span className="mt-3 inline-flex rounded-full bg-[#ffe7bd] px-3 py-1 text-xs font-bold text-[#a75a13]">{item.frequency}</span>
-              <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-[#5f5042]">{item.text}</p>
-              <button className="mt-5 rounded-full bg-[#f39718] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#df8410]">Participate</button>
-            </article>
-          ))}
-        </div>
-      </section>
+  <div className="grid gap-5 md:grid-cols-2">
+    {programs.map((item) => (
+      <article key={item.title} className={`${cardClass} text-center`}>
+        
+        <span className="mx-auto flex h-[116px] w-[116px] items-center justify-center overflow-hidden rounded-full">
+          <img
+            src={item.imageIcon}
+            alt=""
+            className="h-full w-full rounded-full object-cover"
+            loading="lazy"
+          />
+        </span>
+
+        <h3 className="mt-5 text-2xl font-black text-[#113f50]">
+          {item.title}
+        </h3>
+
+        <span className="mt-3 inline-flex rounded-full bg-[#ffe7bd] px-3 py-1 text-xs font-bold text-[#a75a13]">
+          {item.frequency}
+        </span>
+
+        <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-[#5f5042]">
+          {item.text}
+        </p>
+
+        <Link
+          to="/get-involved/volunteer-registration"
+          className="mt-5 inline-block rounded-full bg-[#f39718] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#df8410]"
+        >
+          Participate
+        </Link>
+
+      </article>
+    ))}
+  </div>
+</section>
 
       <section id="special-puja" className="px-4 py-14 sm:py-16">
         <div className="mx-auto max-w-[1240px]">
@@ -987,7 +1009,7 @@ export default memo(function HanumanMurtiPage() {
               <p><strong className="text-[#113f50]">Email:</strong> join@bhagwatheritage.org</p>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <CtaLink to={MAP_URL}>Open Google Maps</CtaLink>
+              <CtaLink to={"https://www.google.com/maps/place/Chichpalli+Hanuman+temple/@20.0014352,79.4723645,17z/data=!3m1!4b1!4m6!3m5!1s0x3a2d29f6df52605d:0xaca16a237bb25e89!8m2!3d20.0014352!4d79.4749394!16s%2Fg%2F11c58hkcrf?authuser=0&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"}>Open Google Maps</CtaLink>
               <CtaLink to={`tel:${CONTACT_PHONE}`} tone="teal">Contact Mandir Office</CtaLink>
               <CtaLink to={ROUTES.involved.contactUs} tone="secondary">Plan Group Visit</CtaLink>
             </div>
@@ -1014,9 +1036,9 @@ export default memo(function HanumanMurtiPage() {
             <div className="mt-8 border-t border-white/24 pt-7 text-center">
               <h3 className="text-2xl font-black text-[#113f50] sm:text-3xl">Come for Darshan. Return with Courage, Peace and Devotion.</h3>
               <div className="mt-5 flex flex-wrap justify-center gap-3">
-                <CtaLink to="#plan-visit">Plan Your Visit</CtaLink>
+                <CtaLink to="https://www.google.com/maps/place/Chichpalli+Hanuman+temple/@20.0014352,79.4723645,17z/data=!3m1!4b1!4m6!3m5!1s0x3a2d29f6df52605d:0xaca16a237bb25e89!8m2!3d20.0014352!4d79.4749394!16s%2Fg%2F11c58hkcrf?authuser=0&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D">Plan Your Visit</CtaLink>
                 <CtaLink to={ROUTES.donate} tone="teal">Donate</CtaLink>
-                <CtaLink to="#gallery" tone="secondary">View Gallery</CtaLink>
+                <CtaLink to="/media-gallery/photo-gallery" tone="secondary">View Gallery</CtaLink>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { memo, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app/routes/routes";
 import { usePageMeta } from "../../hooks/usePageMeta";
+
 import {
   SEVA_BODY_TEXT_CLASS,
   SEVA_CARD_TITLE_CLASS,
@@ -202,33 +203,28 @@ const participationCards = [
   {
     title: "Sponsor a Daughter",
     text: "Support a verified marriage assistance need with compassion and responsibility.",
-    icon: "heart" as IconName,
-    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776860524/ChatGPT_Image_Apr_22_2026_05_49_21_PM_rewr7v.png",
-    to: ROUTES.donate,
+    image: "/images/sponsor.png",
+    to: "/get-involved/sponsor-programs",
   },
   {
     title: "Refer a Family",
     text: "Help connect genuinely deserving families to the seva team for careful review.",
-    icon: "community" as IconName,
-    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776857855/k4_oggwmf.png",
-    to: ROUTES.contact,
+    image: "/images/refer.png",
+    to: "/guidance",
   },
   {
     title: "Join the Seva Team",
     text: "Contribute time, coordination, field support, or event assistance as a volunteer.",
-    icon: "volunteer" as IconName,
-    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776860577/ChatGPT_Image_Apr_22_2026_05_49_07_PM_thhet1.png",
-    to: ROUTES.involved.volunteer,
+    image: "/images/seva.png",
+    to: "/get-involved/volunteer-registration",
   },
   {
     title: "Partner for Group Marriage",
     text: "Collaborate in larger community marriage support initiatives.",
-    icon: "verified" as IconName,
-    image: "https://res.cloudinary.com/der8zinu8/image/upload/v1776857897/k2_z04doe.png",
-    to: ROUTES.contact,
+    image: "/images/partner.png",
+    to: "/get-involved/partner-with-us",
   },
 ];
-
 const faqs = [
   {
     q: "Who can receive Kanyadaan Seva support?",
@@ -506,7 +502,7 @@ export default memo(function KanyaPage() {
                   <p className={`mt-3 min-h-[84px] ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{item.text}</p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <Link to={ROUTES.donate} className="rounded-full bg-[#e4b45e] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#d08a32]">Donate Now</Link>
-                    <Link to={ROUTES.contact} className="rounded-full border border-[#d9b777] px-5 py-2.5 text-sm font-bold text-[#8a5b16] transition hover:bg-[#fff4df]">Learn More</Link>
+                    <Link to={ROUTES.contact} className="rounded-full border border-[#d9b777] px-5 py-2.5 text-sm font-bold text-[#8a5b16] transition hover:bg-[#fff4df]">guidance maharaj ji</Link>
                   </div>
                 </Card>
               ))}
@@ -573,25 +569,42 @@ export default memo(function KanyaPage() {
           </div>
         </section>
 
-        <section className="px-4 py-16 md:px-8 md:py-20">
-          <div className="mx-auto max-w-7xl">
-            <SectionHeader eyebrow="Participation Pathways" title="How You Can Participate" />
-            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {participationCards.map((item) => (
-                <Card key={item.title} className="text-center">
-                  <div className="flex justify-center">
-                    <img src={item.image} alt="" className="h-24 w-24 rounded-full object-contain" loading="lazy" aria-hidden="true" />
-                  </div>
-                  <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>{item.title}</h3>
-                  <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>{item.text}</p>
-                  <Link to={item.to} className="mt-6 inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#d9b777] px-5 text-sm font-bold text-[#8a5b16] transition hover:bg-[#fff4df]">
-                    Continue
-                  </Link>
-                </Card>
-              ))}
-            </div>
+
+<section className="px-4 py-16 md:px-8 md:py-20">
+  <div className="mx-auto max-w-7xl">
+    <SectionHeader eyebrow="Participation Pathways" title="How You Can Participate" />
+
+    <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      {participationCards.map((item) => (
+        <Card key={item.title} className="text-center">
+          <div className="flex justify-center">
+            <img
+              src={item.image}
+              alt={item.title}
+              className="h-24 w-24 rounded-full object-contain"
+              loading="lazy"
+            />
           </div>
-        </section>
+
+          <h3 className={`mt-5 ${SEVA_CARD_TITLE_CLASS} text-[#1d4f63]`}>
+            {item.title}
+          </h3>
+
+          <p className={`mt-3 ${SEVA_BODY_TEXT_CLASS} text-[#5e5247]`}>
+            {item.text}
+          </p>
+
+          <Link
+            to={item.to}
+            className="mt-6 inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#d9b777] px-5 text-sm font-bold text-[#8a5b16] transition hover:bg-[#fff4df]"
+          >
+            Continue
+          </Link>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>
 
         <section className="px-4 pb-0 pt-10 md:px-8 md:pb-0">
           <div className="mx-auto max-w-7xl overflow-hidden rounded-[38px] border border-[#dcb884] bg-[linear-gradient(135deg,#c46d1a_0%,#e4b45e_45%,#f3d8a0_100%)] px-6 py-10 text-white shadow-[0_22px_46px_rgba(196,109,26,0.2)] md:px-10 md:py-12">
@@ -604,7 +617,7 @@ export default memo(function KanyaPage() {
                 </p>
               </div>
               <div className="flex w-full max-w-md flex-col gap-3">
-                <Link to={ROUTES.donate} className="inline-flex min-h-[54px] items-center justify-center rounded-full bg-white px-6 text-base font-semibold text-[#9b4b11] transition-colors hover:bg-[#fff4df]">
+                <Link to={"/get-involved/partner-with-us"} className="inline-flex min-h-[54px] items-center justify-center rounded-full bg-white px-6 text-base font-semibold text-[#9b4b11] transition-colors hover:bg-[#fff4df]">
                   Sponsor a Daughter
                 </Link>
                 <Link to={ROUTES.involved.volunteer} className="inline-flex min-h-[54px] items-center justify-center rounded-full border border-white/60 px-6 text-base font-semibold text-white transition-colors hover:bg-white hover:text-[#9b4b11]">
